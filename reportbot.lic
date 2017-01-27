@@ -4,7 +4,7 @@
 
 class Reportbot
   def initialize
-    @bad_words = get_data('bad-words').bad_words
+    @bad_words = get_data('bad-words').bad_words.sort
     echo("Initialized bad words; count: #{@bad_words.count}")
 
     fput('avoid !all')
@@ -14,12 +14,21 @@ class Reportbot
     echo "checking player: #{player}"
     min_word = ''
     min_distance = 50
+    @previous_word = nil
+    # TODO: Trim row size to maximum character name length
+    # TODO: Trim column size to maximum length of word in wordlist
+    @d = Array.new(99) { Array.new(99) }
+    (0..99).each do |i|
+      @d[i][0] = i
+      @d[0][i] = i
+    end
     @bad_words.each do |word|
       distance = levenshtein_distance(player, word)
       if distance < min_distance
         min_distance = distance
         min_word = word
       end
+      @previous_word = word
     end
 
     # TODO: The threshold here should really be a parameter to the distance function,
@@ -30,29 +39,41 @@ class Reportbot
     end
   end
 
-  # TODO: Consider adding caching
   def levenshtein_distance(s, t)
     m = s.length
     n = t.length
+    offset = 1
     return m if n == 0
     return n if m == 0
-    d = Array.new(m+1) {Array.new(n+1)}
 
-    (0..m).each {|i| d[i][0] = i}
-    (0..n).each {|j| d[0][j] = j}
-    (1..n).each do |j|
+    # Calculate offset (skip calculations for equal substrings, e.g.
+    # if previous word was guitar and the current word is guilliotine, we can have
+    # an offset of 3 for 'gui', we know these edit distances will be the same)
+    unless @previous_word.nil?
+      (0..t).each do |i|
+        break unless i <= m
+        if t[i] == s[i]
+          offset += 1
+        else
+          break
+        end
+      end
+    end
+
+    # Compute distance table using Offset
+    (offset..n).each do |j|
       (1..m).each do |i|
-        d[i][j] = if s[i-1] == t[j-1]  # adjust index into string
-                    d[i-1][j-1]       # no operation required
+        @d[i][j] = if s[i-1] == t[j-1]  # adjust index into string
+                    @d[i-1][j-1]       # no operation required
                   else
-                    [ d[i-1][j]+1,    # deletion
-                      d[i][j-1]+1,    # insertion
-                      d[i-1][j-1]+1,  # substitution
+                    [ @d[i-1][j]+1,    # deletion
+                      @d[i][j-1]+1,    # insertion
+                      @d[i-1][j-1]+1,  # substitution
                     ].min
                   end
       end
     end
-    d[m][n]
+    @d[m][n]
   end
 end
 
