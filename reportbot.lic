@@ -48,7 +48,7 @@ class Reportbot
 
     # Calculate offset (skip calculations for equal substrings, e.g.
     # if previous word was guitar and the current word is guilliotine, we can have
-    # an offset of 3 for 'gui', we know these edit distances will be the same)
+    # an offset of 4 for 'gui'; we know these edit distances will be the same)
     unless @previous_word.nil?
       (0..t).each do |i|
         break unless i <= m
@@ -60,7 +60,7 @@ class Reportbot
       end
     end
 
-    # Compute distance table using Offset
+    # Compute distance table using offset
     (offset..n).each do |j|
       (1..m).each do |i|
         @d[i][j] = if s[i-1] == t[j-1]  # adjust index into string
@@ -68,7 +68,7 @@ class Reportbot
                   else
                     [ @d[i-1][j]+1,    # deletion
                       @d[i][j-1]+1,    # insertion
-                      @d[i-1][j-1]+1,  # substitution
+                      @d[i-1][j-1]+2,  # substitution (cost is 2 in Levenshtein distance)
                     ].min
                   end
       end
