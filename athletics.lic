@@ -19,8 +19,20 @@ class Athletics
     start_exp = DRSkill.getxp('Athletics')
     @end_exp = [start_exp + 15, 29].min
 
+    start_time = Time.now if UserVars.athletics_debug
+    UserVars.rope_tracker ||= Hash.new if UserVars.athletics_debug
+
     if have_climbing_rope
       train_with_rope
+      exp_delta = DRSkill.getxp('Athletics') - start_exp.to_f
+      time_delta = (Time.now - start_time).to_f
+      learning_rate = exp_delta / time_delta
+      echo "Training took: #{time_delta} seconds" if UserVars.athletics
+      echo "Learning rate is: #{learning_rate}" if UserVars.athletics_debug
+      echo "Using song: #{UserVars.climbing_song}" if UserVars.athletics_debug
+      if exp_delta > 0
+        UserVars.rope_tracker[UserVars.climbing_song] = learning_rate
+      end
     elsif @climbing_target
       climb_practice(@climbing_target['id'], @climbing_target['target'], @climbing_target['hide'])
     elsif @settings.hometown == 'Crossing'
