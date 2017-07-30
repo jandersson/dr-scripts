@@ -4,6 +4,30 @@
 
 custom_require.call(%w[common common-items common-travel events drinfomon])
 
+class Statistics
+  def initialize
+    @start_time = Time.now
+    @start_exp = DRSkill.getxp('Athletics')
+    UserVars.rope_tracker ||= Hash.new
+  end
+
+  def report
+    exp_delta = DRSkill.getxp('Athletics') - @start_exp.to_f
+    time_delta = (Time.now - @start_time).to_f
+    @learning_rate = (exp_delta / time_delta).round(4)
+    echo "Training took: #{time_delta.round(2)} seconds"
+    echo "Mindstates gained: #{exp_delta.round(2)}"
+    echo "Learning rate is: #{@learning_rate} mindstates per second"
+    echo "Using song: #{UserVars.climbing_song}"
+    save if exp_delta > 0
+  end
+
+  def save
+    UserVars.rope_tracker[UserVars.climbing_song] = @learning_rate
+  end
+end
+
+
 class Athletics
   include DRC
   include DRCT
@@ -19,20 +43,10 @@ class Athletics
     start_exp = DRSkill.getxp('Athletics')
     @end_exp = [start_exp + 15, 29].min
 
-    start_time = Time.now if UserVars.athletics_debug
-    UserVars.rope_tracker ||= Hash.new if UserVars.athletics_debug
-
     if have_climbing_rope
+      stats = Statistics.new if UserVars.athletics_debug
       train_with_rope
-      exp_delta = DRSkill.getxp('Athletics') - start_exp.to_f
-      time_delta = (Time.now - start_time).to_f
-      learning_rate = exp_delta / time_delta
-      echo "Training took: #{time_delta} seconds" if UserVars.athletics
-      echo "Learning rate is: #{learning_rate}" if UserVars.athletics_debug
-      echo "Using song: #{UserVars.climbing_song}" if UserVars.athletics_debug
-      if exp_delta > 0
-        UserVars.rope_tracker[UserVars.climbing_song] = learning_rate
-      end
+      stats.report if UserVars.athletics_debug
     elsif @climbing_target
       climb_practice(@climbing_target['id'], @climbing_target['target'], @climbing_target['hide'])
     elsif @settings.hometown == 'Crossing'
