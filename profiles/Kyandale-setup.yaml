@@ -1,24 +1,33 @@
 ---
+# TODO: Sagacity (circle 70), Strike, Steady
+
 # Hunting settings
 training_manager_hunting_priority: true
 training_manager_priority_skills:
-- Small Edged
+# - Small Edged
 - Light Thrown
-- Brawling
-- Small Blunt
+# - Brawling
+# - Small Blunt
 - Bow
-- Offhand Weapon
+# - Offhand Weapon
+- Light Armor
 hunting_info:
-- :zone: leucro2
+- :zone: rock_guardians
   :duration: 60
+  args:
+  - r4
   stop_on:
-  - Small Edged
+  # - Small Edged
   - Light Thrown
-  - Brawling
-  - Small Blunt
+  # - Brawling
+  # - Small Blunt
   - Bow
-  - Offhand Weapon
+  # - Offhand Weapon
+  - Light Armor
 hunting_buddies:
+- Kawill
+- Tebaud
+- Elegoth
 - Abius
 - Atere
 - Oratesen
@@ -161,12 +170,13 @@ buff_nonspells:
   khri:
   # - Sagacity
   - Avoidance
-  # - Elusion
+  - Elusion
   - Focus
   # - Strike
   # - Steady
   # - Hasten
   # - Flight
+  # - Darken
 skinning:
   skin: true
   arrange_all: false
@@ -177,8 +187,8 @@ loot_subtractions:
 - rocks
 - bolt
 - bolts
-use_weak_attacks: true
-# priority_defense: Evasion
+# use_weak_attacks: true
+priority_defense: Evasion
 health_threshold: 80
 
 # Non-combat settings
@@ -201,7 +211,7 @@ crossing_training:
 - Augmentation
 - Utility
 - Perception
-- Appraisal
+# - Appraisal
 - Athletics
 - First Aid
 - Scholarship
@@ -227,23 +237,6 @@ gem_pouch_adjective: suede
 spare_gem_pouch_container: bag
 favor_god: Damaris
 favor_goal: 30
-crossing_training_requires_movement:
-- Alchemy
-# - Appraisal
-- Athletics
-- Attunement
-- Empathy
-- Engineering
-- Forging
-- Outfitting
-- Scouting
-- Sorcery
-- Stealth
-- Thievery
-- Theurgy
-- Trading
-appraisal_training:
-- zills
 
 quit_on_status_warning: true
 braid_item: grass

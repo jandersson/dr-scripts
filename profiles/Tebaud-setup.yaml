@@ -10,6 +10,9 @@ training_manager_priority_skills:
 - Large Edged
 - Heavy Thrown
 - Polearms
+hunting_file_list:
+- setup
+- back
 hunting_info:
 - :zone: rock_guardians
   :duration: 30
@@ -36,6 +39,14 @@ waggle_sets:
 hunting_buddies:
 - Kawill
 - Elegoth
+- Kyandale
+- Abius
+- Atere
+- Oratesen
+- Demeterus
+- Cresida
+- Remu
+- Wanz
 
 gear:
 - :adjective: plate
@@ -109,6 +120,18 @@ gear:
   :is_worn: false
   :swappable: false
   :tie_to:
+- :adjective: bar
+  :name: mace
+  :is_leather: false
+  :hinders_lockpicking: false
+  :is_worn: false
+  :swappable: true
+- :adjective: throwing
+  :name: spike
+  :is_leather: false
+  :hinders_lockpicking: false
+  :is_worn: false
+  :swappable: true
 gear_sets:
   standard:
   - scale vambraces
@@ -217,7 +240,7 @@ listen: true
 crossing_training:
 - Perception
 # - First Aid
-- Appraisal
+# - Appraisal
 - Warding
 - Augmentation
 - Utility
@@ -242,23 +265,6 @@ crossing_training_sorcery:
   - 5
   - 5
   - 5
-crossing_training_requires_movement:
-- Alchemy
-# - Appraisal
-- Athletics
-- Attunement
-- Empathy
-- Engineering
-- Forging
-- Outfitting
-- Scouting
-- Sorcery
-- Stealth
-- Thievery
-- Theurgy
-- Trading
-appraisal_training:
-- zills
 
 quit_on_status_warning: true
 braid_item: grass
