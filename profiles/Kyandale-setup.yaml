@@ -13,9 +13,9 @@ training_manager_priority_skills:
 - Light Armor
 hunting_info:
 - :zone: rock_guardians
-  :duration: 60
+  :duration: 30
   args:
-  - r4
+  - r3
   stop_on:
   # - Small Edged
   - Light Thrown
@@ -175,7 +175,7 @@ buff_nonspells:
   # - Strike
   # - Steady
   # - Hasten
-  # - Flight
+  - Flight
   # - Darken
 skinning:
   skin: true
@@ -213,7 +213,7 @@ crossing_training:
 - Perception
 # - Appraisal
 - Athletics
-- First Aid
+# - First Aid
 - Scholarship
 - Outdoorsmanship
 - Arcana

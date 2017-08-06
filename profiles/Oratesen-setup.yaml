@@ -1,12 +1,14 @@
 ---
-# TODO spells: Harmony (circle 30) (3), Naming of Tears (circle 40) (3), Phoenix's Pyre (circle 40) (2), Abandoned Heart (circle 60) (3), Echoes of Aether (circle 30) (2), Soul Ablaze (circle 40) (2)
+# TODO spells: Naming of Tears (circle 40) (3), Abandoned Heart (circle 60) (3), Echoes of Aether (circle 30) (2), Soul Ablaze (circle 40) (2)
 # TODO feat: Area Casting (for RAGE and DRUM)
 
 # Hunting settings
 training_manager_hunting_priority: false
 hunting_info:
-- :zone: leucro2
-  :duration: 60
+- :zone: rock_guardians
+  :duration: 30
+  args:
+  - r3
   stop_on:
   - Brawling
   - Heavy Thrown
@@ -14,13 +16,15 @@ hunting_info:
   - Small Edged
   - Light Thrown
   - Small Blunt
-prehunt_buffs: 1561
+prehunt_buffs: 7958
 waggle_sets:
   prehunt_buffs:
     Manifest Force:
       mana: 5
     Drums of the Snake:
       mana: 15
+    Harmony:
+      mana: 30
 hunting_buddies:
 - Kawill
 - Tebaud
@@ -106,8 +110,8 @@ offensive_spells:
 - name: Breath of Storms
   mana: 2
   cast_only_to_train: true
-- name: Damaris' Lullaby
-  mana: 6
+# - name: Damaris' Lullaby
+  # mana: 6
 - name: Demrris' Resolve
   mana: 3
   cambrinth:
@@ -121,6 +125,8 @@ buff_spells:
     mana: 15
   Drums of the Snake:
     mana: 15
+  Harmony:
+    mana: 30
 dance_skill: Large Blunt
 training_abilities:
   Tactics: 30
@@ -147,7 +153,7 @@ loot_subtractions:
 - arrows
 - bolt
 - bolts
-# use_weak_attacks: true
+use_weak_attacks: true
 priority_defense: Parry Ability
 health_threshold: 80
 

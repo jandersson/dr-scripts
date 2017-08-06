@@ -14,7 +14,7 @@ hunting_file_list:
 - setup
 - back
 hunting_info:
-- :zone: rock_guardians
+- :zone: geni
   :duration: 30
   # args:
   # - r4
@@ -132,6 +132,12 @@ gear:
   :hinders_lockpicking: false
   :is_worn: false
   :swappable: true
+- :adjective:
+  :name: nightstick
+  :is_leather: false
+  :hinders_lockpicking: false
+  :is_worn: false
+  :swappable: false
 gear_sets:
   standard:
   - scale vambraces
@@ -209,7 +215,7 @@ loot_subtractions:
 - rock
 - rocks
 use_weak_attacks: true
-# priority_defense: Shield Usage
+priority_defense: Shield Usage
 health_threshold: 70
 
 training_spells:
@@ -239,7 +245,7 @@ training_spells:
 listen: true
 crossing_training:
 - Perception
-# - First Aid
+- First Aid
 # - Appraisal
 - Warding
 - Augmentation
