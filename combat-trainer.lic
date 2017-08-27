@@ -402,6 +402,7 @@ class LootProcess
   end
 
   def can_perform_priority_ritual?(game_state)
+    return false unless DRStats.necromancer?
     return false if game_state.prepare_cfb
     return false if game_state.casting_cfb
     return false if game_state.prepare_consume
@@ -422,7 +423,7 @@ class LootProcess
       end
       if @make_zombie && can_perform_priority_ritual?(game_state)
         echo "Making zombie" if $debug_mode_ct
-        do_necro_ritual(mob_noun, 'arise', game_state) unless DRSpells.active_spells.include?('Call from Beyond')
+        do_necro_ritual(mob_noun, 'arise', game_state) unless game_state.cfb_active? 
       end
       do_necro_ritual(mob_noun, @ritual_type, game_state) if can_perform_training_ritual?(game_state)
     end
@@ -520,7 +521,7 @@ class LootProcess
 
     game_state.wield_whirlwind_offhand
 
-    unless necro_casting?(game_state)
+    if can_perform_priority_ritual?(game_state)
       while bput("loot #{@custom_loot_type}".strip, 'You search', 'I could not find what you were referring to', 'and get ready to search it') == 'and get ready to search it'
         pause
         waitrt?
@@ -948,8 +949,8 @@ class SpellProcess
     game_state.cast_timer = nil
 
     game_state.casting_weapon_buff = false
-    game_state.casting_consume = false if game_state.casting_consume
-    game_state.casting_cfb = false if game_state.casting_cfb
+    game_state.casting_consume = false
+    game_state.casting_cfb = false
 
     if game_state.casting_moonblade
       if left_hand =~ /moon/ || game_state.brawling? || game_state.offhand?
@@ -1222,19 +1223,15 @@ class PetProcess
   def execute(game_state)
     check_zombie
     if game_state.dismiss_pet?
-      game_state.next_clean_up_step
       dismiss_zombie
+      game_state.next_clean_up_step
       return true
     end
     false
   end
  
-  def cfb_active?
-    DRSpells.active_spells.include?('Call from Beyond')
-  end
-
   def summon_zombie
-    return unless cfb_active?
+    return unless game_state.cfb_active?
     return unless @zombie['summon']
     return if @is_present
 
@@ -1243,13 +1240,13 @@ class PetProcess
 
   def dismiss_zombie
     return unless @is_present
-    return unless cfb_active?
+    return unless game_state.cfb_active?
 
     command_zombie('leave')
   end
 
   def update_behavior
-    return unless cfb_active?
+    return unless game_state.cfb_active?
     return unless @zombie['behavior']
     return if @zombie['behavior'].eql?(@current_behavior)
 
@@ -1257,7 +1254,7 @@ class PetProcess
   end
 
   def update_stance
-    return unless cfb_active?
+    return unless game_state.cfb_active?
     return unless @zombie['stance']
     return if @zombie['stance'].eql?(@current_stance)
 
@@ -1266,7 +1263,7 @@ class PetProcess
 
   def check_zombie
     return unless DRStats.necromancer?
-    return unless cfb_active?
+    return unless game_state.cfb_active?
 
     summon_zombie
     update_behavior
@@ -1274,7 +1271,7 @@ class PetProcess
   end
 
   def command_zombie(command)
-    return unless cfb_active?
+    return unless game_state.cfb_active?
 
     case bput("command zombie #{command}", 'willing it to come back to you', 'You have already shifted', 'That is not a valid stance', 'is already right beside you', 'zombie shambles off with a groan', 'You sense a flicker of acknowledgement through the link', 'you sense your .+ shift into a \w+ stance', 'you sense your .+ behavior shift')
     when 'is already right beside you'
@@ -1393,15 +1390,19 @@ class ManipulateProcess
 
   def manipulate
     bput('manip stop all', 'You relax your will', 'But you aren')
-    manipulate_count = 0
 
-    @filtered_npcs.each_with_index do |npc, index|
+    manipulate_count = 0
+    npc_occurrences = Hash.new(0)
+
+    @filtered_npcs.each do |npc|
       break if manipulate_count >= @threshold
 
+      index = npc_occurrences[npc]
       ordinal_string = $ORDINALS[index]
 
       bput("manipulate friendship #{ordinal_string} #{npc}", 'You\'re already manipulating', 'beyond your ken', 'You attempt to empathically manipulate', 'You strain')
       manipulate_count += 1
+      npc_occurrences[npc] += 1
     end
 
     @last_manip = Time.now
@@ -1648,7 +1649,7 @@ class TrainerProcess
     retreat
     bput('predict weather', 'You predict that', 'You are far too', 'you lack the skill to grasp them fully')
     waitrt?
-    fput('eng')
+    fput('engage')
   end
 
   def reset_ability(game_state, ability_name, offset = 0)
@@ -1787,7 +1788,7 @@ class AttackProcess
     end
 
     if reget(5, 'You aren\'t close enough to attack', 'It would help if you were closer')
-      fput('eng')
+      fput('engage')
       pause 6
     else
       game_state.action_taken
@@ -1898,7 +1899,11 @@ class AttackProcess
       pause 1
     else
       game_state.set_dance_queue
-      fput(game_state.next_dance_action)
+      case bput(game_state.next_dance_action, 'You must be closer', /.*/)
+      when 'You must be closer'
+        fput('engage')
+        pause 2
+      end
       pause 0.5
       waitrt?
     end
@@ -2560,6 +2565,10 @@ class GameState
     else
       "get my #{weapon_name}"
     end
+  end
+
+  def cfb_active?
+    DRSpells.active_spells.include?('Call from Beyond')
   end
 
   private

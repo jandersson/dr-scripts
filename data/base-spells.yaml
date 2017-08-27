@@ -59,6 +59,7 @@ prep_messages:
 - You raise your hand commandingly
 - You take up a handful of dirt
 - A hazy mist swirls up your arms like undulating waves as you prepare
+- You begin to weave
 
 cast_messages:
 - ^Your spell backfires
@@ -275,6 +276,10 @@ spell_data:
     abbrev: AEWO
     cyclic: true
     mana: 2
+  Aethrolysis:
+    skill: Targeted Magic
+    abbrev: Aethrolysis
+    mana: 2    
   Air Bubble:
     skill: Utility
     abbev: AB
@@ -928,6 +933,7 @@ spell_data:
     skill: Utility
     abbrev: NEXUS
     mana: 30
+    expire: the music nears the end, finishing with a lone tambourine to conclude the theme
   Obfuscation:
     skill: Augmentation
     abbrev: obfuscation
@@ -945,6 +951,12 @@ spell_data:
     skill: Targeted Magic
     abbrev: PD
     mana: 2
+  Perseverance of Peri'el:
+    skill: Warding
+    abbrev: POP
+    recast: 5
+    mana: 300
+    ritual: true
   Persistence of Mana:
     skill: Augmentation
     abbrev: POM
@@ -1018,6 +1030,11 @@ spell_data:
     abbrev: RF
     mana: 5
     invisibility: true
+    recast: 1
+  Refresh:
+    abbrev: Refresh
+    skill: Augmentation
+    mana: 5
     recast: 1
   Regenerate:
     skill: Utility
