@@ -14,6 +14,7 @@ attunement_rooms: # Define my own power walk rooms to stay out of justice areas
 status_monitor_no_window: true
 # braid_item: grass
 hometown: Shard
+safe_room:
 have_climbing_rope: true
 climbing_target: coriks_wall
 hunting_file_list:
@@ -49,13 +50,15 @@ offensive_spells:
   cambrinth:
   - 5
 - skill: Debilitation
-  name: Petrifying Visions
-  abbrev: pv
-  mana: 1
+  name: Viscous Solution
+  abbrev: vs
+  mana: 20
+- skill: Sorcery
+  name: Dinazen Olkar
+  mana: 2
   cambrinth:
-  - 5
-  harmless: false
-  expire: no longer seems petrified
+  - 14
+  cast_only_to_train: true
 
 fatigue_regen_threshold: 85
 fatigue_regen_action: analyze
@@ -200,8 +203,9 @@ necromancer_healing:
     - 5
 
 thanatology:
-  ritual_type: harvest
+  ritual_type: cycle
   heal: true
+  train_first_aid: true
 
 # Crossing-training settings
 
@@ -223,19 +227,17 @@ cyclic_training_spells:
     abbrev: RoG
     cyclic: true
 combat_spell_training:
-  Utility:
-    use_discern: true
-    symbiosis: true
-  Augmentation:
-    abbrev: OBF
-    symbiosis: true
-    use_discern: true
 waggle_sets:
   eotb: &eotb
     Eyes of the Blind:
       abbrev: eotb
       cambrinth:
       - 48
+  ch: &ch
+    Calcified Hide:
+      mana: 15
+      cambrinth:
+      - 32
   rog: &rog
     Rite of Grace:
       abbrev: rog
