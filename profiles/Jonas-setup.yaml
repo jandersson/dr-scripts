@@ -189,6 +189,13 @@ skinning:
   arrange_all: true 
 
 # Necromancer Related
+ignored_npcs:
+- zombie
+zombie:
+  make: false
+  summon: true
+  stance: offense
+  behavior: aggressive
 stop_hunting_if_bleeding: false
 necromancer_healing:
   Devour:
@@ -248,6 +255,11 @@ waggle_sets:
   town-training:
     << : *eotb
     << : *rog
+  zombie:
+    Call from Beyond:
+      mana: 30
+      cambrinth:
+      - 32
 crossing_training:
 - Attunement
 - Locksmithing
