@@ -93,7 +93,7 @@ class Smith
   end
 
   def check_oil(discipline)
-    return if search?(discipline['finisher-full'])
+    return if DRCI.exists?('of oil')
 
     ensure_copper_on_hand(1000, @hometown)
     order_item(discipline['finisher-room'], discipline['finisher-number'])

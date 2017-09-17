@@ -399,18 +399,18 @@ class Forge
 
   def pour_oil
     ords = %w[second third fourth fifth sixth]
-    get_item('oil')
+    get_item('of oil')
     while ords.any?
-      case bput("pour my oil on my #{@item}", 'Roundtime', 'Applying the final touches', "You can't pour", 'You pour all of')
+      case bput("pour my of oil on my #{@item}", 'Roundtime', 'Applying the final touches', "You can't pour", 'You pour all of')
       when 'Roundtime', 'Applying the final touches'
         waitrt?
-        stow_item('oil')
+        stow_item('of oil')
         break
       when 'You pour all of'
-        get_item('oil')
+        get_item('of oil')
       else
-        stow_item('oil')
-        get_item("#{ords.shift} oil")
+        stow_item('of oil')
+        get_item("#{ords.shift} of oil")
       end
     end
   end
