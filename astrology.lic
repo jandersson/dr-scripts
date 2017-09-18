@@ -75,10 +75,8 @@ class Astrology
   end
 
   def check_moons
-    %w[xibar yavash katamba].each do |moon|
-      bput("pow #{moon}", 'roundtime')
+      bput('perc moons', 'roundtime')
       waitrt?
-    end
   end
 
   def check_pools
