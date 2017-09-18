@@ -49,8 +49,10 @@ class Astrology
     return unless settings
     return unless settings.waggle_sets['astrology']
 
-    # Pop out rtr data from buffs and save it for later
+    # TODO: checkprep should just nil instead of 'None'
+    fput('release spell') if checkprep == 'None'
     buffs = settings.waggle_sets['astrology']
+    # Pop out rtr data from buffs and save it for later
     @rtr_data = buffs.select { |spell| spell.eql?('Read the Ripples') }
                      .values
                      .first
