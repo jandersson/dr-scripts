@@ -667,7 +667,7 @@ class SafetyProcess
 
   def execute(game_state)
     custom_require.call('tendme') if bleeding? && !Script.running?('tendme')
-    fput 'exit' if health < 40
+    fput 'exit' if health < 40 && !DRStats.necromancer?
     fix_standing
     tend_lodged
     game_state.danger = in_danger?(game_state.danger)
@@ -1142,7 +1142,7 @@ class SpellProcess
     else
       @equipment_manager.stow_weapon(game_state.weapon_name)
     end
-    
+
     data = update_astral_data(data)
     if data # update_astral_data returns nil on failure
       check_invoke
@@ -1664,7 +1664,7 @@ class TrainerProcess
   def moon_mage_perc(game_state)
     return if game_state.retreating?
 
-    retreat
+    retreat unless DRSkills.getrank('Attunement') > 500
     bput('perc mana', 'You reach out')
   end
 
