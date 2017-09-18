@@ -35,10 +35,12 @@ class Astrology
     echo " Flags['rtr-expire'].nil? #{Flags['rtr-expire'].nil?}" if UserVars.astrology_debug
     echo " Flags['rtr-expire'] = #{Flags['rtr-expire']}" if UserVars.astrology_debug
 
-    do_buffs(settings)
     if args.rtr
+      return unless Flags['rtr-expire'] || Flags['rtr-expire'].nil?
+      do_buffs(settings)
       check_ripples(settings)
     else
+      do_buffs(settings)
       train_astrology(settings)
     end
   end
@@ -128,7 +130,7 @@ class Astrology
   def check_ripples(settings)
     return unless @rtr_data
     return unless settings
-    return if !Flags['rtr-expire'].nil? && !Flags['rtr-expire']
+    return unless Flags['rtr-expire'].nil? || Flags['rtr-expire']
 
     cast_spell(@rtr_data, settings)
     while DRSpells.active_spells.include?('Read the Ripples')
