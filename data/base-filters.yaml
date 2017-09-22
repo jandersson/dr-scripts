@@ -398,3 +398,4 @@ filter_strings:
 - '^The .* shard pulverizes itself harmlessly on .* .*\.$'
 - '^.* manages to get out of the way of the .* shard!$'
 - '^You decide to purchase .* and pay .*\.$'
+- '^You can.t swim in that direction\.$'
