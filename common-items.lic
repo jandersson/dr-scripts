@@ -31,6 +31,13 @@ module DRCI
     fput("offer #{amount}") if amount
   end
 
+  def count_boxes(container)
+    # The negative look ahead ignores the term 'boxes' which is output by the rummage /b command
+    box_nouns_re = /#{Regexp.union(get_data('items').box_nouns)}(?!es)/
+    contents = DRC.bput("rummage /b #{container}", '^You rummage .*')
+    contents.scan(box_nouns_re).size
+  end
+
   def order_item(room, item_number)
     DRCT.walk_to(room)
 
