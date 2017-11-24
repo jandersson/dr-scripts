@@ -53,7 +53,8 @@ module DRCA
 
     DRC.bput('prep symb', 'You recall the exact details of the', 'But you\'ve already prepared') if symbiosis
 
-    case DRC.bput("#{command} #{abbrev} #{mana}", get_data('spells').prep_messages)
+    match = DRC.bput("#{command} #{abbrev} #{mana}", get_data('spells').prep_messages)
+    case match
     when 'Your desire to prepare this offensive spell suddenly slips away'
       pause 1
       return prepare?(abbrev, mana, symbiosis, command)
@@ -62,8 +63,9 @@ module DRCA
       return false
     end
 
-    true
+    match
   end
+
   def ritual(spell, ignored_npcs)
     DRCT.retreat(ignored_npcs) unless spell['skip_retreat']
     DRC.release_invisibility
@@ -101,7 +103,7 @@ module DRCA
     after.each { |action| DRC.bput(action['message'], action['matches']) }
 
     if symbiosis && Flags['spell-fail']
-      bput('release symbiosis', 'You release', 'But you haven\'t prepared')
+      DRC.bput('release symbiosis', 'You release', 'But you haven\'t prepared')
     end
 
     !Flags['spell-fail']
@@ -121,7 +123,7 @@ module DRCA
     if worn
       DRC.bput("remove my #{focus}", 'You remove', 'You slide', 'You sling', 'You take')
     elsif tied
-      DRC.bput("untie my #{focus} from my #{tied}", 'You remove')
+      DRC.bput("untie my #{focus} from my #{tied}", 'You remove', '[Y|y]ou untie')
     else
       DRC.bput("get my #{focus}", 'You get')
     end
@@ -133,7 +135,11 @@ module DRCA
     if worn
       DRC.bput("wear my #{focus}", 'You attach', 'You slide', 'You are already wearing', 'You hang', 'You sling', 'You put', 'You place')
     elsif tied
-      DRC.bput("tie my #{focus} to my #{tied}", 'You attach')
+      case DRC.bput("tie my #{focus} to my #{tied}", 'You attach', '[Y|y]ou tie', 'You are a little too busy to be worrying')
+      when 'You are a little too busy to be worrying'
+        DRCT.retreat
+        stow_focus(focus, worn, tied)
+      end
     else
       DRC.bput("stow my #{focus}", 'You put', 'You easily strap your')
     end
@@ -175,7 +181,7 @@ module DRCA
     result = DRC.bput("charge my #{cambrinth} #{mana}", get_data('spells').charge_messages)
     pause
     waitrt?
-    result == 'absorbs all of the energy'
+    result =~ /absorbs? all of the energy/
   end
 
   def release_cyclics

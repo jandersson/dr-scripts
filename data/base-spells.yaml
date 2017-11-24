@@ -53,13 +53,29 @@ prep_messages:
 - You weave the soft melody
 - You are still too fatigued from your previous efforts to manifest another major feat of offensive magic
 - You produce an illusory coin and begin rolling it across your knuckles
-- You softly whisper the words for the
+- You( begin to)? softly whisper the words for the
 - Though softly humming at first
 - Darkly gleaming motes of sanguine light
 - You raise your hand commandingly
 - You take up a handful of dirt
 - A hazy mist swirls up your arms like undulating waves as you prepare
 - You begin to weave
+- Wrapped in winter you begin to chant the Phoenix's Pyre
+- You make a careless gesture as you chant the words
+- You focus your sense of touch on the energies in the air while chanting the mantra
+- Smiling slyly, you murmur the words of
+- You giggle to yourself as you move through the syncopated gestures that accompany
+- A soft breeze surrounds your body as you confidently prepare
+- You bring your hand slowly to your forehead as you begin chanting the words of
+- You rock back and forth, humming tunelessly as you invoke
+- You trace an intricate rune in the air with your finger, illusory lines lingering
+- You begin reciting a solemn incantation, causing familiar patterns of geometric shapes
+- You adeptly sing the incantations for the
+- You steeple your fingers together and mutter an arcane phrase
+- You perform a complex rotation of detailed gestures as you softly chant
+- You slowly crack your knuckles, focusing on the
+- Drawing yourself up to your full height, you recite the words
+- With a mnemonic tune in your mind, you trace out the symbols
 
 cast_messages:
 - ^Your spell backfires
@@ -125,6 +141,7 @@ cast_messages:
 - Your fingerbones phosphoresce hylomorphic blue
 - you immediately recognize the onset of an abnormal arthritis
 - You point a crooked finger at
+- Mentally steeling yourself in preparation for the unnatural action
 
 khri_preps:
 - With deep breaths
@@ -247,6 +264,13 @@ spell_data:
     prep_type: prepare
     cyclic: true
     mana: 7
+  Absolution:
+    skill: Utility
+    harmless: true
+    abbrev: Absolution
+    mana: 150
+    ritual: true
+    recast: 5
   Acid Splash:
     skill: Targeted Magic
     abbrev: ACS
@@ -282,7 +306,12 @@ spell_data:
   Aethrolysis:
     skill: Targeted Magic
     abbrev: Aethrolysis
-    mana: 2    
+    mana: 2
+  Aggressive Stance:
+    skill: Augmentation
+    abbrev: AGS
+    mana: 5
+    recast: 1
   Air Bubble:
     skill: Utility
     abbev: AB
@@ -349,6 +378,11 @@ spell_data:
     abbrev: Auspice
     recast: 1
     mana: 5
+  Awaken:
+    skill: Utility
+    abbrev: AWAKEN
+    mana: 15
+    recast: 1
   Banner of Truce:
     skill: Utility
     abbrev: BOT
@@ -389,6 +423,11 @@ spell_data:
     skill: Targeted Magic
     abbrev: BLB
     mana: 15
+  Blood Staunching:
+    skill: Utility
+    abbrev: BS
+    mana: 5
+    recast: 1
   Blufmor Garaen:
     skill: Targeted Magic
     abbev: BG
@@ -469,6 +508,11 @@ spell_data:
     skill: Targeted Magic
     abbrev: CHS
     mana: 7
+  Circle of Sympathy:
+    skill: Utility
+    abbrev: COS
+    mana: 150
+    ritual: true
   Clarity:
     skill: Augmentation
     abbrev: clarity
@@ -484,6 +528,11 @@ spell_data:
     abbrev: CV
     mana: 1
     recast: 1
+  Compel:
+    skill: Debilitation
+    harmless: true
+    abbrev: COMPEL
+    mana: 15
   Compost:
     skill: Utility
     abbrev: COMPOST
@@ -503,6 +552,11 @@ spell_data:
     abbrev: CRC
     mana: 30
     recast: 1
+  Cure Disease:
+    skill: Utility
+    harmless: true
+    abbrev: CD
+    mana: 15
   Curse of the Wilds:
     skill: Debilitation
     harmless: true
@@ -680,7 +734,12 @@ spell_data:
   Fists of Faenella:
     skill: Targeted Magic
     abbrev: FF
-    mana: 2 
+    mana: 2
+  Flush Poisons:
+    skill: Utility
+    abbrev: FP
+    mana: 15
+    recast: 1
   Focus Moonbeam:
     skill: Utility
     abbrev: FM
@@ -703,8 +762,8 @@ spell_data:
     recast: 1
   Fountain of Creation:
     skill: Utility
-    mana: 30
     abbrev: FOC
+    mana: 30
     expire: You no longer feel especially strained from invoking the Fountain of Creation
   Frostbite:
     skill: Debilitation
@@ -732,6 +791,11 @@ spell_data:
     abbrev: GHS
     cyclic: true
     mana: 5
+  Gift of Life:
+    skill: Augmentation
+    abbrev: GOL
+    mana: 5
+    recast: 1
   Glythtide's Gift:
     skill: Augmentation
     abbrev: GG
@@ -872,6 +936,11 @@ spell_data:
     skill: Utility
     mana: 15
     abbrev: IMBUE
+  Innocence:
+    skill: Utility
+    abbrev: INNOCENCE
+    mana: 5
+    recast: -1
   Instinct:
     skill: Augmentation
     abbrev: INST
@@ -893,6 +962,11 @@ spell_data:
         - You step inside
         - You draw your hand
         - Invoke what
+  Iron Constitution:
+    skill: Warding
+    abbrev: IC
+    mana: 5
+    recast: 1
   Ivory Mask:
     skill: Augmentation
     abbrev: IVM
@@ -908,6 +982,11 @@ spell_data:
     abbrev: LW
     mana: 5
     recast: 1
+  Lethargy:
+    skill: Debilitation
+    harmless: true
+    abbrev: LETHARGY
+    mana: 1
   Lightning Bolt:
     skill: Targeted Magic
     abbrev: LB
@@ -969,6 +1048,11 @@ spell_data:
     harmless: true
     abbrev: MB
     mana: 20
+  Mental Focus:
+    skill: Augmentation
+    abbrev: MEF
+    mana: 5
+    recast: 1  
   Meraud's Cry:
     skill: Debilitation
     abbrev: MC
@@ -1024,6 +1108,11 @@ spell_data:
     abbrev: NEXUS
     mana: 30
     expire: the music nears the end, finishing with a lone tambourine to conclude the theme
+  Nissa's Binding:
+    skill: Debilitation # area of effect
+    harmless: true
+    abbrev: NB
+    mana: 10
   Oath of the Firstborn:
     skill: Augmentation
     abbrev: OATH
@@ -1042,6 +1131,10 @@ spell_data:
     skill: Targeted Magic
     abbrev: PW
     mana: 7
+  Paralysis:
+    skill: Targeted Magic
+    abbrev: PARALYSIS
+    mana: 2
   Partial Displacement:
     skill: Targeted Magic
     abbrev: PD
@@ -1425,6 +1518,11 @@ spell_data:
     harmless: true
     abbrev: TI
     mana: 5
+  Tranquility:
+    skill: Augmentation #Warding
+    abbrev: TRANQUILITY
+    mana: 15
+    recast: 1
   Tremor:
     skill: Debilitation
     harmless: true
@@ -1470,6 +1568,11 @@ spell_data:
     skill: Utility
     abbrev: VIGIL
     mana: 5
+  Vigor:
+    skill: Augmentation
+    abbrev: VIGOR
+    mana: 15
+    recast: 1
   Viscous Solution:
     skill: Debilitation
     harmless: true

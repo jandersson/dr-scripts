@@ -116,8 +116,11 @@ gear:
   :adjective: hide
   :is_leather: true
 - :name: tetractys
+  :adjective: haledroth
+  :is_worn: true
 - :name: pelletbow
   :is_leather: true
+  :is_worn: true
 - :name: footwraps
   :adjective: steel-toed
   :is_worn: true
@@ -208,6 +211,14 @@ gear:
 - :name: rod
   :adjective: stirring
   :tie_to: forger's belt
+
+restock:
+  arrow:
+    quantity: 30
+  tk_ammo:
+    quantity: 2
+  rock:
+    quantity: 15
 
 gear_sets:
   standard:

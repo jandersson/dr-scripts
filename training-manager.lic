@@ -58,7 +58,7 @@ class TrainingManager
   def timer_expired?(start_time)
     return unless @settings.training_manager_town_duration
 
-    return Time.now - start_time >= @settings.training_manager_town_duration * 60
+    Time.now - start_time >= @settings.training_manager_town_duration * 60
   end
 
   def priority_skills_low?

@@ -51,6 +51,7 @@ class Astrology
 
     @equipment_manager.empty_hands
     # Pop out rtr data from buffs and save it for later
+    buffs = settings.waggle_sets['astrology']
     @rtr_data = buffs.select { |spell| spell.eql?('Read the Ripples') }
                      .values
                      .first
@@ -61,7 +62,12 @@ class Astrology
   def visible_bodies
     result = []
     all_bodies = @constellations
-    bput('observe sky', 'The following heavenly bodies are visible:')
+    case bput('observe sky', 'The following heavenly bodies are visible:', "That's a bit hard to do while inside")
+    when "That's a bit hard to do while inside"
+      echo('Must be outdoors to observe sky')
+      exit
+    end
+
     until (line = get?) =~ /^Roundtime/i
       result << all_bodies.find { |body| /\b#{body['name']}\b/i =~ line && line !~ /below the horizon/ }
     end
@@ -176,7 +182,7 @@ class Astrology
     }
 
     pools.reject { |_skill, size| (size < @prediction_pool_target) }
-         .each { |skill, _size| align(skillset_to_pool[skill]) }
+         .each_key { |skill| align(skillset_to_pool[skill]) }
   end
 
   def check_heavens
@@ -237,7 +243,7 @@ class Astrology
     observed['pools']
       .reject { |_skill, value| value.nil? }
       .reject { |_skill, value| value < @prediction_pool_target }
-      .each { |skill, _value| align(skill) }
+      .each_key { |skill| align(skill) }
     waitrt?
   end
 
