@@ -129,8 +129,10 @@ class HealMe
              end
     find_cambrinth(@settings.cambrinth, @settings.stored_cambrinth, @settings.cambrinth_cap)
 
-    if @settings.waggle_sets['healing']['Heal'] && skip_parts.nil?
-      spam_heal(@settings.waggle_sets['healing']['Heal']['mana'], @settings.empath_healing['healing']['Heal']['cambrinth'])
+    DRCA.cast_spell(spells['Regenerate'], @settings) if spells['Regenerate'] && !DRSpells.active_spells.include?('Regenerate')
+
+    if spells['Heal'] && using_waggle && skip_parts.nil?
+      spam_heal(@settings.waggle_sets['healing']['Heal']['mana'], @settings.waggle_sets['healing']['Heal']['cambrinth'])
     elsif @settings.empath_healing['HEAL'] && skip_parts.nil?
       spam_heal(@settings.empath_healing['HEAL'].first, @settings.empath_healing['HEAL'][1..-1])
     else
