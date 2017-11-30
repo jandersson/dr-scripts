@@ -112,7 +112,9 @@ class Remedy
               'You spin your',
               'You slowly filter',
               'To avoid a problem',
-              'Roundtime:')
+              'Crush what',
+              'far too damaged to be used for that',
+              'Roundtime:',)
     when 'You need another splash of water'
       waitrt?
       stow_item(left_hand)
@@ -179,6 +181,9 @@ class Remedy
       command = "crush my #{@noun} with my pestle"
     when 'That tool does not seem suitable for that task.'
       analyze_crush
+    when 'Crush what', 'far too damaged to be used for that'
+      waitrt?
+      finish
     end
     waitrt?
     crush(command)
