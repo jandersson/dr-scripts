@@ -535,7 +535,7 @@ class WorkOrders
         wait_for_script_to_complete('remedy', ['remedies', recipe['chapter'], recipe['name'], recipe['herb1'], recipe['herb2'], info['catalyst'], recipe['container'], recipe['noun']])
       end
       bput("get my #{info['logbook']} logbook", 'You get')
-      case bput("bun my #{recipe['noun']} with logbook", 'You notate', 'You put', 'You notice the workorder', 'The work order requires items of a higher quality')
+      case bput("bun my #{recipe['noun']} with logbook", 'You notate', 'You put', 'You notice the workorder', 'The work order requires items of a higher quality', "That's not going to work")
       when 'You notice the workorder'
         stow_tool(right_hand)
         bput("Mark my #{recipe['noun']} at 5", 'You measure')
