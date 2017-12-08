@@ -32,6 +32,7 @@ class Astrology
     @ap_destination = settings.astral_plane_training['train_destination']
     @prediction_pool_target = settings.astrology_use_full_pools ? 10 : 1
     @rtr_data = nil
+    @pg_data = nil
     echo " Flags['rtr-expire'].nil? #{Flags['rtr-expire'].nil?}" if UserVars.astrology_debug
     echo " Flags['rtr-expire'] = #{Flags['rtr-expire']}" if UserVars.astrology_debug
 
@@ -50,12 +51,19 @@ class Astrology
     return unless settings.waggle_sets['astrology']
 
     @equipment_manager.empty_hands
+    buffs = settings.waggle_sets['astrology']
     # Pop out rtr data from buffs and save it for later
     buffs = settings.waggle_sets['astrology']
     @rtr_data = buffs.select { |spell| spell.eql?('Read the Ripples') }
                      .values
                      .first
+    @pg_data = buffs.select { |spell| spell.eql?('Piercing Gaze') }
+                    .values
+                    .first
     buffs.reject! { |spell| spell.eql?('Read the Ripples') }
+    @pg_data = buffs.select { |spell| spell.eql?('Piercing Gaze') }
+                    .values
+                    .first
     cast_spells(buffs, settings)
   end
 
