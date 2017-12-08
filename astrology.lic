@@ -83,8 +83,8 @@ class Astrology
   end
 
   def check_moons
-      bput('perc moons', 'roundtime')
-      waitrt?
+    bput('perc moons', 'roundtime')
+    waitrt?
   end
 
   def check_pools
