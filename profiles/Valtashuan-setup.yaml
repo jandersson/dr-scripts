@@ -22,6 +22,7 @@ training_manager_priority_skills:
 - Tactics
 hunting_info:
 - :zone: scouts
+  :duration: 30
   stop_on:
   - Brawling
   - Bow
