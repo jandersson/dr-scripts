@@ -14,22 +14,12 @@
 # Hunting settings
 training_manager_hunting_priority: true
 training_manager_priority_skills:
-- Brawling
-- Bow
-- Heavy Thrown
-- Light Thrown
-- Polearms
-- Tactics
+- Small Blunt
 hunting_info:
-- :zone: scouts
+- :zone: louts
   :duration: 30
   stop_on:
-  - Brawling
-  - Bow
-  - Heavy Thrown
-  - Light Thrown
-  - Polearms
-  - Tactics
+  - Small Blunt
 
 # Gear settings
 gear:
@@ -160,12 +150,14 @@ training_abilities:
   Hunt: 80
   Perc: 120
 weapon_training:
-  Brawling: ''
-  Bow: yew shortbow
-  Heavy Thrown: pine-handled sledgehammer
-  Light Thrown: triple-weighted bola
-  Polearms: oak-hafted halberd
-dance_skill: Polearms
+  Small Blunt: triple-weighted bola
+  Offhand Weapon: triple-weighted bola
+  # Brawling: ''
+  # Bow: yew shortbow
+  # Heavy Thrown: pine-handled sledgehammer
+  # Light Thrown: triple-weighted bola
+  # Polearms: oak-hafted halberd
+dance_skill: Small Blunt
 skinning:
   skin: true
   arrange_all: false
