@@ -346,6 +346,8 @@ class BankbotParser
     return unless @validator.valid?(character)
 
     case message
+    when /heal/
+      return
     when /^(help)$/i
       @controller.whisper_help(character)
     when /^(with|withdraw) (\d+) (K.*|L.*|D.*)$/i
