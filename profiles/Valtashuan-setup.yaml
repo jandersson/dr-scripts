@@ -191,7 +191,13 @@ crossing_training:
 - Warding
 - Augmentation
 - Utility
-safe_room: 851
+safe_room: &safe_room 1645
+compost_room: *safe_room
+bankbot_name: Riphik
+bankbot_room_id: *safe_room
+bankbot_deposit_threshold: 0
+safe_room_empath: Riphik
+safe_room_id: 1645
 cambrinth: cambrinth ring
 cambrinth_cap: 5
 favor_goal: 10
