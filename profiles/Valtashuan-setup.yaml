@@ -183,6 +183,11 @@ crossing_training:
 - Warding
 - Augmentation
 - Utility
+- Engineering
+
+# Engineering
+
+engineering_room: 9457
 safe_room: &safe_room 1645
 compost_room: *safe_room
 bankbot_name: Riphik
