@@ -142,7 +142,7 @@ class SafeRoom
     walk_to room_id
     return false unless DRRoom.pcs.include?(empath)
 
-    # fput("whisper #{empath} heal")
+    fput("whisper #{empath} heal")
     fput("listen to #{empath}")
     Flags.add('doneheal', '"Done!"')
     24.times do
