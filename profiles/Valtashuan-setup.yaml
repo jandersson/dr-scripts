@@ -145,10 +145,11 @@ offensive_spells:
   cambrinth:
   - 1
 training_abilities:
+  Collect: 120
+  Hunt: 80
   Tactics: 30
   Stealth: 60
-  Hunt: 80
-  Perc: 120
+  Perc: 60
 weapon_training:
   Small Blunt: triple-weighted bola
   Offhand Weapon: triple-weighted bola
