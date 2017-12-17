@@ -2,7 +2,7 @@
   Documentation: https://elanthipedia.play.net/Lich_script_repository#shape
 =end
 
-custom_require.call(%w[common common-crafting])
+custom_require.call(%w[common common-crafting common-items])
 
 class Shape
   include DRC
@@ -100,8 +100,10 @@ class Shape
               'ready to be clamped', 'pushed with clamps', 'pushing it with clamps',
               'Some wood stain',
               'You fumble around but',
+              'You must be holding the shaper to do that',
+              'You cannot figure out how to do that',
               'ASSEMBLE Ingredient1')
-    when 'a wood shaper is needed', 'ready for shaping with a wood shaper'
+    when 'a wood shaper is needed', 'ready for shaping with a wood shaper', 'You must be holding the shaper to do that'
       waitrt?
       stow_item(right_hand)
       get_item('shaper')
@@ -134,7 +136,7 @@ class Shape
     when 'Applying the final touches'
       stow_item(right_hand)
       finish
-    when 'while it is inside of something', 'You fumble around but'
+    when 'while it is inside of something', 'You fumble around but', 'You cannot figure out how to do that'
       echo '*** ERROR TRYING TO CRAFT, EXITING ***'
       stow_item(right_hand)
       exit
