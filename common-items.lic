@@ -59,9 +59,11 @@ module DRCI
 
   def dispose(item, trash_room = nil)
     DRCT.walk_to(trash_room) unless trash_room.nil?
-    case DRC.bput("get my #{item}", 'You get', 'What were you', 'You pick up')
+    case DRC.bput("get my #{item}", 'You get', 'What were you', 'You pick up', 'You need a free hand')
     when 'You get', 'You pick up'
       dispose_trash(item)
+    when 'You need a free hand'
+      return
     end
   end
 
