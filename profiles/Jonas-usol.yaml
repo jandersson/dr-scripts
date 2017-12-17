@@ -1,4 +1,9 @@
 ---
+zombie:
+  make: true
+  summon: true
+  stance: offense
+  behavior: aggressive
 hunting_info:
 - :zone: black_apes
   args:
@@ -13,12 +18,12 @@ spell_cycle:
 - Universal Solvent
 - Viscous Solution
 - Dinazen Olkar
-
+use_stealth_attacks: true
 offensive_spells:
 - skill: Targeted Magic
   name: Universal Solvent
   abbrev: usol
-  mana: 9
+  mana: 8
   prep_type: prepare
   cyclic: true
 - skill: Debilitation
@@ -28,6 +33,6 @@ offensive_spells:
 - skill: Sorcery
   name: Dinazen Olkar
   cambrinth:
-  - 16
+  - 19
   cast_only_to_train: true
 ...
