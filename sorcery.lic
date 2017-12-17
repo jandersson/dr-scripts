@@ -45,7 +45,7 @@ class Sorcery
   end
 
   def focus_runestone
-    return if DRSkill.getrank('Sorcery') > 50
+    return if DRSkill.getrank('Sorcery') > 70
 
     case bput('get my runestone', 'You get', 'I could not find', 'What were you referring to')
     when 'I could not find', 'What were you referring to'
