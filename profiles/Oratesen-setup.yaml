@@ -3,7 +3,19 @@
 # TODO feat: Area Casting (for RAGE and DRUM)
 
 # Hunting settings
-training_manager_hunting_priority: false
+training_manager_hunting_priority: true
+training_manager_priority_skills:
+# - Light Armor
+# - Chain Armor
+- Offhand Weapon
+- Staves
+- Large Edged
+- Polearms
+- Twohanded Edged
+- Twohanded Blunt
+hunting_file_list:
+- setup
+# - back
 hunting_info:
 - :zone: rock_guardians
   :duration: 30
@@ -12,34 +24,50 @@ hunting_info:
   # args:
   # - r4
   stop_on:
-  - Brawling
-  - Heavy Thrown
-  - Large Blunt
-  - Small Edged
-  - Light Thrown
-  - Small Blunt
+  # - Brawling
+  # - Heavy Thrown
+  # - Large Blunt
+  # - Small Edged
+  # - Light Thrown
+  # - Small Blunt
+  - Offhand Weapon
+  - Staves
+  - Large Edged
+  - Polearms
+  - Twohanded Edged
+  - Twohanded Blunt
 prehunt_buffs: 7958
 waggle_sets:
   prehunt_buffs:
     Manifest Force:
       mana: 5
-    Drums of the Snake:
-      mana: 15
     Harmony:
       mana: 30
     Naming of Tears:
       mana: 30
 hunting_buddies:
-- Sheltim
-- Kawill
-- Tebaud
-- Elegoth
-- Abius
-- Atere
+- Evissam
+- Byd
+- Rakkor
+- Kaldean
+- Reverence
+- Aurayn
+- Jezzail
+- Zharen
+- Zharyn
 - Demeterus
 - Cresida
 - Remu
 - Wanz
+- Serature
+- Tebaud
+- Elegoth
+- Abius
+- Atere
+- Sheltim
+- Lhind
+- Phoerne
+- Tamfell
 
 # Gear settings
 gear:
@@ -97,6 +125,36 @@ gear:
   :is_worn: false
   :swappable: true
   :tie_to:
+- :adjective:
+  :name: nightstick
+  :is_leather: false
+  :hinders_lockpicking: false
+  :is_worn: false
+  :swappable: false
+- :adjective:
+  :name: cinquedea
+  :is_leather: false
+  :hinders_lockpicking: false
+  :is_worn: false
+  :swappable: false
+- :adjective:
+  :name: javelin
+  :is_leather: false
+  :hinders_lockpicking: false
+  :is_worn: false
+  :swappable: false
+- :adjective:
+  :name: greataxe
+  :is_leather: false
+  :hinders_lockpicking: false
+  :is_worn: false
+  :swappable: false
+- :adjective:
+  :name: akabo
+  :is_leather: false
+  :hinders_lockpicking: false
+  :is_worn: false
+  :swappable: false
 gear_sets:
   standard:
   - quilted shirt
@@ -144,12 +202,18 @@ training_abilities:
   App Quick: 60
   # Collect: 120
 weapon_training:
-  Brawling: ''
-  Heavy Thrown: throwing hammer
-  Large Blunt: throwing hammer
-  Small Edged: throwing spike
-  Light Thrown: throwing spike
-  Small Blunt: throwing spike
+  # Brawling: ''
+  # Heavy Thrown: throwing hammer
+  # Large Blunt: throwing hammer
+  # Small Edged: throwing spike
+  # Light Thrown: throwing spike
+  # Small Blunt: throwing spike
+  Staves: nightstick
+  Offhand Weapon: throwing spike
+  Large Edged: cinquedea
+  Polearms: javelin
+  Twohanded Edged: greataxe
+  Twohanded Blunt: akabo
 skinning:
   skin: true
   arrange_all: false
@@ -172,6 +236,7 @@ crossing_training:
 - Engineering
 - Outfitting
 - Mechanical Lore
+- First Aid
 - Sorcery
 - Augmentation
 - Utility
@@ -187,10 +252,13 @@ crossing_training:
 training_spells:
   Augmentation:
     abbrev: ECRY
+    symbiosis: true
   Utility:
     abbrev: AOT
+    symbiosis: true
   Warding:
     abbrev: REPR
+    symbiosis: true
 cyclic_training_spells:
   Augmentation:
     abbrev: FAE
@@ -235,10 +303,10 @@ sell_loot_pouch: false
 spare_gem_pouch_container: bag
 crossing_training_sorcery:
   abbrev: Centering
-  mana: 10
+  mana: 15
   cambrinth:
-  - 10
-  - 10
+  - 15
+  - 15
   - 10
 
 quit_on_status_warning: true
@@ -248,6 +316,7 @@ status_monitor_no_window: true
 bankbot_deposit_threshold: 0
 repair_every: 3
 repair_timer:
+dump_junk: true
 
 # From UserVars
 crossing_training_sorcery_room:

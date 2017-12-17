@@ -10,7 +10,7 @@ training_manager_priority_skills:
 - Small Blunt
 # - Light Armor
 # - Chain Armor
-# - Large Blunt
+- Large Blunt
 - Twohanded Blunt
 - Light Thrown
 - Small Edged
@@ -42,17 +42,6 @@ waggle_sets:
       mana: 10
     Major Physical Protection:
       mana: 10
-hunting_buddies:
-- Sheltim
-- Tebaud
-- Elegoth
-- Abius
-- Atere
-- Oratesen
-- Demeterus
-- Cresida
-- Remu
-- Wanz
 
 # Gear settings
 gear:
@@ -233,7 +222,7 @@ weapon_training:
 skinning:
   skin: true
   arrange_all: false
-  arrange_count: 2
+  arrange_count: 0
   tie_bundle: true
 use_weak_attacks: true
 # priority_defense: Parry Ability
@@ -266,11 +255,12 @@ crossing_training:
 # - Appraisal
 - Athletics
 - Sorcery
-- First Aid
+# - First Aid
 - Outfitting
 - Scholarship
 - Outdoorsmanship
 - Mechanical Lore
+- Locksmithing
 train_workorders:
 - Tailoring
 training_spells:
@@ -289,7 +279,6 @@ cyclic_training_spells:
     cyclic: true
 cyclic_cycle_skills:
 - Warding
-cambrinth_cap: 50
 favor_goal: 30
 favor_god: Kertigen
 water_holder: chalice

@@ -41,16 +41,19 @@ hunting_buddies:
 - Jezzail
 - Zharen
 - Zharyn
-- Kawill
+- Demeterus
+- Cresida
+- Remu
+- Wanz
+- Serature
 - Tebaud
 - Elegoth
 - Abius
 - Atere
 - Oratesen
-- Demeterus
-- Cresida
-- Remu
-- Wanz
+- Lhind
+- Phoerne
+- Tamfell
 
 gear:
 - :adjective: ring
@@ -269,7 +272,7 @@ crossing_training:
 # - Athletics
 - Outfitting
 # - First Aid
-# - Engineering
+- Engineering
 - Outdoorsmanship
 - Mechanical Lore
 # - Scholarship
@@ -277,7 +280,7 @@ crossing_training:
 lockpick_dismantle: bash
 train_workorders:
 - Blacksmithing
-- Tailoring
+# - Tailoring
 - Shaping
 forging_tools:
 - ball-peen hammer
@@ -302,6 +305,7 @@ status_monitor_no_window: true
 bankbot_deposit_threshold: 0
 repair_every: 3
 repair_timer:
+dump_junk: true
 
 # From UserVars
 engineering_room:
