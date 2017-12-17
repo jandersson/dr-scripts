@@ -142,12 +142,13 @@ class SafeRoom
     walk_to room_id
     return false unless DRRoom.pcs.include?(empath)
 
-    # fput("whisper #{empath} heal")
+    fput("whisper #{empath} heal") unless empath == 'Vadok'
     fput("listen to #{empath}")
-    Flags.add('doneheal', '"Done!"')
+    Flags.add('doneheal', "#{empath} whispers,")
     24.times do
       pause 5
       break if Flags['doneheal']
+      break if empath == 'Vadok' && check_health.none?
     end
     Flags.delete('doneheal')
 
