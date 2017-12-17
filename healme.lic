@@ -114,7 +114,7 @@ class HealMe
               'appear considerably better\.')
 
     wounds = check_perc_health
-    return if wounds.empty?
+    #return if wounds.empty?
 
     using_waggle = false
     spells = if @settings.waggle_sets['healing']
@@ -126,12 +126,12 @@ class HealMe
     find_cambrinth(@settings.cambrinth, @settings.stored_cambrinth, @settings.cambrinth_cap)
 
     DRCA.cast_spell(spells['Regenerate'], @settings) if spells['Regenerate'] && !DRSpells.active_spells.include?('Regenerate')
-
+    if wounds
     if spells['Heal'] && using_waggle && skip_parts.nil?
       spam_heal(@settings.waggle_sets['healing']['Heal']['mana'], @settings.waggle_sets['healing']['Heal']['cambrinth'])
     elsif @settings.empath_healing['HEAL'] && skip_parts.nil?
       spam_heal(@settings.empath_healing['HEAL'].first, @settings.empath_healing['HEAL'][1..-1])
-    else
+    elsif @settings.empath_healing['HW']
 
       skip_parts = skip_parts.split(',').map(&:upcase).map(&:strip)
 
@@ -149,11 +149,13 @@ class HealMe
 
       wounds.sort_by { |_, val| severity(val) }.reverse_each { |_, wound| heal_wounds(wound, skip_parts) }
     end
-
+    end
     health = check_health
+    echo health
     cure_disease(spells, health)
+    echo "1"
     flush_poisons(spells, health)
-
+    echo "2"
     stow_cambrinth(@settings.cambrinth, @settings.stored_cambrinth, @settings.cambrinth_cap)
   end
 end
