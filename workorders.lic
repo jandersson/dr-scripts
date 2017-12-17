@@ -121,6 +121,7 @@ class WorkOrders
 
     complete_work_order(info)
 
+    withdraw_only_coppers(5000, settings.hometown)
     repair_items(info, tools)
   end
 
@@ -258,7 +259,8 @@ class WorkOrders
   end
 
   def shape_items(info, item, quantity)
-    ensure_copper_on_hand(5000, @hometown)
+    withdraw_only_coppers(5000, @hometown)
+    # ensure_copper_on_hand(5000, @hometown)
     recipe, items_per_stock, spare_stock, scrap = find_recipe(info, item, quantity)
 
     quantity.times do |count|
