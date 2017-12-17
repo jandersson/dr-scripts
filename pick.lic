@@ -14,42 +14,52 @@ class LockPicker
   def initialize
     setup
 
+   
+    if @pets_to_keep && count_boxes > 0 
+      pet_count = count_boxes('pack')
+      pets_needed = @pets_to_keep - pet_count
+      pets_needed.times { fput('stow box') }
+    end
+
     boxes = get_boxes(@settings.picking_box_source) if @settings.picking_box_source
-    if boxes.nil? || boxes.empty?
-      check_pet_boxes(@settings.picking_pet_box_source)
-      return
-    end
+    
+    if !boxes.nil? && !boxes.empty?
+      @equipment_manager = EquipmentManager.new
 
-    @equipment_manager = EquipmentManager.new
+      @equipment_manager.empty_hands
 
-    @equipment_manager.empty_hands
+      removed_items = @equipment_manager.remove_gear_by(&:hinders_lockpicking)
 
-    removed_items = @equipment_manager.remove_gear_by(&:hinders_lockpicking)
-
-    if left_hand || right_hand
-      echo '***ITEMS ARE STILL IN HANDS, EXITING***'
-      @equipment_manager.wear_items(removed_items)
-      return
-    end
-
-    lockpick_buffs = @settings.lockpick_buffs
-
-    fput 'sit'
-
-    do_buffs(lockpick_buffs)
-
-    boxes.each do |box|
-      if stop_picking?
-        echo '***STOPPING DUE TO MINDLOCK***'
-        break
+      if left_hand || right_hand
+        echo '***ITEMS ARE STILL IN HANDS, EXITING***'
+        @equipment_manager.wear_items(removed_items)
+        return
       end
-      attempt_open(box)
-      break if @make_pets && @pet_count >= @pet_goal
+
+      lockpick_buffs = if @settings.waggle_sets['pick']
+                         @settings.waggle_sets['pick']
+                       else
+                         @settings.lockpick_buffs
+                       end
+
+      fput 'sit'
+
+      do_buffs(lockpick_buffs)
+
+      boxes.each do |box|
+        if stop_picking?
+          echo '***STOPPING DUE TO MINDLOCK***'
+          break
+        end
+        attempt_open(box)
+        break if @make_pets && @pet_count >= @pet_goal && @skip_training
+      end
+
+      fix_standing
+      @equipment_manager.wear_items(removed_items)
+
     end
-
-    fix_standing
-    @equipment_manager.wear_items(removed_items)
-
+    check_pet_boxes(@settings.picking_pet_box_source)
     if lockpick_buffs['khri']
       lockpick_buffs['khri'].each { |name| fput("khri stop #{name}") }
     end
@@ -121,11 +131,23 @@ class LockPicker
 
     args = parse_args(arg_definitions, true)
 
-    @make_pets = args.pets
-    @pet_goal = args.count.to_i
+    @settings = get_settings(args.flex)
+    @pets_to_keep = @settings.number_of_pets_to_keep_on_hand
+    echo "@pets_to_keep: #{@pets_to_keep}"
+    if @pets_to_keep
+      @pets_on_hand = count_boxes('pack')
+      echo "@pets_on_hand #{@pets_on_hand}"
+      @pets_to_convert = @pets_to_keep - @pets_on_hand
+    end
+
+    @skip_training = args.pets ? true : false
+    echo "@skip_training: #{@skip_training}"
+    @make_pets = args.pets || @pets_to_convert
+    echo "@make_pets: #{@make_pets}"
+    @pet_goal = @pets_to_convert || args.count.to_i
+    echo "@pet_goal: #{@pet_goal}"
     @pet_count = 0
 
-    @settings = get_settings(args.flex)
     @harvest_traps = !@make_pets && @settings.harvest_traps
     @stop_pick_on_mindlock = !@make_pets && @settings.stop_pick_on_mindlock
     @loot_nouns = @settings.lootables
@@ -171,9 +193,13 @@ class LockPicker
       fput("whisper #{@settings.lockpick_buff_bot} buff hol")
     end
 
-    buffs['spells'].each do |spell|
-      echo "Buffing: #{spell}" if UserVars.lockpick_debug
-      buff(spell, @settings)
+    if @settings.waggle_sets['pick']
+      cast_spells(buffs)
+    else
+      buffs['spells'].each do |spell|
+        echo "Buffing: #{spell}" if UserVars.lockpick_debug
+        buff(spell, @settings)
+      end
     end
 
     buffs['khri']
@@ -211,7 +237,7 @@ class LockPicker
       return
     end
 
-    if @make_pets
+    if @make_pets && @pet_count < @pet_goal
       case bput("put my #{box} in my #{@settings.picking_pet_box_source}", 'You put your', "You just can\'t get", "There isn\'t any more")
       when "You just can\'t get", "There isn\'t any more"
         bput("put my #{box} in my #{@settings.picking_box_source}", 'You put your')
@@ -356,6 +382,7 @@ class LockPicker
       beep
       fput('stow left') if checkleft
       fput('stow right') if checkright
+      refill_ring
       exit
     end
   end
