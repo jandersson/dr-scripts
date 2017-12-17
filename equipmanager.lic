@@ -319,7 +319,7 @@ class EquipmentManager
                    when /stave/i
                      '(short|quarter) staff'
                    when /polearms/i
-                     'halberd'
+                     '(halberd|pike)'
                    when /ow|offhand weapon/i
                      return
                    else
@@ -338,7 +338,7 @@ class EquipmentManager
   end
 
   def unload_weapon(name)
-    result = bput("unload my #{name}", 'You unload', 'Your .* falls from', 'As you release the string')
+    result = bput("unload my #{name}", 'You unload', 'Your .* fall.* from', 'As you release the string')
     waitrt?
     bput('stow left', 'You put') if result == 'You unload'
   end
