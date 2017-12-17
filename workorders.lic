@@ -85,7 +85,7 @@ class WorkOrders
       tools = settings.knitting_tools
       @belt = settings.outfitting_belt
       case item['chapter']
-      when 4, 2
+      when 4, 2, 3
         craft_method = :sew_items
       when 5
         craft_method = :knit_items
@@ -226,7 +226,7 @@ class WorkOrders
           pause 0.5 until Room.current.id
         end
         if bone_carving
-          fput("get my #{info[stock_name]} stack")
+          bput("get my #{info[stock_name]} stack", 'What were', 'You get')
           while bput("count my #{info[stock_name]} stack", 'You count.*\d+', 'I could not').scan(/\d+/).first.to_i < recipe['volume']
             order_item(info['stock-room'], info[stock_number])
             bput('combine', 'combine')
@@ -262,13 +262,18 @@ class WorkOrders
     recipe, items_per_stock, spare_stock, scrap = find_recipe(info, item, quantity)
 
     quantity.times do |count|
-      if (count % items_per_stock).zero?
+      if items_per_stock.zero? || (count % items_per_stock).zero?
         dispose("#{info['stock-name']} lumber") if count > 0 && spare_stock
         if count > 0
           go_door
           pause 0.5 until Room.current.id
         end
-        order_item(info['stock-room'], info['stock-number'])
+        bput("get my #{info['stock-name']} lumber", 'What were', 'You get')
+        while bput("count my #{info['stock-name']} lumber", 'You count.*\d+', 'I could not').scan(/\d+/).first.to_i < recipe['volume']
+          order_item(info['stock-room'], info['stock-number'])
+          bput('combine', 'combine')
+        end
+
         stow_hands
         buy_parts(recipe['part'], info['part-room'])
         find_shaping_room(@hometown, @engineering_room)
@@ -322,10 +327,10 @@ class WorkOrders
     find_sewing_room(@hometown, @outfitting_room)
 
     quantity.times do
-      wait_for_script_to_complete('sew', ['log', 'sewing', recipe['chapter'], recipe['name'], recipe['noun']])
+      wait_for_script_to_complete('sew', ['log', 'sewing', recipe['chapter'], recipe['name'], recipe['noun'], info['sew-stock-name']])
     end
     leftover = (quantity * recipe['volume']) % 10 != 0
-    dispose("#{info['stock-name']} cloth") if leftover
+    dispose("#{info['sew-stock-name']} cloth") if leftover
   end
 
   def knit_items(info, recipe, quantity)
@@ -342,8 +347,10 @@ class WorkOrders
     find_sewing_room(@hometown, @outfitting_room)
 
     quantity.times do
-      wait_for_script_to_complete('sew', ['log', 'knitting', recipe['chapter'], recipe['name'], recipe['noun']])
+      wait_for_script_to_complete('sew', ['log', 'knitting', recipe['chapter'], recipe['name'], recipe['noun'], info['knit-stock-name']])
     end
+    #    leftover = (quantity * recipe['volume']) % 10 != 0
+    dispose("#{info['knit-stock-name']} yarn") # if leftover
   end
 
   def order_rem(stock_room, stock_needed, stock_number)
@@ -676,6 +683,7 @@ class WorkOrders
       case bput("ask #{npc} for #{diff} #{discipline} work", '^To whom', 'order for .* I need \d+ ', 'order for .* I need \d+ stacks \(5 uses each\) of .* quality', 'You realize you have items bundled with the logbook', 'You want to ask about shadowlings')
       when 'You want to ask about shadowlings'
         pause 10
+        fput('say Hmm.')
       when /order for (.*)\. I need (\d+) /
         item = Regexp.last_match(1)
         quantity = Regexp.last_match(2).to_i

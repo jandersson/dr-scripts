@@ -220,7 +220,7 @@ class EquipmentManager
         elsif info.wield
           stow_helper("sheath my #{info.short_name}", info.short_name, 'Sheathing', 'You sheathe', 'You .* unload', 'You secure your', 'You slip', 'You hang', 'You .* strap')
         else
-          stow_helper("stow my #{info.short_name}", info.short_name, 'You put', 'You should unload', 'You easily strap')
+          stow_helper("stow my #{info.short_name}", info.short_name, 'You put', 'You should unload', 'You easily strap', 'You secure your')
         end
         true
       else
@@ -319,7 +319,7 @@ class EquipmentManager
                    when /stave/i
                      '(short|quarter) staff'
                    when /polearms/i
-                     'halberd'
+                     '(halberd|pike)'
                    when /ow|offhand weapon/i
                      return
                    else
@@ -338,7 +338,7 @@ class EquipmentManager
   end
 
   def unload_weapon(name)
-    result = bput("unload my #{name}", 'You unload', 'Your .* falls from', 'As you release the string')
+    result = bput("unload my #{name}", 'You unload', 'Your .* fall.* from', 'As you release the string')
     waitrt?
     bput('stow left', 'You put') if result == 'You unload'
   end
@@ -353,16 +353,16 @@ class EquipmentManager
     weapon = item_by_desc(description)
     return unless weapon
     if weapon.wield
-      stow_helper("sheath my #{weapon.short_name}", weapon.short_name, 'Sheathing', 'You sheathe', 'You .* unload', 'close the fan', 'You secure your', 'You slip', 'You hang', 'You strap')
+      stow_helper("sheath my #{weapon.short_name}", weapon.short_name, 'Sheathing', 'You sheathe', 'You .* unload', 'close the fan', 'You secure your', 'You slip', 'You hang', 'You strap', "You don't seem to be able to move", 'You easily strap')
     elsif weapon.worn
-      stow_helper("wear my #{weapon.short_name}", weapon.short_name, 'You sling', 'You attach', 'You .* unload', 'You slide', 'You place', 'close the fan', 'You hang', 'You spin', 'You strap', 'You carefully loop')
+      stow_helper("wear my #{weapon.short_name}", weapon.short_name, 'You sling', 'You attach', 'You .* unload', 'You slide', 'You place', 'close the fan', 'You hang', 'You spin', 'You strap', 'You carefully loop', "You don't seem to be able to move")
     elsif !weapon.tie_to.nil?
-      stow_helper("tie my #{weapon.short_name} to #{weapon.tie_to}", weapon.short_name, 'You attach', 'close the fan', 'you tie', 'You are a little too busy')
+      stow_helper("tie my #{weapon.short_name} to #{weapon.tie_to}", weapon.short_name, 'You attach', 'close the fan', 'you tie', 'You are a little too busy', "You don't seem to be able to move")
     elsif weapon.transforms_to
       stow_helper("#{weapon.transform_verb} my #{weapon.short_name}", weapon.short_name, weapon.transform_text)
       stow_weapon(weapon.transforms_to)
     else
-      stow_helper("stow my #{weapon.short_name}", weapon.short_name, "You put .*#{weapon.name}", 'You .* unload', 'close the fan', 'You easily strap')
+      stow_helper("stow my #{weapon.short_name}", weapon.short_name, "You put .*#{weapon.name}", 'You .* unload', 'close the fan', 'You easily strap', "You don't seem to be able to move", 'You secure')
     end
   end
 
@@ -376,6 +376,9 @@ class EquipmentManager
       stow_helper(action, weapon_name, accept_strings)
     when /You are a little too busy/
       retreat
+      stow_helper(action, weapon_name, accept_strings)
+    when /You don't seem to be able to move/
+      pause 1
       stow_helper(action, weapon_name, accept_strings)
     end
   end

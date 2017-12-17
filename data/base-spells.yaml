@@ -16,7 +16,7 @@ invoke_messages:
 - almost magically null
 - Kneeling down, you draw the spell pattern's shadow with
 - You make sweeping gestures through the air
-- You lift your (?:staff|abacus|statue) (?:toward|reverently)
+- You lift your \w+ (?:toward|reverently)
 - You reach for their centers
 
 prep_messages:
@@ -256,6 +256,10 @@ barb_abilities:
     start_command: med tenacity
     activated_message: ^You .* to meditate
     expired_message: leaving you vulnerable to physical harm
+  Serenity:
+    start_command: med serenity
+    activated_message: ^You .* to meditate
+    expired_message: leaving you vulnerable to magic
 
 spell_data:
   Abandoned Heart:

@@ -1,18 +1,16 @@
 ---
-# TODO: Divine Guidance (1), Marshal Order (2), Anti-Stun (2), Truffenyi's Rally (2, circle 50)
-
 # Hunting settings
 training_manager_hunting_priority: true
 training_manager_priority_skills:
-- Evasion
-- Parry Ability
-- Shield Usage
-# - Brawling
-# - Crossbow
-# - Twohanded Edged
-# - Large Edged
-# - Heavy Thrown
-# - Polearms
+# - Evasion
+# - Parry Ability
+# - Shield Usage
+- Brawling
+- Crossbow
+- Twohanded Edged
+- Large Edged
+- Heavy Thrown
+- Polearms
 - Large Blunt
 - Twohanded Blunt
 - Light Thrown
@@ -25,22 +23,17 @@ hunting_file_list:
 - back
 hunting_info:
 - :zone: cave_trolls
-# - :zone: rock_guardians
   :duration: 20
-  # args:
-  # - r4
-  # before:
-  # - buff perception
   stop_on:
-  - Evasion
-  - Parry Ability
-  - Shield Usage
-  # - Brawling
-  # - Crossbow
-  # - Twohanded Edged
-  # - Large Edged
-  # - Heavy Thrown
-  # - Polearms
+  # - Evasion
+  # - Parry Ability
+  # - Shield Usage
+  - Brawling
+  - Crossbow
+  - Twohanded Edged
+  - Large Edged
+  - Heavy Thrown
+  - Polearms
 prehunt_buffs: 7958
 waggle_sets:
   prehunt_buffs:
@@ -58,23 +51,30 @@ waggle_sets:
       - 10
       - 10
       - 10
-  perception:
-    Clear Vision:
-      mana: 15
-      cambrinth:
-      - 20
-      - 15
 hunting_buddies:
-- Sheltim
-- Kawill
-- Elegoth
-- Abius
-- Atere
-- Oratesen
+- Bastile
+- Maoyu
+- Byd
+- Rakkor
+- Kaldean
+- Reverence
+- Aurayn
+- Jezzail
+- Zharen
+- Zharyn
 - Demeterus
 - Cresida
 - Remu
 - Wanz
+- Serature
+- Sheltim
+- Elegoth
+- Abius
+- Atere
+- Oratesen
+- Lhind
+- Phoerne
+- Tamfell
 
 gear:
 - :adjective: plate
@@ -190,12 +190,12 @@ offensive_spells:
 buff_spells:
   # Rutilor's Edge:
   #   prep_time: 0
-  # Lay Ward:
-  #   mana: 10
-  #   cambrinth:
-  #   - 10
-  #   - 10
-  #   - 10
+  Lay Ward:
+    mana: 10
+    cambrinth:
+    - 10
+    - 10
+    - 10
   Manifest Force:
     cambrinth:
     - 5
@@ -251,9 +251,21 @@ loot_subtractions:
 - arrows
 - rock
 - rocks
+- coffer
+- strongbox
+- chest
+- caddy
+- trunk
+- casket
+- skippet
+- crate
+- box
 use_weak_attacks: true
-priority_defense: Shield Usage
+# priority_defense: Shield Usage
 health_threshold: 70
+restock:
+  bolt:
+    quantity: 50
 
 training_spells:
   Warding:
@@ -264,25 +276,25 @@ training_spells:
     symbiosis: true
   Utility:
     abbrev: VOS
-  #   symbiosis: true
-# cyclic_training_spells:
-#   Warding:
-#     abbrev: HOW
-#     cyclic: true
-#   Augmentation:
-#     abbrev: TR
-#     cyclic: true
-#   Utility:
-#     abbrev: TR
-#     cyclic: true
-# cyclic_cycle_skills:
-# - Warding
-# - Augmentation
-# - Utility
+    symbiosis: true
+cyclic_training_spells:
+  Warding:
+    abbrev: HOW
+    cyclic: true
+  Augmentation:
+    abbrev: TR
+    cyclic: true
+  Utility:
+    abbrev: TR
+    cyclic: true
+cyclic_cycle_skills:
+- Warding
+- Augmentation
+- Utility
 listen: true
 crossing_training:
 - Perception
-- First Aid
+# - First Aid
 # - Appraisal
 - Warding
 - Augmentation
@@ -290,7 +302,7 @@ crossing_training:
 - Attunement
 - Sorcery
 - Athletics
-- Scholarship
+# - Scholarship
 - Outdoorsmanship
 # tithe: true
 cambrinth: anklet
@@ -303,11 +315,11 @@ favor_god: Chadatru
 favor_goal: 30
 crossing_training_sorcery:
   abbrev: CV
-  mana: 10
+  mana: 15
   cambrinth:
   - 10
   - 10
-  - 5
+  - 10
 
 quit_on_status_warning: true
 braid_item: grass
@@ -316,6 +328,7 @@ status_monitor_no_window: true
 bankbot_deposit_threshold: 0
 repair_every: 3
 repair_timer:
+dump_junk: true
 
 # From UserVars
 crossing_training_sorcery_room:

@@ -1,9 +1,21 @@
 ---
+hunting_info:
+- :zone: rock_guardians
+  :duration: 30
+  before:
+  - release_cyclic
+  stop_on:
+  - Offhand Weapon
+  - Staves
+  - Large Edged
+  - Polearms
+  - Twohanded Edged
+  - Twohanded Blunt
+prehunt_buffs:
+waggle_sets:
+
 # Combat settings
 offensive_spells:
-- name: Breath of Storms
-  mana: 2
-  cast_only_to_train: true
 - name: Damaris' Lullaby
   mana: 6
 - name: Demrris' Resolve
@@ -11,9 +23,35 @@ offensive_spells:
   cambrinth:
   - 1
 buff_spells:
-dance_skill: Small Blunt
+  # Manifest Force:
+  #   mana: 5
+  #   cambrinth:
+  #   - 5
+  Rage of the Clans:
+    mana: 15
+  Drums of the Snake:
+    mana: 15
+  # Harmony:
+  #   mana: 30
+  # Naming of Tears:
+  #   mana: 30
+  # Nexus:
+  #   mana: 30
+dance_skill: Staves
+training_abilities:
+  Hunt: 80
+  Perc: 120
+  Collect: 120
 weapon_training:
-  Small Edged: throwing spike
-  Light Thrown: throwing spike
-  Small Blunt: throwing spike
+  Staves: nightstick
+  Offhand Weapon: throwing spike
+  Large Edged: cinquedea
+  Polearms: javelin
+  Twohanded Edged: greataxe
+  Twohanded Blunt: akabo
+skinning:
+  skin: true
+  arrange_all: false
+  arrange_count: 5
+  tie_bundle: true
 use_weak_attacks: true

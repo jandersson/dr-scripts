@@ -1,13 +1,17 @@
 ---
-#hometown: Shard
+hometown: 
+slack_username: 
+quit_on_status_warning: false
+status_monitor_no_window: true
 favor_god: Urrem'tier
-favor_goal: 10
+favor_goal: 20
 saferoom_health_threshold: 15
-depart_on_death: false
+depart_on_death: false  
 health_threshold: 65
 repair_withdrawal_amount: 30000
-repair_every: 3
-repair_timer:
+repair_timer: 21600 # Repair once every 6 hours
+repair_every: .inf # Infinity
+dump_junk: true
 
 training_manager_hunting_priority: false
 training_manager_priority_skills:
@@ -17,53 +21,41 @@ training_manager_priority_skills:
 - Heavy Thrown
 - Bow
 hunting_file_list:
- - setup
- #- getboxes
  - stealth
+ - setup
 hunting_info:
 - :zone:
-  - lava_drakes
-  - lava_drakes
+  - archons
+  - archons
+  #- cabalist
+  - fuligin_moths
+  - fuligin_moths
   args:
   - d0
-  :duration: 90
+  :duration: 60
   stop_on:
   - Twohanded Blunt
   - Light Thrown
-  - Large Edged
-  - Heavy Thrown
-  - Evasion
-  - Shield Usage
-  - Defending
-  - Parry Ability
-  before:
-  #- steal
-  - go2 7301
-  - bitchin-pick pets 2
-  - bitchin-pick
-  - athletics
-  - go2 1259
-  #- go2 6442
-  - set-attack 100 95
-  - gird
   after:
-  - go2 1259
+  - go2 
   - rem
 
+warhorn: kertig warhorn
 gear_sets:
   standard:
-  - round sipar
+  - small shield
   - black leathers
-  - black gloves
-  - silverweave cowl
+  - padded gloves
+  - padded hood
+  - padded mask
   - spiked knuckles
-  - parry stick
+  - pugilist armguard
   - knee spikes
   - elbow spikes
   - stomping boots
   stealing:
   - spiked knuckles
-  - parry stick
+  - pugilist armguard
   - knee spikes
   - elbow spikes
   naked: []
@@ -73,10 +65,12 @@ cycle_armors:
   Brigandine:
   - scale balaclava
   Light Armor:
-  - silverweave cowl
+  - padded hood
+  - padded mask
   Chain Armor:
   - chain balaclava
 
+# Combat settings
 training_abilities:
   Hunt: 180
   App Quick: 240
@@ -84,13 +78,13 @@ training_abilities:
 weapon_training:
   Brawling: ''
   Polearms: allarh
-  Small Edged: throwing axe
-  Large Edged: battle axe
+  Small Edged: cutlass
+  Large Edged: sterak axe
   Small Blunt: war hammer
   Large Blunt: throwing hammer
   Staves: nightstick
   Twohanded Blunt: kertig maul
-  Twohanded Edged: massive greataxe
+  Twohanded Edged: greatsword
   Bow: nisha shortbow
   Crossbow: forester stonebow
   Heavy Thrown: throwing hammer
@@ -99,7 +93,8 @@ weapon_training:
 performance_monitor_weapons:
   - kertig maul
   - throwing axe
-  - battle axe
+  - cutlass
+  - sterak axe
 dual_load: true
 use_barb_combos: true
 use_weak_attacks: false
@@ -115,17 +110,21 @@ combat_trainer_action_count: 10
 dance_skill: Twohanded Blunt
 use_stealth_attacks: false
 priority_defense: Parry Ability
+skip_last_kill: false
 
-# Combat settings
 buff_nonspells:
   roar quiet wail: 120
   barb_buffs:
+  #- Serenity
   - Contemplation
+  #- Turtle
   - Python
   - Piranha
   - Eagle
   - Dragon
   - Monkey
+  #- Swan
+  - Famine
   - Tornado
   - Earthquake
   - Wildfire
@@ -134,7 +133,10 @@ buff_nonspells:
 
 # ------- NON-COMBAT SETTINGS -------#
 crossing_training:
-  #- Forging
+ #- Locksmithing
+ #- Athletics
+ #- First Aid
+ #- Forging
 
 storage_containers:
 - weapon tote
@@ -142,11 +144,14 @@ storage_containers:
 - hide haversack
 
 footwear: boots
+textbook: true
+textbook_type: textbook
 
 hide_to_steal: false
 listen: true
-safe_room: &safe_room Roomnumber
-
+safe_room: &safe_room 
+safe_room_id: *safe_room
+safe_room_empath: 
 
 sell_loot_pouch: false
 gem_pouch_adjective: suede
@@ -159,10 +164,11 @@ skip_lockpick_ring_refill: false
 lockpick_ignore_diffi1culty: false
 stop_pick_on_mindlock: true
 harvest_traps: false
+picking_pet_boxes_on_hand: 5
 picking_pet_box_source: hide haversack
 picking_box_source: hunting pack
 picking_box_storage: hunting pack
-lockpick_type: stout #iron
+lockpick_type: stout iron
 lockpick_dismantle: bash
 lockpick_buffs:
   meditate:
@@ -220,6 +226,15 @@ skinning:
   arrange_count: 0
   tie_bundle: true
 loot_subtractions:
+- coffer
+- strongbox
+- chest
+- caddy
+- trunk
+- casket
+- skippet
+- crate
+- box
 - rock
 - rocks
 - arrow
@@ -239,10 +254,12 @@ loot_specials:
   bag: weapon tote
 - name: kyanite stones
   bag: weapon tote
+hunting_buddies:
 ignored_npcs:
 - Brokk # black goblin area
 - great owl
 - owl
+- leopard
 
 empty_hunting_room_messages:
 - Chuno's here to bust heads, who's here to stop him?
@@ -259,27 +276,32 @@ aim_fillers:
   - bob
   - gouge
   - gouge
-  - gouge
+  - circle
   Bow:
   - bob
   - gouge
   - gouge
-  - gouge
+  - circle
   Slings:
   - bob
   - gouge
   - gouge
-  - gouge
+  - circle
 
 gear:
 #ARMOR
-- :adjective: round
-  :name: sipar
-  :is_leather: false
+- :adjective: small
+  :name: shield
+  :is_leather: true
   :hinders_lockpicking: true
   :is_worn: true
-- :adjective: silverweave
-  :name: cowl
+- :adjective: padded
+  :name: hood
+  :is_leather: true
+  :hinders_lockpicking: true
+  :is_worn: true
+- :adjective: padded
+  :name: mask
   :is_leather: true
   :hinders_lockpicking: true
   :is_worn: true
@@ -300,14 +322,14 @@ gear:
   :is_leather: true
   :hinders_lockpicking: true
   :is_worn: true
-- :adjective: black
+- :adjective: padded
   :name: gloves
   :is_leather: true
   :hinders_lockpicking: true
   :is_worn: true
 #BRAWLING
-- :adjective: parry
-  :name: stick
+- :adjective: pugilist
+  :name: armguard
   :hinders_lockpicking: false
   :is_worn: true
 - :adjective: knee
@@ -328,6 +350,12 @@ gear:
   :hinders_lockpicking: false
   :is_worn: true
 #WEAPONS
+- :adjective: battle
+  :name: longbow
+  :is_leather: true
+  :hinders_lockpicking: false
+  :is_worn: false
+  :wield: true
 - :adjective: nisha
   :name: shortbow
   :is_leather: true
@@ -345,43 +373,26 @@ gear:
   :is_leather: true
   :hinders_lockpicking: false
   :is_worn: false
-  :swappable: false
   :wield: true
 - :adjective: 
   :name: nightstick
   :hinders_lockpicking: false
   :is_worn: false
-  :swappable: false
   :wield: true
 - :adjective: war
   :name: hammer
   :hinders_lockpicking: false
   :is_worn: false
-  :swappable: false
   :wield: true
-- :adjective: massive
-  :name: greataxe
+- :adjective:
+  :name: greatsword
   :hinders_lockpicking: false
   :is_worn: false
-  :swappable: false
   :wield: true
-- :adjective: bastard
-  :name: sword
-  :hinders_lockpicking: false
-  :is_worn: false
-  :swappable: false
-  :wield: true
-- :adjective: bar
-  :name: mace
-  :hinders_lockpicking: false
-  :is_worn: false
-  :swappable: false
-  :wield: true
-- :adjective: battle
+- :adjective: sterak
   :name: axe
   :hinders_lockpicking: false
   :is_worn: false
-  :swappable: false
   :wield: true
 - :adjective:
   :name: allarh
@@ -418,6 +429,13 @@ gear:
   :swappable: false
   :wield: true
   :lodges: false
+- :adjective:
+  :name: cutlass
+  :hinders_lockpicking: false
+  :is_worn: false
+  :swappable: false
+  :wield: true
+  :lodges: false
 - :adjective: silver-plated
   :name: bola
   :is_leather: true
@@ -430,3 +448,7 @@ gear:
 #Personal Script Settings
 thrown_item: saucer
 thrown_container: forage sack
+
+# FOR SHAME ON ME!
+scroll_stackers:
+- folio
