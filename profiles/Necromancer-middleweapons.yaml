@@ -105,9 +105,19 @@ necromancer_healing:
     mana: 20
     cambrinth:
     - 10
+<<<<<<< HEAD
 thanatology:
   ritual_type: 
   heal: true
+=======
+
+thanatology:
+  ritual_type: harvest
+  heal: true
+  store: true
+  harvest_container: back
+  harvest_count: 5
+>>>>>>> origin/patch-1
 
 skinning:
   skin: true

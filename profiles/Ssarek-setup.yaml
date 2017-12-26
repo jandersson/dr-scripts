@@ -1,6 +1,11 @@
 ---
+<<<<<<< HEAD
 #hometown: Shard
 slack_username: #####
+=======
+hometown: 
+slack_username: 
+>>>>>>> origin/patch-1
 quit_on_status_warning: false
 status_monitor_no_window: true
 favor_god: Hav'roth
@@ -9,47 +14,53 @@ saferoom_health_threshold: 15
 depart_on_death: false
 health_threshold: 30
 repair_withdrawal_amount: 30000
-repair_every: 3
-repair_timer:
+repair_timer: 86400 # Repair once every 24 hours
+repair_every: .inf # Infinity
 
 training_manager_hunting_priority: true
 training_manager_priority_skills:
 - Targeted Magic
 - Empathy
+- Evasion
 hunting_file_list:
-#- weapons
-#- setup
-#- evasion
+- setup
+- weapons
 hunting_info:
 - :zone:
-  - orc_raiders2
-  - orc_raiders2
+  - mountain_giants
+  - mountain_giants
   args:
   - d4
-  :duration: 50
+  :duration: 30
   stop_on:
   - Empathy
   - Debilitation
   - Stealth
   - Targeted Magic
   before:
+<<<<<<< HEAD
   #- athletics
   #- attunement
   #- go2 ####
   #- bitchin-pick pets 1
   #- bitchin-pick
   - go2 ####
+=======
+  - athletics
+  - go2 
+  - rem regen
+>>>>>>> origin/patch-1
   - buff prebuff
-  #- rem abs
 - :zone:
-  - orc_raiders2
-  - orc_raiders2
+  - mountain_giants
+  - mountain_giants
   args:
   - d4
   - evasion
   :duration: 10
   stop_on:
   - Evasion
+<<<<<<< HEAD
   after:
   - safe-room
   #- sloot crossing
@@ -57,9 +68,17 @@ hunting_info:
   #- bitchin-pick pets 1
   - first-aid
   - first-aid
+=======
+  #after:
+  # - sloot crossing
+  # - go2 
+  # - bitchin-pick
+  # - first-aid
+>>>>>>> origin/patch-1
 
 gear_sets:
   standard:
+  - steel scythe
   - small shield
   - padded hood
   - padded mask
@@ -69,110 +88,116 @@ gear_sets:
   - steel knuckles
   - elbow spikes
   stealing:
+  - steel scythe
   - parry stick
   - steel knuckles
   - elbow spikes
   naked: []
 
 offensive_spells:
-# - skill: Debilitation
-#   name: Lethargy
-#   abbrev: LETHARGY
-#   cast_only_to_train: true
-#   harmless: true
-#   mana: 5
 - skill: Debilitation
-  name: Nissa's Binding
-  abbrev: NB
+  name: Lethargy
+  abbrev: lethargy
+  max_threshold: 1
   cast_only_to_train: true
-  cast: cast creature
   harmless: true
   mana: 10
+  cambrinth:
+  - 10
+- skill: Debilitation
+  name: Nissa's Binding
+  abbrev: nb
+  cast_only_to_train: true
+  min_threshold: 2
+  cast: cast creature
+  harmless: true
+  mana: 15
 - skill: Sorcery
   name: Tingle
-  abbrev: TI
+  abbrev: ti
   cast_only_to_train: true
   harmless: true
-  mana: 9
-# - skill: Sorcery
-#   name: Anther's Call
-#   abbrev: ANC
-#   cast_only_to_train: true
-#   harmless: true
-#   mana: 12
-# - skill: Targeted Magic
-#   name: Paralysis
-#   abbrev: PARALYSIS
-#   cast_only_to_train: true
-#   harmless: true
-#   mana: 5
+  mana: 13
 
 buffs: &buffs
-  Manifest Force:
-    abbrev: MAF
-    recast: 1
-    expire: losing much of its mass under the force of the attack
-    mana: 5
-    cambrinth:
-    - 5
-  Aggressive Stance:
-    abbrev: AGS
-    recast: 3
-    mana: 10
-    cambrinth:
-    - 25
-    - 25
   Iron Constitution:
-    abbrev: IC
-    recast: 3
-    mana: 10
+    abbrev: ic
+    recast: 2
+    mana: 15
     cambrinth:
-    - 25
-    - 25
-  Earth Meld:
-    skill: Augmentation
-    abbrev: EM
-    recast: 3
-    mana: 10
+    - 20
+    - 20
+    - 20
+  Aggressive Stance:
+    abbrev: ags
+    recast: 2
+    mana: 20
     cambrinth:
-    - 25
-    - 25
-  Mental Focus:
-    abbrev: MEF
-    recast: 1
-    mana: 10
-    cambrinth:
-    - 25
-    - 25
+    - 20
+    - 20
+    - 20
+  # Earth Meld:
+  #   skill: Augmentation
+  #   abbrev: EM
+  #   recast: 2
+  #   mana: 20
+  #   cambrinth:
+  #   - 20
+  #   - 20
+  #   - 20
+  # Mental Focus:
+  #   abbrev: MEF
+  #   recast: 1
+  #   mana: 20
+  #   cambrinth:
+  #   - 20
+  #   - 20
+  #   - 20
   Vigor:
-    abbrev: VIGOR
+    abbrev: vigor
     recast: 1
-    mana: 15
+    mana: 20
     cambrinth:
-    - 10
-    - 10
-    - 10
+    - 20
+    - 20
   Tranquility:
-    abbrev: TRANQ
+    abbrev: tranq
     recast: 1
-    mana: 15
+    mana: 20
     cambrinth:
-    - 10
-    - 10
-    - 10
+    - 20
+    - 15
 
 buff_spells: &buff_spells
   Guardian Spirit:
-    abbrev: GS
+    abbrev: gs
     mana: 6
     recast: 0
     cyclic: true
     cast: CAST CUSTOM
     command: WARRIOR TO BEHAVIOR AGGRESSIVE
-    expire: suddenly appears less real
+    expire: appears suddenly less real
   << : *buffs
 
-manipulate_threshold: 1
+combat_spell_training:
+  Warding:
+    abbrev: maf
+    symbiosis: true
+    cast: cast
+    mana: 15
+  Augmentation:
+    abbrev: refresh
+    symbiosis: true
+    cast: cast
+    mana: 18
+  Utility:
+    abbrev: hw
+    symbiosis: true
+    cast: cast chest
+    mana: 15
+
+skip_last_kill: true
+manipulate_threshold: 2
 priority_defense: Evasion
 use_stealth_attacks: true
 dont_stalk: true
@@ -180,7 +205,7 @@ use_weak_attacks: true
 training_abilities:
   Hunt: 180
   Stealth: 20
-  Perc: 120
+  Perc: 61
   App Quick: 60
   Analyze: 120
   Perc Health: 120
@@ -197,9 +222,9 @@ dance_actions:
 
 crossing_training:
 - Athletics
-- Locksmithing
+#- Locksmithing
 - First Aid
-- Thievery
+#- Thievery
 - Warding
 - Augmentation
 - Utility
@@ -207,7 +232,6 @@ crossing_training:
 - Outdoorsmanship
 - Engineering
 - Outfitting
-- Forging
 - Mechanical Lore
 
 listen: true
@@ -215,38 +239,48 @@ train_with_spells: true
 training_spells:
   Warding:
     symbiosis: true
-    abbrev: IC
+    abbrev: maf
   Augmentation:
     symbiosis: true
-    abbrev: REFRESH
+    abbrev: refresh
   Utility:
-    abbrev: HW
+    abbrev: hw
     symbiosis: true
     cast: cast chest
 use_research: false
-cambrinth: armband
+use_harness_when_arcana_locked: true
+dedicated_camb_use: spell
+cambrinth: steel scythe
 stored_cambrinth: false
 prep_scaling_factor: .85
-cambrinth_cap: 50
+cambrinth_cap: 200
 
 textbook: true
-textbook_type: textbook
+textbook_type: weighty tome
 
 listen: true
 listen_observe: true
+<<<<<<< HEAD
 safe_room: &safe_room ####
 
+=======
+safe_room: &safe_room  
+
+footwear: boots
+>>>>>>> origin/patch-1
 climbing_target: undergondola_pit
 hide_to_steal: false
 bin_stolen: false
 hand_armor: padded gloves
+dump_junk: true
 braid_item: grass
 
+picking_pet_boxes_on_hand: 13
 picking_pet_box_source: satchel
 skip_lockpick_ring_refill: false
 picking_box_source: pack
 picking_box_storage: pack
-lockpick_type: stout #iron
+lockpick_type: stout iron
 stop_pick_on_mindlock: true
 lockpick_dismantle:
 lockpick_ignore_difficulty: false
@@ -290,10 +324,17 @@ storage_containers:
 - satchel
 - bag
 
+<<<<<<< HEAD
 full_pouch_container: pack
 appraisal_training:
   - pouches
   - gear
+=======
+full_pouch_container: bag
+appraisal_training:
+  - pouches
+  #- gear
+>>>>>>> origin/patch-1
 
 waggle_sets:
   default:
@@ -302,64 +343,78 @@ waggle_sets:
     << : *buffs
   gol: &gol
     Gift of Life:
-      abbrev: GOL
+      abbrev: gol
       mana: 5
       recast: 1
       mana: 10
       cambrinth:
-      - 25
-      - 25
+      - 20
+      - 15
+      - 15
   weapons:
-    Manifest Force:
-      abbrev: MAF
-      recast: 2
-      prep_time: 8
-      expire: losing much of its mass under the force of the attack
+    # Manifest Force:
+    #   abbrev: MAF
+    #   recast: 2
+    #   prep_time: 8
+    #   expire: losing much of its mass under the force of the attack
+    #   mana: 5
+    #   cambrinth:
+    #   - 5
+    Refresh: 
+      abbrev: refresh
       mana: 5
       cambrinth:
-      - 5
-    Refresh: 
-      abbrev: REFRESH
-      mana: 50
-      cambrinth:
-      - 25
-      - 25
-    Mental Focus:
-      abbrev: MEF
-      recast: 1
-      mana: 10
-      cambrinth:
-      - 25
-      - 25
-    Vigor:
-      abbrev: VIGOR
-      recast: 1
-      mana: 15
-      cambrinth:
-      - 10
-      - 10
-      - 10
+      - 20
+      - 20
+      - 20 
+      - 20
+      - 15
+    # Mental Focus:
+    #   abbrev: MEF
+    #   recast: 1
+    #   mana: 10
+    #   cambrinth:
+    #   - 25
+    #   - 25
+    # Vigor:
+    #   abbrev: VIGOR
+    #   recast: 1
+    #   mana: 15
+    #   cambrinth:
+    #   - 10
+    #   - 10
+    #   - 10
   heal:
     Mental Focus:
-      abbrev: MEF
+      abbrev: mef
       mana: 10
       cambrinth:
-      - 25
-      - 25
+      - 20
+      - 20
+      - 10
     << : *gol
   abs:
     Absolution:
-      abbrev: ABS
+      abbrev: abs
       ritual: true
-      recast: 35
-      mana: 365
+      recast: 65
+      mana: 420
       focus: tree statuette
       worn_focus: false
   town-training:
     Regenerate:
-      abbrev: REGEN
+      abbrev: regen
       cyclic: true
       mana: 10
+  cos:
+    Circle of Sympathy:
+      abbrev: cos
+      ritual: true
+      recast: 99
+      mana: 420
+      focus: tree statuette
+      worn_focus: false
+
 gear:
 # ARMOR
 - :adjective: small
@@ -402,7 +457,7 @@ gear:
 #BRAWLING
 - :adjective: parry
   :name: stick
-  :hinders_lockpicking: false
+  :hinders_lockpicking: true
   :is_worn: true
 - :adjective: steel
   :name: knuckles
@@ -410,9 +465,12 @@ gear:
   :is_worn: true
 - :adjective: elbow
   :name: spikes
-  :hinders_lockpicking: false
+  :hinders_lockpicking: true
   :is_worn: true
 #WEAPONS
+- :adjective: steel
+  :name: scythe
+  :is_worn: true
 - :adjective: 
   :name: bola
   :hinders_lockpicking: false
@@ -464,12 +522,12 @@ skinning:
 loot_additions:
 - shard
 - shards
-- cougar arrow
-- cougar arrows
+- barbed arrow
+- barbed arrows
 loot_subtractions:
-- coffer
-- strongbox
-- chest
+#- coffer
+#- strongbox
+#- chest
 - caddy
 - trunk
 - casket
@@ -482,16 +540,21 @@ loot_subtractions:
 - arrows
 - bolt
 - bolts
+<<<<<<< HEAD
+=======
+hunting_buddies:
+>>>>>>> origin/patch-1
 
 empath_healing:
   # FOC:
   # - 30
   HEAL:
-  - 15
-  - 5
+  - 20
+  - 20
+  - 20
   VH:
-  - 15
-  - 5
+  - 20
+  - 20
   # HW:
   # - 15
   # - 15
@@ -499,6 +562,7 @@ empath_healing:
   # - 15
   # - 15
 
+<<<<<<< HEAD
   # T2 Settings
 training_list:
 - skill: Athletics
@@ -532,6 +596,8 @@ training_list:
   - go2 6366
   - mechlore
 
+=======
+>>>>>>> origin/patch-1
 ignored_npcs:
 - warrior
 - Owl

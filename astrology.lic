@@ -51,19 +51,12 @@ class Astrology
     return unless settings.waggle_sets['astrology']
 
     @equipment_manager.empty_hands
-    buffs = settings.waggle_sets['astrology']
     # Pop out rtr data from buffs and save it for later
     buffs = settings.waggle_sets['astrology']
     @rtr_data = buffs.select { |spell| spell.eql?('Read the Ripples') }
                      .values
                      .first
-    @pg_data = buffs.select { |spell| spell.eql?('Piercing Gaze') }
-                    .values
-                    .first
     buffs.reject! { |spell| spell.eql?('Read the Ripples') }
-    @pg_data = buffs.select { |spell| spell.eql?('Piercing Gaze') }
-                    .values
-                    .first
     cast_spells(buffs, settings)
   end
 
@@ -190,10 +183,10 @@ class Astrology
     }
 
     pools.reject { |_skill, size| (size < @prediction_pool_target) }
-      .each_key do |skill| 
-        break if DRSkill.getxp('Astrology') > 30
-        align(skillset_to_pool[skill]) 
-      end
+         .each_key do |skill|
+      break if DRSkill.getxp('Astrology') > 30
+      align(skillset_to_pool[skill])
+    end
   end
 
   def check_heavens

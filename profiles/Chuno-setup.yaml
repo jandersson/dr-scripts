@@ -1,6 +1,11 @@
 ---
+<<<<<<< HEAD
 hometown: #####
 slack_username: #####
+=======
+hometown: 
+slack_username: 
+>>>>>>> origin/patch-1
 quit_on_status_warning: false
 status_monitor_no_window: true
 favor_god: Urrem'tier
@@ -9,8 +14,9 @@ saferoom_health_threshold: 15
 depart_on_death: false  
 health_threshold: 65
 repair_withdrawal_amount: 30000
-repair_every: 3
-repair_timer:
+repair_timer: 21600 # Repair once every 6 hours
+repair_every: .inf # Infinity
+dump_junk: true
 
 training_manager_hunting_priority: false
 training_manager_priority_skills:
@@ -20,11 +26,16 @@ training_manager_priority_skills:
 - Heavy Thrown
 - Bow
 hunting_file_list:
+<<<<<<< HEAD
  - setup
  #- getboxes # COMMENT THE AFTER: - REM IF USING THIS!
+=======
+>>>>>>> origin/patch-1
  - stealth
+ - setup
 hunting_info:
 - :zone:
+<<<<<<< HEAD
   - fuligin_moths
   - fuligin_moths
   - lava_drakes
@@ -50,14 +61,31 @@ hunting_info:
   - buffbarb
   after:
   - go2 ####
+=======
+  - archons
+  - archons
+  #- cabalist
+  - fuligin_moths
+  - fuligin_moths
+  args:
+  - d0
+  :duration: 60
+  stop_on:
+  - Twohanded Blunt
+  - Light Thrown
+  after:
+  - go2 
+>>>>>>> origin/patch-1
   - rem
 
+warhorn: kertig warhorn
 gear_sets:
   standard:
   - small shield
   - black leathers
-  - black gloves
-  - silverweave cowl
+  - padded gloves
+  - padded hood
+  - padded mask
   - spiked knuckles
   - pugilist armguard
   - knee spikes
@@ -65,7 +93,7 @@ gear_sets:
   - stomping boots
   stealing:
   - spiked knuckles
-  - parry stick
+  - pugilist armguard
   - knee spikes
   - elbow spikes
   naked: []
@@ -75,10 +103,12 @@ cycle_armors:
   Brigandine:
   - scale balaclava
   Light Armor:
-  - silverweave cowl
+  - padded hood
+  - padded mask
   Chain Armor:
   - chain balaclava
 
+# Combat settings
 training_abilities:
   Hunt: 180
   App Quick: 240
@@ -92,7 +122,7 @@ weapon_training:
   Large Blunt: throwing hammer
   Staves: nightstick
   Twohanded Blunt: kertig maul
-  Twohanded Edged: massive greataxe
+  Twohanded Edged: greatsword
   Bow: nisha shortbow
   Crossbow: forester stonebow
   Heavy Thrown: throwing hammer
@@ -118,8 +148,8 @@ combat_trainer_action_count: 10
 dance_skill: Twohanded Blunt
 use_stealth_attacks: false
 priority_defense: Parry Ability
+skip_last_kill: false
 
-# Combat settings
 buff_nonspells:
   roar quiet wail: 120
   barb_buffs:
@@ -131,6 +161,8 @@ buff_nonspells:
   - Eagle
   - Dragon
   - Monkey
+  #- Swan
+  - Famine
   - Tornado
   - Earthquake
   - Wildfire
@@ -139,6 +171,12 @@ buff_nonspells:
 
 # ------- NON-COMBAT SETTINGS -------#
 crossing_training:
+<<<<<<< HEAD
+=======
+ #- Locksmithing
+ #- Athletics
+ #- First Aid
+>>>>>>> origin/patch-1
  #- Forging
 
 storage_containers:
@@ -148,11 +186,21 @@ storage_containers:
 
 footwear: boots
 textbook: true
+<<<<<<< HEAD
 textbook_type: codex
 
 hide_to_steal: false
 listen: true
 safe_room: &safe_room ####
+=======
+textbook_type: textbook
+
+hide_to_steal: false
+listen: true
+safe_room: &safe_room 
+safe_room_id: *safe_room
+safe_room_empath: 
+>>>>>>> origin/patch-1
 
 sell_loot_pouch: false
 gem_pouch_adjective: suede
@@ -165,6 +213,7 @@ skip_lockpick_ring_refill: false
 lockpick_ignore_diffi1culty: false
 stop_pick_on_mindlock: true
 harvest_traps: false
+picking_pet_boxes_on_hand: 5
 picking_pet_box_source: hide haversack
 picking_box_source: hunting pack
 picking_box_storage: hunting pack
@@ -226,6 +275,15 @@ skinning:
   arrange_count: 0
   tie_bundle: true
 loot_subtractions:
+- coffer
+- strongbox
+- chest
+- caddy
+- trunk
+- casket
+- skippet
+- crate
+- box
 - rock
 - rocks
 - arrow
@@ -245,11 +303,16 @@ loot_specials:
   bag: weapon tote
 - name: kyanite stones
   bag: weapon tote
+<<<<<<< HEAD
 
+=======
+hunting_buddies:
+>>>>>>> origin/patch-1
 ignored_npcs:
 - Brokk # black goblin area
 - great owl
 - owl
+- leopard
 
 empty_hunting_room_messages:
 - Chuno's here to bust heads, who's here to stop him?
@@ -285,8 +348,13 @@ gear:
   :is_leather: true
   :hinders_lockpicking: true
   :is_worn: true
-- :adjective: silverweave
-  :name: cowl
+- :adjective: padded
+  :name: hood
+  :is_leather: true
+  :hinders_lockpicking: true
+  :is_worn: true
+- :adjective: padded
+  :name: mask
   :is_leather: true
   :hinders_lockpicking: true
   :is_worn: true
@@ -307,7 +375,7 @@ gear:
   :is_leather: true
   :hinders_lockpicking: true
   :is_worn: true
-- :adjective: black
+- :adjective: padded
   :name: gloves
   :is_leather: true
   :hinders_lockpicking: true
@@ -335,6 +403,12 @@ gear:
   :hinders_lockpicking: false
   :is_worn: true
 #WEAPONS
+- :adjective: battle
+  :name: longbow
+  :is_leather: true
+  :hinders_lockpicking: false
+  :is_worn: false
+  :wield: true
 - :adjective: nisha
   :name: shortbow
   :is_leather: true
@@ -362,24 +436,29 @@ gear:
   :name: hammer
   :hinders_lockpicking: false
   :is_worn: false
+<<<<<<< HEAD
   :wield: true
 - :adjective: massive
   :name: greataxe
   :hinders_lockpicking: false
   :is_worn: false
+=======
+>>>>>>> origin/patch-1
   :wield: true
-- :adjective: bastard
-  :name: sword
+- :adjective:
+  :name: greatsword
   :hinders_lockpicking: false
   :is_worn: false
-  :swappable: false
   :wield: true
+<<<<<<< HEAD
 - :adjective: bar
   :name: mace
   :hinders_lockpicking: false
   :is_worn: false
   :swappable: false
   :wield: true
+=======
+>>>>>>> origin/patch-1
 - :adjective: sterak
   :name: axe
   :hinders_lockpicking: false
@@ -439,3 +518,7 @@ gear:
 #Personal Script Settings
 thrown_item: saucer
 thrown_container: forage sack
+
+# FOR SHAME ON ME!
+scroll_stackers:
+- folio

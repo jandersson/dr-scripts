@@ -1,12 +1,21 @@
 ---
 hunting_info:
+<<<<<<< HEAD
 - :zone: scouts
   args:
   - d0
+=======
+- :zone:
+  - young_blue_dappled_prereni
+  - young_blue_dappled_prereni
+  args:
+  - d1
+>>>>>>> origin/patch-1
   - main
   :duration: 30
   :stop_on:
   - Targeted Magic
+<<<<<<< HEAD
   - Stealth
   - Evasion
   - Skinning
@@ -17,10 +26,26 @@ hunting_info:
   - buff prebuff
 
 #combat_spell_training:
+=======
+  - Debilitation
+  - Thanatology
+  before:
+  - go2 
+  - first-aid
+  - bitchin-pick
+  #- fill-dirt
+  - athletics-necro
+  - go2 
+  - buff prebuff
+  - buff eotb
+
+combat_spell_training:
+>>>>>>> origin/patch-1
 cycle_armors:
 
 offensive_spells:
 - skill: Targeted Magic
+<<<<<<< HEAD
   name: Acid Splash
   abbrev: ACS
   mana: 5
@@ -55,3 +80,36 @@ loot_subtractions:
 - arrows
 - bolt
 - bolts
+=======
+  name: Vivisection
+  abbrev: vivi
+  mana: 20
+  cast_only_to_train: true
+- skill: Debilitation
+  name: Petrifying Visions
+  abbrev: pv
+  mana: 5
+  max_threshold: 1
+  expire: no longer seems petrified
+  cast_only_to_train: true
+- skill: Debilitation
+  name: Viscous Solution
+  abbrev: vs
+  mana: 10
+  min_threshold: 2
+  cast_only_to_train: true
+  cast: cast creature
+  harmless: true
+- skill: Sorcery
+  name: Lethargy
+  abbrev: lethargy
+  cast_only_to_train: true
+  harmless: true
+  mana: 7
+
+skip_last_kill: true
+use_weak_attacks: false
+weapon_training:
+  Small Edged: thrusting blade
+dance_skill: Small Edged
+>>>>>>> origin/patch-1

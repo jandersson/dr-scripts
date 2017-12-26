@@ -20,7 +20,11 @@ training_manager_priority_skills:
 - Large Blunt
 - Twohanded Blunt
 hunting_info:
+<<<<<<< HEAD
 - :zone: young_ogres
+=======
+- :zone: dire_bears
+>>>>>>> origin/patch-1
   :duration: 30
   args:
   - d1
@@ -55,7 +59,11 @@ waggle_sets:
     Seer's Sense:
       mana: 15
     Manifest Force:
+<<<<<<< HEAD
       mana: 5
+=======
+      mana: 15
+>>>>>>> origin/patch-1
     Cage of Light:
       mana: 15
   astrology:
@@ -66,7 +74,12 @@ waggle_sets:
     Aura Sight:
       mana: 1
 hunting_buddies:
+<<<<<<< HEAD
 - Evissam
+=======
+- Bastile
+- Maoyu
+>>>>>>> origin/patch-1
 - Byd
 - Rakkor
 - Kaldean
@@ -204,7 +217,11 @@ sort_auto_head: false
 
 # Combat settings
 offensive_spells:
+<<<<<<< HEAD
 - name: Calm
+=======
+- name: Dazzle
+>>>>>>> origin/patch-1
   mana: 1
 - name: Dinazen Olkar
   cast_only_to_train: true
@@ -215,7 +232,11 @@ buff_spells:
     cambrinth:
     - 1
   Manifest Force:
+<<<<<<< HEAD
     mana: 5
+=======
+    mana: 15
+>>>>>>> origin/patch-1
     cambrinth:
     - 1
   Cage of Light:
@@ -223,13 +244,21 @@ buff_spells:
     cambrinth:
     - 1
   Shadows:
+<<<<<<< HEAD
     mana: 1
+=======
+    mana: 15
+>>>>>>> origin/patch-1
     cambrinth:
     - 1
 combat_spell_training:
   Warding:
     abbrev: PSY
+<<<<<<< HEAD
     mana: 5
+=======
+    mana: 10
+>>>>>>> origin/patch-1
     cambrinth:
     - 5
     - 5
@@ -238,6 +267,7 @@ combat_spell_training:
     abbrev: CV
     mana: 10
     cambrinth:
+<<<<<<< HEAD
     - 5
     - 5
     - 5
@@ -246,6 +276,16 @@ combat_spell_training:
     mana: 5
     cambrinth:
     - 5
+=======
+    - 10
+    - 10
+    - 5
+  Utility:
+    abbrev: PG
+    mana: 10
+    cambrinth:
+    - 10
+>>>>>>> origin/patch-1
     - 5
     - 5
 training_abilities:
@@ -292,6 +332,13 @@ loot_subtractions:
 use_weak_attacks: true
 health_threshold: 70
 dont_stalk: true
+<<<<<<< HEAD
+=======
+restock:
+  bolt:
+    quantity: 50
+priority_defense: Evasion
+>>>>>>> origin/patch-1
 
 # Non-combat settings
 training_spells:
@@ -323,21 +370,46 @@ crossing_training:
 - Athletics
 - Perception
 - Sorcery
+<<<<<<< HEAD
 # - Forging
+=======
+- Forging
+>>>>>>> origin/patch-1
 - Mechanical Lore
 - Outdoorsmanship
 cambrinth: cambrinth armband
 cambrinth_cap: 50
 favor_goal: 30
 favor_god: Meraud
+<<<<<<< HEAD
 # train_workorders:
 # - Blacksmithing
+=======
+train_workorders:
+- Blacksmithing
+forging_tools:
+- ball-peen hammer
+- flat-bladed tongs
+- bellows
+- tapered shovel
+forging_belt:
+  name: forger belt
+  items:
+    - ball-peen hammer
+    - flat-bladed tongs
+    - bellows
+    - tapered shovel
+>>>>>>> origin/patch-1
 gem_pouch_adjective: suede
 sell_loot_pouch: false
 spare_gem_pouch_container: duffel bag
 crossing_training_sorcery:
   abbrev: ECRY
+<<<<<<< HEAD
   mana: 5
+=======
+  mana: 10
+>>>>>>> origin/patch-1
   cambrinth:
   - 5
   - 5

@@ -148,9 +148,8 @@ module DRC
   end
 
   def collect(item)
-    case bput("collect #{item}", 'You manage to collect a pile', 'The room is too cluttered', 'You cannot collect anything', 'You forage around but are unable to find anything', 'You wander around and poke your fingers', 'You survey the area and realize that any collecting efforts would be futile', 'You are sure you knew', 'You begin to forage around,')
+    case bput("collect #{item}", 'You manage to collect a pile', 'The room is too cluttered', 'believe you would probably have better luck trying to find a dragon', 'if you had a bit more luck.', 'You cannot collect anything', 'You forage around but are unable to find anything', 'You wander around and poke your fingers', 'You survey the area and realize that any collecting efforts would be futile', 'You are sure you knew', 'You begin to forage around,')
     when 'The room is too cluttered'
-      fput('dump junk')
       return unless kick_pile?
       collect(item)
     end
@@ -306,7 +305,7 @@ module DRC
 
   def hide?(hide_type = 'hide')
     unless hiding?
-      case bput(hide_type, 'Roundtime', 'too busy performing', 'can\'t see any place to hide yourself', 'Stalk what', 'You\'re already stalking')
+      case bput(hide_type, 'Roundtime', 'too busy performing', 'can\'t see any place to hide yourself', 'Stalk what', 'You\'re already stalking', 'Stalking is an inherently stealthy')
       when 'too busy performing'
         bput('stop play', 'You stop playing', 'In the name of')
         return hide?(hide_type)
@@ -356,15 +355,13 @@ module DRC
 
     split_words.each do |word|
       x = $NUM_MAP.fetch(word, nil)
-      if x.nil?
+      if word.eql?('hundred') && (g != 0)
+        g *= 100
+      elsif x.nil?
         echo 'Unknown number'
         return nil
       else
-        if word.eql?('hundred') && (g != 0)
-          g *= 100
-        else
-          g += x
-        end
+        g += x
       end
     end
 

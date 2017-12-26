@@ -166,11 +166,11 @@
   room: 19076
   pawnable: false
   id: '11'
-  acceptable_min: 2000
+  acceptable_min: 1053
   acceptable_max: 2000
   exceptionally_max: 700
   exceptionally_min: 693
-  rather_max: 1021
+  rather_max: 1052
   rather_min: 971
 - province: zoluren
   item: rose
@@ -394,10 +394,10 @@
   room: 19078
   pawnable: false
   id: '26'
-  acceptable_min: 420
-  acceptable_max: 420
+  acceptable_min: 417
+  acceptable_max: 417
   vpoorly_max: 434
-  vpoorly_min: 421
+  vpoorly_min: 418
 - province: zoluren
   item: case of silver
   item_in: in catalog
@@ -410,7 +410,7 @@
   rather_min: 429
   poorly_max: 996
   poorly_min: 813
-  vpoorly_max: 1021
+  vpoorly_max: 1054
   vpoorly_min: 997
 - province: zoluren
   item: drum pouch
@@ -418,10 +418,10 @@
   room: 19078
   pawnable: false
   id: '28'
-  acceptable_min: 421
-  acceptable_max: 421
+  acceptable_min: 418
+  acceptable_max: 418
   poorly_max: 434
-  poorly_min: 422
+  poorly_min: 419
   trivial_max: 1750
   trivial_min: 700
 - province: zoluren
@@ -430,10 +430,10 @@
   room: 19078
   pawnable: false
   id: '29'
-  acceptable_min: 422
-  acceptable_max: 422
+  acceptable_min: 419
+  acceptable_max: 419
   trivial_max: 1750
-  trivial_min: 423
+  trivial_min: 420
 - province: zoluren
   item: grey-brown feather
   item_in: in catalog
@@ -614,7 +614,7 @@
   rather_min: 371
   poorly_max: 904
   poorly_min: 738
-  vpoorly_max: 1021
+  vpoorly_max: 1054
   vpoorly_min: 905
 - province: zoluren
   item: bowtie
@@ -828,10 +828,10 @@
   room: 19376
   pawnable: false
   id: '55'
-  acceptable_min: 457
-  acceptable_max: 457
+  acceptable_min: 456
+  acceptable_max: 456
   trivial_max: 1750
-  trivial_min: 458
+  trivial_min: 457
 - province: zoluren
   item: calotte
   item_in: in catalog
@@ -976,7 +976,7 @@
   rather_min: 390
   poorly_max: 927
   poorly_min: 756
-  vpoorly_max: 1021
+  vpoorly_max: 1054
   vpoorly_min: 928
 - province: zoluren
   item: culottes
@@ -1312,10 +1312,10 @@
   room: 19388
   pawnable: false
   id: '100'
-  acceptable_min: 414
-  acceptable_max: 414
+  acceptable_min: 410
+  acceptable_max: 410
   trivial_max: 1750
-  trivial_min: 415
+  trivial_min: 411
 - province: zoluren
   item: boothose
   item_in: in catalog
@@ -1334,20 +1334,20 @@
   room: 19388
   pawnable: false
   id: '102'
-  acceptable_min: 414
-  acceptable_max: 414
+  acceptable_min: 410
+  acceptable_max: 410
   trivial_max: 1750
-  trivial_min: 415
+  trivial_min: 411
 - province: zoluren
   item: silk stockings
   item_in: in catalog
   room: 19388
   pawnable: false
   id: '103'
-  acceptable_min: 414
-  acceptable_max: 414
+  acceptable_min: 410
+  acceptable_max: 410
   trivial_max: 1750
-  trivial_min: 415
+  trivial_min: 411
 - province: zoluren
   item: anklet
   item_in: in catalog
@@ -1624,6 +1624,8 @@
   poorly_min: 698
   vpoorly_max: 969
   vpoorly_min: 858
+  trivial_max: 1750
+  trivial_min: 1022
 - province: zoluren
   item: ice pick
   item_in: in catalog
@@ -1642,30 +1644,30 @@
   room: 8265
   pawnable: false
   id: '124'
-  acceptable_min: 420
-  acceptable_max: 420
+  acceptable_min: 417
+  acceptable_max: 417
   trivial_max: 1750
-  trivial_min: 421
+  trivial_min: 418
 - province: zoluren
   item: acanth bark
   item_in: in catalog
   room: 8265
   pawnable: false
   id: '125'
-  acceptable_min: 421
-  acceptable_max: 421
+  acceptable_min: 418
+  acceptable_max: 418
   trivial_max: 1750
-  trivial_min: 422
+  trivial_min: 419
 - province: zoluren
   item: taffelberries
   item_in: in catalog
   room: 8265
   pawnable: false
   id: '126'
-  acceptable_min: 457
-  acceptable_max: 457
+  acceptable_min: 456
+  acceptable_max: 456
   trivial_max: 1750
-  trivial_min: 458
+  trivial_min: 457
 - province: zoluren
   item: woven handkerchief
   item_in: in catalog
@@ -1682,10 +1684,10 @@
   room: 8265
   pawnable: false
   id: '128'
-  acceptable_min: 457
-  acceptable_max: 457
+  acceptable_min: 456
+  acceptable_max: 456
   trivial_max: 1750
-  trivial_min: 458
+  trivial_min: 457
 - province: zoluren
   item: flint
   item_in: in catalog
@@ -1726,7 +1728,7 @@
   trivial_min: 201
   rather_max: 63
   rather_min: 63
-  vpoorly_max: 145
+  vpoorly_max: 146
   vpoorly_min: 141
 - province: zoluren
   item: bolts
@@ -1787,7 +1789,7 @@
   pawnable: false
   id: '136'
   acceptable_min: 171
-  acceptable_max: 312
+  acceptable_max: 313
   exceptionally_max: 151
   exceptionally_min: 150
   very_max: 170
@@ -1853,11 +1855,11 @@
   pawnable: false
   id: '141'
   acceptable_min: 210
-  acceptable_max: 301
+  acceptable_max: 487
   exceptionally_max: 209
   exceptionally_min: 190
   poorly_max: 598
-  poorly_min: 494
+  poorly_min: 488
   vpoorly_max: 710
   vpoorly_min: 599
   trivial_max: 1750
@@ -1921,11 +1923,11 @@
   pawnable: false
   id: '145'
   acceptable_min: 358
-  acceptable_max: 643
+  acceptable_max: 599
   trivial_max: 1750
   trivial_min: 931
   poorly_max: 644
-  poorly_min: 644
+  poorly_min: 599
 - province: zoluren
   item: scimitar
   item_in: on table
@@ -1933,9 +1935,13 @@
   pawnable: false
   id: '146'
   acceptable_min: 434
-  acceptable_max: 930
+  acceptable_max: 623
   trivial_max: 1750
   trivial_min: 931
+  vpoorly_max: 685
+  vpoorly_min: 682
+  poorly_max: 624
+  poorly_min: 624
 - province: zoluren
   item: sabre
   item_in: on table
@@ -1943,11 +1949,13 @@
   pawnable: false
   id: '147'
   acceptable_min: 466
-  acceptable_max: 930
+  acceptable_max: 697
   poorly_max: 549
   poorly_min: 549
   trivial_max: 1750
   trivial_min: 931
+  vpoorly_max: 698
+  vpoorly_min: 698
 - province: zoluren
   item: longbow
   item_in: on counter
@@ -1955,9 +1963,11 @@
   pawnable: false
   id: '148'
   acceptable_min: 434
-  acceptable_max: 930
+  acceptable_max: 623
   trivial_max: 1750
   trivial_min: 931
+  poorly_max: 684
+  poorly_min: 624
 - province: zoluren
   item: light crossbow
   item_in: on counter
@@ -1968,7 +1978,7 @@
   acceptable_max: 949
   very_max: 466
   very_min: 466
-  poorly_max: 1021
+  poorly_max: 1054
   poorly_min: 950
 - province: zoluren
   item: knuckles
@@ -3033,7 +3043,7 @@
   very_min: 429
   rather_max: 466
   rather_min: 466
-  poorly_max: 1021
+  poorly_max: 1054
   poorly_min: 899
 - province: zoluren
   item: breeches
@@ -3201,7 +3211,7 @@
   acceptable_min: 293
   acceptable_max: 470
   trivial_max: 1750
-  trivial_min: 927
+  trivial_min: 686
   vpoorly_max: 633
   vpoorly_min: 616
   poorly_max: 473
@@ -3530,7 +3540,7 @@
   acceptable_max: 860
   rather_max: 434
   rather_min: 434
-  poorly_max: 1021
+  poorly_max: 1054
   poorly_min: 861
 - province: zoluren
   item: corselet
@@ -3921,7 +3931,7 @@
   trivial_max: 1750
   trivial_min: 787
 - acceptable_max: 294
-  acceptable_min: 193
+  acceptable_min: 191
   id: '324'
   item: steel mace
   item_in: on wall
@@ -3997,7 +4007,7 @@
   vpoorly_max: 477
   vpoorly_min: 477
 - acceptable_max: 695
-  acceptable_min: 467
+  acceptable_min: 466
   id: '337'
   item: reinforced longsword
   item_in: in catalog
@@ -4037,7 +4047,7 @@
   acceptable_max: 709
   acceptable_min: 697
 - acceptable_max: 634
-  acceptable_min: 467
+  acceptable_min: 466
   id: '341'
   item: pelt potion
   item_in: on counter
@@ -4055,7 +4065,7 @@
   province: zoluren
   room: 19475
 - acceptable_max: 709
-  acceptable_min: 467
+  acceptable_min: 466
   id: '343'
   item: hooded cloak
   item_in: in catalog
@@ -4063,7 +4073,7 @@
   province: zoluren
   room: 12108
 - acceptable_max: 709
-  acceptable_min: 469
+  acceptable_min: 468
   id: '347'
   item: kit
   item_in: on counter
@@ -4092,10 +4102,10 @@
   very_min: 726
   rather_max: 874
   rather_min: 794
-  acceptable_max: 1021
+  acceptable_max: 1054
   acceptable_min: 875
 - acceptable_max: 529
-  acceptable_min: 467
+  acceptable_min: 466
   id: '350'
   item: diamond engagement ring
   item_in: in catalog
@@ -4116,7 +4126,7 @@
   room: 12114
   trivial_max: 1750
   trivial_min: 477
-- exceptionally_max: 690
+- exceptionally_max: 698
   exceptionally_min: 525
   id: '352'
   item: silver anklet
@@ -4140,7 +4150,7 @@
   very_min: 813
   rather_max: 979
   rather_min: 889
-  acceptable_max: 1021
+  acceptable_max: 1054
   acceptable_min: 980
 - id: '354'
   item: steel lancet
@@ -4166,7 +4176,7 @@
   - Empath
   - Thief
   - Trader
-  poorly_max: 690
+  poorly_max: 698
   poorly_min: 578
 - acceptable_max: 639
   acceptable_min: 520
@@ -4206,7 +4216,7 @@
   - Trader
   acceptable_max: 965
   acceptable_min: 556
-  poorly_max: 1021
+  poorly_max: 1054
   poorly_min: 966
 - id: '359'
   item: dyed garland
@@ -4277,13 +4287,13 @@
   item_in: on crimson display
   pawnable: false
   province: zoluren
-  rather_max: 693
+  rather_max: 698
   rather_min: 693
   room: 11778
-  acceptable_max: 1021
+  acceptable_max: 1054
   acceptable_min: 759
 - acceptable_max: 709
-  acceptable_min: 692
+  acceptable_min: 691
   id: '366'
   item: bodhran
   item_in: on crimson display
@@ -4312,7 +4322,7 @@
   - Trader
   very_max: 973
   very_min: 891
-  rather_max: 1021
+  rather_max: 1052
   rather_min: 974
 - id: '369'
   item: diamond wedding ring
@@ -4342,6 +4352,8 @@
   - Empath
   - Thief
   - Trader
+  acceptable_max: 1037
+  acceptable_min: 1037
 - exceptionally_max: 700
   exceptionally_min: 700
   id: '372'
@@ -4354,6 +4366,8 @@
   - Empath
   - Thief
   - Trader
+  acceptable_max: 1037
+  acceptable_min: 1037
 - exceptionally_max: 700
   exceptionally_min: 700
   id: '373'
@@ -4362,6 +4376,8 @@
   pawnable: false
   province: zoluren
   room: 11778
+  rather_max: 1037
+  rather_min: 1037
 - id: '374'
   item: tapani
   item_in: on crimson display
@@ -4381,7 +4397,7 @@
   rather_max: 899
   rather_min: 871
   acceptable_min: 900
-  acceptable_max: 1021
+  acceptable_max: 1052
   very_max: 871
   very_min: 833
 - id: '376'
@@ -4400,8 +4416,8 @@
   room: 11780
   trivial_max: 1750
   trivial_min: 700
-- acceptable_max: 1001
-  acceptable_min: 699
+- acceptable_max: 1054
+  acceptable_min: 698
   id: '378'
   item: wide-brimmed hat
   item_in: in catalog
@@ -4468,7 +4484,7 @@
   very_min: 784
   rather_max: 934
   rather_min: 854
-  acceptable_max: 1006
+  acceptable_max: 1052
   acceptable_min: 966
 - acceptable_max: 709
   acceptable_min: 705
@@ -4504,9 +4520,9 @@
   room: 1898
   very_max: 929
   very_min: 874
-  rather_max: 969
+  rather_max: 1051
   rather_min: 958
-- exceptionally_max: 969
+- exceptionally_max: 1051
   exceptionally_min: 728
   id: '391'
   item: broadaxe
@@ -4668,7 +4684,7 @@
   pawnable: false
   province: zoluren
   room: 6213
-- acceptable_max: 1001
+- acceptable_max: 1030
   acceptable_min: 758
   id: '432'
   item: leather strips
@@ -4676,7 +4692,7 @@
   pawnable: false
   province: zoluren
   room: 8864
-- acceptable_max: 964
+- acceptable_max: 1030
   acceptable_min: 758
   id: '433'
   item: leather strips

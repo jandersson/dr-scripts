@@ -1,6 +1,10 @@
 ---
 hunting_info:
+<<<<<<< HEAD
 - :zone: endrus_serpents
+=======
+- :zone: young_ogres
+>>>>>>> origin/patch-1
   :duration: 30
   args:
   - d4

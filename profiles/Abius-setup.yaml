@@ -46,7 +46,8 @@ waggle_sets:
     Naming of Tears:
       mana: 30
 hunting_buddies:
-- Evissam
+- Bastile
+- Maoyu
 - Byd
 - Rakkor
 - Kaldean
@@ -193,7 +194,7 @@ buff_spells:
     mana: 30
   # Nexus:
   #   mana: 30
-dance_skill: Large Blunt
+dance_skill: Large Edged
 training_abilities:
   Tactics: 30
   Hunt: 80
@@ -261,10 +262,10 @@ training_spells:
     symbiosis: true
 cyclic_training_spells:
   Augmentation:
-    abbrev: FAE
+    abbrev: BOTF
     cyclic: true
   Utility:
-    abbrev: CARE
+    abbrev: HODI
     cyclic: true
   Warding:
     abbrev: GJ
@@ -273,8 +274,9 @@ cyclic_cycle_skills:
 - Augmentation
 - Utility
 - Warding
+listen: true
 cambrinth: cambrinth armband
-cambrinth_cap: 32
+cambrinth_cap: 50
 favor_goal: 30
 favor_god: Faenella
 gem_pouch_adjective: suede
@@ -306,7 +308,7 @@ crossing_training_sorcery:
   mana: 15
   cambrinth:
   - 15
-  - 10
+  - 15
   - 10
 
 quit_on_status_warning: true

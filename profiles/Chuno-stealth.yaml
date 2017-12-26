@@ -1,27 +1,45 @@
 ---
 hunting_info:
 - :zone: 
+<<<<<<< HEAD
   - storm_bulls
   - storm_bulls
+=======
+  - young_wyverns
+  - young_wyverns
+>>>>>>> origin/patch-1
   args:
   - d0
   - stealth
   :duration: 15
   stop_on:
   - Stealth
+  - Skinning
   before:
-  - set-attack 50 94
-  after:
-  - set-attack 100 94
+  - go2 
+  - bitchin-pick
   - rem
-  - safe-room
+  - athletics
+  - go2 
+  after:
+  - rem
+  - go2 
+  - buffbarb 
+gear_sets:
+  standard:
+  - small shield
+  - pugilist armguard
 
+<<<<<<< HEAD
 gear_sets:
   standard:
   - small shield
   - pugilist armguard
 
 stance_override: 96 100 0 
+=======
+stance_override: 97 100 0 
+>>>>>>> origin/patch-1
 cycle_armors:
 training_abilities:
 buff_nonspells:
@@ -31,7 +49,15 @@ ambush: false
 skip_last_kill: true
 use_stealth_attacks: true
 dont_stalk: true
-use_weak_attacks: true
+use_weak_attacks: false
+whirlwind_trainables:
+use_barb_combos: false
 weapon_training:
-  Brawling: ''
+  Small Edged: cutlass
 dance_skill: Brawling
+
+skinning:
+  skin: true
+  arrange_all: false
+  arrange_count: 4
+  tie_bundle: true

@@ -827,12 +827,14 @@ crafting_recipes:
   type: shaping
   work_order: true
   chapter: 9
-  #- name: a wood bo staff
-  #noun: staff
-  #volume: 8
-  #type: shaping
-  #work_order: true
-  #chapter: 9
+- name: a wood bo staff
+  noun: staff
+  volume: 8
+  type: shaping
+  work_order: true
+  chapter: 9
+  part:
+  - leather strip
 - name: a wood earcuff
   noun: earcuff
   volume: 2
@@ -3567,7 +3569,7 @@ crafting_recipes:
   work_order: false
   chapter: 2
   container: bowl
-  herb1: blue flower
+  herb1: blue flowers
   herb1_stock:
   herb2: muljin
   herb2_stock:
@@ -3578,7 +3580,7 @@ crafting_recipes:
   work_order: true
   chapter: 2
   container: mortar
-  herb1: red flower
+  herb1: red flowers
   herb1_stock: 13
   herb2: nilos
   herb2_stock: 6
@@ -3589,7 +3591,7 @@ crafting_recipes:
   work_order: false
   chapter: 2
   container: bowl
-  herb1: blue flower
+  herb1: blue flowers
   herb1_stock:
   herb2: riolur
   herb2_stock: 8
@@ -3600,7 +3602,7 @@ crafting_recipes:
   work_order: false
   chapter: 2
   container: bowl
-  herb1: blue flower
+  herb1: blue flowers
   herb1_stock:
   herb2: aevaes
   herb2_stock:
@@ -3611,7 +3613,7 @@ crafting_recipes:
   work_order: false
   chapter: 2
   container: bowl
-  herb1: blue flower
+  herb1: blue flowers
   herb1_stock:
   herb2: ojhenik
   herb2_stock: 12
@@ -3622,7 +3624,7 @@ crafting_recipes:
   work_order: false
   chapter: 2
   container: bowl
-  herb1: blue flower
+  herb1: blue flowers
   herb1_stock:
   herb2: belradi
   herb2_stock:
@@ -3636,7 +3638,7 @@ crafting_recipes:
   work_order: false
   chapter: 2
   container: bowl
-  herb1: red flower
+  herb1: red flowers
   herb1_stock: 13
   herb2: dioica
   herb2_stock:

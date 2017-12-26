@@ -53,7 +53,7 @@ class Restock
     item_list.each do |key, value|
       if hometown_data.key?(key)
         ht_data = hometown_data[key]
-        data = ht_data.each { |k, _v| ht_data[k] = value[k] if value.key?(k) }
+        data = ht_data.each_key { |k| ht_data[k] = value[k] if value.key?(k) }
         items.push(data)
       elsif valid_item_data?(value)
         items.push(value)
@@ -66,31 +66,33 @@ class Restock
   end
 
   def count_stackable_item(item)
-    count_msg = bput("count my #{item}", 'I could not find what you were referring to.', 'tell you much of anything.', 'and see there \w+ .+ left.')
-    case count_msg
-    when 'I could not find what you were referring to.'
-      count = 0
-    when 'tell you much of anything.'
-      echo "#{item} is marked as stackable but is not!"
-      count = count_nonstackable_item(item)
-    else
-      count_txt = count_msg.match(/and see there \w+ (.+) left./).captures.first.tr('-', ' ')
-      count = text2num(count_txt)
+    count = 0
+    $ORDINALS.each do |ordinal|
+      count_msg = bput("count my #{ordinal} #{item}", 'I could not find what you were referring to.', 'tell you much of anything.', 'and see there \w+ .+ left.')
+      case count_msg
+      when 'I could not find what you were referring to.'
+        break
+      when 'tell you much of anything.'
+        echo "#{item} is marked as stackable but is not!"
+        count += count_nonstackable_item(item)
+        break
+      else
+        count_txt = count_msg.match(/and see there \w+ (.+) left./).captures.first.tr('-', ' ')
+        count += text2num(count_txt)
+      end
+      waitrt?
     end
-    waitrt?
     count
   end
 
   def count_nonstackable_item(item)
     /inside your (.*).|I could not find/ =~ bput("tap my #{item}", 'inside your (.*).', 'I could not find')
     tap_result = Regexp.last_match(1)
-    if tap_result.nil?
-      return 0
-    else
-      container = tap_result
-      contents = bput("rummage /C #{item.split.last} IN MY #{container}", '^You rummage .*')
-      return contents.scan(/#{item}/).size
-    end
+    return 0 if tap_result.nil?
+
+    container = tap_result
+    contents = bput("rummage /C #{item.split.last} IN MY #{container}", '^You rummage .*')
+    contents.scan(/#{item}/).size
   end
 
   def valid_item_data?(item_data)

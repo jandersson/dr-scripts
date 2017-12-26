@@ -19,19 +19,22 @@ class SetupProcess
     echo("  @priority_defense: #{@priority_defense}") if $debug_mode_ct
     @cycle_armors = settings.cycle_armors
     echo("  @cycle_armors: #{@cycle_armors}") if $debug_mode_ct
-    @last_cycle_time = Time.now - 125
+    @cycle_armors_time = settings.cycle_armors_time
+    echo("  @cycle_armors_time: #{@cycle_armors_time}") if $debug_mode_ct
+    @last_cycle_time = Time.now - @cycle_armors_time
 
     @warhorn = settings.warhorn
     echo("  @warhorn: #{@warhorn}") if $debug_mode_ct
     @last_warhorn = Time.now - 305
-    if @warhorn
-      if DRCI.wearing?(@warhorn)
-        @warhorn_get_verb = 'remove'
-        @warhorn_store_verb = 'wear'
-      else
-        @warhorn_get_verb = 'get'
-        @warhorn_store_verb = 'stow'
-      end
+
+    return unless @warhorn
+
+    if DRCI.wearing?(@warhorn)
+      @warhorn_get_verb = 'remove'
+      @warhorn_store_verb = 'wear'
+    else
+      @warhorn_get_verb = 'get'
+      @warhorn_store_verb = 'stow'
     end
   end
 
@@ -81,7 +84,7 @@ class SetupProcess
 
   def blow_warhorn(game_state)
     return unless @warhorn
-    return if Time.now - @last_warhorn < 600
+    return if Time.now - @last_warhorn < 300
 
     game_state.sheath_whirlwind_offhand
 
@@ -100,7 +103,7 @@ class SetupProcess
   end
 
   def check_armor_swap(game_state)
-    return if Time.now - @last_cycle_time < 120
+    return if Time.now - @last_cycle_time < @cycle_armors_time
     return if game_state.loaded
     armor_types = @cycle_armors.map { |skill, _| skill }
     next_armor_type = armor_types.min_by { |skill| [DRSkill.getxp(skill), DRSkill.getrank(skill)] }
@@ -818,6 +821,9 @@ class SpellProcess
     @stored_cambrinth = settings.stored_cambrinth
     echo(" @stored_cambrinth: #{@stored_cambrinth}") if $debug_mode_ct
 
+    @harness_for_attunement = settings.use_harness_when_arcana_locked
+    echo(" @harness_for_attunement: #{@harness_for_attunement}") if $debug_mode_ct
+
     @ignored_npcs = settings.ignored_npcs
     echo(" @ignored_npcs: #{@ignored_npcs}") if $debug_mode_ct
 
@@ -984,9 +990,15 @@ class SpellProcess
 
   def check_current(game_state)
     return unless game_state.casting
-    return if game_state.check_charging? && game_state.check_charging?
 
-    cast_spell(game_state) if ready_to_cast?(game_state)
+    if @should_invoke
+      return if game_state.check_charging? && game_state.check_charging?
+    end
+
+    return unless ready_to_cast?(game_state)
+
+    game_state.check_harness if @should_harness
+    cast_spell(game_state)
   end
 
   def check_invoke
@@ -1268,7 +1280,10 @@ class SpellProcess
     prepare?(data['abbrev'], data['mana'], data['symbiosis'], command)
     game_state.casting = true
     game_state.cambrinth_charges(data['cambrinth'])
-    @should_invoke = data['cambrinth']
+    if data['cambrinth']
+      @should_harness = check_to_harness(@harness_for_attunement)
+      @should_invoke = data['cambrinth'] unless @should_harness
+    end
     @custom_cast = data['cast']
     @symbiosis = data['symbiosis']
     @after = data['after']
@@ -1398,7 +1413,7 @@ class AbilityProcess
     @barb_buffs.each do |name|
       ability_data = get_data('spells').barb_abilities[name]
       Flags.add("ap-#{name}-expired", ability_data['expired_message'])
-      Flags["ap-#{name}-expired"] = true
+      Flags["ap-#{name}-expired"] = true unless DRSpells.active_spells[name]
       echo "setup_barb_buff_flags:: adding #{Flags["ap-#{name}-expired"]} flag with an expiration message of: #{ability_data['expired_message']}" if $debug_mode_ct
     end
   end
@@ -1424,6 +1439,8 @@ class AbilityProcess
       .each do |name|
         Flags.reset("ap-#{name}-expired")
         start_barb_buff(name)
+        waitrt?
+        pause 6 if get_data('spells').barb_abilities[name]['type'].eql? 'meditation'
       end
   end
 
@@ -1501,7 +1518,7 @@ class TrainerProcess
     echo("  @training_abilities: #{@training_abilities}") if $debug_mode_ct
 
     @skill_map = { 'Hunt' => 'Perception', 'Pray' => 'Theurgy', 'PercMana' => 'Attunement',
-                   'Perc' => 'Attunement', 'Astro' => 'Astrology', 'App' => 'Appraisal',
+                   'Perc' => 'Attunement', 'Astro' => 'Astrology', 'App' => 'Appraisal', 'PrayerMat' => 'Theurgy',
                    'App Quick' => 'Appraisal', 'App Careful' => 'Appraisal', 'Tactics' => 'Tactics', 'Analyze' => 'Tactics',
                    'Scream' => 'Bardic Lore', 'Perc Health' => 'Empathy', 'Khri Prowess' => 'Debilitation',
                    'Stealth' => 'Stealth', 'Ambush Stun' => settings.stun_skill, 'Favor Orb' => 'Anything',
@@ -1540,6 +1557,9 @@ class TrainerProcess
 
     @flint_lighter = settings.flint_lighter
     echo("  @flint_lighter: #{@flint_lighter}") if $debug_mode_ct
+
+    @prayer_mat = settings.prayer_mat
+    echo("  @prayer_mat: #{@prayer_mat}") if $debug_mode_ct
 
     @kneel_khri = settings.kneel_khri
     echo("  @kneel_khri: #{@kneel_khri}") if $debug_mode_ct
@@ -1603,6 +1623,8 @@ class TrainerProcess
       game_state.use_charged_maneuvers = true
     when 'Meraud'
       meraud_commune(game_state)
+    when 'PrayerMat'
+      pray_mat(game_state)
     when 'Recall'
       bput("recall #{game_state.npcs.first}", 'Roundtime', 'You are far too occupied') unless game_state.npcs.empty?
     when 'Barb Research Augmentation'
@@ -1667,6 +1689,47 @@ class TrainerProcess
     waitrt?
     fix_standing
     game_state.blessed_room = true
+  end
+
+  def pray_mat(game_state)
+    unless @prayer_mat && @theurgy_supply_container
+      echo '*** Cannot run PrayerMat; need prayer_mat and theurgy_supply_container defined'
+      @training_abilities.delete('PrayerMat')
+      return
+    end
+    waitrt?
+    retreat
+    @equipment_manager.stow_weapon(game_state.weapon_name)
+
+    unless bput(
+      "get #{@prayer_mat} from my #{@theurgy_supply_container}",
+      'You get', 'What were you referring to'
+    ) == 'You get'
+      echo '*** Cannot run PrayerMat; no prayer mat in theurgy_supply_container'
+      @training_abilities.delete('PrayerMat')
+      return
+    end
+    fix_standing
+    bput("unroll #{@prayer_mat}",
+         'reverently lay your', 'need to be holding that first')
+
+    bput("kneel #{@prayer_mat}", 'You humbly kneel')
+    bput("kiss #{@prayer_mat}", 'You bend forward to kiss')
+
+    bput("get wine from my #{@theurgy_supply_container}",
+         'You get', 'What were you referring to')
+    bput("pour wine on #{@prayer_mat}",
+         'You quietly pour', 'Pour what')
+    bput("put wine in my #{@theurgy_supply_container}",
+         'You put', 'What were you referring to')
+    fix_standing
+
+    bput("roll #{@prayer_mat}",
+         'carefully gather up',
+         'need to be holding that first', 'not on the ground')
+    bput("put #{@prayer_mat} in my #{@theurgy_supply_container}",
+         'You put', 'What were you referring to')
+    @equipment_manager.wield_weapon(game_state.weapon_name, game_state.weapon_skill)
   end
 
   def ambush_stun(game_state)
@@ -2211,16 +2274,19 @@ class GameState
     @stances = settings.stances
     echo("  @stances: #{@stances}") if $debug_mode_ct
 
-    if @stances.find { |_key, stances| !(stances & %w[evasion parry shield]).empty? }
-      echo 'Please update to the latest version of stance: settings!'
-      @stances.keys do |key|
-        settings = @stances[key]
+    @stances.keys do |key|
+      settings = @stances[key]
+      unless (settings & %w[evasion parry shield]).empty?
+        echo 'Please update to the latest version of stance: settings!'
         settings.map! { |x| { 'parry' => 'Parry Ability', 'shield' => 'Shield Usage', 'evasion' => 'Evasion' }[x] }
-        (['Parry Ability', 'Shield Usage', 'Evasion'] - settings).each { |x| settings << x }
-        @stances[key] = settings
       end
-      echo "Modified stances: #{@stances}"
+      (['Evasion', 'Shield Usage', 'Parry Ability'] - settings).each { |x| settings << x }
+      unless settings.size == 3
+        echo "Error: stance settings #{settings} include invalid stance."
+        exit
+      end
     end
+    echo("Modified stances: #{@stances}") if $debug_mode_ct
 
     @weapons_to_train = settings.weapon_training
     echo("  @weapons_to_train: #{@weapons_to_train}") if $debug_mode_ct
@@ -2618,6 +2684,20 @@ class GameState
     stow_cambrinth(@cambrinth, @stored_cambrinth, @cambrinth_cap)
 
     true
+  end
+
+  def check_harness
+    return if @charges.nil?
+
+    if @charges.empty?
+      echo('check_harness?: done') if $debug_mode_ct
+      cambrinth_charges(nil)
+      return
+    end
+
+    harness_mana(@charges)
+
+    @charges = []
   end
 
   def npcs

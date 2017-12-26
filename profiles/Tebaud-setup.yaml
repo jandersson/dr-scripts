@@ -52,7 +52,12 @@ waggle_sets:
       - 10
       - 10
 hunting_buddies:
+<<<<<<< HEAD
 - Evissam
+=======
+- Bastile
+- Maoyu
+>>>>>>> origin/patch-1
 - Byd
 - Rakkor
 - Kaldean
@@ -262,6 +267,9 @@ loot_subtractions:
 use_weak_attacks: true
 # priority_defense: Shield Usage
 health_threshold: 70
+restock:
+  bolt:
+    quantity: 50
 
 training_spells:
   Warding:
@@ -311,7 +319,7 @@ favor_god: Chadatru
 favor_goal: 30
 crossing_training_sorcery:
   abbrev: CV
-  mana: 10
+  mana: 15
   cambrinth:
   - 10
   - 10

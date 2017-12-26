@@ -34,6 +34,7 @@ stances:
   - Parry Ability
 stance_override:
 cycle_armors:
+cycle_armors_time: 125
 skinning:
   skin: true
   arrange_all: false
@@ -119,7 +120,7 @@ custom_loot_type:
 last_rites: false
 ambush_location: back
 warhorn:
-
+prayer_mat:
 
 # Hunting settings
 training_manager_hunting_priority: false
@@ -162,6 +163,7 @@ safe_room_empath:
 
 
 # Spellcasting (and Khri) settings
+use_harness_when_arcana_locked: false
 cambrinth: armband
 cambrinth_cap: 32
 stored_cambrinth: false
@@ -318,27 +320,55 @@ forests_to_chop:
 lumber_skip_populated: true
 lumber_buddy_chop_every_room: false
 lumber_buddy_tree_list:
-# MISC
-#- Durian
 # common
-# - Ash #shortbows
-# - Birch #composite
-# - Maple #longbows
-# - Oak #martial
-# rare
-- Cherry #shortbows
-- Ramin #longbows
-- Hickory #Composite
-- Lelori #Composite
+- Ash #shortbows
+- Bamboo # martial
+- Durian # martial
+- Mahogany # martial
+- Mangrove #martial, shortbows
+- Maple #longbows
 - Sandalwood #Composite
-#- Ironwood #martial
-# very rare
-- Bloodwood
-- Copperwood
-- Mistwood
-- Goldwood
-- Azurelle
-- Silverwood
+# rare
+- Adder # Alterations
+- Aformosia # Alterations
+- Albarco # shortbow
+- Alerce # Alterations
+- Avodire # composite
+- Azurelle # longbows
+- Bloodwood # longbows, shortbows
+- Bocote # martial
+- Cherry # longbows
+- Copperwood # longbows
+- Crabwood # martial
+- Darkspine	# martial
+- Diamondwood	# martial
+- Dragonwood # alterations
+- E'erdream # ???
+- Felwood # martial, shortbows, composite
+- Finivire # all bows
+- Glitvire # ???
+- Gloomwood # ???
+- Goldwood # longbows, shortbows
+- Greenheart # martial
+- Hickory # martial, composite
+- Ilomba # Alterations
+- Iroko # Alterations
+- Ironwood #martial
+- Kapok # alterations
+- Lelori #Composite
+- Macawood #alterations
+- Mistwood # longbow, shortbow
+- Osage	# longbows
+- Ramin # longbows
+- Redwood	# alterations
+- Rockwood # martial
+- Rosewood # longbows
+- Shadowbark # ???
+- Silverwood # shortbows, composite bows
+- Smokewood	# alterations
+- Tamarak	# alterations
+- Tamboti	# ???
+- Yew	# Longbows
 lumber_implement: axe
 lumber_use_packet: true
 lumber_while_training: false
@@ -354,22 +384,51 @@ mines_to_mine:
 mining_skip_populated: true
 mining_buddy_mine_every_room: false
 mining_buddy_vein_list:
-# uncommon
+# common
+- Covellite
+- Lead
 - Silver
-# rare
-- Gold
-- Platinum
-- Lumium
-- Niniam
+# alchemy
 - Electrum
+- Kadepa
 - Muracite
-- Darkstone
-# very rare
-- Damite
-- Kertig
-- Haralun
-- Glaes
+- Niello
+- Niniam
+- Orichalcum
+# forging
+- Aldamdin
 - Animite
+- Audrualm
+- Damite
+- Darkstone
+- Glaes
+- Haledroth
+- Haralun
+- Icesteel
+- Indurium
+- Kertig
+- Kiralan
+- Lumium
+- Platinum
+- Quelium
+- Silversteel
+- Telothian
+- Tyrium
+- Vardite
+- Yellow gold
+# engineering
+# common
+# - Obsidian
+# - Quartize
+# rare
+- Anjisis
+- Belzune
+- Blackwater jet
+- Diamondique
+- Felstone
+- Fulginode
+- Senci
+- Xenomite
 mining_ignored_stone_sizes:
 - pebble
 mining_implement: shovel
@@ -418,6 +477,8 @@ gear:
 gear_sets:
 empath_healing:
 saferoom_health_threshold: 0
+
+restock:
 
 osrel_no_harness: false
 osrel_amount:
@@ -621,7 +682,7 @@ grave_junk:
 - bone shards
 - sacrum
 - rune-carved stone
-- glowing fragment 
+- glowing fragment
 - gloves
 - intestines
 - spine
@@ -697,10 +758,15 @@ theurgy_whitelist:
 - recite_prayer
 # Clean an altar with holy water.
 - clean_altar
+# Clean your anloral pin.
+- clean_anloral
 # Read a prayer parchment in a populated place.
 - embarass_myself
 theurgy_blacklist:
 # On second thought, let's not.
 - embarass_myself
-theurgy_exp_threshold: 0
+# theurgy_exp_threshold: 0 would run all possible things.
+theurgy_exp_threshold: 33
 theurgy_bead_carving_tool:
+theurgy_use_prayer_mat: false
+theurgy_prayer_mat_room:

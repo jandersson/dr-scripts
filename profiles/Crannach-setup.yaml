@@ -69,7 +69,6 @@ weapon_training:
   Crossbow: pelletbow
   Large Edged: icy-blue blade
   Brawling: ''
-  #  Targeted Magic: tetractys
 
 dance_skill:         Brawling
 use_weak_attacks:    false
