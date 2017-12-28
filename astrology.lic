@@ -56,7 +56,13 @@ class Astrology
     @rtr_data = buffs.select { |spell| spell.eql?('Read the Ripples') }
                      .values
                      .first
+    @pg_data = buffs.select { |spell| spell.eql?('Piercing Gaze') }
+                    .values
+                    .first
     buffs.reject! { |spell| spell.eql?('Read the Ripples') }
+    @pg_data = buffs.select { |spell| spell.eql?('Piercing Gaze') }
+                    .values
+                    .first
     cast_spells(buffs, settings)
   end
 

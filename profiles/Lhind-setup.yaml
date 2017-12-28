@@ -1,9 +1,5 @@
 ---
-<<<<<<< HEAD
-# TODO: Sorcerous Patterns, Raw Channeling, Efficient Channeling
-=======
 # TODO: Sorcerous Patterns
->>>>>>> origin/patch-1
 
 # Hunting settings
 training_manager_hunting_priority: true
@@ -26,11 +22,7 @@ training_manager_priority_skills:
 # - Large Blunt
 # - Twohanded Blunt
 hunting_info:
-<<<<<<< HEAD
-- :zone: young_ogres
-=======
 - :zone: dire_bears
->>>>>>> origin/patch-1
   :duration: 30
   args:
   - d1
@@ -69,12 +61,8 @@ waggle_sets:
     Manifest Force:
       mana: 5
 hunting_buddies:
-<<<<<<< HEAD
-- Evissam
-=======
 - Bastile
 - Maoyu
->>>>>>> origin/patch-1
 - Byd
 - Rakkor
 - Kaldean
@@ -261,11 +249,7 @@ training_abilities:
   Perc: 120
   Hunt: 80
   App Quick: 60
-<<<<<<< HEAD
-  # Collect: 120
-=======
   Collect: 120
->>>>>>> origin/patch-1
 weapon_training:
   Brawling: ''
   Small Edged: throwing spike
@@ -294,12 +278,9 @@ loot_subtractions:
 use_weak_attacks: true
 health_threshold: 70
 dont_stalk: true
-<<<<<<< HEAD
-=======
 restock:
   arrow:
     quantity: 50
->>>>>>> origin/patch-1
 
 # Non-combat settings
 training_spells:
@@ -342,11 +323,7 @@ crossing_training_sorcery:
   mana: 5
   cambrinth:
   - 5
-<<<<<<< HEAD
-=======
   - 5
-  - 5
->>>>>>> origin/patch-1
 
 quit_on_status_warning: true
 braid_item: grass

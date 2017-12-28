@@ -174,7 +174,7 @@ class Bescort
         { name: 'shard_gates', regex: /shard/i, description: 'Use the Shard gates' }
       ],
       [
-        { name: 'abyss', regex: /abyss/i, description: 'Use the Cleric entrance to the Abyss; requires Rezz' }
+        { name: 'abyss', regex: /abyss/i, description: 'Use the Cleric entrance to the Abyss; requires Rezz'}
       ]
 
     ]

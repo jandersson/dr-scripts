@@ -1,9 +1,12 @@
 ---
 <<<<<<< HEAD
+<<<<<<< HEAD
 # TODO: Sorcerous Patterns
 
 =======
 >>>>>>> origin/patch-1
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
 # Hunting settings
 training_manager_hunting_priority: true
 training_manager_priority_skills:
@@ -25,6 +28,7 @@ training_manager_priority_skills:
 - Large Blunt
 - Twohanded Blunt
 <<<<<<< HEAD
+<<<<<<< HEAD
 - Stealth
 hunting_file_list:
 - setup
@@ -35,6 +39,10 @@ hunting_info:
 hunting_info:
 - :zone: dire_bears
 >>>>>>> origin/patch-1
+=======
+hunting_info:
+- :zone: dire_bears
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
   :duration: 30
   args:
   - d1
@@ -44,10 +52,15 @@ hunting_info:
   - athletics
   - sorcery
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   - go2 846
   - outdoorsmanship
 >>>>>>> origin/patch-1
+=======
+  - go2 846
+  - outdoorsmanship
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
   stop_on:
   # - Light Armor
   # - Chain Armor
@@ -71,6 +84,7 @@ waggle_sets:
   prehunt_buffs:
     Swirling Winds:
 <<<<<<< HEAD
+<<<<<<< HEAD
       mana: 5
     Sure Footing:
       mana: 5
@@ -79,6 +93,8 @@ waggle_sets:
 hunting_buddies:
 - Evissam
 =======
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
       mana: 10
     Sure Footing:
       mana: 10
@@ -87,7 +103,10 @@ hunting_buddies:
 hunting_buddies:
 - Bastile
 - Maoyu
+<<<<<<< HEAD
 >>>>>>> origin/patch-1
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
 - Byd
 - Rakkor
 - Kaldean
@@ -226,12 +245,18 @@ sort_auto_head: false
 # Combat settings
 offensive_spells:
 <<<<<<< HEAD
+<<<<<<< HEAD
 - name: Mark of Arhat
 =======
 - name: Electrostatic Eddy
   mana: 7
 - name: Tremor
 >>>>>>> origin/patch-1
+=======
+- name: Electrostatic Eddy
+  mana: 7
+- name: Tremor
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
   mana: 1
 - name: Fire Shards
   cast_only_to_train: true
@@ -241,6 +266,7 @@ buff_spells:
     mana: 5
     cambrinth:
     - 5
+<<<<<<< HEAD
 <<<<<<< HEAD
     cast: cast fire
   Swirling Winds:
@@ -260,6 +286,8 @@ buff_spells:
     cambrinth:
     - 1
 =======
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
     - 5
     cast: cast fire
   Swirling Winds:
@@ -278,7 +306,10 @@ buff_spells:
     mana: 10
     cambrinth:
     - 5
+<<<<<<< HEAD
 >>>>>>> origin/patch-1
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
 combat_spell_training:
   Warding:
     abbrev: ES
@@ -286,16 +317,22 @@ combat_spell_training:
     cambrinth:
     - 10
 <<<<<<< HEAD
+<<<<<<< HEAD
     - 5
     - 5
 =======
     - 10
     - 10
 >>>>>>> origin/patch-1
+=======
+    - 10
+    - 10
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
   Augmentation:
     abbrev: TW
     mana: 5
     cambrinth:
+<<<<<<< HEAD
 <<<<<<< HEAD
     - 5
     - 5
@@ -303,6 +340,8 @@ combat_spell_training:
 training_abilities:
   Stealth: 60
 =======
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
     - 10
     - 10
     - 5
@@ -314,16 +353,23 @@ training_abilities:
     - 10
     - 5
 training_abilities:
+<<<<<<< HEAD
 >>>>>>> origin/patch-1
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
   Tactics: 60
   Perc: 120
   Hunt: 80
   App Quick: 60
 <<<<<<< HEAD
+<<<<<<< HEAD
   # Collect: 120
 =======
   Collect: 120
 >>>>>>> origin/patch-1
+=======
+  Collect: 120
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
 weapon_training:
   Brawling: ''
   Small Edged: throwing spike
@@ -360,12 +406,18 @@ loot_subtractions:
 use_weak_attacks: true
 health_threshold: 70
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
 dont_stalk: true
 restock:
   bolt:
     quantity: 50
+<<<<<<< HEAD
 >>>>>>> origin/patch-1
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
 
 # Non-combat settings
 training_spells:
@@ -399,10 +451,14 @@ crossing_training:
 - Perception
 - Attunement
 <<<<<<< HEAD
+<<<<<<< HEAD
 # - Forging
 =======
 - Forging
 >>>>>>> origin/patch-1
+=======
+- Forging
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
 - Mechanical Lore
 - Outdoorsmanship
 cambrinth: armband
@@ -410,9 +466,12 @@ cambrinth_cap: 50
 favor_goal: 30
 favor_god: Meraud
 <<<<<<< HEAD
+<<<<<<< HEAD
 # train_workorders:
 # - Blacksmithing
 =======
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
 train_workorders:
 - Blacksmithing
 forging_tools:
@@ -420,17 +479,24 @@ forging_tools:
 - flat-bladed tongs
 - bellows
 - tapered shovel
+<<<<<<< HEAD
 >>>>>>> origin/patch-1
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
 gem_pouch_adjective: suede
 sell_loot_pouch: false
 spare_gem_pouch_container: duffel bag
 crossing_training_sorcery:
   abbrev: Shadows
 <<<<<<< HEAD
+<<<<<<< HEAD
   mana: 5
 =======
   mana: 10
 >>>>>>> origin/patch-1
+=======
+  mana: 10
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
   cambrinth:
   - 5
   - 5

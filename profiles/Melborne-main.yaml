@@ -1,20 +1,27 @@
 ---
 hunting_info:
 <<<<<<< HEAD
+<<<<<<< HEAD
 - :zone: scouts
   args:
   - d0
 =======
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
 - :zone:
   - young_blue_dappled_prereni
   - young_blue_dappled_prereni
   args:
   - d1
+<<<<<<< HEAD
 >>>>>>> origin/patch-1
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
   - main
   :duration: 30
   :stop_on:
   - Targeted Magic
+<<<<<<< HEAD
 <<<<<<< HEAD
   - Stealth
   - Evasion
@@ -27,6 +34,8 @@ hunting_info:
 
 #combat_spell_training:
 =======
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
   - Debilitation
   - Thanatology
   before:
@@ -40,11 +49,15 @@ hunting_info:
   - buff eotb
 
 combat_spell_training:
+<<<<<<< HEAD
 >>>>>>> origin/patch-1
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
 cycle_armors:
 
 offensive_spells:
 - skill: Targeted Magic
+<<<<<<< HEAD
 <<<<<<< HEAD
   name: Acid Splash
   abbrev: ACS
@@ -81,6 +94,8 @@ loot_subtractions:
 - bolt
 - bolts
 =======
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
   name: Vivisection
   abbrev: vivi
   mana: 20
@@ -112,4 +127,7 @@ use_weak_attacks: false
 weapon_training:
   Small Edged: thrusting blade
 dance_skill: Small Edged
+<<<<<<< HEAD
 >>>>>>> origin/patch-1
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4

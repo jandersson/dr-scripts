@@ -1,17 +1,24 @@
 ---
 hunting_info:
 <<<<<<< HEAD
+<<<<<<< HEAD
 - :zone: goblins
 =======
 - :zone: 
   - eidolon_steeds
   - eidolon_steeds
 >>>>>>> origin/patch-1
+=======
+- :zone: 
+  - eidolon_steeds
+  - eidolon_steeds
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
   args:
   - d0
   - back
   :duration: 30
   before:
+<<<<<<< HEAD
 <<<<<<< HEAD
   # - go2 1015 #1015 NTR outside of Crossing
   # - buff prebuff
@@ -30,6 +37,8 @@ offensive_spells:
   mana: 1
   expire: no longer seems petrified
 =======
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
   - buff eotb
   after:
   - rem eotb
@@ -52,11 +61,15 @@ buff_spells:
     cambrinth:
     - 20
     - 15
+<<<<<<< HEAD
 >>>>>>> origin/patch-1
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
 
 use_weak_attacks: true
 use_stealth_attacks: false
 weapon_training:
+<<<<<<< HEAD
 <<<<<<< HEAD
   Polearms: light spear #steel scythe
 =======
@@ -64,6 +77,11 @@ weapon_training:
   Light Thrown: bola
   Polearms: light spear
 >>>>>>> origin/patch-1
+=======
+  Brawling: ''
+  Light Thrown: bola
+  Polearms: light spear
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
   Heavy Thrown: light spear
   Offhand Weapon: bola
   Large Edged: bastard sword
@@ -74,6 +92,7 @@ weapon_training:
   Twohanded Edged: bastard sword
   Bow: nisha shortbow
   Crossbow: forester stonebow
+<<<<<<< HEAD
 <<<<<<< HEAD
   Slings: sling
 offhand_thrown: true
@@ -112,6 +131,8 @@ loot_subtractions:
 # - bolt
 # - bolts
 =======
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
   Slings: shadow sling
 offhand_thrown: true
 dance_skill: Brawling
@@ -127,4 +148,7 @@ skinning:
   arrange_all: false
   arrange_count: 2
   tie_bundle: true
+<<<<<<< HEAD
 >>>>>>> origin/patch-1
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4

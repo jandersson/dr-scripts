@@ -145,10 +145,11 @@ offensive_spells:
   cambrinth:
   - 1
 training_abilities:
+  Collect: 120
+  Hunt: 80
   Tactics: 30
   Stealth: 60
-  Hunt: 80
-  Perc: 120
+  Perc: 60
 weapon_training:
   Small Blunt: triple-weighted bola
   Offhand Weapon: triple-weighted bola
@@ -183,6 +184,11 @@ crossing_training:
 - Warding
 - Augmentation
 - Utility
+- Engineering
+
+# Engineering
+
+engineering_room: 9457
 safe_room: &safe_room 1645
 compost_room: *safe_room
 bankbot_name: Riphik
