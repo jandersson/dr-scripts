@@ -23,6 +23,8 @@ training_manager_priority_skills:
 - Targeted Magic
 training_manager_town_duration: 30  # Not a 'live' setting. Has yet to be committed
 repair_timer: 86400 # Repair once every 24 hours
+repair_withdrawal_amount: 40_000
+braid_item: grass
 repair_every: .inf # Infinity
 favor_god: Meraud
 favor_goal: 30
@@ -31,7 +33,6 @@ favor_goal: 30
 ### HUNTING-BUDDY ###
 #####################
 hunting_buddies:
-- Blackro
 - Leustyin
 - Sarvatt
 - Leilond
@@ -60,20 +61,20 @@ training_abilities:
   Hunt: 80
   PercMana: 60
   Analyze: 70
-  #  App: 65 # Does not teach in juvenile wyverns or xala
+  App: 65 # Does not teach in juvenile wyverns or xala
   Recall: 1200
-  Collect: 120
+  Collect: 180
 
 weapon_training:
   Crossbow: pelletbow
   Large Edged: icy-blue blade
   Brawling: ''
-  Targeted Magic: tetractys
 
 dance_skill:         Brawling
 use_weak_attacks:    false
 use_stealth_attacks: false
 ignored_npcs:
+- leopard
 - owl
 - Taala
 - foal
@@ -265,6 +266,7 @@ offensive_spells:
   cast: cast spider
   cast_only_to_train: false
 - name: Telekinetic Storm
+  mana: 32
   cambrinth:
   - 48
   slivers: true
@@ -324,6 +326,11 @@ waggle_sets:
       mana: 500
       focus: staff
       worn_focus: true
+  gaf: &gaf
+    Gauge Flow:
+      mana: 52
+      cambrinth:
+      - 48
   lw: &lw
     Lay Ward:
       mana: 52
@@ -415,11 +422,14 @@ loot_additions:
 - kyanite stone
 - ju'ladan oil # enchanting
 - tooth # black apes
-- shard
+- smooth rock
+- smooth rocks
+- long arrow
+- long arrows
 loot_subtractions:
 - arrow
+- shard
 - bolt
-- rock
 loot_specials:
 - name: jadeite stone  
   bag:  pack
@@ -428,6 +438,7 @@ loot_specials:
 ####################
 ### LOCKSMITHING ###
 ####################
+number_of_pets_to_keep_on_hand: 5
 lockpick_buffs:     
   spells:           
   - abbrev: MT
@@ -496,17 +507,14 @@ full_pouch_container: pack
 
 train_with_spells: true
 combat_spell_training:
-  Augmentation:
-    abbrev: aus
-    mana: 65 
-    symbiosis: true
+  # Symbiosis takes care of augmentation training
   Warding:
     abbrev: maf
-    mana: 77
+    mana: 90
     symbiosis: true
   Utility:
     abbrev: gaf
-    mana: 82
+    mana: 85
     symbiosis: true
 
 #################
@@ -521,9 +529,10 @@ mine_for_outdoorsmanship: false
 mines_to_mine:
 - ice_caves # Shard
 mine_implement: shovel
-mine_while_training: false
+mine_while_training: true
 mining_buddy_mine_every_room: false
 mining_buddy_vein_list:
+- Orichalcum
 - Damite
 - Kertig
 - Haralun

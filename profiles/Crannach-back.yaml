@@ -1,6 +1,6 @@
 ---
 hunting_info:
-- :zone: black_apes 
+- :zone: black_goblins 
   args:
   - back
   stop_on:
@@ -26,11 +26,15 @@ weapon_training:
   Polearms: light spear
   Slings: hide sling
 
+offensive_spell_cycle:
+- Mental Blast
+- Rebuke
+
 offensive_spells:
-- name: Malediction
-  mana: 24
+- name: Mental Blast
+- name: Rebuke
   skill: Sorcery
-  expire:
+  mana: 42
   cast_only_to_train: true
 - name: Sleep
   mana: 5
@@ -66,9 +70,11 @@ loot_subtractions:
 - bolts
 - arrow
 - arrows
+- rock
+- rocks
 loot_additions:
-- shard
-- shards
-- boar-tusk arrow
-- boar-tusk arrows
+- smooth rock
+- smooth rocks
+- long arrow
+- long arrows
 ...

@@ -1,13 +1,44 @@
 ---
 hunting_info:
+<<<<<<< HEAD
+<<<<<<< HEAD
+- :zone: goblins
+=======
 - :zone: 
   - eidolon_steeds
   - eidolon_steeds
+>>>>>>> origin/patch-1
+=======
+- :zone: 
+  - eidolon_steeds
+  - eidolon_steeds
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
   args:
   - d0
   - back
   :duration: 30
   before:
+<<<<<<< HEAD
+<<<<<<< HEAD
+  # - go2 1015 #1015 NTR outside of Crossing
+  # - buff prebuff
+  after:
+  - rem eotb
+
+offensive_spells:
+# - skill: Targeted Magic
+#   name: Strange Arrow
+#   abbrev: STRA
+#   mana: 1
+#   cast_only_to_train: true
+- skill: Debilitation
+  name: Petrifying Visions
+  abbrev: PV
+  mana: 1
+  expire: no longer seems petrified
+=======
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
   - buff eotb
   after:
   - rem eotb
@@ -30,13 +61,27 @@ buff_spells:
     cambrinth:
     - 20
     - 15
+<<<<<<< HEAD
+>>>>>>> origin/patch-1
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
 
 use_weak_attacks: true
 use_stealth_attacks: false
 weapon_training:
+<<<<<<< HEAD
+<<<<<<< HEAD
+  Polearms: light spear #steel scythe
+=======
   Brawling: ''
   Light Thrown: bola
   Polearms: light spear
+>>>>>>> origin/patch-1
+=======
+  Brawling: ''
+  Light Thrown: bola
+  Polearms: light spear
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
   Heavy Thrown: light spear
   Offhand Weapon: bola
   Large Edged: bastard sword
@@ -47,6 +92,47 @@ weapon_training:
   Twohanded Edged: bastard sword
   Bow: nisha shortbow
   Crossbow: forester stonebow
+<<<<<<< HEAD
+<<<<<<< HEAD
+  Slings: sling
+offhand_thrown: true
+dance_skill: Brawling
+
+cycle_armors:
+  Plate Armor:
+  - plate gauntlets
+  Brigandine:
+  - scale gloves
+  Light Armor:
+  - quilted gloves
+  Chain Armor:
+  - chain gloves
+
+training_abilities:
+  Hunt: 90
+  Perc: 90
+  Analyze: 120
+  #App Quick: 60
+
+loot_subtractions:
+# - coffer
+# - strongbox
+# - chest
+# - caddy
+# - trunk
+# - casket
+# - skippet
+# - crate
+# - box
+- rock
+- rocks
+- arrow
+- arrows
+# - bolt
+# - bolts
+=======
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
   Slings: shadow sling
 offhand_thrown: true
 dance_skill: Brawling
@@ -62,3 +148,7 @@ skinning:
   arrange_all: false
   arrange_count: 2
   tie_bundle: true
+<<<<<<< HEAD
+>>>>>>> origin/patch-1
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4

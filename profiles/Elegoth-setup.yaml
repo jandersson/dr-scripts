@@ -25,11 +25,21 @@ training_manager_priority_skills:
 - Small Edged
 - Offhand Weapon
 - Staves
-hunting_file_list:
-- setup
-- back
+# hunting_file_list:
+# - setup
+# - back
 hunting_info:
 - :zone: cave_trolls
+<<<<<<< HEAD
+  :duration: 30
+  # args:
+  # - r4
+  stop_on:
+  # - Light Armor
+  # - Chain Armor
+  # - Brigandine
+  # - Plate Armor
+=======
   :duration: 20
   args:
   - d4
@@ -38,12 +48,24 @@ hunting_info:
   - Chain Armor
   - Brigandine
   - Plate Armor
+>>>>>>> origin/patch-1
   # - Brawling
   # - Heavy Thrown
   # - Polearms
   # - Large Edged
   # - Twohanded Edged
   # - Bow
+<<<<<<< HEAD
+  - Large Blunt
+  - Twohanded Blunt
+  - Light Thrown
+  - Small Blunt
+  - Small Edged
+  - Offhand Weapon
+  - Staves
+hunting_buddies:
+- Evissam
+=======
   # - Large Blunt
   # - Twohanded Blunt
   # - Light Thrown
@@ -54,6 +76,7 @@ hunting_info:
 hunting_buddies:
 - Bastile
 - Maoyu
+>>>>>>> origin/patch-1
 - Byd
 - Rakkor
 - Kaldean
@@ -208,6 +231,15 @@ weapon_training:
   Large Edged: bastard sword
   Twohanded Edged: bastard sword
   Bow: nisha shortbow
+<<<<<<< HEAD
+  Large Blunt: bar mace
+  Twohanded Blunt: bar mace
+  Light Thrown: throwing spike
+  Small Blunt: throwing spike
+  Small Edged: throwing spike
+  Offhand Weapon: throwing spike
+  Staves: nightstick
+=======
   # Large Blunt: bar mace
   # Twohanded Blunt: bar mace
   # Light Thrown: throwing spike
@@ -215,6 +247,7 @@ weapon_training:
   # Small Edged: throwing spike
   # Offhand Weapon: throwing spike
   # Staves: nightstick
+>>>>>>> origin/patch-1
 skinning:
   skin: true
   arrange_all: false

@@ -1,14 +1,41 @@
 ---
 hunting_info:
+<<<<<<< HEAD
+<<<<<<< HEAD
+- :zone: scouts
+  args:
+  - d0
+=======
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
 - :zone:
   - young_blue_dappled_prereni
   - young_blue_dappled_prereni
   args:
   - d1
+<<<<<<< HEAD
+>>>>>>> origin/patch-1
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
   - main
   :duration: 30
   :stop_on:
   - Targeted Magic
+<<<<<<< HEAD
+<<<<<<< HEAD
+  - Stealth
+  - Evasion
+  - Skinning
+  - First Aid
+  - Thanatology
+  before:
+  - go2 #### #1015 NTR outside of Crossing
+  - buff prebuff
+
+#combat_spell_training:
+=======
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
   - Debilitation
   - Thanatology
   before:
@@ -22,10 +49,53 @@ hunting_info:
   - buff eotb
 
 combat_spell_training:
+<<<<<<< HEAD
+>>>>>>> origin/patch-1
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
 cycle_armors:
 
 offensive_spells:
 - skill: Targeted Magic
+<<<<<<< HEAD
+<<<<<<< HEAD
+  name: Acid Splash
+  abbrev: ACS
+  mana: 5
+  cast_only_to_train: true
+- skill: Debilitation
+  name: Petrifying Visions
+  abbrev: PV
+  mana: 2
+  expire: no longer seems petrified
+  cast_only_to_train: true
+
+use_weak_attacks: true
+weapon_training:
+  Brawling: ''
+  Small Edged: thrusting blade
+  Light Thrown: bola
+dance_skill: Small Edged
+
+loot_subtractions:
+- coffer
+- strongbox
+- chest
+- caddy
+- trunk
+- casket
+- skippet
+- crate
+- box
+- rock
+- rocks
+- arrow
+- arrows
+- bolt
+- bolts
+=======
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4
   name: Vivisection
   abbrev: vivi
   mana: 20
@@ -57,3 +127,7 @@ use_weak_attacks: false
 weapon_training:
   Small Edged: thrusting blade
 dance_skill: Small Edged
+<<<<<<< HEAD
+>>>>>>> origin/patch-1
+=======
+>>>>>>> 1feaabc785135ddb28405b8c23c0c89d567026f4

@@ -13,8 +13,12 @@ hunting_info:
   :stop_on:
   - Light Thrown
   before:
+<<<<<<< HEAD
+  - go2 ####
+=======
   - go2 
   - bitchin-pick
+>>>>>>> origin/patch-1
   - rem gol
   - buff weapons
   after:

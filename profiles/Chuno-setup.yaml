@@ -1,6 +1,11 @@
 ---
+<<<<<<< HEAD
+hometown: #####
+slack_username: #####
+=======
 hometown: 
 slack_username: 
+>>>>>>> origin/patch-1
 quit_on_status_warning: false
 status_monitor_no_window: true
 favor_god: Urrem'tier
@@ -21,10 +26,42 @@ training_manager_priority_skills:
 - Heavy Thrown
 - Bow
 hunting_file_list:
+<<<<<<< HEAD
+ - setup
+ #- getboxes # COMMENT THE AFTER: - REM IF USING THIS!
+=======
+>>>>>>> origin/patch-1
  - stealth
  - setup
 hunting_info:
 - :zone:
+<<<<<<< HEAD
+  - fuligin_moths
+  - fuligin_moths
+  - lava_drakes
+  - lava_drakes
+  args:
+  - d0
+  :duration: 120
+  stop_on:
+  - Twohanded Blunt
+  - Light Thrown
+  before:
+  #- steal
+  - go2 ####
+  - bitchin-pick pets 2
+  - bitchin-pick
+  - athletics
+  - go2 ####
+  - first-aid
+  - go2 ####
+  #- go2 ####
+  - set-attack 100 95
+  - gird
+  - buffbarb
+  after:
+  - go2 ####
+=======
   - archons
   - archons
   #- cabalist
@@ -38,6 +75,7 @@ hunting_info:
   - Light Thrown
   after:
   - go2 
+>>>>>>> origin/patch-1
   - rem
 
 warhorn: kertig warhorn
@@ -133,9 +171,12 @@ buff_nonspells:
 
 # ------- NON-COMBAT SETTINGS -------#
 crossing_training:
+<<<<<<< HEAD
+=======
  #- Locksmithing
  #- Athletics
  #- First Aid
+>>>>>>> origin/patch-1
  #- Forging
 
 storage_containers:
@@ -145,6 +186,13 @@ storage_containers:
 
 footwear: boots
 textbook: true
+<<<<<<< HEAD
+textbook_type: codex
+
+hide_to_steal: false
+listen: true
+safe_room: &safe_room ####
+=======
 textbook_type: textbook
 
 hide_to_steal: false
@@ -152,6 +200,7 @@ listen: true
 safe_room: &safe_room 
 safe_room_id: *safe_room
 safe_room_empath: 
+>>>>>>> origin/patch-1
 
 sell_loot_pouch: false
 gem_pouch_adjective: suede
@@ -254,7 +303,11 @@ loot_specials:
   bag: weapon tote
 - name: kyanite stones
   bag: weapon tote
+<<<<<<< HEAD
+
+=======
 hunting_buddies:
+>>>>>>> origin/patch-1
 ignored_npcs:
 - Brokk # black goblin area
 - great owl
@@ -383,12 +436,29 @@ gear:
   :name: hammer
   :hinders_lockpicking: false
   :is_worn: false
+<<<<<<< HEAD
+  :wield: true
+- :adjective: massive
+  :name: greataxe
+  :hinders_lockpicking: false
+  :is_worn: false
+=======
+>>>>>>> origin/patch-1
   :wield: true
 - :adjective:
   :name: greatsword
   :hinders_lockpicking: false
   :is_worn: false
   :wield: true
+<<<<<<< HEAD
+- :adjective: bar
+  :name: mace
+  :hinders_lockpicking: false
+  :is_worn: false
+  :swappable: false
+  :wield: true
+=======
+>>>>>>> origin/patch-1
 - :adjective: sterak
   :name: axe
   :hinders_lockpicking: false

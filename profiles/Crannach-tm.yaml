@@ -1,15 +1,17 @@
 ---
 hunting_info:
 - :zone: 
+  - lava_drakes
   - juvenile_wyverns
-  - thrall_magus
+    #- thrall_magus
   args:
   - debug
-  - tm 
+  - tm
+  - r0
   stop_on:
   - Targeted Magic
-  - Debilitation
-  :duration: 90
+    #- Debilitation
+  :duration: 30
   before:
   - release_invis
   - safe-room
@@ -17,13 +19,23 @@ hunting_info:
   - astrology
   - pick
   - appraisal
+  - restock
   - sell-loot
+- :zone:
+  - juvenile_wyverns
+  args:
+  - debug
+  - tm
+  stop_on:
+  - Evasion
+  :duration: 15
   after:
   - safe-room
   - go2 safe_room
   - astrology
   - pick
   - appraisal
+tk_ammo: brass razor 
 use_stealth_attacks: true
 use_weak_attacks: true
 cycle_armors:
@@ -38,20 +50,20 @@ offensive_spells:
   mana: 10
   cast: cast spider
 - name: Telekinetic Storm
-  slivers: true
   cast_only_to_train: true
-- name: Partial Displacement
+  mana: 42
   cambrinth:
   - 48
-  cast_only_to_train: true
+  cast: cast creatures
 - name: Mental Blast
   mana: 5
   cast_only_to_train: true
-- name: Malediction
-  expire:
+- name: Rebuke
+  mana: 40
   skill: Sorcery
-  mana: 24
   cast_only_to_train: true
+
+skip_last_kill: true
 
 loot_subtractions:
   - coffer
@@ -63,9 +75,11 @@ loot_subtractions:
   - strongbox
   - casket
   - crate
-  - rock
   - arrow
   - bolt
+  - shard
+  - rock
+  - rocks
 skinning:
   skin:          true
   arrange_all:   false

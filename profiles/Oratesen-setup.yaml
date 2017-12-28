@@ -46,8 +46,12 @@ waggle_sets:
     Naming of Tears:
       mana: 30
 hunting_buddies:
+<<<<<<< HEAD
+- Evissam
+=======
 - Bastile
 - Maoyu
+>>>>>>> origin/patch-1
 - Byd
 - Rakkor
 - Kaldean
@@ -305,10 +309,18 @@ sell_loot_pouch: false
 spare_gem_pouch_container: bag
 crossing_training_sorcery:
   abbrev: Centering
+<<<<<<< HEAD
+  mana: 15
+  cambrinth:
+  - 15
+  - 15
+  - 10
+=======
   mana: 25
   cambrinth:
   - 16
   - 16
+>>>>>>> origin/patch-1
 
 quit_on_status_warning: true
 braid_item: grass

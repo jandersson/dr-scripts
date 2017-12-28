@@ -1,8 +1,13 @@
 ---
 hunting_info:
 - :zone: 
+<<<<<<< HEAD
+  - storm_bulls
+  - storm_bulls
+=======
   - young_wyverns
   - young_wyverns
+>>>>>>> origin/patch-1
   args:
   - d0
   - stealth
@@ -25,7 +30,16 @@ gear_sets:
   - small shield
   - pugilist armguard
 
+<<<<<<< HEAD
+gear_sets:
+  standard:
+  - small shield
+  - pugilist armguard
+
+stance_override: 96 100 0 
+=======
 stance_override: 97 100 0 
+>>>>>>> origin/patch-1
 cycle_armors:
 training_abilities:
 buff_nonspells:

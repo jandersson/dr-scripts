@@ -1,6 +1,11 @@
 ---
+<<<<<<< HEAD
+#hometown: Shard
+slack_username: #####
+=======
 hometown: 
 slack_username: 
+>>>>>>> origin/patch-1
 quit_on_status_warning: false
 status_monitor_no_window: true
 favor_god: Hav'roth
@@ -33,9 +38,18 @@ hunting_info:
   - Stealth
   - Targeted Magic
   before:
+<<<<<<< HEAD
+  #- athletics
+  #- attunement
+  #- go2 ####
+  #- bitchin-pick pets 1
+  #- bitchin-pick
+  - go2 ####
+=======
   - athletics
   - go2 
   - rem regen
+>>>>>>> origin/patch-1
   - buff prebuff
 - :zone:
   - mountain_giants
@@ -46,11 +60,21 @@ hunting_info:
   :duration: 10
   stop_on:
   - Evasion
+<<<<<<< HEAD
+  after:
+  - safe-room
+  #- sloot crossing
+  - go2 ####
+  #- bitchin-pick pets 1
+  - first-aid
+  - first-aid
+=======
   #after:
   # - sloot crossing
   # - go2 
   # - bitchin-pick
   # - first-aid
+>>>>>>> origin/patch-1
 
 gear_sets:
   standard:
@@ -236,9 +260,14 @@ textbook_type: weighty tome
 
 listen: true
 listen_observe: true
+<<<<<<< HEAD
+safe_room: &safe_room ####
+
+=======
 safe_room: &safe_room  
 
 footwear: boots
+>>>>>>> origin/patch-1
 climbing_target: undergondola_pit
 hide_to_steal: false
 bin_stolen: false
@@ -295,10 +324,17 @@ storage_containers:
 - satchel
 - bag
 
+<<<<<<< HEAD
+full_pouch_container: pack
+appraisal_training:
+  - pouches
+  - gear
+=======
 full_pouch_container: bag
 appraisal_training:
   - pouches
   #- gear
+>>>>>>> origin/patch-1
 
 waggle_sets:
   default:
@@ -504,7 +540,10 @@ loot_subtractions:
 - arrows
 - bolt
 - bolts
+<<<<<<< HEAD
+=======
 hunting_buddies:
+>>>>>>> origin/patch-1
 
 empath_healing:
   # FOC:
@@ -523,6 +562,42 @@ empath_healing:
   # - 15
   # - 15
 
+<<<<<<< HEAD
+  # T2 Settings
+training_list:
+- skill: Athletics
+  start: 1
+  scripts:
+  - athletics
+- skill: Appraisal
+  start: 1
+  scripts:
+  - go2 6366
+  - appraisal
+# - skill: First Aid
+#   start: 1
+#   scripts:
+#   - go2 6366
+#   - first-aid
+- skill: Locksmithing
+  start: 1
+  scripts:
+  - go2 6366
+  - bitchin-pick pets 99
+  - bitchin-pick
+- skill: Performance
+  start: 1
+  scripts:
+  - go2 6366
+  - performance
+- skill: Mechanical Lore
+  start: 5
+  scripts:
+  - go2 6366
+  - mechlore
+
+=======
+>>>>>>> origin/patch-1
 ignored_npcs:
 - warrior
 - Owl
