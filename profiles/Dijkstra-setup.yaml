@@ -1,0 +1,192 @@
+####################
+### TARDER MAGIC ###
+####################
+buff_spells:
+  # Any spell with a {} after it is loading the minimum settings required to cast the spell from data/base-spells.yaml
+  Blur:
+    recast_every: 600
+  Finesse: 
+    recast_every: 600
+  Last Gift of Vithwok IV: 
+    recast_every: 600
+  Membrach's Greed: 
+    recast_every: 600
+  Noumena: 
+    recast_every: 600
+  Trabe Chalice: 
+    recast_every: 600
+# See Dijkstra-magic.yaml for offensive spells
+###
+training_manager_hunting_priority: true 
+training_manager_town_duration: 60
+training_manager_priority_skills:
+- Targeted Magic
+hunting_file_list:
+- magic
+- setup
+
+crafting_container: pack
+
+train_workorders:
+- Blacksmithing
+
+work_order_disciplines:
+- Blacksmithing
+alchemy_tools:
+- marble mortar
+- marble pestle
+- mixing stick
+- sieve
+- large bowl
+alchemy_belt:
+- marble mortar
+- marble pestle
+- mixing stick
+- sieve
+- large bowl
+
+mining_buddy_vein_list:
+# - Gold
+# - Platinum
+- Lumium
+#- Darkstone
+- Damite
+- Kertig
+- Haralun
+- Glaes
+- Animite
+#- Quartzite
+
+mines_to_mine:
+- waterfall
+- wicked_burrow
+- stone_clan
+- abandoned_mine
+
+hunting_info: 
+- :zone: snowbeasts
+  :duration: 30
+  stop_on:
+  - Polearms 
+
+stop_hunting_if_bleeding: true
+
+favor_god: Kertigen
+favor_goal: 30
+
+picking_box_source: bag 
+picking_box_storage: pack
+lockpick_dismantle: salvage
+use_lockpick_ring: true
+
+use_weak_attacks: true
+use_stealth_attacks: false
+
+safe_room:
+slack_username:
+status_monitor_no_window: true
+dump_junk: true
+
+gear:
+### Weapons
+- :name: spear
+  :adjective: light
+- :name: spike
+  :adjective: throwing
+  :swappable: true
+- :name: shortbow
+  :adjective: Nisha
+  :is_leather: true
+  :is_worn: true
+- :name: crossbow
+  :adjective: battle
+- :name: mace
+  :adjective: bar
+  :swappable: true
+### Armor
+- :name: pants
+  :adjective: insulated
+  :is_leather: true
+- :name: greaves
+  :adjective: scale
+- :name: greaves
+  :adjective: light 
+- :name: sipar
+  :adjective: round
+  :is_worn: true
+  :hinders_lockpicking: true
+- :name: helm
+  :adjective: ring
+  :is_worn: true
+  :hinders_lockpicking: true
+- :name: mask
+  :adjective: ring
+  :is_worn: true
+  :hinders_lockpicking: true
+- :name: lorica
+  :adjective: ring
+  :is_worn: true
+- :name: greaves
+  :adjective: ring
+  :is_worn: true
+- :name: &hand_armor gloves 
+  :adjective: ring
+  :is_worn: true
+  :hinders_lockpicking: true
+- :name: vambraces
+  :adjective: ring
+  :is_worn: true
+- :name: stick
+  :adjective: parry
+  :is_worn: true
+
+gear_sets:
+  standard:
+  - parry stick
+  - round sipar
+  - ring lorica
+  - ring vambraces
+  - ring greaves
+  - ring mask
+  - ring helm
+  - Nisha shortbow
+  - ring gloves 
+
+weapon_training:
+  Brawling: ''
+  Bow: Nisha shortbow
+  Crossbow: battle crossbow
+  Offhand Weapon: throwing spike
+  Light Thrown: throwing spike
+  Small Blunt: throwing spike
+  Polearms: light spear
+  Heavy Thrown: light spear
+
+cycle_armors:
+  Light Armor:
+  - insulated pants
+  Chain Armor:
+  - ring greaves
+  Plate Armor:
+  - light greaves
+  Brigandine:
+  - scale greaves
+
+hand_armor: *hand_armor
+
+crossing_training:
+- Appraisal
+- Performance
+- Athletics
+- Mechanical Lore
+- Locksmithing
+- Outdoorsmanship
+- Forging
+
+appraisal_training:
+- art
+- gear
+
+listen: true
+listen_observe: true
+
