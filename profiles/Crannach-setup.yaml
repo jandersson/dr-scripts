@@ -24,7 +24,6 @@ training_manager_priority_skills:
 training_manager_town_duration: 30  # Not a 'live' setting. Has yet to be committed
 repair_timer: 86400 # Repair once every 24 hours
 repair_withdrawal_amount: 40_000
-braid_item: grass
 repair_every: .inf # Infinity
 favor_god: Meraud
 favor_goal: 30
@@ -252,6 +251,14 @@ cycle_armors:
 ### CAMBRINTH ###
 cambrinth: nestled armband
 cambrinth_cap: 48
+stored_cambrinth: false
+#cambrinth_items:
+#- name: nestled armband
+#  cap: 48
+#  stored: false
+#- name: cambrinth anklet
+#  cap: 12
+#  stored: false
 
 ### SPELLS ###
 prep_scaling_factor: 0.85
@@ -289,7 +296,6 @@ offensive_spells:
 #################
 ### ASTROLOGY ###
 #################
-predict_event: false
 have_divination_bones: true
 divination_bones_storage:
   container: forging kit
@@ -469,6 +475,7 @@ skinning:
 ########################
 ### CROSSING TRAINER ###
 ########################
+braid_item: grass
 listen: true
 listen_observe: true
 dump_junk: true  # Call the dump junk command after braiding or collecting when room is full of junk
@@ -478,44 +485,56 @@ crossing_training:
 - Athletics
 - Locksmithing
 - Astrology
-- Thievery
+  #- Thievery
 - Appraisal
 - Outdoorsmanship
 - Mechanical Lore
+- Warding
+- Utility
+- Augmentation
 
 classes_to_teach:
 - Stealth
 
-#have_climbing_rope: true  # This setting tells the ;athletics script to train in your safe room with a climbing rope 
-#cyclic_training_spells:
-#  Utility:
-#    abbrev: SOV
-#  cyclic: true
-#cyclic_cycle_skills:
-#- Utility
-#
+train_with_spells: true
+use_harness_when_arcana_locked: true
+training_spells:
+  Augmentation:
+    abbrev: AUS
+    symbiosis: true
+  Warding:
+    abbrev: SHEAR
+    symbiosis: true
+    after:
+    - message: release shear
+      matches:
+      - The shimmering globe of blue fire suddenly extinguishes
+      - Release what
+  Utility:
+    abbrev: GAF
+    symbiosis: true
+combat_spell_training:
+  # Symbiosis takes care of augmentation training
+  Warding:
+    abbrev: shear
+    mana: 65
+    after:
+    - message: release shear
+      matches:
+      - The shimmering globe of blue fire suddenly extinguishes
+      - Release what
+    symbiosis: true
+  Utility:
+    abbrev: gaf
+    mana: 85
+    symbiosis: true
+
 #################
 ### APPRAISAL ###
 #################
 appraisal_training:
 - pouches
 full_pouch_container: pack
-
-##############
-### MAGIC ####
-##############
-
-train_with_spells: true
-combat_spell_training:
-  # Symbiosis takes care of augmentation training
-  Warding:
-    abbrev: maf
-    mana: 90
-    symbiosis: true
-  Utility:
-    abbrev: gaf
-    mana: 85
-    symbiosis: true
 
 #################
 ### MECH LORE ###

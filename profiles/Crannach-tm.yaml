@@ -7,7 +7,7 @@ hunting_info:
   args:
   - debug
   - tm
-  - r0
+  - r2
   stop_on:
   - Targeted Magic
     #- Debilitation

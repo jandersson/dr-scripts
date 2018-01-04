@@ -36,11 +36,7 @@ offensive_spells:
   skill: Sorcery
   mana: 42
   cast_only_to_train: true
-- name: Sleep
-  mana: 5
-offensive_spell_cycle:
-- Malediction
-- Sleep
+
 training_abilities:
   PercMana: 60
 skinning:

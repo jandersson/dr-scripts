@@ -3,20 +3,40 @@
 ####################
 buff_spells:
   # Any spell with a {} after it is loading the minimum settings required to cast the spell from data/base-spells.yaml
-  Blur:
-    recast_every: 600
-  Finesse: 
-    recast_every: 600
-  Last Gift of Vithwok IV: 
-    recast_every: 600
-  Membrach's Greed: 
-    recast_every: 600
-  Noumena: 
-    recast_every: 600
-  Trabe Chalice: 
-    recast_every: 600
+  Blur: {}
+  Finesse: {} 
+  Last Gift of Vithwok IV: {} 
+  Membrach's Greed: {} 
+  Noumena: {} 
+  Trabe Chalice: {}
+
+cambrinth: cambrinth armband
+cambrinth_cap: 32
+cambrinth_items:
+- name: cambrinth armband
+  cap: 32
+  stored: false
+
+use_harness_when_arcana_locked: true
+
+training_spells:
+  Augmentation:
+    abbrev: FIN
+  Utility:
+    abbrev: NOU
+  Warding:
+    abbrev: NON
+
+combat_spell_training:
+  Augmentation:
+    abbrev: FIN
+    mana: 7
+    cambrinth:
+    - 3
+
 # See Dijkstra-magic.yaml for offensive spells
 ###
+trade_contract_container: pack
 training_manager_hunting_priority: true 
 training_manager_town_duration: 60
 training_manager_priority_skills:
@@ -64,7 +84,7 @@ mines_to_mine:
 - abandoned_mine
 
 hunting_info: 
-- :zone: snowbeasts
+- :zone: young_ogres
   :duration: 30
   stop_on:
   - Polearms 
@@ -175,13 +195,16 @@ cycle_armors:
 hand_armor: *hand_armor
 
 crossing_training:
-- Appraisal
-- Performance
-- Athletics
-- Mechanical Lore
-- Locksmithing
-- Outdoorsmanship
-- Forging
+  #- Appraisal
+  #- Performance
+  #- Athletics
+  #- Mechanical Lore
+  #- Locksmithing
+  #- Outdoorsmanship
+  #- Forging
+- Utility
+- Augmentation
+- Warding
 
 appraisal_training:
 - art

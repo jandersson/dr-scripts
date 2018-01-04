@@ -1,5 +1,5 @@
 hunting_info:
-- :zone: goblins
+- :zone: scouts
   :duration: 15
   stop_on:
   - Targeted Magic
