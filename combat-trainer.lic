@@ -245,8 +245,6 @@ class LootProcess
   include DRCS
   include DRCH
 
-  attr_reader :current_box_count
-
   def initialize(settings, equipment_manager)
     @equipment_manager = equipment_manager
     echo('New LootProcess') if $debug_mode_ct
@@ -338,10 +336,7 @@ class LootProcess
     if settings.box_loot_limit
       @box_nouns = get_data('items').box_nouns
       @box_loot_limit = settings.box_loot_limit
-      @current_box_count = get_boxes(settings.picking_box_source).size
-      if settings.picking_pet_box_source != settings.picking_box_source
-        @current_box_count += get_boxes(settings.picking_pet_box_source).size
-      end
+      @current_box_count = count_boxes(settings)
       echo("  @current_box_count: #{@current_box_count}")
       echo("  @box_loot_limit: #{@box_loot_limit}")
     end
@@ -433,7 +428,7 @@ class LootProcess
     items_to_loot = []
     @lootables
       .select { |item| game_state.lootable?(item) }
-      .reject { |item| @box_nouns.include?(item) && @box_loot_limit && @current_box_count >= @box_loot_limit }
+      .reject { |item| @box_nouns.include?(item) && @box_loot_limit && at_box_limit? }
       .each do |item|
         item_reg = item.split.join('.*')
         matches = DRRoom.room_objs.grep(/\b#{item_reg}$/)
@@ -457,6 +452,11 @@ class LootProcess
       game_state.unlootable(GameObj.right_hand.noun.downcase)
       dispose_trash(right_hand)
     end
+  end
+
+  def at_box_limit?
+    return false unless @box_loot_limit
+    @current_box_count >= @box_loot_limit
   end
 
   def should_perform_ritual?(game_state)
@@ -839,11 +839,17 @@ class SpellProcess
     @harness_for_attunement = settings.use_harness_when_arcana_locked
     echo(" @harness_for_attunement: #{@harness_for_attunement}") if $debug_mode_ct
 
+    @siphon_vit_threshold = settings.necro_siphon_vit_threshold
+    echo(" @siphon_vit_threshold: #{@siphon_vit_threshold}") if $debug_mode_ct
+
     @ignored_npcs = settings.ignored_npcs
     echo(" @ignored_npcs: #{@ignored_npcs}") if $debug_mode_ct
 
     @hide_type = settings.hide_type
     echo("  @hide_type: #{@hide_type}") if $debug_mode_ct
+
+    @buff_force_cambrinth = settings.combat_trainer_buffs_force_cambrinth
+    echo("  @buff_force_cambrinth: #{@buff_force_cambrinth}") if $debug_mode_ct
 
     @perc_health_timer = Time.now
 
@@ -929,7 +935,10 @@ class SpellProcess
       echo('SpellProcess::clean_up') if $debug_mode_ct
       game_state.next_clean_up_step
       release_cyclics
-      bput('release spell', 'You let your concentration lapse', "You aren't preparing a spell") if checkprep != 'None'
+      if checkprep != 'None'
+        bput('release spell', 'You let your concentration lapse', "You aren't preparing a spell")
+        bput('release mana', 'You release all', "You aren't harnessing any mana")
+      end
       if @tk_ammo
         waitrt?
         pause
@@ -973,7 +982,10 @@ class SpellProcess
     return if game_state.cast_timer.nil? || (Time.now - game_state.cast_timer) <= 70
 
     game_state.cast_timer = nil
-    fput('release spell') if game_state.casting
+    if game_state.casting
+      bput('release spell', 'You let your concentration lapse', "You aren't preparing a spell")
+      bput('release mana', 'You release all', "You aren't harnessing any mana")
+    end
     game_state.casting = false
   end
 
@@ -1150,7 +1162,7 @@ class SpellProcess
     if data['ritual']
       cast_ritual(data, game_state)
     else
-      prepare_spell(data, game_state)
+      prepare_spell(data, game_state, @buff_force_cambrinth)
     end
   end
 
@@ -1180,10 +1192,10 @@ class SpellProcess
         data = { 'abbrev' => 'heal', 'mana' => @empath_spells['HEAL'].first, 'cambrinth' => @empath_spells['HEAL'][1..-1] }
       end
       @wounds = {}
-      prepare_spell(data, game_state) if data
+      prepare_spell(data, game_state, true) if data
     elsif @empath_spells['VH']
       data = { 'abbrev' => 'vh', 'mana' => @empath_spells['VH'].first, 'cambrinth' => @empath_spells['VH'][1..-1] }
-      prepare_spell(data, game_state)
+      prepare_spell(data, game_state, true)
     end
   end
 
@@ -1196,21 +1208,27 @@ class SpellProcess
     game_state.casting_cfb = true
     game_state.prepare_cfb = false
     data = @necromancer_zombie['Call from Beyond']
-    prepare_spell(data, game_state)
+    prepare_spell(data, game_state, true)
   end
 
   def check_consume(game_state)
     return unless DRStats.necromancer?
     return unless @necromancer_healing
     return if game_state.casting
-    return unless game_state.prepare_consume
 
+    if health <= @siphon_vit_threshold && @necromancer_healing['Siphon Vitality'] && !game_state.npcs.empty?
+      @necromancer_healing['Siphon Vitality']['prep'] = 'target'
+      prepare_spell(@necromancer_healing['Siphon Vitality'], game_state, true)
+      return
+    end
+
+    return unless game_state.prepare_consume
     echo "@necromancer_healing.key?('Consume Flesh'): #{@necromancer_healing.key?('Consume Flesh')}" if $debug_mode_ct
     echo "@necromancer_healing.key?('Devour'): #{@necromancer_healing.key?('Devour')}" if $debug_mode_ct
     data = @necromancer_healing['Devour'] || @necromancer_healing['Consume Flesh']
     game_state.casting_consume = true
     game_state.prepare_consume = false
-    prepare_spell(data, game_state)
+    prepare_spell(data, game_state, true)
   end
 
   def check_offensive(game_state)
@@ -1262,7 +1280,7 @@ class SpellProcess
     game_state.reset_stance = true
   end
 
-  def prepare_spell(data, game_state)
+  def prepare_spell(data, game_state, force_cambrinth = false)
     return unless data
 
     data = check_discern(data, @check_discern_settings) if data['use_auto_mana']
@@ -1321,7 +1339,7 @@ class SpellProcess
     game_state.casting = true
     game_state.cambrinth_charges(data['cambrinth'])
     if data['cambrinth']
-      @should_harness = check_to_harness(@harness_for_attunement)
+      @should_harness = check_to_harness(@harness_for_attunement) && !force_cambrinth
       @should_invoke = data['cambrinth'] unless @should_harness
     end
     @custom_cast = data['cast']
@@ -1480,21 +1498,11 @@ class AbilityProcess
       .select { |name| Flags["ap-#{name}-expired"] }
       .each do |name|
         Flags.reset("ap-#{name}-expired")
-        start_barb_buff(name)
+        activate_barb_buff(name)
+        echo "Activated barb_buff #{name}!" if $debug_mode_ct
         waitrt?
         pause 6 if get_data('spells').barb_abilities[name]['type'].eql? 'meditation'
       end
-  end
-
-  def start_barb_buff(name)
-    ability_data = get_data('spells').barb_abilities[name]
-    case bput(ability_data['start_command'], ability_data['activated_message'], 'But you are already', 'Your inner fire lacks', 'find yourself lacking the inner fire', 'You should stand')
-    when 'You should stand'
-      fix_standing
-      start_barb_buff(name)
-      return
-    end
-    echo "Activated barb_buff #{name}!" if $debug_mode_ct
   end
 end
 
@@ -2264,6 +2272,7 @@ class GameState
   $thrown_skills = ['Heavy Thrown', 'Light Thrown']
   $aim_skills = %w[Bow Slings Crossbow]
   $ranged_skills = $thrown_skills + $aim_skills
+  $non_dance_skills = $ranged_skills + ['Brawling', 'Offhand Weapon']
 
   attr_accessor :mob_died, :last_weapon_skill, :danger, :parrying, :casting, :need_bundle, :cooldown_timers, :no_stab_current_mob, :loaded, :selected_maneuver, :cast_timer, :casting_moonblade, :casting_weapon_buff, :use_charged_maneuvers, :casting_consume, :prepare_consume, :casting_cfb, :prepare_cfb, :wounds, :blessed_room, :currently_whirlwinding, :whirlwind_trainables, :reset_stance
 
@@ -2307,6 +2316,9 @@ class GameState
     @dance_queue = []
     @analyze_combo_array = []
     @currently_whirlwinding = false
+
+    @dynamic_dance_skill = settings.dynamic_dance_skill
+    echo("  @dynamic_dance_skill: #{@dynamic_dance_skill}") if $debug_mode_ct
 
     @dance_skill = settings.dance_skill
     echo("  @dance_skill: #{@dance_skill}") if $debug_mode_ct
@@ -2425,6 +2437,8 @@ class GameState
       Flags['ct-accuracy-ready'] = true
       Flags.add('ct-damage-ready', 'You sense your ability to land deadly blows decrease')
       Flags['ct-damage-ready'] = true
+      Flags.add('ct-balance-ready', 'Your enhanced balance escapes')
+      Flags['ct-balance-ready'] = true
     end
 
     @dedicated_camb_use = settings.dedicated_camb_use
@@ -2535,7 +2549,8 @@ class GameState
     elsif (npcs.length > 2) && !balance_low?
       'whirlwind'
     else
-      'jab'
+      action_reduce if npcs.length > 2
+      %w[jab bob feint].sample
     end
   end
 
@@ -2544,6 +2559,10 @@ class GameState
   end
 
   def dance
+    if @dynamic_dance_skill 
+      filtered_skills = weapon_training.reject { |skill, _| $non_dance_skills.include?(skill) }
+      @dance_skill = filtered_skills.min_by { |skill, _| DRSkill.getrank(skill) }.first
+    end
     update_weapon_info(@dance_skill)
   end
 
@@ -2684,6 +2703,10 @@ class GameState
 
   def action_taken
     @action_count += 1
+  end
+
+  def action_reduce
+    @action_count -= 1
   end
 
   def set_aim_queue
@@ -2862,7 +2885,7 @@ class GameState
     return false if combo_type != 'flame' && !Flags["ct-#{combo_type}-ready"]
     return false if DRSkill.getrank('Expertise') < expertise_requirement
 
-    result = bput("analyze #{combo_type}", 'cannot repeat', 'Analyze what\?', 'by landing a .*')
+    result = bput("analyze #{combo_type}", 'cannot repeat', 'Analyze what\?', 'by landing a .*', 'You need to hold')
     waitrt?
 
     case result
@@ -2882,7 +2905,7 @@ class GameState
 
   def update_analyze_array(only_accuracy)
     return perform_analyze?('accuracy', 50) if only_accuracy
-    { 'accuracy' => 50, 'damage' => 125, 'flame' => 0 }.each do |type, expertise|
+    { 'accuracy' => 50, 'damage' => 125, 'balance' => 600, 'flame' => 0 }.each do |type, expertise|
       break if perform_analyze?(type, expertise)
     end
   end
