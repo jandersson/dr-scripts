@@ -858,7 +858,7 @@ class SpellProcess
       'cambrinth_items' => settings.cambrinth_items,
       'cambrinth' => settings.cambrinth,
       'cambrinth_cap' => settings.cambrinth_cap,
-      'stored_cambrinth' => settings.stored_cambrinth,
+      'stored_cambrinth' => settings.stored_cambrinth
     )
     echo(" @check_discern_settings: #{@check_discern_settings}")
 
@@ -2559,7 +2559,7 @@ class GameState
   end
 
   def dance
-    if @dynamic_dance_skill 
+    if @dynamic_dance_skill
       filtered_skills = weapon_training.reject { |skill, _| $non_dance_skills.include?(skill) }
       @dance_skill = filtered_skills.min_by { |skill, _| DRSkill.getrank(skill) }.first
     end
@@ -2740,12 +2740,12 @@ class GameState
   end
 
   def cambrinth_charges(charges)
-    case charges.first
-    when Array
-      cambrinth = charges.first
-    else
-      cambrinth = charges
-    end
+    cambrinth = case charges.first
+                when Array
+                  charges.first
+                else
+                  charges
+                end
     @charges = cambrinth.nil? || cambrinth.empty? ? nil : cambrinth.dup
   end
 
