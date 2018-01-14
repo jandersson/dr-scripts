@@ -478,10 +478,10 @@ class DRYamlValidator
     warn('***YOU HAVE OUTDATED SETTINGS*** THE SETTING thanatology["train_first_aid"] IS NO LONGER USED. To train first aid via rituals use the dissect ritual (thanatology["ritual_type"]=dissect) or cycle rituals (thanatology["ritual_type"]=cycle).')
   end
 
-  def assert_that_locksmithing_buffs_are_deprecated(settings)
-    return unless settings.locksmithing_buffs.empty?
+  def assert_that_lockpick_buffs_are_deprecated(settings)
+    return unless settings.lockpick_buffs.empty?
 
-    warn('***YOU HAVE OUTDATED SETTINGS*** THE SETTING locksmithing_buffs IS NO LONGER USED. Please make a waggle_set called \'pick\'')
+    warn('***YOU HAVE OUTDATED SETTINGS*** THE SETTING lockpick_buffs IS NO LONGER USED. Please make a waggle_set called \'pick\'')
   end
 
   private
