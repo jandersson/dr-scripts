@@ -5,7 +5,7 @@ hunting_info:
   - back
   stop_on:
   - Small Blunt
-  :duration: 40
+  :duration: 30
 use_weak_attacks: true 
 use_stealth_attacks: false
 dance_skill: Small Blunt
@@ -34,9 +34,9 @@ offensive_spells:
 - name: Mental Blast
 - name: Rebuke
   skill: Sorcery
-  mana: 42
+  use_auto_mana: true
   cast_only_to_train: true
-
+combat_spell_training:
 training_abilities:
   PercMana: 60
 skinning:

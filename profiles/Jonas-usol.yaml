@@ -6,18 +6,10 @@ zombie:
   behavior: aggressive
 hunting_info:
 - :zone: black_apes
-  args:
-  - usol
   stop_on:
   - Targeted Magic
-  - Stealth
-  - Thanatology
   :duration: 30
 
-spell_cycle:
-- Universal Solvent
-- Viscous Solution
-- Dinazen Olkar
 use_stealth_attacks: true
 offensive_spells:
 - skill: Targeted Magic
@@ -31,8 +23,7 @@ offensive_spells:
   abbrev: vs
   mana: 20
 - skill: Sorcery
-  name: Dinazen Olkar
-  cambrinth:
-  - 19
+  name: Breath of Storms
+  use_auto_mana: true
   cast_only_to_train: true
 ...

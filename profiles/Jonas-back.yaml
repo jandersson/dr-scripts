@@ -45,8 +45,8 @@ weapon_training:
 
 offensive_spells:
 - skill: Sorcery
-  name: Dinazen Olkar
-  mana: 18
+  name: Breath of Storms
+  mana: 20
   cast_only_to_train: true
 
 use_stealth_attacks: false

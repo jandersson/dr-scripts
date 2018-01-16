@@ -1,55 +1,31 @@
----
 hunting_info:
 - :zone: 
   - lava_drakes
   - juvenile_wyverns
   args:
   - debug
-  - tm
   stop_on:
-  - Targeted Magic
+  - Debilitation
   :duration: 30
-  before:
-  - release_invis
+  after:
   - safe-room
   - go2 safe_room
   - astrology
   - pick
-  - restock
-  - sell-loot
-tk_ammo: brass razor 
 use_stealth_attacks: true
 use_weak_attacks: true
 cycle_armors:
 combat_spell_training:
-offensive_spell_cycle:
-- Rebuke
-- Telekinetic Storm
+skip_last_kill: true
 offensive_spells:
 - name: Mind Shout
   harmless: true
   cast: cast creatures
   min_threshold: 2 
   cast_only_to_train: true
-- name: Starlight Sphere
-  mana: 10
-  cast: cast spider
-- name: Telekinetic Storm
-  cast_only_to_train: true
-  mana: 42
-  cambrinth:
-  - 48
-  cast: cast creatures
 - name: Mental Blast
   mana: 5
   cast_only_to_train: true
-- name: Rebuke
-  use_auto_mana: true
-  skill: Sorcery
-  cast_only_to_train: true
-
-skip_last_kill: true
-
 loot_subtractions:
   - coffer
   - skippet
@@ -70,4 +46,3 @@ skinning:
   arrange_all:   false
   arrange_count: 0
   tie_bundle:    true
-...
