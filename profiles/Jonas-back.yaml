@@ -43,6 +43,8 @@ weapon_training:
   Heavy Thrown: haon-hafted spear
   Polearms: haon-hafted spear
 
+dance_skill: Large Edged
+
 offensive_spells:
 - skill: Sorcery
   name: Breath of Storms

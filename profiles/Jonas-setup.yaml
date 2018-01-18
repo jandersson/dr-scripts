@@ -336,6 +336,7 @@ dump_junk: true
 gem_pouch_adjective: fuzzy
 spare_gem_pouch_container: haversack
 sell_loot_pouch: false
+sell_loot_money_on_hand: 3 sil
 sell_loot_bundle: true
 loot_additions:
 - shard
