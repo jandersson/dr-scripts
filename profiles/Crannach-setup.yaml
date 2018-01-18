@@ -466,6 +466,7 @@ harvest_traps:             true
 #################
 gem_pouch_adjective:       fuzzy
 spare_gem_pouch_container: kit
+sell_loot_money_on_hand: 3 ilve
 sell_loot_pouch:           false
 sell_loot_bundle:          true
 skinning:
