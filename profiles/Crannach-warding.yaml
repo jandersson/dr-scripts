@@ -1,0 +1,19 @@
+crossing_training:
+- Warding
+
+training_spells:
+  #Warding:
+  #  abbrev: PSY
+  #  symbiosis: true
+    #Warding:
+    #abbrev: CoL
+    #symbiosis: true
+    #moon: true
+  Warding:
+    abbrev: SHEAR
+    symbiosis: true
+    after:
+    - message: release shear
+      matches:
+      - The shimmering globe of blue fire suddenly extinguishes
+      - Release what
