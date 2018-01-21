@@ -3,6 +3,39 @@
 =end
 custom_require.call(%w[common common-items common-money common-travel drinfomon equipmanager])
 
+class TradingBuddy
+  def initialize
+    # Trade by time
+    # Trade by experience
+    # Trade by num contracts
+    arg_defs = [
+      [
+        { name: 'duration', display: 'd#', regex: /\d+/, description: 'Time in minutes to do trading, d10 would trade for 10 minutes before sending the stop signal' }
+      ]
+    ]
+     
+    args = parse_args(arg_defs)
+      
+    echo args
+    
+    @duration = args.duration.to_i
+    do_trading
+  end
+
+  def do_trading
+    start_time = Time.now
+    trade = Trade.new
+    echo Time.now - start_time > @duration * 60
+    until Time.now - start_time > @duration * 60
+      trade.run
+    end  
+    echo "Stopped due to time!"
+    trade.stop
+    trade.return_caravan
+  end
+
+end
+
 class Trade
   include DRC
   include DRCT
@@ -18,6 +51,7 @@ class Trade
     bput("open my #{@contract_container}", 'You open', 'That is already')
     @equipment_manager.empty_hands
     @caravan = OpenStruct.new
+    @stop = false
     recall_caravan
   end
 
@@ -39,6 +73,11 @@ class Trade
     pay_dues(contract.destination_clerk)
     walk_to(contract.destination_outpost)
     deposit_coins(500, Room.current.id) if contract.destination_town == @hometown
+    return_caravan if @stop
+  end
+
+  def stop
+    @stop = true
   end
 
   def debugging?
@@ -169,6 +208,14 @@ class Trade
     command_caravan('wait')
   end
 
+  def return_caravan
+    return_messages = [
+      "As the clerk makes note of your return, another worker goes outside to retrieve your"
+    ]
+    walk_to(find_closest_id('shipment_clerk'))
+    bput("return #{@caravan.noun}", return_messages)
+  end
+
   def command_caravan(command)
     case command
     when 'follow'
@@ -179,7 +226,8 @@ class Trade
       bput("tell #{@caravan.noun} to follow", follow_messages)
     when 'wait'
       wait_messages = [
-        'You pass on the order to wait to your driver, who makes sure your .* does your bidding'
+        'You pass on the order to wait to your driver, who makes sure your .* does your bidding',
+        'You grab hold of your .* harness and make it wait'
       ]
       bput("tell #{@caravan.noun} to wait", wait_messages)
     end
@@ -259,4 +307,4 @@ class Trade
   end
 end
 
-Trade.new.run
+TradingBuddy.new
