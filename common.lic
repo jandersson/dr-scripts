@@ -342,7 +342,6 @@ module DRC
   end
 
   def release_invisibility
-    echo '1'
     get_data('spells')
       .spell_data
       .select { |_name, properties| properties['invisibility'] }
