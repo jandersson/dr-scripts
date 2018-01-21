@@ -417,6 +417,7 @@ buff_spells: &buff_spells
   << : *iots
   << : *shadowling
   << : *aus
+  << : *col
 ######################
 ### COMBAT-TRAINER ###
 ######################
@@ -466,7 +467,7 @@ harvest_traps:             true
 #################
 gem_pouch_adjective:       fuzzy
 spare_gem_pouch_container: kit
-sell_loot_money_on_hand: 3 ilve
+sell_loot_money_on_hand: 3 silver
 sell_loot_pouch:           false
 sell_loot_bundle:          true
 skinning:
@@ -553,6 +554,7 @@ mining_buddy_vein_list:
 - Haralun
 - Glaes
 - Animite
+- Lumium
 ################
 ### CRAFTING ###
 ################
@@ -608,4 +610,92 @@ custom_scrolls:
 - bright scroll
 - green scroll
 - pristine scroll
+
+######################
+### INVASION-WATCH ###
+######################
+invasion_watch_hideouts:
+- 1900
+invasion_watch_hide_time: 380
+invasion_watch_mobs:
+- hafwa
+- construct
+- malchata
+- mouse
+invasion_watch_rooms:
+- 1
+###################
+### COORDINATOR ###
+###################
+
+coordinator_hunting_tasks:
+  - :file: tm
+    :pause_sanowret: false
+    :default: true
+    :start_on:
+      skill_under:
+        skill: Targeted Magic
+        target: 5 
+  - :file: debil 
+    :pause_sanowret: false
+    :start_on:
+      skill_under:
+        skill: Debilitation 
+        target: 5 
+    :stop_on:
+      any_skills_under:
+        skill:
+        - Targeted Magic
+        - Astrology
+  - :file: sorcery
+    :pause_sanowret: false
+    :start_on:
+      skill_under:
+        skill: Sorcery
+        target: 5
+    :stop_on:
+      any_skills_under:
+        skills:
+        - Targeted Magic
+        - Debilitation
+        - Astrology
+        target: 5
+
+coordinator_hunting_cleanup:
+  - :script: safe-room
+  - :script: sell-loot
+    :skip_first_run: true
+  - :script: crossing-repair
+    :skip_first_run: true
+    :start_on:
+      timer:
+        global: true
+        time: 43200 
+        key: 'repair'
+
+coordinator_town_tasks:
+  - :script: astrology 
+    :start_on:
+      skill_under:
+        skill: Astrology 
+        target: 5
+  - :script: athletics
+    :start_on:
+      skill_under:
+        skill: Athletics
+        target: 10
+  - :script: mech-lore
+    :walk_to: 13520 
+    :start_on:
+      skill_under:
+        skill: Mechanical Lore
+        target: 14
+  - :script: outdoorsmanship
+    :walk_to: 13520
+    :start_on:
+      and:
+        - predicate: hunt_done?
+        - skill_under:
+            skill: Outdoorsmanship
+            target: 20
 ...
