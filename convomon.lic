@@ -1,0 +1,38 @@
+require 'erb'
+script.want_downstream_xml
+class ConvoMonitor
+  def initialize
+    no_pause_all
+    no_kill_all
+    if get_settings['slack_username']
+      custom_require.call('slackbot')
+      @slackbot = SlackBot.new
+    else
+      echo "SlackBot not configured.  Shutting down"
+      exit
+    end
+    monitorloop
+  end
+  
+  def monitorloop 
+    data = YAML.load(
+            ERB.new(
+           File.read('/home/jonas/lich/dr-scripts/data/base-convomon.yaml')
+              ).result)
+    empath = get_settings.safe_room_empath
+    ignored_players = [empath, 'A plaza guard', 'Dijkstra', 'Aradar', 'Crannach', 'Falun', 'Quentin']
+    includes = data['includes']
+    excludes = data['excludes'] 
+    excludes.push(*ignored_players.map { |name| /^#{name} whispers,|^#{name} says,|^#{name} asks,/})
+    while line = get
+      if excludes.any? { |w| line =~ Regexp.new(w) }
+        next
+      end
+      if includes.any? { |w| line =~ Regexp.new(w) }
+        @slackbot.direct_message(get_settings['slack_username'], line)
+      end
+    end
+  end
+end
+
+ConvoMonitor.new
