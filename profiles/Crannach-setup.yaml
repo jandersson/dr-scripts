@@ -68,9 +68,10 @@ training_abilities:
 
 weapon_training:
   Crossbow: pelletbow
-  Large Edged: bastard sword 
+  Large Edged: moonblade
   Brawling: ''
-
+summoned_weapons:
+- name: Large Edged
 dance_skill:         Brawling
 use_weak_attacks:    false
 use_stealth_attacks: false
@@ -348,6 +349,11 @@ waggle_sets:
     Manifest Force:
       cambrinth:
       - 48
+  moonblade: &moonblade
+    Moonblade:
+      recast_every: 1400
+      cambrinth:
+      - 48
   pg: &pg
     Piercing Gaze:
       mana: 20
@@ -405,6 +411,8 @@ waggle_sets:
     << : *col
     << : *maf
     << : *lw
+    << : *moonblade
+    << : *aus
   default:
     << : *prehunt_buffs
 
@@ -418,6 +426,7 @@ buff_spells: &buff_spells
   << : *shadowling
   << : *aus
   << : *col
+  << : *moonblade
 ######################
 ### COMBAT-TRAINER ###
 ######################
@@ -545,7 +554,7 @@ mine_for_outdoorsmanship: false
 mines_to_mine:
 - ice_caves # Shard
 mine_implement: shovel
-mine_while_training: true
+mine_while_training: false
 mining_buddy_mine_every_room: false
 mining_buddy_vein_list:
 - Orichalcum
