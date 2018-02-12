@@ -11,6 +11,8 @@ class ClericQuests
   include DRCT
 
   def initialize
+    @settings = get_settings
+
     unless DRStats.cleric?
       echo '***MUST BE A CLERIC***'
       exit
@@ -25,9 +27,64 @@ class ClericQuests
       eluned
     when 8
       kertigen
+    when 12
+      hodierna
+    when 15
+      eluned2
+    when 20
+      meraud
+    when 35
+      glythtide
     else
+      fput('info')
       echo '***CANNOT DETERMINE WHICH QUEST TO DO***'
+      echo "***PLEASE TRY AGAIN NOW THAT I'VE REFRESHED YOUR STATS***"
     end
+  end
+
+  def meraud
+    walk_to(1512)
+    move('go tower')
+    walk_to(9377)
+    move('climb stair')
+    6.times { move('climb step') }
+
+    bput('scratch wolf', 'As you lean over to scratch the statue')
+    echo '***Be patient, this next part will take a while***'
+    waitfor('you realize you are flesh once more')
+  end
+
+  def eluned2
+    walk_to(724)
+    move('go catwalk')
+    bput('ask bartling about eluned', 'Bartling nods enthusiastically')
+    bput('ask bartling about sea', 'Bartling looks at you a moment and draws a breath to speak')
+
+    echo '***Be patient, this next part will take a while***'
+    waitfor('go forth less weary, Beloved of the Waters')
+    move('go catwalk')
+    walk_to(721)
+    bput('dive cliff', 'Try again if you are determined')
+    bput('dive cliff', 'You hit the water with a tremendous force')
+
+    echo '***Be patient, this next part will take a while***'
+    waitfor('once again your will is your own')
+    fix_standing
+    bput('climb indentation', 'You begin climbing up the cliff indentations')
+  end
+
+  def hodierna
+    walk_to(1938)
+    bput('open book', 'You carefully open the book')
+    bput('read book', 'Roundtime')
+    echo '***Be patient, this next part will take a while***'
+    waitfor('Upon concluding your reading, you carefully close the fragile book')
+    waitrt?
+
+    walk_to(1940)
+    bput('get flame', 'You hold in your hand the living light of Hodierna')
+    echo '***Be patient, this next part will take a while***'
+    waitfor('The silver unicorn shakes its mane and then turns and leaps down from the platform')
   end
 
   def kertigen
@@ -77,7 +134,11 @@ class ClericQuests
     bput('meditate', 'You close your eyes and begin to meditate')
     waitfor('once again changing and reforming into your Human form')
 
-    bput('dive deeper water', 'You take a deep breath')
+    case bput('dive deeper water', 'You take a deep breath', 'You get a sense that you have completed this')
+    when 'You get a sense that you have completed this'
+      pause 300
+      bput('dive deeper water', 'You take a deep breath')
+    end
     pause 1
     bput('swim down', 'You swim further into the water')
 
@@ -89,7 +150,9 @@ class ClericQuests
   end
 
   def tamsine
-    ensure_copper_on_hand(25, 'Crossing')
+    temp_settings = @settings
+    temp_settings.hometown = 'Crossing'
+    ensure_copper_on_hand(25, temp_settings)
     buy_item(19_073, 'flower')
 
     walk_to(11_691)
@@ -98,6 +161,38 @@ class ClericQuests
 
     echo '***Be patient, this next part will take a while***'
     waitfor('When it fades away, you find you are back where you started')
+  end
+
+  def glythtide
+    walk_to(1977)
+    bput('look bough', 'The bough sways')
+    move('go path')
+    walk_to(12131)
+    bput('drink wine', 'You slowly lift')
+
+    echo '***Be patient, this next part will take a while***'
+    waitfor('Your vision grows darker again')
+
+    walk_to(12133)
+    empty_hands
+    case bput('get petal', 'You gather', 'You decide to leave')
+    when 'You decide to leave'
+      echo('You have gotten petals too recently, retry the quest in 2 hours.')
+      exit
+    end
+    walk_to(12134)
+    case bput('get rue', 'You break off a sprig of rue', 'You decide to leave')
+    when 'You decide to leave'
+      echo('You have gotten rue too recently, retry the quest in 2 hours.')
+      exit
+    end
+    walk_to(12131)
+    while bput('search floor', 'You see the faint outline of a trapdoor', 'You find nothing of special interest about it') == 'You find nothing of special interest about it'
+      pause 1
+    end
+    move 'go trapdoor'
+    waitfor('He opens the trap door')
+    echo 'All done!'
   end
 end
 

@@ -167,12 +167,14 @@ class SetupProcess
     previous = last_stance
     points = override || previous.values.inject(&:+)
 
-    priority = if game_state.current_weapon_stance.nil?
-                 result = ['Evasion', 'Parry Ability', 'Shield Usage'].sort_by { |skill| [DRSkill.getxp(skill), skill] }
-                 result.rotate! if @priority_defense == result.last
-                 result
-               else
+    priority = if game_state.current_weapon_stance
                  game_state.current_weapon_stance[0..1].sort_by { |skill| [DRSkill.getxp(skill), skill] } + [game_state.current_weapon_stance.last]
+               elsif @priority_defense
+                 rest = ['Evasion', 'Parry Ability', 'Shield Usage'] - [@priority_defense]
+                 rest.sort_by! { |skill| [DRSkill.getxp(skill), skill] }
+                 [@priority_defense] + rest
+               else
+                 ['Evasion', 'Parry Ability', 'Shield Usage'].sort_by { |skill| [DRSkill.getxp(skill), skill] }
                end
 
     game_state.parrying = priority.index('Parry Ability') < 2
@@ -855,7 +857,7 @@ class SpellProcess
     @perc_health_timer = Time.now
 
     @symbiosis_learning_threshold = settings.symbiosis_learning_threshold
-    echo(" @symbiosis_learning_threshold: #{@symbiosis_learning_threshold}")
+    echo(" @symbiosis_learning_threshold: #{@symbiosis_learning_threshold}") if $debug_mode_ct
 
     Flags.add('ct-spelllost', 'Your pattern dissipates with the loss of your target')
     Flags.add('ct-need-bless', ' passes through the .* with no effect')
@@ -1429,6 +1431,7 @@ end
 class AbilityProcess
   include DRC
   include DRCA
+  include DRCT
 
   def initialize(settings)
     echo('New AbilityProcess') if $debug_mode_ct
@@ -1444,15 +1447,101 @@ class AbilityProcess
 
     @barb_buffs = @buffs.delete('barb_buffs') || []
     echo("  @barb_buffs: #{@barb_buffs}") if $debug_mode_ct
+
     setup_barb_buff_flags
+
+    @paladin_use_badge = settings.paladin_use_badge
+    echo("  @paladin_use_badge: #{@paladin_use_badge}") if $debug_mode_ct
+
+    @paladin_glyphs = settings.paladin['Glyphs']
+    echo("  @paladin_glyphs: #{@paladin_glyphs}") if $debug_mode_ct
+
+    setup_glyph_flags unless @paladin_glyphs.empty?
+
+    return unless @paladin_use_badge
+
+    if DRCI.wearing?('pilgrim badge')
+      @paladin_badge_get_verb = 'remove'
+      @paladin_badge_store_verb = 'wear'
+    else
+      @paladin_badge_get_verb = 'get'
+      @paladin_badge_store_verb = 'stow'
+    end
+
+    UserVars.paladin_last_badge_use ||= Time.now
+    @badge_reuse_cooldown = 1860 # 31 minutes
   end
 
   def execute(game_state)
+    check_paladin_skills
     check_nonspell_buffs(game_state)
     false
   end
 
   private
+
+  def check_paladin_skills
+    return unless DRStats.paladin?
+
+    pray_badge
+    check_glyphs
+  end
+
+  def setup_glyph_flags
+    @paladin_glyphs
+      .select do |name|
+        unless get_data('spells').paladin_abilities[name]['type'].eql? 'glyph'
+          echo "***THE #{name} GLYPH IS NOT SUPPORTED AT THIS TIME***"
+          next false
+        end
+        true
+      end
+      .each do |name|
+        ability_data = get_data('spells').paladin_abilities[name]
+        Flags.add("glyph-#{name}-expired", ability_data['expired_message'])
+        Flags["glyph-#{name}-expired"] = true
+        echo "setup_glyph_flags:: adding #{Flags["glyph-#{name}-expired"]} flag with an expiration message of: #{ability_data['expired_message']}" if $debug_mode_ct
+      end
+  end
+
+  def pray_badge
+    return unless @paladin_use_badge
+    return unless Time.now - UserVars.paladin_last_badge_use > @badge_reuse_cooldown
+
+    case bput("#{@paladin_badge_get_verb} my pilgrim badge", 'You take off', 'You get', 'You remove', 'What were you referring to', 'You need a free hand', 'Remove what')
+    when 'You get', 'You remove', 'You take off'
+      retreat
+      bput('pray my pilgrim badge', 'You think upon the immortals')
+      UserVars.paladin_last_badge_use = Time.now
+      waitrt?
+      bput("#{@paladin_badge_store_verb} my pilgrim badge", 'You put', 'You attach')
+    when 'What were you referring to'
+      echo '***PILGRIM BADGE NOT FOUND! REMOVING FROM HUNT.***'
+      @paladin_use_badge = false
+      return
+    end
+  end
+
+  def check_glyphs
+    return if @paladin_glyphs.empty?
+
+    unknown_glyphs = []
+    @paladin_glyphs
+      .select { |name| Flags["glyph-#{name}-expired"] }
+      .each do |name|
+        if use_glyph?(name)
+          Flags.reset("glyph-#{name}-expired")
+          echo "Used glyph #{name}!" if $debug_mode_ct
+          waitrt?
+          return
+        else
+          echo "***YOU DO NOT KNOW THE GLYPH #{name}. REMOVING FROM HUNT***"
+          unknown_glyphs.push(name)
+        end
+      end
+
+    @paladin_glyphs - unknown_glyphs
+  end
 
   def setup_barb_buff_flags
     @barb_buffs.each do |name|
@@ -1556,8 +1645,8 @@ class TrainerProcess
                    'Perc' => 'Attunement', 'Astro' => 'Astrology', 'App' => 'Appraisal', 'PrayerMat' => 'Theurgy',
                    'App Quick' => 'Appraisal', 'App Careful' => 'Appraisal', 'Tactics' => 'Tactics', 'Analyze' => 'Tactics',
                    'Scream' => 'Bardic Lore', 'Perc Health' => 'Empathy', 'Khri Prowess' => 'Debilitation',
-                   'Stealth' => 'Stealth', 'Ambush Stun' => settings.stun_skill, 'Favor Orb' => 'Anything',
-                   'Charged Maneuver' => 'Expertise', 'Meraud' => 'Theurgy', 'Recall' => 'Scholarship',
+                   'Stealth' => 'Stealth', 'Ambush Stun' => settings.stun_skill, 'Ambush Choke' => 'Debilitation',
+                   'Favor Orb' => 'Anything', 'Charged Maneuver' => 'Expertise', 'Meraud' => 'Theurgy', 'Recall' => 'Scholarship',
                    'Barb Research Warding' => 'Warding', 'Barb Research Augmentation' => 'Augmentation',
                    'Barb Research Debilitation' => 'Debilitation', 'Collect' => 'Outdoorsmanship' }
 
@@ -1595,6 +1684,9 @@ class TrainerProcess
 
     @prayer_mat = settings.prayer_mat
     echo("  @prayer_mat: #{@prayer_mat}") if $debug_mode_ct
+
+    @dirt_stacker = settings.dirt_stacker
+    echo("  @dirt_stacker: #{@dirt_stacker}") if $debug_mode_ct
 
     @kneel_khri = settings.kneel_khri
     echo("  @kneel_khri: #{@kneel_khri}") if $debug_mode_ct
@@ -1658,6 +1750,8 @@ class TrainerProcess
       bput('unhide', 'You come out of hiding', 'You slip out of hiding', 'But you are not') if (game_state.npcs.empty? || @force_unhide) && hidden
     when 'Ambush Stun'
       return ambush_stun(game_state)
+    when 'Ambush Choke'
+      ambush_choke(game_state)
     when 'Favor Orb'
       fput("rub my #{@favor_god} orb")
     when 'Charged Maneuver'
@@ -1677,7 +1771,7 @@ class TrainerProcess
     when 'Collect'
       game_state.sheath_whirlwind_offhand
       retreat
-      put('eng')
+      put('eng') unless game_state.npcs.empty?
       collect(@forage_item)
       waitrt?
       game_state.wield_whirlwind_offhand
@@ -1795,6 +1889,38 @@ class TrainerProcess
     DRRoom.dead_npcs.size > dead_count
   end
 
+  def ambush_choke(game_state)
+    return unless game_state.can_ambush_stun?
+    return unless @dirt_stacker
+    return if @dirt_empty
+
+    unless bput("push my #{@dirt_stacker}",
+                'You push', 'have any dirt', "I don't think pushing") == 'You push'
+      @dirt_empty = true
+      return
+    end
+
+    dirt_in_hand = true
+    if hide?
+      dirt_in_hand = bput(
+        'ambush choke',
+        'Wouldn\'t it be better if you used a melee weapon?',
+        'You must be hidden or invisible to ambush',
+        'You aren\'t close enough to attack',
+        'You don\'t have enough focus',
+        'You don\'t think you have enough focus',
+        'Snipe dirt at somebody',
+        'Roundtime'
+      ) != 'Roundtime'
+      pause
+      waitrt?
+    end
+
+    return unless dirt_in_hand
+    bput("put my dirt in my #{@dirt_stacker}",
+         'dumping some dirt', 'What were you referring')
+  end
+
   def analyze(game_state, fail_count)
     return if game_state.npcs.empty?
     return if fail_count > @analyze_retry_count
@@ -1820,6 +1946,7 @@ class TrainerProcess
     return if game_state.npcs.empty?
     target = (game_state.npcs - @no_app).first
     return unless target
+    return if DRSkill.getrank('Appraisal') < 76
     return if bput("app #{target} #{modifier}", 'Taking stock of', 'It\'s dead', 'You can\'t determine anything about this creature.', 'I could not find', 'You cannot appraise that', 'roundtime', '^Perhaps that', 'Appraise what') != 'Perhaps that'
 
     @no_app << target
@@ -2197,7 +2324,7 @@ class CombatTrainer
 
     Flags.add('last-stance', 'Setting your Evasion stance to \d+%, your Parry stance to \d+%, and your Shield stance to \d+%.  You have \d+ stance points left')
 
-    bput('stance set 100 0 80', 'Setting your')
+    bput("stance set #{settings.default_stance}", 'Setting your')
 
     @stop = false
     @running = true

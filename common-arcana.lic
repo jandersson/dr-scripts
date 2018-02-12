@@ -59,7 +59,7 @@ module DRCA
     ['Your body is willing', 'You have not recovered'].include?(result)
   end
 
-  def start_barb_abilities(skills, settings)
+  def start_barb_abilities(skills, _settings)
     skills
       .reject { |name| DRSpells.active_spells[name] }
       .each do |name|
@@ -73,7 +73,7 @@ module DRCA
     ability_data = get_data('spells').barb_abilities[name]
     case DRC.bput(ability_data['start_command'], ability_data['activated_message'], 'But you are already', 'Your inner fire lacks', 'find yourself lacking the inner fire', 'You should stand', 'You must be sitting')
     when 'You must be sitting'
-      retreat
+      DRCT.retreat
       DRC.bput('sit', 'You sit', 'You are already', 'You rise')
       activate_barb_buff(name)
     when 'You should stand'
@@ -81,6 +81,12 @@ module DRCA
       activate_barb_buff(name)
     end
     fix_standing
+  end
+
+  def use_glyph?(name)
+    ability_data = get_data('spells').paladin_abilities[name]
+    result = DRC.bput(ability_data[name]['use_command'], ability_data[name]['activated_message'], 'only to look foolish', 'this glyph is already in effect here')
+    result =~ /only to look foolish/
   end
 
   def prepare?(abbrev, mana, symbiosis = false, command = 'prepare')
@@ -352,7 +358,6 @@ module DRCA
     pause 0.5 while UserVars.moons.empty?
   end
 
-
   def cast_spell(data, settings, force_cambrinth = false)
     return unless data
     return unless settings
@@ -361,7 +366,7 @@ module DRCA
     return unless data # update_astral_data returns nil on failure
 
     if (data['abbrev'] =~ /locat/i) && !DRSpells.active_spells['Clear Vision']
-      cast_spell({ 'abbrev'=> 'cv', 'mana' => 1 , 'prep_time' => 5 }, settings)
+      cast_spell({ 'abbrev' => 'cv', 'mana' => 1, 'prep_time' => 5 }, settings)
     end
 
     release_cyclics if data['cyclic']
@@ -373,7 +378,11 @@ module DRCA
       return
     end
 
-    return unless prepare?(data['abbrev'], data['mana'], data['symbiosis'])
+    command = 'prep'
+    command = data['prep'] if data['prep']
+    command = data['prep_type'] if data['prep_type']
+
+    return unless prepare?(data['abbrev'], data['mana'], data['symbiosis'], command)
     prepare_time = Time.now
 
     unless settings.cambrinth_items[0]['name']

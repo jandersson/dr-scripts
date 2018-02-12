@@ -1,14 +1,9 @@
 ---
-# TODO spells: Major PhPr (3), Sanctify Pattern (2), Divine Radiance (3) -> Shield of Light (3), Glythtide's Gift (1)
-# TODO (circle 30): Benediction (3)
-# TODO (circle 50): Uncurse (1), Malediction (2), Hydra Hex (2)
-# TODO (40 arcana): Manifest Force
-# TODO (100 attune, 100 arcana): Deep Attunement, Raw Channeling, Efficient Harnessing
-# TODO (100 scholar, 50/100 arcana): Magic Theorist, Improved Memory
+# TODO (circle 50): Malediction (2), Hydra Hex (2)
 # TODO (100 sorcery): Sorcerous Patterns
 
 # Hunting settings
-training_manager_hunting_priority: false
+training_manager_hunting_priority: true
 training_manager_priority_skills:
 - Brawling
 - Heavy Thrown
@@ -20,14 +15,18 @@ training_manager_priority_skills:
 - Staves
 - Large Edged
 - Polearms
+- Crossbow
 - Twohanded Edged
 - Twohanded Blunt
 hunting_info:
-- :zone: goblins
+- :zone: young_ogres
   :duration: 30
   before:
-  - appraisal
-  - sorcery
+  - go2 705
+  # - sorcery
+  - first-aid
+  - study-art scholarship
+  - athletics
   stop_on:
   - Brawling
   - Heavy Thrown
@@ -39,6 +38,7 @@ hunting_info:
   - Staves
   - Large Edged
   - Polearms
+  - Crossbow
   - Twohanded Edged
   - Twohanded Blunt
 prehunt_buffs: 
@@ -67,6 +67,7 @@ hunting_buddies:
 - Phoerne
 - Tamfell
 - Khalei
+- Pennerohn
 - Raddalaf
 
 # Gear settings
@@ -140,7 +141,7 @@ gear:
   :is_worn: false
 - :adjective: light
   :name: crossbow
-  :is_leather: false
+  :is_leather: true
   :hinders_lockpicking: false
   :is_worn: false
 - :adjective:
@@ -184,46 +185,44 @@ sort_auto_head: false
 
 # Combat settings
 buff_spells:
-  Centering:
-    mana: 5
-    cambrinth:
-    - 1
   Minor Physical Protection:
-    mana: 1
-    cambrinth:
-    - 1
+    use_auto_mana: true
+  # Manifest Force:
+  #   use_auto_mana: true
+  Sanctify Pattern:
+    use_auto_mana: true
+    cast: cast augmentation
+  Major Physical Protection:
+    use_auto_mana: true
+  Shield of Light:
+    use_auto_mana: true
+  Benediction:
+    use_auto_mana: true
+  Centering:
+    use_auto_mana: true
 offensive_spells:
 - name: Fists of Faenella
   cast_only_to_train: true
-  mana: 2
+  use_auto_mana: true
 - name: Soul Sickness
-  mana: 1
-  cambrinth:
-  - 1
+  use_auto_mana: true
 combat_spell_training:
   Augmentation:
     Centering:
-      mana: 5
-      cambrinth:
-      - 2
+      use_auto_mana: true
   Utility:
     Bless:
-      mana: 1
-      cambrinth:
-      - 1
+      use_auto_mana: true
   Warding:
     Minor Physical Protection:
-      mana: 1
-      cambrinth:
-      - 1
-# dance_skill: Large Blunt
+      use_auto_mana: true
 dynamic_dance_skill: true
 training_abilities:
   Tactics: 30
   Hunt: 80
   Perc: 120
   Pray: 610
-  # App Quick: 60
+  App Quick: 60
   Collect: 120
 weapon_training:
   Brawling: ''
@@ -250,8 +249,6 @@ loot_subtractions:
 - rocks
 - arrow
 - arrows
-- bolt
-- bolts
 - coffer
 - skippet
 - box
@@ -261,6 +258,11 @@ loot_subtractions:
 - strongbox
 - casket
 - crate
+restock:
+  bolt:
+    quantity: 50
+priority_defense: Parry Ability
+prep_scaling_factor: 0.90
 
 # Non-combat settings
 crossing_training:
@@ -268,7 +270,7 @@ crossing_training:
 - Augmentation
 - Utility
 - Warding
-- Sorcery
+# - Sorcery
 - Appraisal
 - First Aid
 - Athletics
@@ -295,6 +297,11 @@ water_holder: chalice
 flint_lighter: pine-handled sledgehammer
 theurgy_supply_container: backpack
 use_harness_when_arcana_locked: true
+# crossing_training_sorcery:
+#   abbrev: SUF
+#   mana: 4
+#   cambrinth:
+#   - 1
 
 quit_on_status_warning: true
 braid_item: grass

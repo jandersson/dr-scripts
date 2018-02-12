@@ -99,10 +99,7 @@ class CrossingRepair
     @repair_withdrawal_amount = settings.repair_withdrawal_amount
     hometown_data = get_data('town')[settings.hometown]
 
-    # Withdraw only coppers
-    withdraw_only_coppers(@repair_withdrawal_amount, settings.hometown)    
-    # Withdraw normally
-    # ensure_copper_on_hand(@repair_withdrawal_amount, settings.hometown)
+    ensure_copper_on_hand(@repair_withdrawal_amount, settings)
 
     # Merge, do not overwrite
     @repair_info = { hometown_data['leather_repair'] => @equipment_manager.items.select(&:leather) }
