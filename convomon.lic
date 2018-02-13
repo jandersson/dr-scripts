@@ -11,9 +11,9 @@ class ConvoMonitor
   
   def monitorloop(settings) 
     data = YAML.load(
-            ERB.new(
-           File.read('/home/jonas/lich/dr-scripts/data/base-convomon.yaml')
-              ).result)
+            ERB.new("#{get_data('convomon').to_yaml}")
+               .result
+    )
     includes = data['includes']
     excludes = data['excludes'] 
     excludes.push(*data['ignored_names'].map { |name| /^#{name} whispers,|^#{name} says,|^#{name} asks,/})
