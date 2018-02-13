@@ -52,14 +52,13 @@ class LockPicker
       fix_standing
       @equipment_manager.wear_items(removed_items)
 
-<<<<<<< HEAD
     end
     check_pet_boxes(@settings.picking_pet_box_source)
-    if lockpick_buffs['khri']
-      lockpick_buffs['khri'].each { |name| fput("khri stop #{name}") }
+    if @lockpick_buffs['khri']
+      @lockpick_buffs['khri'].each { |name| fput("khri stop #{name}") }
     end
 
-    fput('meditate stop') if lockpick_buffs['meditate']
+    fput('meditate stop') if @lockpick_buffs['meditate']
 
     refill_ring
   end
@@ -165,6 +164,7 @@ class LockPicker
     @disarm_normal = messages['disarm_normal']
 
 
+    @lockpick_buffs = @settings.lockpick_buffs
     @lockpick_costs = messages['lockpick_costs']
     if args.refill
       refill_ring
