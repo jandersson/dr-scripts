@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/jandersson/dr-scripts.svg?branch=master)](https://travis-ci.org/jandersson/dr-scripts)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](http://www.paypal.me/rcuhljr)
 
 # dr-scripts
