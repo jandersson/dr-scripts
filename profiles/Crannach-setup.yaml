@@ -668,10 +668,11 @@ coordinator_hunting_tasks:
         skill: Debilitation 
         target: 5 
     :stop_on:
-      any_skills_under:
-        skill:
+      any_skill_under:
+        skills:
         - Targeted Magic
         - Astrology
+        target: 1
   - :file: sorcery
     :pause_sanowret: false
     :start_on:
@@ -679,12 +680,12 @@ coordinator_hunting_tasks:
         skill: Sorcery
         target: 5
     :stop_on:
-      any_skills_under:
+      any_skill_under:
         skills:
         - Targeted Magic
         - Debilitation
         - Astrology
-        target: 5
+        target: 1
 
 coordinator_hunting_cleanup:
   - :script: safe-room
@@ -704,6 +705,7 @@ coordinator_town_tasks:
       skill_under:
         skill: Astrology 
         target: 5
+    :walk_to: 13520
   - :script: athletics
     :start_on:
       skill_under:
@@ -723,4 +725,14 @@ coordinator_town_tasks:
         - skill_under:
             skill: Outdoorsmanship
             target: 20
+  - :action: pick_boxes
+    :walk_to: 13520
+    :start_on:
+      and:
+        - skill_under:
+            skill: Locksmithing
+            target: 14
+        - or:
+            - boxes_over: 0
+            - predicate: pet_boxes?
 ...

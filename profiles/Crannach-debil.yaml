@@ -7,14 +7,8 @@ hunting_info:
   stop_on:
   - Debilitation
   :duration: 30
-  after:
-  - safe-room
-  - go2 safe_room
-  - astrology
-  - pick
 use_stealth_attacks: true
 use_weak_attacks: true
-cycle_armors:
 combat_spell_training:
 skip_last_kill: true
 offensive_spells:
@@ -27,15 +21,6 @@ offensive_spells:
   mana: 5
   cast_only_to_train: true
 loot_subtractions:
-  - coffer
-  - skippet
-  - box
-  - chest
-  - caddy
-  - trunk
-  - strongbox
-  - casket
-  - crate
   - arrow
   - bolt
   - shard

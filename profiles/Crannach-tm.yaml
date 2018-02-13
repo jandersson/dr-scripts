@@ -9,18 +9,9 @@ hunting_info:
   stop_on:
   - Targeted Magic
   :duration: 30
-  before:
-  - release_invis
-  - safe-room
-  - go2 safe_room
-  - astrology
-  - pick
-  - restock
-  - sell-loot
 tk_ammo: brass razor 
 use_stealth_attacks: true
-use_weak_attacks: true
-cycle_armors:
+use_weak_attacks: false
 combat_spell_training:
 offensive_spell_cycle:
 - Rebuke
@@ -51,15 +42,6 @@ offensive_spells:
 skip_last_kill: true
 
 loot_subtractions:
-  - coffer
-  - skippet
-  - box
-  - chest
-  - caddy
-  - trunk
-  - strongbox
-  - casket
-  - crate
   - arrow
   - bolt
   - shard
