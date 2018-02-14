@@ -114,7 +114,7 @@ class Remedy
               'To avoid a problem',
               'Crush what',
               'far too damaged to be used for that',
-              'Roundtime:',)
+              'Roundtime:')
     when 'You need another splash of water'
       waitrt?
       stow_item(left_hand)

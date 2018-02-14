@@ -81,7 +81,7 @@ class SellLoot
 
   def deposit_coins(keep_copper)
     return if @skip_bank
-    
+
     walk_to @hometown['deposit']['id']
     release_invisibility
     bput('wealth', 'Wealth:')

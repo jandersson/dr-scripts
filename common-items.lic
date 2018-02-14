@@ -39,7 +39,7 @@ module DRCI
     fput("offer #{amount}") if amount
   end
 
-  def count_boxes(container=nil)
+  def count_boxes(container = nil)
     # The negative look ahead ignores the term 'boxes' which is output by the rummage /b command
     box_nouns_re = /#{Regexp.union(get_data('items').box_nouns)}(?!es)/
 
@@ -47,7 +47,7 @@ module DRCI
       contents = DRC.bput("rummage /b #{container}", '^You rummage .*')
       return contents.scan(box_nouns_re).size
     else
-      return DRRoom.room_objs.count { |item| box_nouns_re =~ item } 
+      return DRRoom.room_objs.count { |item| box_nouns_re =~ item }
     end
   end
 

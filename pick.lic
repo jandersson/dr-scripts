@@ -14,15 +14,14 @@ class LockPicker
   def initialize
     setup
 
-   
-    if @pets_to_keep && count_boxes > 0 
+    if @pets_to_keep && count_boxes > 0
       pet_count = count_boxes('pack')
       pets_needed = @pets_to_keep - pet_count
       pets_needed.times { fput('stow box') }
     end
 
     boxes = get_boxes(@settings.picking_box_source) if @settings.picking_box_source
-    
+
     if !boxes.nil? && !boxes.empty?
       @equipment_manager = EquipmentManager.new
 
@@ -162,7 +161,6 @@ class LockPicker
     @disarm_careful = messages['disarm_careful']
     @disarm_quick = messages['disarm_quick']
     @disarm_normal = messages['disarm_normal']
-
 
     @lockpick_buffs = @settings.lockpick_buffs
     @lockpick_costs = messages['lockpick_costs']

@@ -21,7 +21,7 @@ module DRCM
   end
 
   def withdraw_only_coppers(amount, hometown)
-    echo "coppers only"
+    echo 'coppers only'
     walk_to(get_data('town')[hometown]['deposit']['id'])
     fput('deposit all')
     on_hand = wealth(hometown)

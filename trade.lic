@@ -13,11 +13,11 @@ class TradingBuddy
         { name: 'duration', display: 'd#', regex: /\d+/, description: 'Time in minutes to do trading, d10 would trade for 10 minutes before sending the stop signal' }
       ]
     ]
-     
+
     args = parse_args(arg_defs)
-      
+
     echo args
-    
+
     @duration = args.duration.to_i
     do_trading
   end
@@ -26,14 +26,11 @@ class TradingBuddy
     start_time = Time.now
     trade = Trade.new
     echo Time.now - start_time > @duration * 60
-    until Time.now - start_time > @duration * 60
-      trade.run
-    end  
-    echo "Stopped due to time!"
+    trade.run until Time.now - start_time > @duration * 60
+    echo 'Stopped due to time!'
     trade.stop
     trade.return_caravan
   end
-
 end
 
 class Trade
@@ -210,7 +207,7 @@ class Trade
 
   def return_caravan
     return_messages = [
-      "As the clerk makes note of your return, another worker goes outside to retrieve your"
+      'As the clerk makes note of your return, another worker goes outside to retrieve your'
     ]
     walk_to(find_closest_id('shipment_clerk'))
     bput("return #{@caravan.noun}", return_messages)

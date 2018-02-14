@@ -8,22 +8,18 @@ class ConvoMonitor
     register_slackbot(settings.slack_username)
     monitorloop(settings)
   end
-  
-  def monitorloop(settings) 
-    data = YAML.load(
-            ERB.new("#{get_data('convomon').to_yaml}")
-               .result
+
+  def monitorloop(_settings)
+    data = YAML.safe_load(
+      ERB.new(get_data('convomon').to_yaml.to_s)
+         .result
     )
     includes = data['includes']
-    excludes = data['excludes'] 
-    excludes.push(*data['ignored_names'].map { |name| /^#{name} whispers,|^#{name} says,|^#{name} asks,/})
+    excludes = data['excludes']
+    excludes.push(*data['ignored_names'].map { |name| /^#{name} whispers,|^#{name} says,|^#{name} asks,/ })
     while line = get
-      if excludes.any? { |w| line =~ Regexp.new(w) }
-        next
-      end
-      if includes.any? { |w| line =~ Regexp.new(w) }
-        send_slackbot_message(line)
-      end
+      next if excludes.any? { |w| line =~ Regexp.new(w) }
+      send_slackbot_message(line) if includes.any? { |w| line =~ Regexp.new(w) }
     end
   end
 end

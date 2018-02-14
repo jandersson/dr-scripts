@@ -3,7 +3,7 @@ require 'yaml'
 
 class TestValidYaml < Minitest::Test
   def test_all_yaml_in_profiles
-    skip("Test needs to be updated") 
+    skip('Test needs to be updated')
     count = 0
     Dir.glob('profiles/**/*.yaml').each do |file|
       count += 1
@@ -13,7 +13,7 @@ class TestValidYaml < Minitest::Test
   end
 
   def test_all_settings_in_base_yaml
-    skip("Test needs to be updated") 
+    skip('Test needs to be updated')
     base = YAML.load_file('./profiles/base.yaml').keys
 
     nonbase = Dir.glob('./profiles/*.yaml')

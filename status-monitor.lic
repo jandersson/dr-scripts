@@ -134,12 +134,11 @@ class GameFilter
     line.gsub(/_|~|-|=|\./, '')
         .scan(/[A-Z\s]{3,}/)
         .each do |match|
-          match = match.gsub(/\s/,'')
-          if @valid_commands.include?(match)
-            pause 3
-            fput(match)
-            pause 5
-          end
+          match = match.gsub(/\s/, '')
+          next unless @valid_commands.include?(match)
+          pause 3
+          fput(match)
+          pause 5
         end
   end
 
