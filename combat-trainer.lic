@@ -276,6 +276,9 @@ class LootProcess
     @cycle_rituals = @ritual_type == 'cycle'
     echo("  @cycle_rituals: #{@cycle_rituals}") if $debug_mode_ct
 
+    @dissect_and_butcher = settings.dissect_and_butcher
+    echo("  @dissect_and_butcher: #{@dissect_and_butcher}") if $debug_mode_ct
+
     @rituals = get_data('spells').rituals
     echo("  @rituals: #{@rituals}") if $debug_mode_ct
 
@@ -290,6 +293,9 @@ class LootProcess
 
     @necro_container = thanatology['harvest_container']
     echo("  @necro_container: #{@necro_container}") if $debug_mode_ct
+
+    @current_harvest_count = rummage('C material', @necro_container).size if DRStats.necromancer?
+    echo("  @current_harvest_count: #{@current_harvest_count}") if $debug_mode_ct
 
     @necro_count = thanatology['harvest_count']
     echo("  @necro_count: #{@necro_count}") if $debug_mode_ct
@@ -465,6 +471,7 @@ class LootProcess
     return false unless @ritual_type
     return false if game_state.necro_casting?
     return true if @ritual_type == 'cycle'
+    return true if @ritual_type == 'butcher'
     return true if @ritual_type == 'dissect' && DRSkill.getxp('First Aid') < 32
     return true if @ritual_type == 'harvest' && DRSkill.getxp('Skinning') < 32
     return true if DRSkill.getxp('Thanatology') < 32
@@ -475,9 +482,15 @@ class LootProcess
     return unless @cycle_rituals
 
     next_ritual = if DRSkill.getxp('Skinning') > 31 && DRSkill.getxp('First Aid') > 31 && DRSkill.getxp('Thanatology') > 31
-                    'preserve'
+                    if @dissect_and_butcher
+                      'butcher'
+                    else
+                      'dissect'
+                    end
                   elsif DRSkill.getxp('Skinning') < DRSkill.getxp('First Aid')
                     'harvest'
+                  elsif @dissect_and_butcher
+                    'butcher'
                   else
                     'dissect'
                   end
@@ -509,6 +522,8 @@ class LootProcess
       end
       ritual = if @cycle_rituals
                  determine_next_ritual
+               elsif @ritual_type.eql?('dissect') && @dissect_and_butcher
+                 'butcher'
                else
                  @ritual_type
                end
@@ -524,6 +539,15 @@ class LootProcess
     return if game_state.construct?(mob_noun)
 
     echo "Attempting necromancer ritual #{ritual} on #{mob_noun}" if $debug_mode_ct
+
+    if ritual.eql?('butcher')
+      butcher_corpse(mob_noun, ritual, game_state)
+
+      @last_ritual = ritual
+      echo "Last ritual performed: #{@last_ritual}" if $debug_mode_ct
+      return
+    end
+
     do_necro_ritual(mob_noun, 'preserve', game_state) if %w[consume harvest arise].include?(ritual)
     perform_message = "perform #{ritual} on #{mob_noun}"
     result = bput(perform_message, @rituals['arise'], @rituals['preserve'], @rituals['dissect'], @rituals['harvest'], @rituals['consume'], @rituals['construct'], @rituals['failures'])
@@ -554,6 +578,25 @@ class LootProcess
     echo "Last ritual performed: #{@last_ritual}" if $debug_mode_ct
   end
 
+  def butcher_corpse(mob_noun, ritual, game_state)
+    return unless ritual.eql?('butcher')
+    echo "Butchering the #{mob_noun}'s corpse!" if $debug_mode_ct
+    echo ' Only butchering it once!' if $debug_mode_ct && @dissect_and_butcher && !@ritual_type.eql?('butcher')
+
+    do_necro_ritual(mob_noun, 'preserve', game_state)
+    @equipment_manager.stow_weapon(game_state.weapon_name)
+
+    loop do
+      result = bput("perform #{ritual} on #{mob_noun}", @rituals['butcher'], @rituals['failures'])
+      break if result.empty? || @rituals['failures'].any? { |msg| result.include?(msg) }
+      bput("drop my #{right_hand}", 'You drop', 'You discard', 'Please rephrase')
+      break if @dissect_and_butcher && !@ritual_type.eql?('butcher')
+    end
+
+    do_necro_ritual(mob_noun, 'dissect', game_state) if @dissect_and_butcher && !@ritual_type.eql?('butcher')
+    @equipment_manager.wield_weapon(game_state.weapon_name, game_state.weapon_skill)
+  end
+
   def necro_harvest_check
     unless @necro_store
       echo 'Store material: false, dropping harvested material' if $debug_mode_ct
@@ -561,23 +604,24 @@ class LootProcess
       return
     end
 
+    quality = fput('glance left')
+    if quality['great'] || quality['excellent'] || quality['perfect'] || quality['flawless']
+      echo 'Harvested high quality material.' if $debug_mode_ct
+    else
+      bput('drop material', 'you discard it')
+      echo 'Dropped low quality material.' if $debug_mode_ct
+      return
+    end
+
     echo 'Store material: true, checking count of stored material' if $debug_mode_ct
-    materials = rummage('C material', @necro_container)
-    if materials.count >= @necro_count
+    if @current_harvest_count >= @necro_count
       bput('drop material', 'you discard it')
       echo 'Already full on stored material, dropping harvested material.' if $debug_mode_ct
       return
     end
 
-    quality = fput('glance left')
-    if quality['great'] || quality['excellent'] || quality['perfect'] || quality['flawless']
-      bput("put material in my #{@necro_container}", 'You put')
-      echo 'Storing high quality material.' if $debug_mode_ct
-      return
-    end
-
-    bput('drop material', 'you discard it')
-    echo 'dropping low quality material.' if $debug_mode_ct
+    result = bput("put material in my #{@necro_container}", 'You put')
+    @current_harvest_count += 1 if result =~ /^You put/
   end
 
   def dispose_body(game_state)
@@ -616,14 +660,6 @@ class LootProcess
       @last_ritual = nil
     end
     @loot_timer = Time.now
-  end
-
-  def necro_casting?(game_state)
-    return false unless DRStats.necromancer?
-    return true if game_state.prepare_consume
-    return true if game_state.casting_consume
-    return true if game_state.prepare_cfb
-    return true if game_state.casting_cfb
   end
 
   def arrange_mob(mob_noun, game_state)
@@ -728,15 +764,18 @@ class SafetyProcess
   include DRCH
   include DRCT
 
-  def initialize
+  def initialize(settings)
     echo('New SafetyProcess') if $debug_mode_ct
     Flags.add('ct-engaged', 'closes to pole weapon range on you', 'closes to melee range on you')
     Flags.add('ct-lodged', 'from the .* lodged in your (.*)\.')
+
+    @health_threshold = settings.health_threshold
+    echo("  @health_threshold: #{@health_threshold}") if $debug_mode_ct
   end
 
   def execute(game_state)
     custom_require.call('tendme') if bleeding? && !Script.running?('tendme')
-    fput 'exit' if health < 40 && !DRStats.necromancer?
+    fput 'exit' if health < @health_threshold
     fix_standing
     tend_lodged
     game_state.danger = in_danger?(game_state.danger)
@@ -952,7 +991,7 @@ class SpellProcess
     return if DRSpells.slivers
     return if UserVars.moons['visible'].empty?
 
-    fput('pre moonblade')
+    fput('prep moonblade')
     if DRSkill.getrank('Lunar Magic') < 300
       pause 3
     elsif DRSkill.getrank('Lunar Magic') < 400
@@ -1285,7 +1324,7 @@ class SpellProcess
       fput("face #{data['target_enemy']}")
     end
     release_cyclics if data['cyclic']
-    command = 'pre'
+    command = 'prep'
     command = data['prep'] if data['prep']
     command = data['prep_type'] if data['prep_type']
 
@@ -1741,7 +1780,8 @@ class TrainerProcess
       end
     when 'Stealth'
       if hide?(@hide_type) && !@dont_stalk && !game_state.npcs.empty? && @hide_type == 'hide'
-        stalked = bput('stalk', 'Try being out of sight',
+        stalked = bput('stalk', 'Stalk what',
+                       'Try being out of sight',
                        'You move into position',
                        'already stalking',
                        'discovers you, ruining your hiding place') == ('You move into position' || 'already stalking')
@@ -1848,7 +1888,7 @@ class TrainerProcess
     bput("unroll #{@prayer_mat}",
          'reverently lay your', 'need to be holding that first')
 
-    bput("kneel #{@prayer_mat}", 'You humbly kneel')
+    bput("kneel #{@prayer_mat}", 'You humbly kneel', 'You kneel in the water')
     bput("kiss #{@prayer_mat}", 'You bend forward to kiss')
 
     bput("get wine from my #{@theurgy_supply_container}",
@@ -1954,7 +1994,6 @@ class TrainerProcess
 
   def moon_mage_perc(game_state)
     return if game_state.retreating?
-    return if DRSkill.getxp('Attunement') > 32
 
     retreat unless DRSkill.getrank('Attunement') > 500
     bput('perc mana', 'You reach out')
@@ -2203,12 +2242,12 @@ class AttackProcess
   end
 
   def aim(game_state)
-    case bput('aim', 'You begin to target', 'You are already', 'There is nothing else', 'Face what\?', 'You shift your target', 'Your repeating crossbow', 'Your assassin\'s crossbow', 'Your repeating arbalest', 'Strangely, you don\'t feel like fighting right now')
-    when 'Your repeating crossbow', 'Your assassin\'s crossbow'
-      case bput('push my cross', 'A rapid series of clicks', 'You attempt to ready your repeating crossbow', 'You attempt to ready your assassin\'s crossbow')
+    case bput('aim', 'You begin to target', 'You are already', 'There is nothing else', 'Face what\?', 'You shift your target', 'Your repeating crossbow', 'Your assassin\'s crossbow', 'Your repeating arbalest', 'Strangely, you don\'t feel like fighting right now', 'Your riot crossbow')
+    when 'Your repeating crossbow', 'Your assassin\'s crossbow', 'Your riot crossbow'
+      case bput('push my cross', 'A rapid series of clicks', 'You attempt to ready your repeating crossbow', 'You attempt to ready your assassin\'s crossbow', 'You attempt to ready your riot crossbow')
       when 'A rapid series of clicks'
         aim(game_state)
-      when 'You attempt to ready your repeating crossbow', 'You attempt to ready your assassin\'s crossbow'
+      when 'You attempt to ready your repeating crossbow', 'You attempt to ready your assassin\'s crossbow', 'You attempt to ready your riot crossbow'
         game_state.loaded = false
       end
     when 'Your repeating arbalest'
@@ -2330,7 +2369,7 @@ class CombatTrainer
     @running = true
     $debug_mode_ct = UserVars.combat_trainer_debug || settings.debug_mode
     @game_state = GameState.new(settings, @equipment_manager)
-    @safety_process = SafetyProcess.new
+    @safety_process = SafetyProcess.new(settings)
     @combat_processes = make_processes(settings)
   end
 

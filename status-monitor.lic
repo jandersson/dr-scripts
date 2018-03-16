@@ -31,12 +31,16 @@ class GameFilter
     @filter_strings = get_data('filters')['filter_strings'].map { |string| /#{string}/ }
     @non_useful_tags = [
       /<preset id='roomDesc'>/i,
+      /pushStream id="assess"/i,
+      /pushStream id="ooc"/i,
       /pushStream id="atmospherics"/i,
       /pushStream id="thoughts"/i,
       /pushStream id="talk"/i,
       /pushStream id="death"/i,
       /pushStream id="group"/i,
       /pushStream id="percWindow"/i,
+      /pushStream id="logons"/i,
+      /pushStream id="death"/i,
       /component id='room/i,
       /component id='exp/i,
       %r{</prompt>$},
@@ -137,9 +141,18 @@ class GameFilter
           match = match.gsub(/\s/, '')
           next unless @valid_commands.include?(match)
           pause 3
-          fput(match)
+          fput(match.downcase)
           pause 5
         end
+
+    ## Look for mixed-case prompts like J_u_M_p
+    tokens = line.split(' ')
+    tokens.each do |token|
+      if token =~ /[_~=-]/
+        token = token.gsub(/_|~|-|=/, '')
+        fput(token.downcase) if @valid_commands.include?(token.upcase)
+      end
+    end
   end
 
   def clean(line)

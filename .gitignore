@@ -42,7 +42,7 @@ profiles/Lukrani-haversack.yaml
 # Visual Studio
 /.vs
 
-# Vim Swap file  
+# Vim Swap file
 *.swp
 
 # JetBrains IDE config

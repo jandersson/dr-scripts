@@ -460,7 +460,7 @@ module DRCA
       }]
     end
     total_cambrinth_cap = settings.cambrinth_items.map { |x| x['cap'] }.inject(&:+)
-    charges_count_floor = 4
+    charges_count_floor = remaining >= settings.cambrinth_num_charges ? settings.cambrinth_num_charges : 1
     settings.cambrinth_items.each do |item|
       item['charges'] = ((item['cap'].to_f / total_cambrinth_cap) * charges_count_floor).ceil
     end

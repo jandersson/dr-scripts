@@ -77,10 +77,10 @@ prep_messages:
 - Drawing yourself up to your full height, you recite the words
 - With a mnemonic tune in your mind, you trace out the symbols
 - You spread your hands apart then slowly bring them together, fingers interlocked
+- Closing your eyes, you carefully bend some mana streams through the tattoo on your
 
 cast_messages:
-- ^Your spell backfires
-- Your spell barely backfires
+- ^Your spell .*backfires
 - You strain, but are too mentally fatigued
 - ^You gesture
 - A soft silver glow envelops
@@ -1887,6 +1887,7 @@ rituals:
   consume: a few quick, precise cuts with your ritual knife
   arise: carefully carve a ritual design across a handspan of its body
   construct: Rituals do not work upon constructs
+  butcher: Making several deep cuts with your knife
   failures:
   - don't have enough thanatological
   - You cannot harvest
@@ -1899,3 +1900,5 @@ rituals:
   - You realize the unfortunate butchery ruins the body for any further attempts at rituals
   - A skinned creature is worthless for your purposes
   - The consumption ritual performed on this corpse prevents its harvesting
+  - much too battered and beat up to extract any body parts from
+  - renders it useless for butchering
