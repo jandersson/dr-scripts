@@ -7,6 +7,7 @@ import yaml
 from re import sub
 import argparse
 from pathlib import Path
+from bs4 import BeautifulSoup
 
 
 EPEDIA_API = 'https://elanthipedia.play.net/api.php'
@@ -17,7 +18,7 @@ DATA_PATH = Path(__file__).resolve().parents[1] / 'data'
 class EpediaDownloader:
     def __init__(self):
         parser = argparse.ArgumentParser(description='Download data from Elanthipedia')
-        parser.add_argument('command', choices=['titles'], help='What to download')
+        parser.add_argument('command', choices=['titles', 'tinkering_recipes'], help='What to download')
         args = parser.parse_args()
 
         # Use dispatch pattern
@@ -33,6 +34,11 @@ class EpediaDownloader:
 
         with urllib.request.urlopen(req) as response:
             return json.loads(response.read().decode('utf-8'))
+
+    def tinkering_recipes(self):
+        values = {
+            'action': 'query'
+        }
 
     def titles(self):
         """Download and clean a list of all the titles. Then save to data directory"""
