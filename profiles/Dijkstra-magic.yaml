@@ -1,5 +1,5 @@
 hunting_info:
-- :zone: scouts
+- :zone: reavers
   :duration: 15
   stop_on:
   - Targeted Magic
@@ -8,7 +8,6 @@ hunting_info:
 offensive_spells:
 - name: Crystal Dart
 - name: Fluoresce
-
 
 weapon_training:
   Large Blunt: bar mace

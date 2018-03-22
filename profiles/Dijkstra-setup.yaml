@@ -1,6 +1,3 @@
-####################
-### TARDER MAGIC ###
-####################
 buff_spells:
   # Any spell with a {} after it is loading the minimum settings required to cast the spell from data/base-spells.yaml
   Blur: 
@@ -16,15 +13,19 @@ buff_spells:
   Noumena: {} 
   Trabe Chalice: {}
 
+waggle_sets:
+  smith:
+    Platinum Hands of Kertigen:
+      recast: 5
+      cambrinth:
+      - 2
+
 cambrinth: cambrinth armband
 cambrinth_cap: 32
 cambrinth_items:
 - name: cambrinth armband
   cap: 32
   stored: false
-
-safe_room_empath: Engorged
-safe_room_id: 7301
 
 use_harness_when_arcana_locked: false
 
@@ -50,41 +51,38 @@ training_manager_hunting_priority: true
 training_manager_town_duration: 60
 training_manager_priority_skills:
 - Targeted Magic
+- Debilitation
 hunting_file_list:
 - magic
-- setup
+#- setup
 
 crafting_container: pack
 
 train_workorders:
 - Blacksmithing
+- Tailoring
+
+workorder_diff:
+  armorsmithing: Challenging
+  blacksmithing: Hard
+  carving: Challenging
+  remedies: Challenging
+  shaping: Challenging
+  tailoring: Challenging
+  weaponsmithing: Challenging
 
 work_order_disciplines:
 - Blacksmithing
-alchemy_tools:
-- marble mortar
-- marble pestle
-- mixing stick
-- sieve
-- large bowl
-alchemy_belt:
-- marble mortar
-- marble pestle
-- mixing stick
-- sieve
-- large bowl
+- Tailoring
+
 
 mining_buddy_vein_list:
-# - Gold
-# - Platinum
 - Lumium
-#- Darkstone
 - Damite
 - Kertig
 - Haralun
 - Glaes
 - Animite
-#- Quartzite
 
 mines_to_mine:
 - waterfall
@@ -113,7 +111,7 @@ use_stealth_attacks: false
 
 safe_room:
 slack_username:
-status_monitor_no_window: true
+status_monitor_no_window: false
 dump_junk: true
 
 gear:
@@ -209,6 +207,7 @@ crossing_training:
 - Locksmithing
 - Outdoorsmanship
 - Forging
+- Outfitting
 - Attunement
 - Utility
 - Augmentation
