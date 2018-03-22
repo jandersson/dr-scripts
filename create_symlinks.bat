@@ -16,4 +16,5 @@ goto:eof
 
 :symlink
 del %_Destination%\%~1
-mklink /h %_Destination%\%~1 .\%~1
+mklink %_Destination%\%~1 %~dp0%~1
+REM mklink /H %_Destination%\%~1 .\%~1
