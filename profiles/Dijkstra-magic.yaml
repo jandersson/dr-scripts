@@ -7,8 +7,11 @@ hunting_info:
 
 offensive_spells:
 - name: Crystal Dart
+  mana: 6
 - name: Fluoresce
 
 weapon_training:
   Large Blunt: bar mace
   Twohanded Blunt: bar mace
+
+buff_spells:
