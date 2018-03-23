@@ -20,22 +20,33 @@ module DRCM
     end.last
   end
 
-  def withdraw_only_coppers(amount, hometown)
-    echo 'coppers only'
-    walk_to(get_data('town')[hometown]['deposit']['id'])
-    fput('deposit all')
-    on_hand = wealth(hometown)
-    if on_hand <= amount
-      withdraw_exact_amount?("#{amount - on_hand} copper", hometown)
-    end
-  end
-
   def convert_to_copper(amount, denomination)
     return (amount.to_i * 10_000) if 'platinum' =~ /^#{denomination}/
     return (amount.to_i * 1000) if 'gold' =~ /^#{denomination}/
     return (amount.to_i * 100) if 'silver' =~ /^#{denomination}/
     return (amount.to_i * 10) if 'bronze' =~ /^#{denomination}/
     amount
+  end
+
+  def convert_currency(amount, from, to, fee = 0.05)
+    exchange_rates = {
+        'Dokora' => {
+            'Dokora' => 1,
+            'Kronar' => 1.38580991,
+            'Lirum' => 1.108646953,
+        },
+        'Kronar' => {
+            'Dokora' => 0.7216,
+            'Kronar' => 1,
+            'Lirum' => 0.8,
+        },
+        'Lirum' => {
+            'Dokora' => 0.902,
+            'Kronar' => 1.25,
+            'Lirum' => 1,
+        },
+    }
+    (exchange_rates[from][to] * amount * (1 - fee)).floor
   end
 
   def hometown_currency(hometown_name)
