@@ -1,0 +1,86 @@
+custom_require.call(%w[common-crafting events])
+
+class Workorder
+  include DRCC
+  attr_accessor :finish_time, :qty, :payout, :payout_currency
+
+  def initialize
+    @db = Script.db
+    @recipes = get_data('recipes').crafting_recipes
+    create_db
+    setup
+  end
+
+  def reset
+    setup
+  end
+
+  def setup
+    @difficulty_settings = get_settings.workorder_diff
+    @discipline = 'unknown'
+    @start_time = Time.now.to_s
+    @finish_time = nil
+    @qty = nil
+    @difficulty = nil
+    @product = nil
+    @payout = nil
+    @payout_currency = nil
+  end
+
+  def product=(product)
+    @product = product
+    discipline = DRCC.recipe_lookup(@recipes, @product)['type']
+    @discipline = discipline if discipline
+    @difficulty = if @difficulty_settings.is_a?(Hash) && discipline
+                    @difficulty_settings[discipline]
+                  else
+                    @difficulty_settings
+                  end
+  end
+
+  def create_db
+    @db.execute <<-SQL
+      create table if not exists workorders (
+        discipline varchar(50) not null,
+        material varchar(50) not null,
+        product varchar(50) not null,
+        difficulty varchar(20) not null,
+        payout int not null,
+        payout_currency varchar(20) not null,
+        quantity int not null,
+        start_time datetime not null,
+        finish_time varchar(50) not null
+      );
+    SQL
+  end
+
+  def commit
+    @db.execute("INSERT INTO workorders (start_time, finish_time, quantity, difficulty, product, payout, payout_currency, discipline)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [@start_time, @finish_time, @qty, @difficulty, @product, @payout, @payout_currency, @discipline])
+  end
+end
+
+Flags.add('workorder-get', 'Alright, this is an order for ([\w\s-]+)\. I need (\d+)')
+Flags.add('workorder-deliver', 'and are given ([\d,]+) (\w+) in return')
+wo = Workorder.new
+loop do
+  pause 0.05
+  if Flags['workorder-get']
+    wo.reset
+    wo.product = Flags['workorder-get'][1]
+    wo.qty = Flags['workorder-get'][2]
+    Flags.reset('workorder-get')
+  end
+  if Flags['workorder-deliver']
+    wo.payout = Flags['workorder-deliver'][1].tap {|s| s.delete!(',')}.to_i
+    wo.payout_currency = Flags['workorder-deliver'][2]
+    wo.finish_time = Time.now.to_s
+    wo.commit
+    Flags.reset('workorder-deliver')
+  end
+end
+
+on_dying do
+  Flags.delete('workorder-get')
+  Flags.delete('workorder-deliver')
+end
