@@ -1,5 +1,5 @@
 hunting_info:
-- :zone: reavers
+- :zone: endrus_serpents
   :duration: 15
   stop_on:
   - Targeted Magic
@@ -9,6 +9,11 @@ offensive_spells:
 - name: Crystal Dart
   mana: 6
 - name: Fluoresce
+  cambrinth:
+  - 10
+- name: Stun Foe
+  skill: Sorcery
+  use_auto_mana: true
 
 weapon_training:
   Large Blunt: bar mace
