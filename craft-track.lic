@@ -1,8 +1,9 @@
-custom_require.call(%w[common-crafting events])
+# encoding: UTF-8
+custom_require.call(%w[common-crafting drinfomon events])
 
 class Workorder
   include DRCC
-  attr_accessor :finish_time, :qty, :payout, :payout_currency
+  attr_accessor :finish_time, :payout
 
   def initialize
     @db = Script.db
@@ -16,19 +17,29 @@ class Workorder
   end
 
   def setup
+    @charisma = DRStats.charisma.to_i
     @difficulty_settings = get_settings.workorder_diff
     @discipline = 'unknown'
     @start_time = Time.now.to_s
     @finish_time = nil
     @qty = nil
     @difficulty = nil
+    @material = nil
     @product = nil
     @payout = nil
     @payout_currency = nil
   end
 
+  def payout_currency=(payout_currency)
+    @payout_currency = payout_currency.encode("UTF-8")
+  end
+
+  def qty=(qty)
+    @qty = qty.to_i
+  end
+
   def product=(product)
-    @product = product
+    @product = product.encode("UTF-8")
     discipline = DRCC.recipe_lookup(@recipes, @product)['type']
     @discipline = discipline if discipline
     @difficulty = if @difficulty_settings.is_a?(Hash) && discipline
@@ -36,27 +47,33 @@ class Workorder
                   else
                     @difficulty_settings
                   end
+    @material = if discipline == 'blacksmithing'
+                  "bronze"
+                elsif discipline == 'tailoring'
+                  "wool"
+                end
   end
 
   def create_db
     @db.execute <<-SQL
-      create table if not exists workorders (
-        discipline varchar(50) not null,
-        material varchar(50) not null,
-        product varchar(50) not null,
-        difficulty varchar(20) not null,
-        payout int not null,
-        payout_currency varchar(20) not null,
-        quantity int not null,
-        start_time datetime not null,
-        finish_time varchar(50) not null
+      CREATE TABLE IF NOT EXISTS workorders (
+        discipline TEXT not null,
+        product TEXT not null,
+        difficulty TEXT not null,
+        payout INTEGER not null,
+        payout_currency TEXT not null,
+        quantity INTEGER not null,
+        start_time TEXT not null,
+        finish_time TEXT not null,
+        material TEXT not null,
+        charisma INTEGER not null
       );
     SQL
   end
 
   def commit
-    @db.execute("INSERT INTO workorders (start_time, finish_time, quantity, difficulty, product, payout, payout_currency, discipline)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [@start_time, @finish_time, @qty, @difficulty, @product, @payout, @payout_currency, @discipline])
+    @db.execute("INSERT INTO workorders (start_time, finish_time, quantity, difficulty, product, payout, payout_currency, discipline, material, charisma)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [@start_time, @finish_time, @qty, @difficulty, @product, @payout, @payout_currency, @discipline, @material, @charisma])
   end
 end
 
@@ -72,7 +89,7 @@ loop do
     Flags.reset('workorder-get')
   end
   if Flags['workorder-deliver']
-    wo.payout = Flags['workorder-deliver'][1].tap {|s| s.delete!(',')}.to_i
+    wo.payout = Flags['workorder-deliver'][1].tap { |s| s.delete!(',') }.to_i
     wo.payout_currency = Flags['workorder-deliver'][2]
     wo.finish_time = Time.now.to_s
     wo.commit
@@ -80,7 +97,7 @@ loop do
   end
 end
 
-on_dying do
+before_dying do
   Flags.delete('workorder-get')
   Flags.delete('workorder-deliver')
 end
