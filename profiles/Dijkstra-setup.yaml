@@ -1,27 +1,40 @@
+# Spell Wish List (23 slots to spend)
+# Noumena (1), Finesse(2), Last Gift V(1), TURI(2), Platinum Hands of Kertigen(3)
+# Trabe Chalice(1), Crystal Dart(1), Arbiter's Stylus(1)
+
 buff_spells:
-  # Any spell with a {} after it is loading the minimum settings required to cast the spell from data/base-spells.yaml
-  Blur: 
-    mana: 5
+  Finesse:
     cambrinth:
-    - 7
-  Finesse:  
-    mana: 5
+    - 17
+  Last Gift of Vithwok IV:
     cambrinth:
-    - 7
-  Last Gift of Vithwok IV: {} 
-  Membrach's Greed: {} 
-  Noumena: {} 
-  Trabe Chalice: {}
+    - 21
+  Membrach's Greed:
+    cambrinth:
+    - 20
+  Noumena:
+    cambrinth:
+    - 28
+  Trabe Chalice:
+    cambrinth:
+    - 29
+
+
+offensive_spell_cycle:
+- Arbiter's Stylus
+- Stun Foe
+#- Fluoresce
 
 offensive_spells:
-- name: Crystal Dart
-  mana: 6
+- name: Arbiter's Stylus
+  cast_only_to_train: true
+- name: Stun Foe
+  cast_only_to_train: true
+  skill: Sorcery
+  use_auto_mana: true
 - name: Fluoresce
   cambrinth:
   - 10
-- name: Stun Foe
-  skill: Sorcery
-  use_auto_mana: true
 
 waggle_sets:
   sew:
@@ -46,6 +59,7 @@ waggle_sets:
 cambrinth: cambrinth armband
 cambrinth_cap: 32
 cambrinth_num_charges: 1
+cambrinth_invoke_exact_amount: true
 cambrinth_items:
 - name: cambrinth armband
   cap: 32
@@ -61,16 +75,16 @@ training_spells:
   Warding:
     abbrev: NON
 
-# See Dijkstra-magic.yaml for offensive spells
-###
 training_manager_hunting_priority: true
 training_manager_town_duration: 60
 training_manager_priority_skills:
 - Targeted Magic
 - Debilitation
 hunting_file_list:
-#- magic
 - setup
+
+combat_trainer_target_increment: 10
+combat_trainer_action_count: 50
 
 skip_last_kill: true
 
@@ -97,6 +111,12 @@ work_order_disciplines:
 
 workorder_min_items: 1
 workorder_max_items: 10
+
+forging_tools:
+- diagonal-peen mallet
+- tong
+- bellow
+- curved shovel
 
 mining_buddy_vein_list:
 - Lumium
@@ -188,6 +208,11 @@ gear:
 - :name: stick
   :adjective: parry
   :is_worn: true
+### Tools
+- :name: mallet
+  :adjective: diagonal-peen
+- :name: shovel
+  :adjective: curved
 
 gear_sets:
   standard:
@@ -208,6 +233,7 @@ weapon_training:
   Offhand Weapon: throwing spike
   Light Thrown: throwing spike
   Small Blunt: throwing spike
+  Small Edged: throwing spike
   Polearms: light spear
   Heavy Thrown: light spear
   Large Blunt: bar mace
@@ -216,9 +242,8 @@ weapon_training:
 training_abilities:
   Hunt: 80
   PercMana: 60
-  Analyze: 70
-  Recall: 1205
-  Collect: 180
+#  Analyze: 70
+#  Recall: 1205
 
 cycle_armors:
   Light Armor:
@@ -261,3 +286,14 @@ safe_room_id:
 
 repair_timer: 86400 # Repair once every 24 hours
 repair_every: .inf # Infinity - Dont use repair counter
+
+loot_subtractions:
+- stones
+loot_additions:
+- kyanite stones
+- jadeite stones
+loot_specials:
+- name: jadeite stones
+  bag: duffel bag
+- name: kyanite stones
+  bag: duffel bag
