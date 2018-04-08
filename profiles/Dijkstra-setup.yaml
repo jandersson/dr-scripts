@@ -16,18 +16,25 @@ buff_spells:
     cambrinth:
     - 28
   Trabe Chalice:
+    sun: false
     cambrinth:
     - 29
+    recast: -1
 
 
 offensive_spell_cycle:
 - Arbiter's Stylus
+- Crystal Dart
 - Stun Foe
-#- Fluoresce
+- Fluoresce
 
 offensive_spells:
 - name: Arbiter's Stylus
   cast_only_to_train: true
+  sun: true
+- name: Crystal Dart
+  cast_only_to_train: true
+  sun: false
 - name: Stun Foe
   cast_only_to_train: true
   skill: Sorcery
@@ -41,7 +48,7 @@ waggle_sets:
     Platinum Hands of Kertigen:
       recast: 7
       cambrinth:
-      - 5
+      - 10
     Finesse:
       recast: 7
       cambrinth:
@@ -50,7 +57,7 @@ waggle_sets:
     Platinum Hands of Kertigen:
       recast: 7
       cambrinth:
-      - 5
+      - 10
     Finesse:
       recast: 7
       cambrinth:
@@ -65,7 +72,7 @@ cambrinth_items:
   cap: 32
   stored: false
 crossing_training_sorcery_room: 1645
-use_harness_when_arcana_locked: true
+use_harness_when_arcana_locked: yes
 
 training_spells:
   Augmentation:
@@ -75,11 +82,10 @@ training_spells:
   Warding:
     abbrev: NON
 
-training_manager_hunting_priority: true
+training_manager_hunting_priority: yes
 training_manager_town_duration: 60
 training_manager_priority_skills:
 - Targeted Magic
-- Debilitation
 hunting_file_list:
 - setup
 
@@ -133,12 +139,12 @@ mines_to_mine:
 - abandoned_mine
 
 hunting_info: 
-- :zone: young_ogres
+- :zone: blue_crocs
   :duration: 30
   stop_on:
-  - Polearms 
+  - Polearms
 
-stop_hunting_if_bleeding: true
+stop_hunting_if_bleeding: yes
 
 favor_god: Kertigen
 favor_goal: 30
@@ -258,9 +264,9 @@ cycle_armors:
 hand_armor: *hand_armor
 
 crossing_training:
+- Locksmithing
 - Athletics
 - Mechanical Lore
-- Locksmithing
 - Outdoorsmanship
 - Forging
 - Outfitting
@@ -292,6 +298,7 @@ loot_subtractions:
 loot_additions:
 - kyanite stones
 - jadeite stones
+- waermodi stones
 loot_specials:
 - name: jadeite stones
   bag: duffel bag
