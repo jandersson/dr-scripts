@@ -144,6 +144,10 @@ hunting_info:
   stop_on:
   - Polearms
 
+restock:
+  bolt:
+    quantity: 30
+
 stop_hunting_if_bleeding: yes
 
 favor_god: Kertigen
