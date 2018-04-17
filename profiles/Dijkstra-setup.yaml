@@ -31,10 +31,10 @@ offensive_spell_cycle:
 offensive_spells:
 - name: Arbiter's Stylus
   cast_only_to_train: true
-  sun: true
+  day: yes  # Same as true
 - name: Crystal Dart
   cast_only_to_train: true
-  sun: false
+  night: true # Same as yes
 - name: Stun Foe
   cast_only_to_train: true
   skill: Sorcery
