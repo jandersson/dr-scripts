@@ -73,6 +73,7 @@ cambrinth_items:
   stored: false
 crossing_training_sorcery_room: 1645
 use_harness_when_arcana_locked: yes
+dedicated_camb_use: true
 
 training_spells:
   Augmentation:
