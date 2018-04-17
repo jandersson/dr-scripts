@@ -239,7 +239,6 @@ training_abilities:
 #tree
 safe_room: 1645
 hand_armor: gloves
-forge_container: rucksack
 crossing_training:
 #- Appraisal
 - Athletics

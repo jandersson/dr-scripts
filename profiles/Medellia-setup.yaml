@@ -464,7 +464,6 @@ training_spells:
     symbiosis: true
   Augmentation:
     abbrev: drum
-forge_container: rucksack
 
 safe_room: 851
 hide_to_steal: true
