@@ -118,6 +118,9 @@ work_order_disciplines:
 workorder_min_items: 1
 workorder_max_items: 10
 
+use_own_ingot_type: 
+deed_own_ingot: false
+
 forging_tools:
 - diagonal-peen mallet
 - tong
