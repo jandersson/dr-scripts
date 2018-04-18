@@ -22,11 +22,11 @@ buff_spells:
     recast: -1
 
 
-offensive_spell_cycle:
-- Arbiter's Stylus
-- Crystal Dart
-- Stun Foe
-- Fluoresce
+# offensive_spell_cycle:
+# - Arbiter's Stylus
+# - Crystal Dart
+# - Stun Foe
+# - Fluoresce
 
 offensive_spells:
 - name: Arbiter's Stylus
@@ -63,6 +63,8 @@ waggle_sets:
       cambrinth:
       - 19
 
+prep_scaling_factor: 0.95
+
 cambrinth: cambrinth armband
 cambrinth_cap: 32
 cambrinth_num_charges: 1
@@ -73,7 +75,7 @@ cambrinth_items:
   stored: false
 crossing_training_sorcery_room: 1645
 use_harness_when_arcana_locked: yes
-dedicated_camb_use: true
+dedicated_camb_use: spell
 
 training_spells:
   Augmentation:
@@ -151,6 +153,9 @@ hunting_info:
 restock:
   bolt:
     quantity: 30
+  arrow:
+    quantity: 30
+
 
 stop_hunting_if_bleeding: yes
 
