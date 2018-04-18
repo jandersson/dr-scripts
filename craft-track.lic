@@ -1,4 +1,4 @@
-# encoding: UTF-8
+
 custom_require.call(%w[common-crafting drinfomon events])
 
 class Workorder
@@ -31,7 +31,7 @@ class Workorder
   end
 
   def payout_currency=(payout_currency)
-    @payout_currency = payout_currency.encode("UTF-8")
+    @payout_currency = payout_currency.encode('UTF-8')
   end
 
   def qty=(qty)
@@ -39,7 +39,7 @@ class Workorder
   end
 
   def product=(product)
-    @product = product.encode("UTF-8")
+    @product = product.encode('UTF-8')
     discipline = DRCC.recipe_lookup(@recipes, @product)['type']
     @discipline = discipline if discipline
     @difficulty = if @difficulty_settings.is_a?(Hash) && discipline
@@ -48,9 +48,9 @@ class Workorder
                     @difficulty_settings
                   end
     @material = if discipline == 'blacksmithing'
-                  "bronze"
+                  'bronze'
                 elsif discipline == 'tailoring'
-                  "wool"
+                  'wool'
                 end
   end
 
@@ -88,13 +88,12 @@ loop do
     wo.qty = Flags['workorder-get'][2]
     Flags.reset('workorder-get')
   end
-  if Flags['workorder-deliver']
-    wo.payout = Flags['workorder-deliver'][1].tap { |s| s.delete!(',') }.to_i
-    wo.payout_currency = Flags['workorder-deliver'][2]
-    wo.finish_time = Time.now.to_s
-    wo.commit
-    Flags.reset('workorder-deliver')
-  end
+  next unless Flags['workorder-deliver']
+  wo.payout = Flags['workorder-deliver'][1].tap { |s| s.delete!(',') }.to_i
+  wo.payout_currency = Flags['workorder-deliver'][2]
+  wo.finish_time = Time.now.to_s
+  wo.commit
+  Flags.reset('workorder-deliver')
 end
 
 before_dying do
