@@ -1,4 +1,4 @@
-echo "Tagging hunting zones"
+echo 'Tagging hunting zones'
 zones = get_data('hunting').hunting_zones
 zones.each do |zone_name, rooms|
   echo "Updating #{zone_name} rooms"
