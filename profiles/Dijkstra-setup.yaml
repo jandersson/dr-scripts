@@ -31,10 +31,11 @@ buff_spells:
 offensive_spells:
 - name: Arbiter's Stylus
   cast_only_to_train: true
-  day: yes  # Same as true
+  night: yes  # Same as true
 - name: Crystal Dart
+  mana: 6
   cast_only_to_train: true
-  night: true # Same as yes
+  day: true # Same as yes
 - name: Stun Foe
   cast_only_to_train: true
   skill: Sorcery
