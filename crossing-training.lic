@@ -168,7 +168,9 @@ class CrossingTraining
     when 'Attunement'
       train_attunement
     when 'Augmentation', 'Warding', 'Utility', 'Debilitation'
-      train_magic skill
+      # train_magic skill
+      check_nerves
+      wait_for_script_to_complete('magic-trainer')
     when 'Empathy'
       train_empathy
     when 'Engineering'
