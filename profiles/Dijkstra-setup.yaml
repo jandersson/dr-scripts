@@ -2,7 +2,17 @@
 # Noumena (1), Finesse(2), Last Gift V(1), TURI(2), Platinum Hands of Kertigen(3)
 # Trabe Chalice(1), Crystal Dart(1), Arbiter's Stylus(1)
 
+hometown: Crossing
+
 buff_spells:
+  Trabe Chalice:
+    sun: false
+    cambrinth:
+    - 29
+    recast: -1
+  Manifest Force:
+    cambrinth:
+    - 32
   Finesse:
     cambrinth:
     - 17
@@ -15,11 +25,6 @@ buff_spells:
   Noumena:
     cambrinth:
     - 28
-  Trabe Chalice:
-    sun: false
-    cambrinth:
-    - 29
-    recast: -1
 
 
 # offensive_spell_cycle:
@@ -41,10 +46,33 @@ offensive_spells:
   skill: Sorcery
   use_auto_mana: true
 - name: Fluoresce
+  # cast: cast creatures # This does not work. It looks like it only works with the plain 'cast' command
   cambrinth:
   - 10
 
 waggle_sets:
+  ## Individual Spells
+  blur:
+    Blur:
+      cambrinth:
+      - 28
+      min_starlight_level: 1
+  maf:
+    Manifest Force:
+      mana: 9
+      cambrinth:
+      - 32
+  nou:
+    Noumena:
+      mana: 3
+      cambrinth:
+      - 32
+  trc:
+    Trabe Chalice:
+      mana: 4
+      cambrinth:
+      - 32
+  ## Script sets
   sew:
     Platinum Hands of Kertigen:
       recast: 7
@@ -145,8 +173,11 @@ mines_to_mine:
 - stone_clan
 - abandoned_mine
 
+
 hunting_info: 
-- :zone: blue_crocs
+- :zone: dire_bears
+  args:
+  - r1
   :duration: 30
   stop_on:
   - Polearms
@@ -218,7 +249,7 @@ gear:
 - :name: greaves
   :adjective: ring
   :is_worn: true
-- :name: &hand_armor gloves 
+- :name: &hand_armor gloves # this gets referenced by *hand_armor; if i change my gloves here, it will change hand_armor
   :adjective: ring
   :is_worn: true
   :hinders_lockpicking: true
@@ -275,12 +306,11 @@ cycle_armors:
   Brigandine:
   - scale greaves
 
-hand_armor: *hand_armor
+hand_armor: *hand_armor # check the gear list to see whats going on here
 
 crossing_training:
 - Locksmithing
 - Athletics
-- Mechanical Lore
 - Outdoorsmanship
 - Forging
 - Outfitting
@@ -288,7 +318,7 @@ crossing_training:
 - Utility
 - Augmentation
 - Warding
-- Sorcery
+- Mechanical Lore
 
 appraisal_training:
 - pouches
@@ -300,9 +330,10 @@ listen_observe: true
 sell_loot_pouch: false
 spare_gem_pouch_container: duffel bag
 gem_pouch_adjective: purple
+sell_pouches_for_trading: yes # same as true
 
-safe_room_empath:
-safe_room_id:
+# safe_room_empath:
+# safe_room_id:
 
 repair_timer: 86400 # Repair once every 24 hours
 repair_every: .inf # Infinity - Dont use repair counter
