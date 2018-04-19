@@ -57,6 +57,11 @@ waggle_sets:
       cambrinth:
       - 28
       min_starlight_level: 1
+  fin: &finesse
+    Finesse:
+      recast: 7
+      cambrinth:
+      - 32
   maf:
     Manifest Force:
       mana: 9
@@ -78,19 +83,13 @@ waggle_sets:
       recast: 7
       cambrinth:
       - 10
-    Finesse:
-      recast: 7
-      cambrinth:
-      - 19
+    << : *finesse
   smith:
     Platinum Hands of Kertigen:
       recast: 7
       cambrinth:
       - 10
-    Finesse:
-      recast: 7
-      cambrinth:
-      - 19
+    << : *finesse
 
 prep_scaling_factor: 0.95
 
