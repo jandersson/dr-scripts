@@ -175,8 +175,6 @@ mines_to_mine:
 
 hunting_info: 
 - :zone: dire_bears
-  args:
-  - r1
   :duration: 30
   stop_on:
   - Polearms
@@ -292,8 +290,8 @@ weapon_training:
 training_abilities:
   Hunt: 80
   PercMana: 60
-#  Analyze: 70
-#  Recall: 1205
+  Analyze: 70
+  Recall: 1205
 
 cycle_armors:
   Light Armor:
