@@ -1,7 +1,9 @@
 # Spell Wish List (23 slots to spend)
 # Noumena (1), Finesse(2), Last Gift V(1), TURI(2), Platinum Hands of Kertigen(3)
 # Trabe Chalice(1), Crystal Dart(1), Arbiter's Stylus(1)
-
+# Gauge Flow(2), Manifest Force(1)
+# Feat Wish List
+# Sorcerous Patterns(1), Improved Memory(1), Raw Channeling(1), Efficient Harnessing(1)
 hometown: Crossing
 
 buff_spells:
@@ -25,7 +27,6 @@ buff_spells:
   Noumena:
     cambrinth:
     - 28
-
 
 # offensive_spell_cycle:
 # - Arbiter's Stylus
@@ -309,12 +310,13 @@ crossing_training:
 - Locksmithing
 - Athletics
 - Outdoorsmanship
-- Forging
-- Outfitting
+# - Forging
+# - Outfitting
 - Attunement
 - Utility
 - Augmentation
 - Warding
+- Trading
 - Mechanical Lore
 
 appraisal_training:
