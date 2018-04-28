@@ -7,11 +7,6 @@
 hometown: Crossing
 
 buff_spells:
-  Trabe Chalice:
-    sun: false
-    cambrinth:
-    - 29
-    recast: -1
   Manifest Force:
     cambrinth:
     - 32
@@ -27,6 +22,11 @@ buff_spells:
   Noumena:
     cambrinth:
     - 28
+  Trabe Chalice:
+    day: false
+    cambrinth:
+    - 29
+    recast: -1
 
 # offensive_spell_cycle:
 # - Arbiter's Stylus
@@ -53,6 +53,12 @@ offensive_spells:
 
 waggle_sets:
   ## Individual Spells
+  ava:
+    # Room objs: "ball of red luminescence", 
+    Avren Aevareae:
+      cambrinth:
+      - 10
+      skill: Augmentation
   blur:
     Blur:
       cambrinth:
@@ -117,9 +123,10 @@ training_spells:
 training_manager_hunting_priority: yes
 training_manager_town_duration: 60
 training_manager_priority_skills:
-- Targeted Magic
+- Large Edged
 hunting_file_list:
-- setup
+- stealth
+  #- setup
 
 combat_trainer_target_increment: 10
 combat_trainer_action_count: 50
@@ -207,6 +214,9 @@ dump_junk: true
 
 gear:
 ### Weapons
+- :name: sword
+  :adjective: bastard
+  :swappable: true
 - :name: spear
   :adjective: light
 - :name: spike
@@ -224,6 +234,18 @@ gear:
 ### Armor
 - :name: pants
   :adjective: insulated
+  :is_leather: true
+- :name: gloves
+  :adjective: rugged
+  :is_leather: true
+- :name: cowl
+  :adjective: rugged
+  :is_leather: true
+- :name: vambraces
+  :adjective: rugged
+  :is_leather: true
+- :name: jerkin
+  :adjective: rugged
   :is_leather: true
 - :name: greaves
   :adjective: scale
@@ -269,7 +291,8 @@ gear_sets:
   - round sipar
   - ring lorica
   - ring vambraces
-  - ring greaves
+  - insulated pants
+    #- ring greaves
   - ring mask
   - ring helm
   - Nisha shortbow
@@ -297,8 +320,8 @@ training_abilities:
 cycle_armors:
   Light Armor:
   - insulated pants
-  Chain Armor:
-  - ring greaves
+    #  Chain Armor:
+    #- ring greaves
   Plate Armor:
   - light greaves
   Brigandine:
@@ -330,9 +353,6 @@ sell_loot_pouch: false
 spare_gem_pouch_container: duffel bag
 gem_pouch_adjective: purple
 sell_pouches_for_trading: yes # same as true
-
-# safe_room_empath:
-# safe_room_id:
 
 repair_timer: 86400 # Repair once every 24 hours
 repair_every: .inf # Infinity - Dont use repair counter

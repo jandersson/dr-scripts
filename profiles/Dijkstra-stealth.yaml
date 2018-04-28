@@ -1,0 +1,24 @@
+hunting_info: 
+- :zone: goblins
+  :duration: 30
+  stop_on:
+  - Large Edged
+  - Twohanded Edged
+
+use_stealth_attacks: true
+gear_sets:
+  standard:
+  - parry stick
+  - round sipar
+  - rugged jerkin
+  - rugged vambraces
+  - insulated pants
+  - rugged cowl
+  - Nisha shortbow
+  - rugged gloves 
+cycle_armors:
+offensive_spells:
+weapon_training:
+  Large Edged: bastard sword
+  Twohanded Edged: bastard sword
+training_abilities:
