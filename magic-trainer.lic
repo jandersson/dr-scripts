@@ -1,12 +1,29 @@
-custom_require.call %w[common common-arcana drinfomon]
+=begin
+  Train magic. Quits when your mana is below 40.
+  author: Dijkstra
+
+  settings examples:
+
+  Todo list:
+  [] Add sorcery (call sorcery script, thanks Vune)
+  [] Add research (Thanks Talinel)
+  [] Add inplace arg to skip moving (e.g. crossing_training_sorcery_room = nil)
+=end
+begin
+  custom_require.call %w[common common-arcana drinfomon]
+rescue 
+  echo "You do not have dependency installed. This script requires dependency"
+end
+
 
 class MagicTrainer
   include DRC
   def initialize
     settings = get_settings
     args = get_args
-    @exit_on_low_mana = true
+    @exit_on_low_mana = false
     spells = settings.training_spells
+    Flags.add('backfire', 'Your spell backfires')
     data = {}
     learning_tracker = {
       'Warding' => { 'last_gain_time' => 0,
@@ -15,21 +32,32 @@ class MagicTrainer
                      'mindstate_gains' => [] },
       'Augmentation' => { 'last_gain_time' => 0,
                           'mindstate_gains' => [] },
+      'Sorcery' => { 
+        'last_gain_time' => 0,
+        'mindstate_gains' => [],
+      },
+                      
       'script_start' => Time.now
     }
     counter = 0
     until done?(spells.keys, counter)
       spells.each do |skill, spell|
+        if skill == 'Sorcery'
+          wait_for_script_to_complete('sorcery')
+          next
+        end
+
         # last_gain_time = Time.now
         next if DRSkill.getxp(skill) > 33
         wait_for_mana
-        data = DRCA.check_discern(spell, settings)
+        data = DRCA.check_discern(spell, settings) # We could try modifying the spell data here to check discern with symbiosis true always
         mindstate_before = DRSkill.getxp(skill)
         DRCA.cast_spell(data, settings)
         pause 1
         mindstate_gained = DRSkill.getxp(skill) - mindstate_before
         echo "#{skill} Mindstate Gained: #{mindstate_gained}"
         learning_tracker[skill]['mindstate_gains'] << mindstate_gained
+        update_discerns(data['abbrev'], mindstate_gained)
         echo learning_tracker
         # if mindstate_gained > 0
         #     last_gain_time = learning_tracker[skill]['last_gain_time']
@@ -38,6 +66,17 @@ class MagicTrainer
         # end
         counter += 1
       end
+    end
+  end
+
+  def update_discerns(abbrev, gain)
+    if Flags['backfire']
+      echo "Backfire detected: Lowering mana by 1"
+      UserVars.discerns[abbrev]['more'] = [UserVars.discerns[abbrev]['more'] - 1, 0].max
+      Flags.reset('backfire')
+    elsif gain < 1
+      echo "Gain below threshold: Increasing mana by 1"
+      UserVars.discerns[abbrev]['more'] = UserVars.discerns[abbrev]['more'] + 1
     end
   end
 
@@ -61,8 +100,12 @@ class MagicTrainer
   def wait_for_mana(threshold = 40)
     exit if mana < threshold && @exit_on_low_mana
     while mana < threshold
-        wait_for_script_to_complete('outdoorsmanship')
-        pause 1
+      if DRSkill.getxp('Outdoorsmanship') < 33
+        wait_for_script_to_complete('outdoorsmanship') 
+      elsif DRSkill.getxp('Mechanical Lore') < 33
+        wait_for_script_to_complete('mech-lore')
+      end
+      pause 1
     end
   end
 end
