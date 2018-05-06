@@ -69,6 +69,10 @@ waggle_sets:
       recast: 7
       cambrinth:
       - 32
+  gaf:
+    Gauge Flow:
+      cambrinth:
+      - 25
   maf:
     Manifest Force:
       mana: 9
@@ -235,6 +239,7 @@ gear:
 - :name: pants
   :adjective: insulated
   :is_leather: true
+  :is_worn: true
 - :name: gloves
   :adjective: rugged
   :is_leather: true
@@ -334,7 +339,7 @@ crossing_training:
 - Athletics
 - Outdoorsmanship
 # - Forging
-# - Outfitting
+# - Outfitting # letting Trading take care of training these
 - Attunement
 - Utility
 - Augmentation
@@ -363,6 +368,7 @@ loot_additions:
 - kyanite stones
 - jadeite stones
 - waermodi stones
+- lantholite stones
 loot_specials:
 - name: jadeite stones
   bag: duffel bag

@@ -1,5 +1,5 @@
 hunting_info: 
-- :zone: goblins
+- :zone: fire_sprites
   :duration: 30
   stop_on:
   - Large Edged
@@ -21,4 +21,8 @@ offensive_spells:
 weapon_training:
   Large Edged: bastard sword
   Twohanded Edged: bastard sword
+
 training_abilities:
+  Hunt: 80
+  PercMana: 60
+  Stealth: 40 
