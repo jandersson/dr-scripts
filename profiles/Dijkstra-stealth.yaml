@@ -1,5 +1,5 @@
 hunting_info: 
-- :zone: fire_sprites
+- :zone: young_ogres
   :duration: 30
   stop_on:
   - Large Edged
