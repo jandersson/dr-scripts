@@ -1,7 +1,6 @@
 ---
 # TODO Subtlety: Strike
-# TODO Finesse: Flight -> Elusion (circle 40), Plunder (circle 20)
-# TODO Potence: Prowess (circle 20), Steady, Calm -> Serenity -> Sagacity (circle 70)
+# TODO Potence: Calm -> Serenity -> Sagacity (circle 70)
 # stealing_low_acceptable_count: 1
 
 # Hunting settings
@@ -21,10 +20,8 @@ training_manager_priority_skills:
 - Twohanded Edged
 - Twohanded Blunt
 hunting_info:
-# - :zone: young_ogres
-# - :zone: thugs
-- :zone: dire_bears
-# - :zone: river_sprites
+- :zone: leucro2
+# - :zone: leucro1
   :duration: 30
   before:
   - steal
@@ -53,6 +50,7 @@ waggle_sets:
   prehunt_buffs:
   pick:
   - Focus
+  # - Safe
 hunting_buddies:
 - Bastile
 - Maoyu
@@ -69,6 +67,8 @@ hunting_buddies:
 - Remu
 - Wanz
 - Serature
+- Missah
+- Thorn
 - Elegoth
 - Abius
 - Sheltim
@@ -238,6 +238,8 @@ buff_nonspells:
   khri:
   - Focus
   - Hasten
+  - Elusion
+  - Flight
 skinning:
   skin: true
   arrange_all: false
@@ -289,7 +291,7 @@ pick_blind: true
 steal_past_mindlock: true
 stealing_buffs:
   khri:
-    - Focus
+    - Plunder
 
 quit_on_status_warning: true
 braid_item: grass

@@ -85,7 +85,7 @@ aim_fillers_stealth:
 buff_nonspells:
 dance_actions_stealth:
 thanatology:
-dissect_and_butcher: false 
+dissect_and_butcher: false
 necro_force_safe_room: false
 necro_siphon_vit_threshold: 85
 necro_safe_room_use_devour: false
@@ -130,6 +130,7 @@ last_rites: false
 ambush_location: back
 warhorn:
 prayer_mat:
+paladin_use_mana_glyph: false
 paladin_use_badge: false
 offhand_thrown: false
 
@@ -520,7 +521,6 @@ favor_god: Hodierna
 immortal_aspect:
 favor_goal:
 theurgy_supply_container: backpack
-paladin:
 
 writing_instrument:
 
@@ -838,3 +838,5 @@ dirt_stacker:
 
 force_healer_town:
 shard_thief_password:
+forge_container:
+spell_cycle:

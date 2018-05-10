@@ -271,6 +271,9 @@ hunting_zones:
   - 7267
   # https://elanthipedia.play.net/Malodorous_bucca                         50-65
   buccas:
+  - 19214
+  - 12943
+  - 12944
   - 19215
   - 19219
   - 19220
@@ -286,10 +289,14 @@ hunting_zones:
   - 9534
   - 9535
   # https://elanthipedia.play.net/Copperhead_viper                         55-70
+  # 19228 is a Safe room, don't include in the hunting section
   copperheads:
+  - 19221
   - 19222
   - 19231
+  - 14123
   - 19225
+  - 14124
   # https://elanthipedia.play.net/Rock_Troll_(1)                           60-73
   rock_trolls:
   - 8946
@@ -499,7 +506,7 @@ hunting_zones:
   # https://elanthipedia.play.net/Armored_warklin                        400-600
   # https://elanthipedia.play.net/Warklin_mauler                         400-600
   # Incredible swarm, usually packed
-  # Slice damage immunte
+  # Slice damage immune
   warklin:
   - 7272
   - 7273
@@ -567,6 +574,14 @@ hunting_zones:
   - 12204
   - 12203
   - 12202
+  # https://elanthipedia.play.net/Xala%27shar_archer                    900-1300
+  # https://elanthipedia.play.net/Xala%27shar_shredder                  950-1400
+  # https://elanthipedia.play.net/Xala%27shar_overseer                  950-1400
+  xalas_4:
+  - 12839
+  - 12840
+  - 12841
+  - 12842  
   # https://elanthipedia.play.net/Lava_drake                            900-1300
   # Great swarm, throw dirt in eyes which blind and give rt
   #  buries underground to heal
@@ -580,7 +595,7 @@ hunting_zones:
   - 11491
   - 11490
   - 10990
-  # Lava drakes past the crevice (premium)
+  # Lava drakes past the crevice (premium)                              900-1300
   lava_drakes_crevice:
   - 13693
   - 13694
@@ -608,7 +623,7 @@ hunting_zones:
   - 12706
   - 12703
   - 12705
-  # https://elanthipedia.play.net/Umbral_moth                        1400?-1750?
+  # https://elanthipedia.play.net/Umbral_moth                         1400?-1750?
   # Incredible swarm, toughest critter in DR
   void_moths:
   - 12171
@@ -1148,7 +1163,6 @@ hunting_zones:
   - 8713
   - 8714
   - 8715
-  orc_raiders2:
   # https://elanthipedia.play.net/Orc_clan-chief                         400-500
   # further upstairs, raiders with high spawn of clan chiefs
   # Barb warhorn = tons of chiefs

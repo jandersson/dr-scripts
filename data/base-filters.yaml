@@ -423,3 +423,5 @@ filter_strings:
 - '^\s+TDPs \: \d+$'
 - '^Commenting favorably on the skills you already possess. \w+ gives you some tips on .*$'
 - '^This area is composed of metamorphic rock layers'
+- '^The fire shard glances off .* shield\.$'
+- '^You begin chanting a psalm to invoke the .* spell\.$'

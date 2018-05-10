@@ -13,7 +13,9 @@ module Harness
     proc { |_args| }
   end
 
-  def pause(*); end
+  def pause(duration = 1)
+    $pause = duration
+  end
 
   def parse_args(_dummy, _dumber)
     args = OpenStruct.new
@@ -27,8 +29,13 @@ module Harness
   end
 
   def get_data(dummy)
-    $data_called_with = dummy
-    $test_data
+    $data_called_with << dummy
+    $test_data[dummy.to_sym]
+  end
+
+  def reset_data
+    $data_called_with = []
+    $test_data = {}
   end
 
   def echo(message)
@@ -166,12 +173,12 @@ module Harness
     consumer = Thread.new do
       loop do
         message = sent_messages.pop
-
-        if message == expected_messages.first
-          expected_messages.pop
-          break unless expected_messages.any?
+        if $debug_message_assert
+          puts message
+          puts "#{expected_messages}"
         end
-
+        expected_messages.delete_at(expected_messages.index(message) || expected_messages.length)
+        break if expected_messages.empty?
         sleep 0.1
       end
     end
@@ -181,6 +188,8 @@ module Harness
     end
 
     $threads.last.kill
-    assert_empty expected_messages, "Expected script to send #{expected_messages}."
+
+    $debug_message_assert = false
+    assert_empty expected_messages, "Expected script to send messages"
   end
 end
