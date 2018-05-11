@@ -15,7 +15,6 @@ class TestCommon < Minitest::Test
   end
 
   def test_bput_sends_message
-    skip('Test needs to be updated')
     @test = run_script_with_proc('common', proc do
       DRC.bput('a test message', 'some results')
     end)
@@ -55,7 +54,6 @@ class TestCommon < Minitest::Test
   end
 
   def test_bput_delays_timeout_for_wait
-    skip("Test needs to be updated: raises TypeError: nil can't be coerced into Fixnum on last assertion")
     $history = [nil, 'not the correct string', '']
 
     @test = run_script_with_proc('common', proc do
