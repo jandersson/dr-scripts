@@ -3,4 +3,7 @@ language: ruby
 rvm:
 - 2.0.0
 
-cache: bundler
+cache:
+  bundler: true
+  directories:
+  - /home/travis/.rvm/
