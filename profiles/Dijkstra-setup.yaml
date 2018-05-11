@@ -117,6 +117,7 @@ dedicated_camb_use: spell
 training_spells:
   Augmentation:
     abbrev: FIN
+    symbiosis: true
   Utility:
     abbrev: NOU
   Warding:
@@ -126,6 +127,7 @@ training_manager_hunting_priority: yes
 training_manager_town_duration: 60
 training_manager_priority_skills:
 - Large Edged
+
 hunting_file_list:
 - stealth
   #- setup
@@ -184,7 +186,8 @@ mines_to_mine:
 
 
 hunting_info: 
-- :zone: dire_bears
+- :zone:
+  - dire_bears
   :duration: 30
   stop_on:
   - Polearms
