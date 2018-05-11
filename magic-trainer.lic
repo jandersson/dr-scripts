@@ -10,7 +10,7 @@
   [] Add inplace arg to skip moving (e.g. crossing_training_sorcery_room = nil)
 =end
 begin
-  custom_require.call %w[common common-arcana drinfomon]
+  custom_require.call %w[common common-arcana common-healing drinfomon]
 rescue 
   echo "You do not have dependency installed. This script requires dependency"
 end
@@ -18,12 +18,13 @@ end
 
 class MagicTrainer
   include DRC
+  include DRCH
   def initialize
     settings = get_settings
     args = get_args
     @exit_on_low_mana = false
     spells = settings.training_spells
-    Flags.add('backfire', 'Your spell backfires')
+    Flags.add('backfire', 'Your spell\s?\w* backfires')
     data = {}
     learning_tracker = {
       'Warding' => { 'last_gain_time' => 0,
@@ -65,6 +66,7 @@ class MagicTrainer
         #     learning_tracker[skill]['last_gain_time'] = Time.now
         # end
         counter += 1
+        check_nerves
       end
     end
   end
@@ -89,6 +91,15 @@ class MagicTrainer
 
   def research(skill)
     
+  end
+
+  def check_nerves
+    training_room = Room.current.id
+    wounds = check_health['wounds']
+    return unless wounds.any? { |_k, v| v.include?('skin') }
+
+    wait_for_script_to_complete('safe-room', ['force'])
+    walk_to(training_room)
   end
 
   def done?(skills, counter)
