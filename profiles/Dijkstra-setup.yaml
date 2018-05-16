@@ -91,13 +91,13 @@ waggle_sets:
     Platinum Hands of Kertigen:
       recast: 7
       cambrinth:
-      - 10
+      - 20
     << : *finesse
   smith:
     Platinum Hands of Kertigen:
       recast: 7
       cambrinth:
-      - 10
+      - 20
     << : *finesse
 
 prep_scaling_factor: 0.95
@@ -161,6 +161,8 @@ work_order_disciplines:
 workorder_min_items: 1
 workorder_max_items: 10
 
+mark_crafted_goods: true
+
 use_own_ingot_type: 
 deed_own_ingot: false
 
@@ -169,6 +171,8 @@ forging_tools:
 - tong
 - bellow
 - curved shovel
+- stamp
+- stirring rod
 
 mining_buddy_vein_list:
 - Lumium
@@ -290,6 +294,8 @@ gear:
   :adjective: diagonal-peen
 - :name: shovel
   :adjective: curved
+- :name: rod
+  :adjective: stirring
 
 gear_sets:
   standard:
@@ -303,6 +309,9 @@ gear_sets:
   - ring helm
   - Nisha shortbow
   - ring gloves 
+
+performance_monitor_weapons:
+- bastard sword
 
 weapon_training:
   Brawling: ''

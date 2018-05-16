@@ -7,7 +7,7 @@ status_monitor_no_window: true
 ################
 ### UserVars ###
 ################
-# These settings are private and loaded from UserVars. To do that, they need to be blanked out here.
+# These settings are private and loaded from UserVars
 slack_username:
 safe_room_empath:
 safe_room:
@@ -37,11 +37,8 @@ hunting_buddies:
 - Atanamir
 - Leustyin
 - Sarvatt
-- Leilond
 - Natarian
 - Fuss
-- Chuno
-- Ugsy
 - Ssarek
 - Sheltim
 - Rhakim
@@ -257,6 +254,7 @@ cycle_armors:
 cambrinth: nestled armband
 cambrinth_cap: 48
 stored_cambrinth: false
+cambrinth_invoke_exact_amount: true
 cambrinth_items:
 - name: nestled armband
   cap: 48
@@ -413,11 +411,22 @@ waggle_sets:
       mana:   10
       cast:   cast spider
       night:  true
+  ###########################
+  ### SCRIPT WAGGLE SETS ###
+  ###########################
   astrology:
     << : *cv
     << : *pg
     << : *dc
     << : *rtr
+  forestry:
+    Tenebrous Sense:
+      cambrinth:
+      - 48
+  mining:
+    Tenebrous Sense:
+      cambrinth:
+      - 48
   pick:
     << : *mt
   prehunt_buffs: &prehunt_buffs
@@ -443,6 +452,11 @@ buff_spells: &buff_spells
   << : *aus
   << : *col
   << : *moonblade
+  Ghost Shroud:
+    abbrev: GHS
+    mana: 21
+    cyclic: true
+    day: true # Prevent it from interfering with SLS
 ######################
 ### COMBAT-TRAINER ###
 ######################
@@ -509,7 +523,7 @@ listen_observe: true
 dump_junk: true  # Call the dump junk command after braiding or collecting when room is full of junk
 textbook: false
 crossing_training:
-- Forging
+# - Forging
 - Athletics
 - Locksmithing
 - Astrology
@@ -535,8 +549,9 @@ training_spells:
     abbrev: AUS
     symbiosis: true
   Warding:
-    abbrev: PSY
+    abbrev: CoL
     symbiosis: true
+    moon: true
   Utility:
     abbrev: GAF
     symbiosis: true
@@ -550,6 +565,20 @@ combat_spell_training:
     name: Shift Moonbeam
     use_auto_mana: true
     symbiosis: true
+
+crossing_training_sorcery:
+  name: Ghost Shroud
+  abbrev: GHS
+  mana: 20
+  cyclic: true
+
+cyclic_cycle_skills:
+  - Sorcery
+
+cyclic_training_spells:
+  Sorcery:
+    abbrev: GHS
+    cyclic: true
 
 #################
 ### APPRAISAL ###
@@ -655,7 +684,7 @@ invasion_watch_rooms:
 
 coordinator_hunting_tasks:
   - :file: tm
-    :pause_sanowret: false
+    :pause_sanowret: true
     :default: true
     :start_on:
       skill_under:
