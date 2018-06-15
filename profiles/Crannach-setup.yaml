@@ -3,7 +3,7 @@ hometown: Shard
 ######################
 ### STATUS MONITOR ###
 ######################
-status_monitor_no_window: true
+status_monitor_no_window: false
 ################
 ### UserVars ###
 ################
@@ -12,6 +12,13 @@ slack_username:
 safe_room_empath:
 safe_room:
 safe_room_id:
+safe_room_empaths:
+- name: Yndass
+  id: 13520
+- name: Vadok
+  id: 6163
+- name: Etry
+  id: 7301
 prehunt_buffs:
 crossing_training_sorcery_room: 
 outfitting_room:
@@ -28,7 +35,6 @@ repair_withdrawal_amount: 40_000
 repair_every: .inf # Infinity
 favor_god: Meraud
 favor_goal: 30
-
 #####################
 ### HUNTING-BUDDY ###
 #####################
@@ -48,12 +54,13 @@ hunting_buddies:
 - Rakkor
 - Jonas
 - Zansa
+- Chuno
 
 # No hunting zones are defined here. Instead I use the hunting_file_list to point to other YAML files with hunting zomes in them.
 hunting_file_list:
 - tm
 - debil
-- weapons
+#- weapons
 - sorcery 
 stop_hunting_if_bleeding: true
 priority_defense: Evasion
@@ -63,7 +70,7 @@ training_abilities:
   PercMana: 60
   Analyze: 70
   Recall: 1205
-  Collect: 180
+#  Collect: 180
 
 weapon_training:
   Crossbow: pelletbow
@@ -221,6 +228,24 @@ restock:
     quantity: 1
   rock:
     quantity: 15
+  block:
+    name: crystal block
+    wandering_npc: theurgist
+    price: 250
+    order_number: 6
+    quantity: 9
+    size: 1
+    stackable: false
+    container: pack
+  primer:
+    name: raven primer
+    wandering_npc: theurgist
+    price: 250
+    order_number: 101
+    quantity: 1
+    size: 1
+    stackable: false
+    container: pack
 
 gear_sets:
   standard:
@@ -235,12 +260,14 @@ gear_sets:
   - elbow spikes
   - parry stick
   - oaken staff
+  - pelletbow
   stealing:
   - elbow spikes
   - knee spikes
   - steel-toed footwraps
   - parry stick
   - oaken staff
+  - pelletbow
 cycle_armors:
   Chain Armor:
   - ring gloves
@@ -255,6 +282,7 @@ cambrinth: nestled armband
 cambrinth_cap: 48
 stored_cambrinth: false
 cambrinth_invoke_exact_amount: true
+cambrinth_num_charges: 1  # Number of times to harness or charge when using auto mana
 cambrinth_items:
 - name: nestled armband
   cap: 48
@@ -279,7 +307,7 @@ offensive_spells:
   mana: 32
   cambrinth:
   - 48
-  slivers: true
+  slivers: false
   cast_only_to_train: true
   cast: cast creatures
 - name: Partial Displacement
@@ -306,6 +334,10 @@ divination_bones_storage:
   container: forging kit
   tied: false
 have_telescope: true
+astrology_training:
+- observe
+- rtr
+astrology_use_full_pools: true # Helps maximize tool bonding rate
 #############
 ### ;BUFF ###
 #############
@@ -337,6 +369,9 @@ waggle_sets:
       mana: 500
       focus: staff
       worn_focus: true
+  fm:
+    Focus Moonbeam:
+      mana: 50
   gaf: &gaf
     Gauge Flow:
       mana: 52
@@ -387,6 +422,10 @@ waggle_sets:
       cambrinth:
       - 48
       recast: 2
+  teleport:
+    Teleport:
+      mana: 50
+      prep_time: 10
   iots: &iots
     Invocation of the Spheres:
       mana: 700
@@ -452,11 +491,11 @@ buff_spells: &buff_spells
   << : *aus
   << : *col
   << : *moonblade
-  Ghost Shroud:
-    abbrev: GHS
-    mana: 21
-    cyclic: true
-    day: true # Prevent it from interfering with SLS
+#  Ghost Shroud:
+#    abbrev: GHS
+#    mana: 21
+#    cyclic: true
+#    day: true # Prevent it from interfering with SLS
 ######################
 ### COMBAT-TRAINER ###
 ######################
@@ -485,7 +524,8 @@ loot_specials:
 ####################
 ### LOCKSMITHING ###
 ####################
-number_of_pets_to_keep_on_hand: 5
+number_of_pets_to_keep_on_hand: &box_count 5  # custom setting
+box_loot_limit: *box_count
 lockpick_buffs:     
   spells:           
   - abbrev: MT
@@ -496,6 +536,7 @@ stop_pick_on_mindlock:     true
 picking_box_source:        duffel bag
 picking_box_storage:       duffel bag
 picking_pet_box_source:    hunting pack
+refill_pet_boxes:          true # custom setting
 use_lockpick_ring:         true
 skip_lockpick_ring_refill: false
 lockpick_type:             stout iron
@@ -556,15 +597,17 @@ training_spells:
     abbrev: GAF
     symbiosis: true
 combat_spell_training:
-  # Symbiosis takes care of augmentation training
-  Warding:
-    name: Manifest Force
-    use_auto_mana: true
-    symbiosis: true
   Utility:
     name: Shift Moonbeam
     use_auto_mana: true
     symbiosis: true
+  Warding:
+    name: Ghost Shroud
+    mana: 21
+    cyclic: true
+    skill: Sorcery
+
+crossing_training_sorcery_room: 2784
 
 crossing_training_sorcery:
   name: Ghost Shroud
@@ -587,11 +630,25 @@ appraisal_training:
 - pouches
 full_pouch_container: pack
 
+#############
+### STEAL ###
+#############
+stealing_towns:
+#  - Crossing
+#  - Arthe Dale
+#  - Kaerna Village
+#  - Tiger Clan
+#  - Knife Clan
+#  - Leth Deriel
+- Shard
+- Horse Clan
+
+
 #################
 ### MECH LORE ###
 #################
 hand_armor: ring gloves
-
+mech_lore_do_bead_carving: true # Carve beads to train mech lore
 ##############
 ### MINING ###
 ##############
@@ -678,43 +735,33 @@ invasion_watch_mobs:
 - mouse
 invasion_watch_rooms:
 - 1
+
+textbook: true
 ###################
 ### COORDINATOR ###
 ###################
 
 coordinator_hunting_tasks:
-  - :file: tm
-    :pause_sanowret: true
+  - :file: drakes
+    :pause_sanowret: false
     :default: true
     :start_on:
-      skill_under:
-        skill: Targeted Magic
-        target: 5 
-  - :file: debil 
-    :pause_sanowret: false
-    :start_on:
-      skill_under:
-        skill: Debilitation 
-        target: 5 
-    :stop_on:
       any_skill_under:
         skills:
         - Targeted Magic
-        - Astrology
-        target: 1
-  - :file: sorcery
-    :pause_sanowret: false
-    :start_on:
-      skill_under:
-        skill: Sorcery
+        - Debilitation
         target: 5
+  - :file: boxes
+    :pause_sanowret: true
+    :start_on:
+      boxes_under: 1
     :stop_on:
       any_skill_under:
         skills:
         - Targeted Magic
         - Debilitation
-        - Astrology
-        target: 1
+        target: 5
+
 
 coordinator_hunting_cleanup:
   - :script: safe-room
@@ -729,23 +776,47 @@ coordinator_hunting_cleanup:
         key: 'repair'
 
 coordinator_town_tasks:
-  - :script: astrology 
+  - :script: astrology
     :start_on:
       skill_under:
-        skill: Astrology 
+        skill: Astrology
         target: 5
     :walk_to: 13520
   - :script: athletics
+    :args:
+    - wyvern
     :start_on:
       skill_under:
         skill: Athletics
         target: 10
+  - :script: sorcery
+    :start_on:
+      and:
+        - timer:
+            global: true
+            time: 300
+            key: 'cyclic'
+        - skill_under:
+            skill: Sorcery
+            target: 5
   - :script: mech-lore
     :walk_to: 13520 
     :start_on:
       skill_under:
         skill: Mechanical Lore
         target: 14
+  - :script: appraisal
+    :walk_to: 13520
+    :start_on:
+      skill_under:
+        skill: Appraisal
+        target: 5
+#  - :script: first-aid
+#    :walk_to: 13520
+#    :start_on:
+#      skill_under:
+#        skill: First Aid
+#        target: 1
   - :script: outdoorsmanship
     :walk_to: 13520
     :start_on:

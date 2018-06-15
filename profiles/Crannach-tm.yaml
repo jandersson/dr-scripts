@@ -5,7 +5,6 @@ hunting_info:
   - juvenile_wyverns
   args:
   - debug
-  - tm
   stop_on:
   - Targeted Magic
   :duration: 30
@@ -13,9 +12,10 @@ tk_ammo: brass razor
 use_stealth_attacks: true
 use_weak_attacks: false
 combat_spell_training:
+
 offensive_spell_cycle:
 - Starlight Sphere
-- Rebuke
+- Mind Shout
 - Telekinetic Storm
 offensive_spells:
 - name: Mind Shout
