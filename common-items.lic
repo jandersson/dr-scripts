@@ -27,6 +27,7 @@ module DRCI
                 /tis only (.*) (?:kronar|lirum|dokora)s?/,
                 /That will be (.*) copper (?:kronar|lirum|dokora)s? please/,
                 /to you for (.*) (?:kronar|lirum|dokora)s?/,
+                /I ask (.*) copper (?:kronar|lirum|dokora)s or if you would prefer/,
                 'You decide to purchase',
                 'Buy what']
 
@@ -144,7 +145,7 @@ module DRCI
   end
 
   def count_items_in_container(item, container)
-    contents = DRC.bput("rummage /C #{item} IN MY #{container}", '^You rummage .*', 'That would accomplish nothing')
+    contents = DRC.bput("rummage /C #{item.split.last} IN MY #{container}", '^You rummage .*', 'That would accomplish nothing')
     # This regexp avoids counting the quoted item name in the message, as
     # well as avoiding finding the item as a substring of other items.
     contents.scan(/ #{item}\W/).size
