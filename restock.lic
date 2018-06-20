@@ -16,9 +16,9 @@ class Restock
 
     items.each do |item|
       remaining = if item['stackable']
-                    count_stackable_item(item['name'])
+                    count_stackable_item(item['name'], item['container'])
                   else
-                    count_nonstackable_item(item['name'])
+                    count_nonstackable_item(item['name'], item['container'])
                   end
 
       next unless remaining < item['quantity']
@@ -32,10 +32,32 @@ class Restock
     ensure_copper_on_hand(coin_needed, @settings) if coin_needed > 0
 
     items_to_restock.each do |item|
+      if item['wandering_npc']
+        echo 'find'
+        wait_for_script_to_complete('find', [item['wandering_npc']])
+      end
       item['buy_num'].times do
-        buy_item(item['room'], item['name'])
+        if item['wandering_npc']
+          unless order_item?(item['wandering_npc'], item['order_number'])
+            # If the npc moves, find it then attempt to buy again
+            wait_for_script_to_complete('find', [item['wandering_npc']])
+            order_item?(item['wandering_npc'], item['order_number'])
+          end
+        else
+          buy_item(item['room'], item['name'])
+        end
+        fput("put my #{item['name']} in my #{item['container']}") if item['container'] && item['name']
         stow_hands
       end
+    end
+  end
+
+  def order_item?(npc, order_number)
+    case bput("order #{order_number} from #{npc}", 'You decide to purchase the', 'Order what', "You realize you don't have that much", "You can't order anything here")
+    when "You can't order anything here", 'Order what'
+      false
+    else
+      true
     end
   end
 
@@ -62,11 +84,10 @@ class Restock
         echo "No hometown of explicit data for '#{key}'"
       end
     end
-
     items
   end
 
-  def count_stackable_item(item)
+  def count_stackable_item(item, _container)
     count = 0
     $ORDINALS.each do |ordinal|
       count_msg = bput("count my #{ordinal} #{item}", 'I could not find what you were referring to.', 'tell you much of anything.', 'and see there \w+ .+ left.')
@@ -86,25 +107,25 @@ class Restock
     count
   end
 
-  def count_nonstackable_item(item)
-    /inside your (.*).|I could not find/ =~ bput("tap my #{item}", 'inside your (.*).', 'I could not find')
-    tap_result = Regexp.last_match(1)
-    return 0 if tap_result.nil?
-
-    container = tap_result
-    contents = bput("rummage /C #{item.split.last} IN MY #{container}", '^You rummage .*')
+  def count_nonstackable_item(item, container)
+    unless container
+      /inside your (.*).|I could not find/ =~ bput("tap my #{item}", 'inside your (.*).', 'I could not find') unless item['container']
+      tap_result = Regexp.last_match(1)
+      return 0 unless item['container'] || !tap_result.nil?
+      container = tap_result
+    end
+    contents = bput("rummage /C #{item.split.last} IN MY #{container}", '^You rummage .*', "I don't know what you are referring to")
     contents.scan(/#{item}/).size
   end
 
   def valid_item_data?(item_data)
     return false unless item_data.key?('name')
     return false unless item_data.key?('size')
-    return false unless item_data.key?('room')
+    return false unless item_data.key?('room') || item_data.key?('wandering_npc')
     return false unless item_data.key?('price')
     return false unless item_data.key?('stackable')
     return false unless item_data.key?('quantity')
     true
   end
 end
-
 Restock.new
