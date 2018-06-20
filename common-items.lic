@@ -89,6 +89,7 @@ module DRCI
     end
     DRC.bput("drop my #{item}", 'You drop', 'What were you', 'You spread .* on the ground.')
     fput('chant cantrip fling') if DRStats.moon_mage?
+    fput('dump junk')
   end
 
   def search?(item)
