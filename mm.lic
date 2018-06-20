@@ -1,19 +1,32 @@
 =begin
   Documentation: https://elanthipedia.play.net/Lich_script_repository#mm
 =end
-custom_require.call(%w[common-arcana events])
+custom_require.call(%w[common-arcana common-travel events])
 
 class MoonMagery
+  include DRC
   include DRCA
+  include DRCT
   def initialize
     args = get_args
     create_flags(args)
     @settings = get_settings
+    @teleport_threshold = 1
+    UserVars.moonbeams ||= {}
+    check_moonwatch
 
     if args.locate
       locate?(args.person)
     elsif args.rift
       rift(args.person)
+    elsif args.contingency
+      contingency(args.person)
+    elsif args.invoke_contingency
+      invoke_contingency
+    elsif args.fm
+      fm_saferoom
+    elsif args.teleport
+      teleport(args.moon)
     end
     destroy_flags
   end
@@ -27,6 +40,21 @@ class MoonMagery
       [
         { name: 'rift', regex: /rift/i },
         { name: 'person', regex: /\w+/, description: 'Name of person to rift' }
+      ],
+      [
+        { name: 'contingency', regex: /contingency/i },
+        { name: 'person', regex: /\w+/ }
+      ],
+      [
+        { name: 'invoke_contingency', regex: /invoke/i }
+      ],
+      [
+        { name: 'teleport', regex: /teleport/i },
+        { name: 'moon', options: %w[any katamba safe_room xibar yavash] }
+      ],
+      [
+        { name: 'fm', regex: /fm/i },
+        { name: 'safe_room', regex: /safe_room/i }
       ]
     ]
 
@@ -39,6 +67,84 @@ class MoonMagery
 
   def destroy_flags
     Flags.delete('locate-fail')
+  end
+
+  def fm_saferoom
+    moon = UserVars.moons.select { |moon, _data| UserVars.moons['visible'].include?(moon) }
+                   .reject { |_moon, data| data['timer'] < 5 }
+                   .max_by { |_moon, data| data['timer'] }
+                   .first
+    echo "moon=#{moon}"
+    return unless moon
+    walk_to(@settings.safe_room)
+
+    data = if @settings.waggle_sets['fm']
+             @settings.waggle_sets['fm'].values.first
+           else
+             echo "Using discern values for focus moonbeam. Make a waggle_set called 'fm' to avoid this in the future."
+             check_discern({ 'name' => 'Focus Moonbeam', 'abbrev' => 'FM' }, @settings)
+           end
+    data['moon'] = false # HACK: set_moon_data should be updated to use the above 'cast on most recently risen moon' search
+    data['cast'] = "cast #{moon}"
+    echo data
+    cast_spell(data, @settings)
+    UserVars.moonbeams[moon] = { 'expires_at' => UserVars.moons[moon]['set'], 'created_at' => Time.now, 'room_title' => XMLData.room_title.gsub(/\[(\[.*\])\]/, '\\1'), 'room_id' => Room.current.id }
+  end
+
+  def moonbeam_available?(moon)
+    return unless moon
+
+    echo "moon=#{moon}"
+    moon_re = /Your \w+ moonbeam .* should last (?:at least|about) (.*) or until (#{moon}) sets/
+
+    moon_re =~ bput('pow', moon_re, 'Roundtime')
+    Regexp.last_match(2)
+  end
+
+  def teleport(moon)
+    if moon == 'safe_room'
+      moon = %w[katamba xibar yavash].select { |mån| UserVars.moonbeams[mån]['room_id'] == @settings.safe_room }
+                                     .reject { |mån| UserVars.moons[mån]['timer'] < @teleport_threshold }
+                                     .reject { |mån| UserVars.moonbeams[mån]['expires_at'] < Time.now }
+                                     .first
+      return unless moon
+    end
+    unless moonbeam_available?(moon.capitalize!)
+      echo "Moonbeam for #{moon} not found"
+      UserVars.moonbeams.delete(moon)
+      return
+    end
+    echo "moon=#{moon}"
+    data = if @settings.waggle_sets['teleport']
+             @settings.waggle_sets['teleport'].values.first
+           else
+             echo "Using discern values for teleport. Make a waggle_set called 'teleport' to avoid this in the future."
+             check_discern({ 'name' => 'Teleport', 'abbrev' => 'teleport' }, @settings)
+           end
+    data['cast'] = "cast #{moon}"
+    echo "data=#{data}"
+    cast_spell(data, @settings)
+    pause 0.25 while stunned?
+    fix_standing
+  end
+
+  def contingency(person)
+    return unless DRRoom.pcs.include?(person.capitalize)
+
+    data = if @settings.waggle_sets['contingency']
+             @settings.waggle_sets['contingency'].values.first
+           else
+             echo "Using discern values for contingency. Make a waggle_set called 'contingency' to avoid this in the future."
+             check_discern({ 'abbrev' => 'contingency' }, @settings)
+           end
+    data['cast'] = "cast #{person}"
+    cast_spell(data, @settings)
+  end
+
+  def invoke_contingency
+    return unless DRSpells.active_spells.include?('Contingency')
+
+    bput('invoke contingency', 'Elanthia seems to fall away from under your feet', 'You strain, but the distance is too far for your Contingency spell to overcome', 'Kssarh always said you\'d get a lot of use out of the Contingency spell')
   end
 
   def rift(person)
