@@ -239,7 +239,12 @@ class CrossingTraining
       return
     end
 
-    cast_spell(@settings.cyclic_training_spells[cyclic_skill], cyclic_skill)
+    if cyclic_skill == 'Sorcery'
+      wait_for_script_to_complete('sorcery')
+    else
+      cast_spell(@settings.cyclic_training_spells[cyclic_skill], cyclic_skill)
+    end
+
     check_nerves
     @cyclic_cycle_timer = Time.now
   end
