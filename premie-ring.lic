@@ -1,0 +1,65 @@
+=begin
+Uses the estate holder ring to transport to fang cove.
+
+author: Crannach
+=end
+begin
+  custom_require.call(%(common common-travel))
+rescue
+  echo "Error: This script requires dependency.lic to be installed and running. Check ';repository info dependency' if you need more information."
+  exit
+end
+
+class FancyRing
+  include DRC
+  include DRCT
+  def initialize
+    @name = 'copper band'
+    @target_room = 8308
+    @cooldown_minutes = 60
+    @ready = false
+    @last_used = nil
+
+    # Test
+    check_ring
+  end
+
+  def check_ring
+    # Check status of teleportation via STUDYing the ring
+    case bput("study my #{@name}", 'again any time now', 'about an hour from now')
+    when 'again any time now'
+      echo 'Ring is ready'
+      @ready = true
+    when 'about an hour from now'
+      echo 'Ring is not ready'
+      @ready = false
+    end
+  end
+
+  def push
+    # Teleport to the target room
+    case bput("push my #{@name}", 'The world grows blurry and indistinct for a moment.  You look around and find yourself at', 'cannot do that again yet')
+    when 'The world grows blurry and indistinct for a moment.  You look around and find yourself at'
+      @ready = false
+      @last_used = Time.now
+    when 'cannot do that again yet'
+      @ready = false
+    end
+  end
+
+  def pull
+    # Return to origin room (Room you teleported to the target from)
+    case bput("pull my #{@name}", 'You need to get out of combat, first!', 'The world grows blurry and indistinct for a moment.  You look around and find yourself at', 'You need to be in Fang Cove to do that')
+    when 'You need to get out of combat, first!'
+      # Retreat
+      retreat
+      pull
+    when 'The world grows blurry and indistinct for a moment.  You look around and find yourself at'
+      # It worked
+    when 'You need to be in Fang Cove to do that'
+      # It didn't work
+    end
+  end
+end
+
+FancyRing.new
