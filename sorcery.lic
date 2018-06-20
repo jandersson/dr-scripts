@@ -38,6 +38,7 @@ class Sorcery
       pause 0.5 while stunned?
 
       wait_for_script_to_complete('safe-room')
+      break if sorcery_spell.is_a?(Hash) && sorcery_spell['cyclic']
     end
 
     true
