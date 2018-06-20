@@ -1,9 +1,8 @@
 hunting_info: 
-- :zone: blue_crocs
+- :zone: rock_guardians
   :duration: 30
   stop_on:
-  - Large Edged
-  - Twohanded Edged
+  - Stealth
 
 use_stealth_attacks: true
 gear_sets:
@@ -17,12 +16,9 @@ gear_sets:
   - Nisha shortbow
   - rugged gloves 
 cycle_armors:
-offensive_spells:
-weapon_training:
-  Large Edged: bastard sword
-  Twohanded Edged: bastard sword
 
 training_abilities:
   Hunt: 80
   PercMana: 60
-  Stealth: 40 
+  Stealth: 40
+  App: 60

@@ -17,7 +17,8 @@ attunement_rooms: # Define my own power walk rooms to stay out of justice areas
 - 4344
 - 4345
 status_monitor_no_window: true
-hometown: Shard
+hometown: Crossing
+# hometown: Shard
 have_climbing_rope: false
 ignored_npcs:
 - zombie

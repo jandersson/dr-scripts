@@ -76,6 +76,11 @@ waggle_sets:
       mana: 9
       cambrinth:
       - 32
+  meg:
+    Membrach's Greed:
+      mana: 10
+      cambrinth:
+      - 32
   nou:
     Noumena:
       mana: 3
@@ -99,6 +104,21 @@ waggle_sets:
       cambrinth:
       - 20
     << : *finesse
+  mining:
+    Membrach's Greed:
+      recast: 10
+      mana: 10
+      cambrinth:
+      - 32
+  forestry:
+    Membrach's Greed:
+      recast: 10
+      mana: 10
+      cambrinth:
+      - 32
+
+hunting_buddies:
+- Ssarek
 
 prep_scaling_factor: 0.95
 
@@ -122,20 +142,21 @@ training_spells:
     abbrev: NOU
   Warding:
     abbrev: NON
+    symbiosis: true # Need more than 204
 
 training_manager_hunting_priority: yes
 training_manager_town_duration: 60
 training_manager_priority_skills:
-- Large Edged
+- Targeted Magic
 
 hunting_file_list:
 - stealth
-  #- setup
+- setup
 
 combat_trainer_target_increment: 10
 combat_trainer_action_count: 50
 
-skip_last_kill: true
+skip_last_kill: true  # Stops hunting as soon as possible, otherwise combat-trainer lingers and tries to kill the last mob to recover ammo, etc..., this just says "my hunting skills are locked, im out"
 
 trade_contract_container: backpack
 
@@ -152,19 +173,19 @@ workorder_diff:
   remedies: Challenging
   shaping: Challenging
   tailoring: Hard
-  weaponsmithing: Challenging
+  weaponsmithing: Hard
 
 work_order_disciplines:
 - Blacksmithing
 - Tailoring
 
-workorder_min_items: 1
-workorder_max_items: 10
+workorder_min_items: 1 # accept any work order above or at this amount
+workorder_max_items: 10 # accept any work order below or at this amount
 
-mark_crafted_goods: true
+mark_crafted_goods: true # Stamp your goods when doing workorders. You still have to tell ;smith to stamp if you run it manually
 
-use_own_ingot_type: 
-deed_own_ingot: false
+use_own_ingot_type: # Use a specific ingot for workorders
+deed_own_ingot: false # Deed whatevers in use_own_ingot_type
 
 forging_tools:
 - diagonal-peen mallet
@@ -175,6 +196,14 @@ forging_tools:
 - stirring rod
 
 mining_buddy_vein_list:
+#- Oravir
+- Zinc
+- Silver
+- Tin
+- Nickel
+- Platinum
+- Covellite # Heat resistant, makes good tongs
+# Rare Metals
 - Lumium
 - Damite
 - Kertig
@@ -183,18 +212,22 @@ mining_buddy_vein_list:
 - Animite
 
 mines_to_mine:
+- dark_tunnels
 - waterfall
 - wicked_burrow
+- wicked_burrow_premie
+- wicked_burrow_climbing
 - stone_clan
 - abandoned_mine
 
 
 hunting_info: 
 - :zone:
-  - dire_bears
+  - rock_guardians
   :duration: 30
   stop_on:
-  - Polearms
+  - Targeted Magic
+  - Debilitation
 
 restock:
   bolt:
@@ -209,15 +242,13 @@ favor_god: Kertigen
 favor_goal: 30
 
 picking_box_source: bag 
-picking_box_storage: backpack
+picking_box_storage:
 lockpick_dismantle: salvage
 use_lockpick_ring: true
 
 use_weak_attacks: true
 use_stealth_attacks: false
 
-safe_room:
-slack_username:
 status_monitor_no_window: false
 dump_junk: true
 
@@ -325,12 +356,15 @@ weapon_training:
   Heavy Thrown: light spear
   Large Blunt: bar mace
   Twohanded Blunt: bar mace
+  Large Edged: bastard sword
+  Twohanded Edged: bastard sword
 
 training_abilities:
   Hunt: 80
   PercMana: 60
   Analyze: 70
   Recall: 1205
+  App: 60
 
 cycle_armors:
   Light Armor:
@@ -346,20 +380,36 @@ hand_armor: *hand_armor # check the gear list to see whats going on here
 
 crossing_training:
 - Locksmithing
+- Trading
 - Athletics
 - Outdoorsmanship
-# - Forging
-# - Outfitting # letting Trading take care of training these
+- Forging
+- Outfitting
 - Attunement
 - Utility
 - Augmentation
 - Warding
-- Trading
 - Mechanical Lore
 
 appraisal_training:
 - pouches
 - gear
+
+full_pouch_container: backpack
+
+crafting_training_spells:
+  Augmentation:
+    abbrev: FIN
+    name: Finesse
+    mana: 5
+    symbiosis: true
+  Utility:
+    abbrev: NOU
+    mana: 60
+  Warding:
+    abbrev: NON
+    mana: 5
+    symbiosis: true # Need more than 204
 
 listen: true
 listen_observe: true
@@ -368,10 +418,12 @@ sell_loot_pouch: false
 spare_gem_pouch_container: duffel bag
 gem_pouch_adjective: purple
 sell_pouches_for_trading: yes # same as true
+sale_pouches_container: backpack
 
 repair_timer: 86400 # Repair once every 24 hours
 repair_every: .inf # Infinity - Dont use repair counter
 
+# To correctly stow special types of 'stones' you need to subtract the general 'stones' from your lootables list. Keep in mind that you now need to list all types of stones to loot in loot additions, e.g. 'shmurgle stones' wont be looted anymore with the settings below
 loot_subtractions:
 - stones
 loot_additions:
@@ -384,3 +436,235 @@ loot_specials:
   bag: duffel bag
 - name: kyanite stones
   bag: duffel bag
+safe_room_empaths:
+- name: Vadok
+  id: 6163
+- name: Etry
+  id: 7301
+
+restock_shop_inside_room: 14024
+restock_shop_outside_room: 7913
+restock_shop_entrance_noun: entrance
+restock_shop_town: Crossing
+restock_shop_items:
+- noun: mask  # Noun of the item
+  price: 60000 # Cost in coppers
+  volume: 7 # Volume
+  surface: in cabinet # Where are you selling it in your shop, also include if its 'in' or 'on'
+  recipe: a light plate mask  # Whats the recipe name in the crafting book
+  material: steel # What are you making it out of
+  full_name: plate mask # What does the item look like in your shop, this helps distinguish similar items being sold on the same surface (This is not always 'adjective + noun' so be careful)
+- noun: gauntlets
+  full_name: light steel plate gauntlets
+  price: 60000
+  volume: 13
+  surface: in cabinet
+  recipe: some light plate gauntlets
+  material: steel
+- noun: greaves
+  full_name: light plate greaves
+  price: 120000
+  volume: 19
+  surface: in cabinet
+  recipe: light plate greaves
+  material: steel
+- noun: mask
+  full_name: scale mask
+  price: 60000
+  volume: 5
+  surface: in cabinet
+  recipe: scale mask
+  material: steel
+- noun: gloves
+  full_name: scale gloves
+  price: 60000
+  volume: 8
+  surface: in cabinet
+  recipe: scale gloves
+  material: steel
+- noun: greaves
+  full_name: scale greaves
+  price: 120000
+  volume: 15
+  surface: in cabinet
+  recipe: scale greaves
+  material: steel
+- noun: balaclava
+  full_name: ring balaclava
+  price: 110000
+  volume: 16
+  surface: in cabinet
+  recipe: ring balaclava
+  material: steel
+- noun: mask
+  full_name: ring mask
+  price: 60000
+  volume: 7
+  surface: in cabinet
+  recipe: ring mask
+  material: steel
+- noun: helm
+  full_name: ring helm
+  price: 100000
+  volume: 12
+  surface: in cabinet
+  recipe: ring helm
+  material: steel
+- noun: gloves
+  full_name: some steel ring gloves
+  price: 60000
+  volume: 6
+  surface: in cabinet
+  recipe: ring gloves
+  material: steel
+- noun: shirt
+  full_name: a steel ring shirt
+  price: 220000
+  surface: in cabinet
+  recipe: ring shirt
+  material: steel
+- noun: greaves
+  full_name: some steel ring greaves
+  price: 120000
+  surface: in cabinet
+  recipe: ring greaves
+  material: steel
+- noun: sipar
+  full_name: a steel round sipar
+  price: 200000
+  surface: in cabinet
+  recipe: round sipar
+  material: steel
+- noun: stick
+  full_name: parry stick
+  price: 120000
+  surface: on table
+  recipe: parry stick
+  material: steel
+- noun: hammer
+  full_name: throwing hammer
+  price: 120000
+  surface: on table
+  recipe: throwing hammer
+  material: steel
+- noun: spike
+  full_name: throwing spike
+  price: 100000
+  surface: on table
+  recipe: throwing spike
+  material: steel
+- noun: spear
+  full_name: steel light spear
+  price: 120000
+  surface: on table
+  recipe: light metal spear
+  material: steel
+- noun: nightstick
+  full_name: steel nightstick
+  price: 120000
+  surface: on table
+  recipe: nightstick
+  material: steel
+- noun: axe
+  full_name: throwing axe
+  price: 120000
+  surface: on table
+  recipe: a light throwing axe
+  material: steel
+- noun: axe
+  full_name: hurling axe
+  price: 120000
+  surface: on table
+  recipe: hurling axe
+  material: steel
+- noun: akabo
+  full_name: akabo
+  price: 120000
+  surface: on table
+  recipe: akabo
+  material: steel
+- noun: blade
+  full_name: marauder blade
+  price: 120000
+  surface: on table
+  recipe: marauder blade
+  material: steel
+- noun: cutlass
+  full_name: steel cutlass
+  price: 120000
+  surface: on table
+  recipe: cutlass
+  material: steel
+- noun: bola
+  full_name: steel bola
+  price: 120000
+  surface: on table
+  recipe: bola
+  material: steel
+- noun: fork
+  full_name: military fork
+  price: 120000
+  surface: on table
+  recipe: military fork
+  material: steel
+- noun: mask
+  full_name: quilted heavy burlap mask
+  price: 60000
+  recipe: quilted cloth mask
+  material: heavy burlap
+  chapter: 4
+  surface: in cabinet
+  small_padding_qty: 1 # For making
+  large_padding_qty: 1 # For reinforcing
+- noun: hood
+  full_name: quilted heavy burlap hood
+  price: 100000
+  recipe: quilted cloth hood
+  material: heavy burlap
+  chapter: 4
+  surface: in cabinet
+  small_padding_qty: 1 # For making
+  large_padding_qty: 1 # For reinforcing
+- noun: gloves
+  price: 60000
+  surface: in cabinet
+  chapter: 4
+  recipe: quilted cloth gloves
+  full_name: quilted heavy burlap gloves
+  small_padding_qty: 1
+  large_padding_qty: 1
+  material: heavy burlap
+- noun: pants
+  price: 120000
+  surface: in cabinet
+  chapter: 4
+  full_name:
+
+# Coordinator is a training-manager alternative, you can ignore the below settings!
+
+coordinator_hunting_tasks:
+
+coordinator_hunting_cleanup:
+  - :script: safe-room
+  - :script: sell-loot
+    :skip_first_run: true
+  - :script: crossing-repair
+    :skip_first_run: true
+    :start_on:
+      timer:
+        global: true
+        time: 43200 
+        key: 'repair'
+
+coordinator_town_tasks:
+  - :action: train_forging 
+    :start_on:
+      skill_under:
+        skill: Forging
+        target: 5
+  - :script: athletics
+    :args:
+    :start_on:
+      skill_under:
+        skill: Athletics
+        target: 10
