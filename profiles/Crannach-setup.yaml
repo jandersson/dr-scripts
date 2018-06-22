@@ -8,9 +8,9 @@ status_monitor_no_window: false
 ### UserVars ###
 ################
 # These settings are private and loaded from UserVars
-slack_username:
+slack_username: jonas
 safe_room_empath:
-safe_room:
+safe_room: 13520
 safe_room_id:
 safe_room_empaths:
 - name: Yndass
@@ -19,7 +19,7 @@ safe_room_empaths:
   id: 6163
 - name: Etry
   id: 7301
-prehunt_buffs:
+prehunt_buffs: 13520
 crossing_training_sorcery_room: 
 outfitting_room:
 ########################
