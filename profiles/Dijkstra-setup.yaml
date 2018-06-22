@@ -180,7 +180,7 @@ work_order_disciplines:
 - Tailoring
 
 workorder_min_items: 1 # accept any work order above or at this amount
-workorder_max_items: 10 # accept any work order below or at this amount
+workorder_max_items: 4 # accept any work order below or at this amount
 
 mark_crafted_goods: true # Stamp your goods when doing workorders. You still have to tell ;smith to stamp if you run it manually
 
