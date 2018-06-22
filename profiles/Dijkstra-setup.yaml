@@ -614,8 +614,6 @@ restock_shop_items:
   material: heavy burlap
   chapter: 4
   surface: in cabinet
-  small_padding_qty: 1 # For making
-  large_padding_qty: 1 # For reinforcing
 - noun: hood
   full_name: quilted heavy burlap hood
   price: 100000
@@ -623,22 +621,28 @@ restock_shop_items:
   material: heavy burlap
   chapter: 4
   surface: in cabinet
-  small_padding_qty: 1 # For making
-  large_padding_qty: 1 # For reinforcing
 - noun: gloves
   price: 60000
   surface: in cabinet
   chapter: 4
   recipe: quilted cloth gloves
   full_name: quilted heavy burlap gloves
-  small_padding_qty: 1
-  large_padding_qty: 1
   material: heavy burlap
 - noun: pants
+  full_name: quilted heavy burlap pants
   price: 120000
   surface: in cabinet
+  recipe: quilted cloth pants
+  material: heavy burlap
   chapter: 4
-  full_name:
+- noun: shirt
+  full_name: quilted heavy burlap shirt
+  price: 220000
+  recipe: quilted cloth shirt
+  material: heavy burlap
+  chapter: 4
+  surface: in cabinet
+
 
 # Coordinator is a training-manager alternative, you can ignore the below settings!
 
