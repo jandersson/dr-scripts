@@ -249,7 +249,7 @@ use_lockpick_ring: true
 use_weak_attacks: true
 use_stealth_attacks: false
 
-status_monitor_no_window: false
+status_monitor_no_window: true
 dump_junk: true
 
 gear:
@@ -405,11 +405,12 @@ crafting_training_spells:
     symbiosis: true
   Utility:
     abbrev: NOU
-    mana: 60
+    mana: 5
+    symbiosis: true
   Warding:
     abbrev: NON
     mana: 5
-    symbiosis: true # Need more than 204
+    symbiosis: true
 
 listen: true
 listen_observe: true
@@ -417,7 +418,7 @@ listen_observe: true
 sell_loot_pouch: false
 spare_gem_pouch_container: duffel bag
 gem_pouch_adjective: purple
-sell_pouches_for_trading: yes # same as true
+sell_pouches_for_trading: true
 sale_pouches_container: backpack
 
 repair_timer: 86400 # Repair once every 24 hours
@@ -436,11 +437,6 @@ loot_specials:
   bag: duffel bag
 - name: kyanite stones
   bag: duffel bag
-safe_room_empaths:
-- name: Vadok
-  id: 6163
-- name: Etry
-  id: 7301
 
 restock_shop_inside_room: 14024
 restock_shop_outside_room: 7913
@@ -449,7 +445,6 @@ restock_shop_town: Crossing
 restock_shop_items:
 - noun: mask  # Noun of the item
   price: 60000 # Cost in coppers
-  volume: 7 # Volume
   surface: in cabinet # Where are you selling it in your shop, also include if its 'in' or 'on'
   recipe: a light plate mask  # Whats the recipe name in the crafting book
   material: steel # What are you making it out of
@@ -457,63 +452,54 @@ restock_shop_items:
 - noun: gauntlets
   full_name: light steel plate gauntlets
   price: 60000
-  volume: 13
   surface: in cabinet
   recipe: some light plate gauntlets
   material: steel
 - noun: greaves
   full_name: light plate greaves
   price: 120000
-  volume: 19
   surface: in cabinet
   recipe: light plate greaves
   material: steel
 - noun: mask
   full_name: scale mask
   price: 60000
-  volume: 5
   surface: in cabinet
   recipe: scale mask
   material: steel
 - noun: gloves
   full_name: scale gloves
   price: 60000
-  volume: 8
   surface: in cabinet
   recipe: scale gloves
   material: steel
 - noun: greaves
   full_name: scale greaves
   price: 120000
-  volume: 15
   surface: in cabinet
   recipe: scale greaves
   material: steel
 - noun: balaclava
   full_name: ring balaclava
   price: 110000
-  volume: 16
   surface: in cabinet
   recipe: ring balaclava
   material: steel
 - noun: mask
   full_name: ring mask
   price: 60000
-  volume: 7
   surface: in cabinet
   recipe: ring mask
   material: steel
 - noun: helm
   full_name: ring helm
   price: 100000
-  volume: 12
   surface: in cabinet
   recipe: ring helm
   material: steel
 - noun: gloves
   full_name: some steel ring gloves
   price: 60000
-  volume: 6
   surface: in cabinet
   recipe: ring gloves
   material: steel
@@ -612,19 +598,16 @@ restock_shop_items:
   price: 60000
   recipe: quilted cloth mask
   material: heavy burlap
-  chapter: 4
   surface: in cabinet
 - noun: hood
   full_name: quilted heavy burlap hood
   price: 100000
   recipe: quilted cloth hood
   material: heavy burlap
-  chapter: 4
   surface: in cabinet
 - noun: gloves
   price: 60000
   surface: in cabinet
-  chapter: 4
   recipe: quilted cloth gloves
   full_name: quilted heavy burlap gloves
   material: heavy burlap
@@ -634,13 +617,11 @@ restock_shop_items:
   surface: in cabinet
   recipe: quilted cloth pants
   material: heavy burlap
-  chapter: 4
 - noun: shirt
   full_name: quilted heavy burlap shirt
   price: 220000
   recipe: quilted cloth shirt
   material: heavy burlap
-  chapter: 4
   surface: in cabinet
 
 
