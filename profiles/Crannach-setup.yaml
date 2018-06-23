@@ -179,7 +179,7 @@ gear:
   :name: helm
   :hinders_lockpicking: true
   :is_worn: true
-- :adjective: leather
+- :adjective: quilted
   :name: gloves
   :is_leather: true
   :hinders_lockpicking: true
@@ -272,7 +272,7 @@ cycle_armors:
   Chain Armor:
   - ring gloves
   Light Armor:
-  - leather gloves
+  - quilted gloves
   Brigandine:
   - scale gloves
   Plate Armor:
