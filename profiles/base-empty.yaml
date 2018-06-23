@@ -56,3 +56,4 @@ empty_values:
   combat_spell_training: {}
   stealing_towns: []
   safe_room_empaths: []
+  restock_shop_items: []
