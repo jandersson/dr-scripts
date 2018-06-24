@@ -3,7 +3,7 @@ hometown: Shard
 ######################
 ### STATUS MONITOR ###
 ######################
-status_monitor_no_window: false
+status_monitor_no_window: true
 ################
 ### UserVars ###
 ################
@@ -73,7 +73,7 @@ training_abilities:
 #  Collect: 180
 
 weapon_training:
-  Crossbow: pelletbow
+  Crossbow: crossbow
   Large Edged: moonblade
   Brawling: ''
 summoned_weapons:
@@ -127,7 +127,7 @@ gear:
 - :name: tetractys
   :adjective: haledroth
   :is_worn: true
-- :name: pelletbow
+- :name: crossbow
   :is_leather: true
   :is_worn: true
 - :name: footwraps
@@ -226,8 +226,8 @@ restock:
     quantity: 30
   tk_ammo:
     quantity: 1
-  rock:
-    quantity: 15
+  bolt:
+    quantity: 30
   block:
     name: crystal block
     wandering_npc: theurgist
@@ -260,14 +260,14 @@ gear_sets:
   - elbow spikes
   - parry stick
   - oaken staff
-  - pelletbow
+  - crossbow
   stealing:
   - elbow spikes
   - knee spikes
   - steel-toed footwraps
   - parry stick
   - oaken staff
-  - pelletbow
+  - crossbow
 cycle_armors:
   Chain Armor:
   - ring gloves
