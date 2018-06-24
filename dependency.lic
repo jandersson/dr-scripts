@@ -877,6 +877,24 @@ class SetupFiles
                                        end
     end
 
+    s.crafting_training_spells
+     .each do |skill, data|
+      s.crafting_training_spells[skill] = if spells[data['name']]
+                                            spells[data['name']].merge(data)
+                                          elsif spells[data['abbrev']]
+                                            spells[data['abbrev']].merge(data)
+                                          else
+                                            data
+                                          end
+    end
+
+    s.lockpick_buffs['spells']
+     .each_with_index
+     .select do |spell, i|
+       spells.select { |_name, data| data['abbrev'].casecmp(spell['abbrev'].downcase).zero? }
+             .each_value { |data| s.lockpick_buffs['spells'][i] = data.merge(spell) }
+     end
+
     s.waggle_sets
      .select { |set_name, set_spells| set_spells.select { |spell_name, spell_data| spells[spell_name].each { s.waggle_sets[set_name][spell_name] = spells[spell_name].merge(spell_data) } } }
 
@@ -889,7 +907,7 @@ class SetupFiles
     s.safe_room ||= UserVars.safe_room
     s.safe_room_id ||= UserVars.safe_room_id
     s.safe_room_empath ||= UserVars.safe_room_empath
-    (s.safe_room_empaths += UserVars.safe_room_empaths).uniq
+    s.safe_room_empaths += (UserVars.safe_room_empaths || [])
     s.slack_username ||= UserVars.slack_username
     s.bankbot_name ||= UserVars.bankbot_name
     s.bankbot_room_id ||= UserVars.bankbot_room_id
