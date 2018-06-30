@@ -4,24 +4,6 @@ hometown: Shard
 ### STATUS MONITOR ###
 ######################
 status_monitor_no_window: true
-################
-### UserVars ###
-################
-# These settings are private and loaded from UserVars
-slack_username: jonas
-safe_room_empath:
-safe_room: 13520
-safe_room_id:
-safe_room_empaths:
-- name: Yndass
-  id: 13520
-- name: Vadok
-  id: 6163
-- name: Etry
-  id: 7301
-prehunt_buffs: 13520
-crossing_training_sorcery_room: 
-outfitting_room:
 ########################
 ### TRAINING-MANAGER ###
 ########################
@@ -761,7 +743,7 @@ coordinator_hunting_tasks:
         - Targeted Magic
         - Debilitation
         target: 5
-
+safe_room:
 
 coordinator_hunting_cleanup:
   - :script: safe-room

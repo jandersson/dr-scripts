@@ -164,7 +164,7 @@ crafting_container: sturdy backpack # Add an adjective, this helps if you craft 
 
 train_workorders:
 - Blacksmithing
-- Tailoring
+  #- Tailoring
 
 workorder_diff:
   armorsmithing: Challenging
@@ -177,7 +177,7 @@ workorder_diff:
 
 work_order_disciplines:
 - Blacksmithing
-- Tailoring
+  #- Tailoring
 
 workorder_min_items: 1 # accept any work order above or at this amount
 workorder_max_items: 4 # accept any work order below or at this amount
@@ -384,7 +384,7 @@ crossing_training:
 - Athletics
 - Outdoorsmanship
 - Forging
-- Outfitting
+  #- Outfitting #import updated recipes before uncommenting, going into a request workorder loop
 - Attunement
 - Utility
 - Augmentation
@@ -637,7 +637,24 @@ restock_shop:
     full_name: backpack
     surface: on table
     material: heavy linen
-
+  - noun: greataxe
+    price: 120000
+    surface: on rack
+    recipe: greataxe
+    material: steel
+    full_name: greataxe
+  - noun: carryall
+    price: 200000
+    surface: on table
+    recipe: carryall
+    full_name: carryall
+    material: heavy silk
+#  - noun: bag
+#    full_name: duffel bag
+#    price: 200000
+#    recipe: duffel bag
+#    surface: on table
+#    material: heavy silk
 
 outfitting_tools:
 - knitting needles
