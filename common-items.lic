@@ -139,10 +139,19 @@ module DRCI
   end
 
   def count_items(item)
-    /inside your (.*).|I could not find/ =~ DRC.bput("tap my #{item}", 'inside your (.*).', 'I could not find')
-    container = Regexp.last_match(1)
-    return 0 if container.nil?
-    count_items_in_container(item, container)
+    case DRC.bput("tap my #{item}", 'inside your (.+)\.', 'I could not find', 'you are wearing')
+    when /inside your (.+)\./ 
+      container = Regexp.last_match(1)
+      count_items_in_container(item, container)
+    when /you are wearing/
+      if item.start_with? 'second '
+        0
+      else
+        count_items("second #{item}")
+      end
+    when /I could not find/
+      0
+    end
   end
 
   def count_items_in_container(item, container)
