@@ -13,7 +13,8 @@ class TestValidYaml < Minitest::Test
 
   def test_all_settings_in_base_yaml
     base = YAML.load_file('./profiles/base.yaml').keys
-    YAML.load_file('./profiles/base-empty.yaml')['empty_values'].each { |name, value| base[name] ||= value }
+    base += YAML.load_file('./profiles/base-empty.yaml')['empty_values'].keys
+
     # Profiles using non-repo settings
     custom_profiles = %w[Chuno Crannach Dankmar Melborne Paeriluno Valkiss Ssarek Qetu Ugsy Valkiss Dartellum Leustyin Dijkstra]
 
