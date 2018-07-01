@@ -60,6 +60,7 @@ class Forge
     @training_spells = @settings.crafting_training_spells
 
     @item = args.noun
+    wait_for_script_to_complete('buff', ['forge'])
 
     Flags.add('forge-assembly', 'another finished \S+ shield (handle)', 'another finished wooden (hilt|haft)', 'another finished (long|short|small|large) leather (cord|backing)', 'another finished (small|large) cloth (padding)', 'another finished (long|short) wooden (pole)', 'ready to be woven into and around the material')
     Flags.add('hone-done', 'the metal now needs protection by pouring oil on it')
@@ -492,15 +493,15 @@ class Forge
 
     data = @training_spells[needs_training]
 
-    if Flags['forge-magic-ready'].include?('You feel fully prepared to cast your spell.') && mana > 40
+    if Flags['forge-magic-ready'] && mana > 40
       crafting_cast_spell(data, @settings)
       Flags.reset('forge-magic-ready')
       @preparing = false
     end
-    unless @preparing
-      crafting_prepare_spell(data, @settings)
-      @preparing = true
-    end
+
+    return if @preparing
+    crafting_prepare_spell(data, @settings)
+    @preparing = true
   end
 
   def magic_cleanup
@@ -508,6 +509,7 @@ class Forge
 
     bput('release spell', 'You let your concentration lapse', "You aren't preparing a spell")
     bput('release mana', 'You release all', "You aren't harnessing any mana")
+    Flags.delete('forge-magic-ready')
   end
 end
 
