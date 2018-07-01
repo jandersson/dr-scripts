@@ -35,6 +35,7 @@ empty_values:
   buff_nonspells: {}
   training_abilities: {}
   weapon_training: {}
+  priority_weapons: []
   charged_maneuvers: {}
   training_nonspells: {}
   training_spells: {}
@@ -49,6 +50,7 @@ empty_values:
   empty_hunting_room_messages: []
   classes_to_teach: []
   whirlwind_trainables: []
+  aiming_trainables: []
   astrology_training: []
   attunement_rooms: []
   restock: {}
@@ -56,4 +58,5 @@ empty_values:
   combat_spell_training: {}
   stealing_towns: []
   safe_room_empaths: []
+  crafting_training_spells: {}
   restock_shop: {}
