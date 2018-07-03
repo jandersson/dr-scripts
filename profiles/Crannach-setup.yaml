@@ -1,5 +1,5 @@
 ---
-hometown: Shard
+hometown: Crossing
 ######################
 ### STATUS MONITOR ###
 ######################
@@ -40,10 +40,8 @@ hunting_buddies:
 
 # No hunting zones are defined here. Instead I use the hunting_file_list to point to other YAML files with hunting zomes in them.
 hunting_file_list:
-- tm
-- debil
-#- weapons
-- sorcery 
+- drakes
+- boxes
 stop_hunting_if_bleeding: true
 priority_defense: Evasion
 training_abilities:
@@ -203,6 +201,8 @@ gear:
   :adjective: stirring
   :tie_to: forger's belt
 
+using_light_crossbow: false
+
 restock:
   arrow:
     quantity: 30
@@ -212,7 +212,8 @@ restock:
     quantity: 30
   block:
     name: crystal block
-    wandering_npc: theurgist
+    wandering_npc: shaman # in dirge
+    #wandering_npc: theurgist # in Shard
     price: 250
     order_number: 6
     quantity: 9
@@ -269,9 +270,6 @@ cambrinth_items:
 - name: nestled armband
   cap: 48
   stored: false
-#- name: cambrinth anklet
-#  cap: 12
-#  stored: false
 
 ### SPELLS ###
 #prep_scaling_factor: 0.91
@@ -521,7 +519,7 @@ picking_pet_box_source:    hunting pack
 refill_pet_boxes:          true # custom setting
 use_lockpick_ring:         true
 skip_lockpick_ring_refill: false
-lockpick_type:             stout iron
+lockpick_type:            stout
 lockpick_dismantle:        focus
 harvest_traps:             true
 #################
@@ -540,7 +538,7 @@ skinning:
 ########################
 ### CROSSING TRAINER ###
 ########################
-#braid_item: grass
+braid_item: grass
 listen: true
 listen_observe: true
 dump_junk: true  # Call the dump junk command after braiding or collecting when room is full of junk
@@ -589,7 +587,8 @@ combat_spell_training:
     cyclic: true
     skill: Sorcery
 
-crossing_training_sorcery_room: 2784
+crossing_training_sorcery_room: 1645
+#crossing_training_sorcery_room: 2784
 
 crossing_training_sorcery:
   name: Ghost Shroud
@@ -667,11 +666,9 @@ forging_tools:
 - tong
 - bellow
 - shovel
-  #- stamp
 - pliers
 outfitting_tools:
 - knitting needles
-  #mark_crafted_goods: true
 ### STACK-SCROLLS ###
 scroll_stackers:
 - of scrolls
@@ -760,10 +757,15 @@ coordinator_hunting_cleanup:
 coordinator_town_tasks:
   - :script: astrology
     :start_on:
-      skill_under:
-        skill: Astrology
-        target: 5
-    :walk_to: 13520
+      and:
+        - timer:
+            global: true
+            time: 300
+            key: 'astro'
+        - skill_under:
+            skill: Astrology
+            target: 5
+    :walk_to: safe_room
   - :script: athletics
     :args:
     - wyvern
@@ -782,25 +784,25 @@ coordinator_town_tasks:
             skill: Sorcery
             target: 5
   - :script: mech-lore
-    :walk_to: 13520 
+    :walk_to: safe_room 
     :start_on:
       skill_under:
         skill: Mechanical Lore
         target: 14
   - :script: appraisal
-    :walk_to: 13520
+    :walk_to: safe_room
     :start_on:
       skill_under:
         skill: Appraisal
         target: 5
 #  - :script: first-aid
-#    :walk_to: 13520
+#    :walk_to: safe_room
 #    :start_on:
 #      skill_under:
 #        skill: First Aid
 #        target: 1
   - :script: outdoorsmanship
-    :walk_to: 13520
+    :walk_to: safe_room
     :start_on:
       and:
         - predicate: hunt_done?
@@ -808,7 +810,7 @@ coordinator_town_tasks:
             skill: Outdoorsmanship
             target: 20
   - :action: pick_boxes
-    :walk_to: 13520
+    :walk_to: safe_room
     :start_on:
       and:
         - skill_under:

@@ -139,6 +139,7 @@ training_spells:
     abbrev: FIN
     symbiosis: true
   Utility:
+    symbiosis: true
     abbrev: NOU
   Warding:
     abbrev: NON
@@ -164,7 +165,7 @@ crafting_container: sturdy backpack # Add an adjective, this helps if you craft 
 
 train_workorders:
 - Blacksmithing
-  #- Tailoring
+- Tailoring
 
 workorder_diff:
   armorsmithing: Challenging
@@ -177,7 +178,7 @@ workorder_diff:
 
 work_order_disciplines:
 - Blacksmithing
-  #- Tailoring
+- Tailoring
 
 workorder_min_items: 1 # accept any work order above or at this amount
 workorder_max_items: 4 # accept any work order below or at this amount
@@ -384,7 +385,7 @@ crossing_training:
 - Athletics
 - Outdoorsmanship
 - Forging
-  #- Outfitting #import updated recipes before uncommenting, going into a request workorder loop
+- Outfitting #import updated recipes before uncommenting, going into a request workorder loop
 - Attunement
 - Utility
 - Augmentation
