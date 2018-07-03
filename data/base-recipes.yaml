@@ -1855,7 +1855,7 @@ crafting_recipes:
   noun: cloak
   volume: 9
   type: tailoring
-  work_order: false
+  work_order: true
   chapter: 2
 - name: a cloth shaman's robe
   noun: robe
@@ -2011,7 +2011,7 @@ crafting_recipes:
   noun: rucksack
   volume: 7
   type: tailoring
-  work_order: false
+  work_order: true
   chapter: 3
 - name: a cloth rucksack
   noun: rucksack
