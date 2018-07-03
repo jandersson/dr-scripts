@@ -2021,7 +2021,7 @@ class TrainerProcess
       # Dump the box so that combat-trainer lootprocess can take over
       bput("open my #{box}", 'You open', 'That is already open')
       2.times do
-        bput("dismantle my #{box}", 'You can not dismantle', 'You dump the contents', 'You move your hands')
+        bput("dismantle my #{box}", 'You can not dismantle', 'You dump the contents', 'You move your hands', 'You must be holding the object', 'Unable to locate')
       end
       waitrt?
     else
@@ -2289,7 +2289,11 @@ class AttackProcess
     game_state.selected_maneuver = charged_maneuver unless game_state.loaded
     game_state.loaded = false if game_state.mob_died && !(game_state.casting_consume || game_state.prepare_consume)
     game_state.clear_aim_queue if Flags['ct-ranged-ready']
-    game_state.loaded = false if Flags['ct-aim-failed']
+
+    if Flags['ct-aim-failed']
+      game_state.loaded = false
+      Flags.reset('ct-aim-failed')
+    end
 
     if game_state.loaded && game_state.done_aiming?
       if game_state.selected_maneuver
