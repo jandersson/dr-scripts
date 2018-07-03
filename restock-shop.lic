@@ -273,7 +273,7 @@ class ShopRestock
   def total_volume_of(items)
     return 0 if items.empty?
 
-    items.map { |item| recipe_lookup(@recipes.select{ |recipe| recipe['noun'] == item['noun'] }, item['recipe'])['volume'] }
+    items.map { |item| recipe_lookup(@recipes.select { |recipe| recipe['noun'] == item['noun'] }, item['recipe'])['volume'] }
          .inject(&:+)
   end
 end
