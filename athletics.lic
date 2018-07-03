@@ -383,7 +383,7 @@ class Athletics
 
   def crossing_athletics
     if DRSkill.getrank('Athletics') >= 560
-	  climb_xalas
+      climb_xalas
     elsif DRSkill.getrank('Athletics') >= 400
       climb_branch
     else
@@ -540,12 +540,12 @@ class Athletics
     start_script('skill-recorder') unless Script.running?('skill-recorder')
     walk_to(6154)
     until done_training?
-      walk_to(12838)
+      walk_to(12_838)
       walk_to(6154)
       break if done_training?
       4.times do
         train_outdoorsmanship
-      end      
+      end
     end
   end
 

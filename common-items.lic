@@ -142,7 +142,7 @@ module DRCI
 
   def count_items(item)
     case DRC.bput("tap my #{item}", 'inside your (.+)\.', 'I could not find', 'you are wearing')
-    when /inside your (.+)\./ 
+    when /inside your (.+)\./
       container = Regexp.last_match(1)
       count_items_in_container(item, container)
     when /you are wearing/
