@@ -13,7 +13,7 @@ hunting_info:
   - mm teleport safe_room
 
 use_stealth_attacks: true
-use_weak_attacks: false
+use_weak_attacks: true
 
 combat_spell_training:
   Warding:
@@ -22,12 +22,14 @@ combat_spell_training:
     cyclic: true
     skill: Sorcery
     day: true # Keeps from conflicting with SLS
-#  Utility:
-#    name: Shift Moonbeam
-#    use_auto_mana: true
-#    symbiosis: true
+  Sorcery:
+    name: Demrris' Resolve
+    use_auto_mana: true
+  Utility:
+    name: Shift Moonbeam
+    use_auto_mana: true
+    symbiosis: true
 
-tk_ammo: brass razor
 skip_last_kill: true
 
 offensive_spells:
@@ -51,7 +53,6 @@ offensive_spells:
 
 loot_subtractions:
   - arrow
-  - bolt
   - shard
   - rock
   - rocks

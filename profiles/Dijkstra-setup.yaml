@@ -117,18 +117,22 @@ waggle_sets:
       cambrinth:
       - 32
 
+  sell-pouches:
+    << : *finesse
+
 hunting_buddies:
 - Ssarek
+- Remigius
 
 prep_scaling_factor: 0.95
 
-cambrinth: cambrinth armband
-cambrinth_cap: 32
+cambrinth: watersilk bag
+cambrinth_cap: 108
 cambrinth_num_charges: 1
 cambrinth_invoke_exact_amount: true
 cambrinth_items:
-- name: cambrinth armband
-  cap: 32
+- name: watersilk bag
+  cap: 108
   stored: false
 crossing_training_sorcery_room: 1645
 use_harness_when_arcana_locked: yes
@@ -188,14 +192,24 @@ mark_crafted_goods: true # Stamp your goods when doing workorders. You still hav
 use_own_ingot_type: # Use a specific ingot for workorders
 deed_own_ingot: false # Deed whatevers in use_own_ingot_type
 
+forging_belt:
+  name: forger belt
+  items: 
+  - forging hammer
+  - tong
+  - bellow
+  - shovel
+  - rod
 forging_tools:
-- diagonal-peen mallet
+- forging hammer
 - tong
 - bellow
-- curved shovel
+- shovel
+- pliers
 - stamp
 - stirring rod
 
+braid_item: grass
 mining_buddy_vein_list:
 #- Oravir
 - Zinc
@@ -224,7 +238,7 @@ mines_to_mine:
 
 hunting_info: 
 - :zone:
-  - rock_guardians
+  - geni
   :duration: 30
   stop_on:
   - Targeted Magic
@@ -235,6 +249,25 @@ restock:
     quantity: 30
   arrow:
     quantity: 30
+  block:
+    name: crystal block
+    wandering_npc: shaman # in dirge
+    #wandering_npc: theurgist # in Shard
+    price: 250
+    order_number: 6
+    quantity: 7 # Wallet holds max of 30
+    size: 1
+    stackable: false # Its only stackable if its put in a bead-carvers wallet
+    container: watersilk bag
+  primer:
+    name: raven primer
+    wandering_npc: shaman # in dirge
+    price: 250
+    order_number: 101
+    quantity: 1
+    size: 1
+    stackable: false
+    container: watersilk bag
 
 
 stop_hunting_if_bleeding: yes
@@ -322,12 +355,21 @@ gear:
   :adjective: parry
   :is_worn: true
 ### Tools
-- :name: mallet
-  :adjective: diagonal-peen
+- :name: tongs
+  :adjective: clockwork
+  :tie_to: forger's belt
+- :name: hammer
+  :adjective: forging
+  :tie_to: forger's belt
+- :name: bellows
+  :adjective: leather
+  :tie_to: forger's belt
 - :name: shovel
-  :adjective: curved
+  :adjective: glaes-edged
+  :tie_to: forger's belt
 - :name: rod
   :adjective: stirring
+  :tie_to: forger's belt
 
 gear_sets:
   standard:
@@ -389,9 +431,9 @@ crossing_training:
 - Attunement
 - Utility
 - Augmentation
-- Warding
+  #- Warding
 - Mechanical Lore
-- Appraisal
+  #- Appraisal
 
 appraisal_training:
 - pouches
@@ -421,7 +463,7 @@ sell_loot_pouch: false
 spare_gem_pouch_container: duffel bag
 gem_pouch_adjective: purple
 sell_pouches_for_trading: true
-sale_pouches_container: sturdy backpack
+sale_pouches_container: watersilk bag
 
 repair_timer: 86400 # Repair once every 24 hours
 repair_every: .inf # Infinity - Dont use repair counter
@@ -542,6 +584,12 @@ restock_shop:
     surface: on rack
     recipe: throwing spike
     material: steel
+  - noun: boomerang
+    full_name: boomerang
+    price: 60000
+    surface: on rack
+    recipe: boomerang
+    material: steel
   - noun: spear
     full_name: steel light spear
     price: 120000
@@ -650,12 +698,12 @@ restock_shop:
     recipe: carryall
     full_name: carryall
     material: heavy silk
-#  - noun: bag
-#    full_name: duffel bag
-#    price: 200000
-#    recipe: duffel bag
-#    surface: on table
-#    material: heavy silk
+  - noun: bag
+    full_name: duffel bag
+    price: 200000
+    recipe: duffel bag
+    surface: on table
+    material: heavy silk
 
 outfitting_tools:
 - knitting needles
@@ -669,8 +717,16 @@ outfitting_tools:
 
 
 # Coordinator is a training-manager alternative, you can ignore the below settings!
-# CUSTOM SETTING (NOT PART OF DEPENDENCY/DR-SCRIPTS)
+# CUSTOM SETTING (NOT PART OF DR-SCRIPTS)
 coordinator_hunting_tasks:
+  - :file: back
+    :pause_sanowret: true
+    :default: true
+    :start_on:
+      any_skill_under:
+        skills:
+        - Bows
+        target: 5
 
 # CUSTOM SETTING (NOT PART OF DEPENDENCY/DR-SCRIPTS)
 coordinator_hunting_cleanup:
@@ -698,3 +754,111 @@ coordinator_town_tasks:
       skill_under:
         skill: Athletics
         target: 10
+coordinator_hunting_tasks:
+  - :file: drakes
+    :pause_sanowret: false
+    :default: true
+    :start_on:
+      any_skill_under:
+        skills:
+        - Targeted Magic
+        - Debilitation
+        target: 5
+  - :file: boxes
+    :pause_sanowret: true
+    :start_on:
+      boxes_under: 1
+    :stop_on:
+      any_skill_under:
+        skills:
+        - Targeted Magic
+        - Debilitation
+        target: 5
+safe_room:
+
+coordinator_hunting_cleanup:
+  - :script: safe-room
+  - :script: sell-loot
+    :skip_first_run: true
+  - :script: crossing-repair
+    :skip_first_run: true
+    :start_on:
+      timer:
+        global: true
+        time: 43200 
+        key: 'repair'
+
+coordinator_town_tasks:
+  - :script: astrology
+    :start_on:
+      and:
+        - timer:
+            global: true
+            time: 300
+            key: 'astro'
+        - skill_under:
+            skill: Astrology
+            target: 5
+    :walk_to: safe_room
+  - :script: athletics
+    :args:
+    - wyvern
+    :start_on:
+      skill_under:
+        skill: Athletics
+        target: 10
+  - :script: nexus
+    :args:
+    - fatigue
+    - 793
+    :start_on:
+      timer:
+        global: true
+        time: 18000 # 5 hours
+        key: 'nexus'
+  - :script: sorcery
+    :start_on:
+      and:
+        - timer:
+            global: true
+            time: 300
+            key: 'cyclic'
+        - skill_under:
+            skill: Sorcery
+            target: 5
+  - :script: mech-lore
+    :walk_to: safe_room 
+    :start_on:
+      skill_under:
+        skill: Mechanical Lore
+        target: 14
+  - :script: appraisal
+    :walk_to: safe_room
+    :start_on:
+      skill_under:
+        skill: Appraisal
+        target: 5
+#  - :script: first-aid
+#    :walk_to: safe_room
+#    :start_on:
+#      skill_under:
+#        skill: First Aid
+#        target: 1
+  - :script: outdoorsmanship
+    :walk_to: safe_room
+    :start_on:
+      and:
+        - predicate: hunt_done?
+        - skill_under:
+            skill: Outdoorsmanship
+            target: 20
+  - :action: pick_boxes
+    :walk_to: safe_room
+    :start_on:
+      and:
+        - skill_under:
+            skill: Locksmithing
+            target: 14
+        - or:
+            - boxes_over: 0
+            - predicate: pet_boxes?

@@ -36,9 +36,9 @@ summoned_weapons:
   # - name: Offhanded Weapon # Not sure if this works?
 
 offensive_spells:
-- name: Rebuke
-  skill: Sorcery
+- name: Demrris' Resolve
   use_auto_mana: true
+  skill: Sorcery
   cast_only_to_train: true
 combat_spell_training:
   Utility:

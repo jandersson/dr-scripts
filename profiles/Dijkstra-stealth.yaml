@@ -1,5 +1,5 @@
 hunting_info: 
-- :zone: rock_guardians
+- :zone: geni
   :duration: 30
   stop_on:
   - Stealth

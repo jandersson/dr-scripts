@@ -1,5 +1,5 @@
 ---
-hometown: Crossing
+hometown: Shard
 ######################
 ### STATUS MONITOR ###
 ######################
@@ -37,6 +37,7 @@ hunting_buddies:
 - Jonas
 - Zansa
 - Chuno
+- Byd
 
 # No hunting zones are defined here. Instead I use the hunting_file_list to point to other YAML files with hunting zomes in them.
 hunting_file_list:
@@ -54,14 +55,15 @@ training_abilities:
 
 weapon_training:
   Crossbow: crossbow
-  Large Edged: moonblade
+  Large Edged: bastard sword
   Brawling: ''
 summoned_weapons:
-- name: Large Edged
+#- name: Large Edged
 dance_skill:         Brawling
 use_weak_attacks:    false
 use_stealth_attacks: false
 ignored_npcs:
+- student
 - leopard
 - owl
 - Taala
@@ -86,7 +88,6 @@ gear:
   :swappable: true
 - :name: spear
   :adjective: light
-  :wield: true
 - :name: blade
   :adjective: icy-blue
   :tie_to: strap
@@ -185,44 +186,36 @@ gear:
   :adjective: climbing
 - :name: needles
   :adjective: knitting
-- :name: tongs
-  :adjective: clockwork
-  :tie_to: forger's belt
-- :name: hammer
-  :adjective: forging
-  :tie_to: forger's belt
-- :name: bellows
-  :adjective: leather
-  :tie_to: forger's belt
-- :name: shovel
-  :adjective: glaes-edged
-  :tie_to: forger's belt
-- :name: rod
-  :adjective: stirring
-  :tie_to: forger's belt
 
 using_light_crossbow: false
+tk_ammo: razor
 
 restock:
   arrow:
     quantity: 30
   tk_ammo:
+    #name: ice pick
+    #price: 137
+    #size: 1
+    #stackable: false
+    #room: 8265
     quantity: 1
   bolt:
     quantity: 30
   block:
     name: crystal block
-    wandering_npc: shaman # in dirge
-    #wandering_npc: theurgist # in Shard
+    #wandering_npc: shaman # in dirge
+    wandering_npc: theurgist # in Shard
     price: 250
     order_number: 6
-    quantity: 9
+    quantity: 30 # Wallet holds max of 30
     size: 1
-    stackable: false
-    container: pack
+    stackable: true # Its only stackable if its put in a bead-carvers wallet
+    container: wallet
   primer:
     name: raven primer
-    wandering_npc: theurgist
+    #wandering_npc: shaman # in dirge
+    wandering_npc: theurgist # in shard
     price: 250
     order_number: 101
     quantity: 1
@@ -261,24 +254,27 @@ cycle_armors:
   Plate Armor:
   - plate gauntlets
 ### CAMBRINTH ###
-cambrinth: nestled armband
-cambrinth_cap: 48
+cambrinth: watersilk bag
+cambrinth_cap: 108
 stored_cambrinth: false
 cambrinth_invoke_exact_amount: true
 cambrinth_num_charges: 1  # Number of times to harness or charge when using auto mana
 cambrinth_items:
-- name: nestled armband
-  cap: 48
+- name: watersilk bag
+  cap: 108
   stored: false
 
 ### SPELLS ###
 #prep_scaling_factor: 0.91
 
 offensive_spells:
-- name: Rebuke
+- name: Demrris' Resolve
   use_auto_mana: true
   skill: Sorcery
-  cast_only_to_train: true
+  #- name: Rebuke
+  #use_auto_mana: true
+  #skill: Sorcery
+  #cast_only_to_train: true
 - name: Starlight Sphere
   mana: 10
   cast: cast spider
@@ -467,7 +463,7 @@ buff_spells: &buff_spells
   << : *shadows
   << : *sls
   << : *iots
-  << : *shadowling
+  #<< : *shadowling
   << : *aus
   << : *col
   << : *moonblade
@@ -495,7 +491,6 @@ loot_additions:
 loot_subtractions:
 - arrow
 - shard
-- bolt
 loot_specials:
 - name: jadeite stone  
   bag:  pack
@@ -519,7 +514,7 @@ picking_pet_box_source:    hunting pack
 refill_pet_boxes:          true # custom setting
 use_lockpick_ring:         true
 skip_lockpick_ring_refill: false
-lockpick_type:            stout
+lockpick_type:             stout iron
 lockpick_dismantle:        focus
 harvest_traps:             true
 #################
@@ -538,7 +533,7 @@ skinning:
 ########################
 ### CROSSING TRAINER ###
 ########################
-braid_item: grass
+braid_item: vine
 listen: true
 listen_observe: true
 dump_junk: true  # Call the dump junk command after braiding or collecting when room is full of junk
@@ -587,8 +582,8 @@ combat_spell_training:
     cyclic: true
     skill: Sorcery
 
-crossing_training_sorcery_room: 1645
-#crossing_training_sorcery_room: 2784
+#crossing_training_sorcery_room: 1645
+crossing_training_sorcery_room: 2784
 
 crossing_training_sorcery:
   name: Ghost Shroud
@@ -653,20 +648,6 @@ mining_buddy_vein_list:
 #train_workorders:
 #- Blacksmithing
 crafting_container: pack
-forging_belt:
-  name: forger belt
-  items: 
-  - forging hammer
-  - tong
-  - bellow
-  - shovel
-  - rod
-forging_tools:
-- forging hammer
-- tong
-- bellow
-- shovel
-- pliers
 outfitting_tools:
 - knitting needles
 ### STACK-SCROLLS ###
@@ -773,6 +754,15 @@ coordinator_town_tasks:
       skill_under:
         skill: Athletics
         target: 10
+  - :script: nexus
+    :args:
+    - fatigue
+    - 793
+    :start_on:
+      timer:
+        global: true
+        time: 18000 # 5 hours
+        key: 'nexus'
   - :script: sorcery
     :start_on:
       and:
@@ -792,9 +782,14 @@ coordinator_town_tasks:
   - :script: appraisal
     :walk_to: safe_room
     :start_on:
-      skill_under:
-        skill: Appraisal
-        target: 5
+      and:
+        - timer:
+            global: true
+            time: 300
+            key: 'appraisal'
+        - skill_under:
+            skill: Appraisal
+            target: 5
 #  - :script: first-aid
 #    :walk_to: safe_room
 #    :start_on:
