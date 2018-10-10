@@ -27,10 +27,13 @@ def remove_constant(symbol)
 end
 
 
-RUBY_VERSION =~ /^(\d+)\.(\d+)\./
-$MODERN_RUBY = $1.to_i > 2 || ($1.to_i == 2 && $2.to_i > 2)
-LICH_VERSION =~ /^(\d+)\.(\d+)\.(\d+)(f)?/
-$MODERN_LICH = $1.to_i > 4 || ($1.to_i == 4 && $2.to_i > 11 && $4 == 'f') || ($4.nil? && $1.to_i == 4 && $2.to_i == 6 && $3.to_i > 48) || ($4.nil? && $1.to_i == 4 && $2.to_i > 6)
+$MODERN_RUBY = Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('2.3.0')
+lich_version = Gem::Version.new(LICH_VERSION.gsub(/(f)/, ''))
+$MODERN_LICH = if $1
+                 lich_version > Gem::Version.new('4.11.0')
+               else
+                 lich_version > Gem::Version.new('4.6.48')
+               end
 
 if args.wipe_constants
   class_defs.each_value { |symb| remove_constant(symb) if constant_defined?(symb) }
