@@ -23,6 +23,7 @@ class ShopRestock
     @bag = @settings.crafting_container
     @belt = @settings.forging_belt || @settings.engineering_belt
 
+    wait_for_script_to_complete('safe-room')
     go_to_shop
     check_surfaces
 
@@ -133,6 +134,7 @@ class ShopRestock
 
   def restock_linen(missing_items)
     return if missing_items.empty?
+
     echo missing_items
 
     volume = total_volume_of(missing_items)
