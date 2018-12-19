@@ -2,12 +2,13 @@
   Documentation: https://elanthipedia.play.net/Lich_script_repository#sew
 =end
 
-custom_require.call(%w[common common-arcana common-crafting common-items common-money common-travel])
+custom_require.call(%w[common common-arcana common-crafting common-healing common-items common-money common-travel])
 
 class Sew
   include DRC
   include DRCC
   include DRCI
+  include DRCH
   include DRCM
   include DRCT
   include DRCA
@@ -55,6 +56,12 @@ class Sew
     @training_spells = @settings.crafting_training_spells
 
     wait_for_script_to_complete('buff', ['sew'])
+    wounds = check_health['wounds']
+    room_snap = Room.current.id
+    if wounds.any? { |_k, v| v.include?('skin') }
+      wait_for_script_to_complete('safe-room', ['force'])
+      walk_to(room_snap)
+    end
 
     Flags.add('sew-assembly', 'another finished \S+ shield (handle)', 'another finished wooden (hilt|haft)', 'another finished (long|short|small|large) leather (cord|backing)', 'another finished (small|large) cloth (padding)', 'another finished (long|short) wooden (pole)')
     Flags.add('sew-pins', 'The pins is all used up, so you toss it away.')
@@ -89,6 +96,7 @@ class Sew
 
   def check_thread
     return if exists?('cotton thread')
+
     ensure_copper_on_hand(1000, @settings)
     order_item(@hometown_data['stock-room'], 6)
     stow_item('cotton thread')
@@ -96,6 +104,7 @@ class Sew
 
   def check_pins
     return unless Flags['sew-pins'] || !exists?('straight pins')
+
     ensure_copper_on_hand(125, @settings)
     item = left_hand
     stow_item(item)
@@ -175,6 +184,7 @@ class Sew
   def do_seal(wax)
     waitrt?
     return if Flags['sealing-done']
+
     if wax
       get_item('sealing wax')
       bput("apply my wax to my #{right_hand}", 'roundtime')
@@ -327,6 +337,7 @@ class Sew
     end
 
     return if @preparing
+
     crafting_prepare_spell(data, @settings)
     @preparing = true
   end
