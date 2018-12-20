@@ -1,3 +1,6 @@
+=begin
+Documentation: https://elanthipedia.play.net/Lich_script_repository#sell-pouches
+=end
 custom_require.call(%w[common common-items common-travel])
 
 class PouchSeller
@@ -7,25 +10,39 @@ class PouchSeller
 
   def initialize
     settings = get_settings
+    arg_definitions = [
+      [{ name: 'buy', regex: /buy/i, optional: true }]
+    ]
+    args = parse_args(arg_definitions)
     pouch_container = settings.sale_pouches_container
     hometown = settings.hometown
 
-    exit unless have_pouch?(pouch_container)
+    if args.buy
+      wait_for_script_to_complete('accept-sell', ['buy'])
+      Flags.add('sell-pouches-buy', 'ACCEPT')
+      loop do
+        pause 0.25 until Flags['sell-pouches-buy']
+        Flags.reset('sell-pouches-buy')
+        wait_for_script_to_complete('accept-sell', ['buy'])
+      end
+    else
+      exit unless have_pouch?(pouch_container)
 
-    gemshop = get_data('town')[hometown]['gemshop']['id']
-    unless gemshop
-      echo('NO GEMSHOP DATA FOUND?')
-      fput('stow pouch')
-      exit
+      gemshop = get_data('town')[hometown]['gemshop']['id']
+      unless gemshop
+        echo('NO GEMSHOP DATA FOUND?')
+        fput('stow pouch')
+        exit
+      end
+
+      sell_pouch(gemshop)
     end
-
-    sell_pouch(gemshop)
   end
 
   def have_pouch?(container)
     return false unless container
 
-    bput("get pouch from my #{container}", 'You get a', 'What were you') == 'You get a'  
+    bput("get pouch from my #{container}", 'You get a', 'What were you', 'free hand') == 'You get a'
   end
 
   def sell_pouch(shop_id)
@@ -33,11 +50,10 @@ class PouchSeller
 
     walk_to(shop_id)
     wait_for_script_to_complete('buff', [Script.current.name])
-    fput('sell pouch')
-    fput('put pouch in bucket')
+    bput('sell pouch', 'then hands you', "That's worthless")
+    dispose_trash('pouch')
     wait_for_script_to_complete('sell-loot')
   end
-
 end
 
 PouchSeller.new
