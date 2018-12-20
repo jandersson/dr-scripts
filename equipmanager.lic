@@ -142,7 +142,14 @@ class EquipmentManager
     end
     case bput("get my #{item.short_name}", item.short_regex, '^You get ', '^What were you referring')
     when item.short_regex
-      fput("wear my #{item.short_name}")
+      case bput("wear my #{item.short_name}", "You.* #{item.short_regex}", 'You \w+ (a|an|the|some)', '^What were')
+      when "You.* #{item.short_regex}", 'You \w+ (a|an|the|some)' 
+        waitrt?
+        return true
+      else
+        waitrt?
+        return false
+      end
       waitrt?
       return true
     when /^You get /
@@ -244,8 +251,8 @@ class EquipmentManager
       },
       tied: {
         verb: 'untie',
-        matches: [/^You .*#{item.short_regex}/, "^You remove.*#{item.name}", /^.*you untie your .*#{item.short_regex} from it./, '^What were you referring', '^Untie what', '^You are a little too busy'],
-        failures: ['You remove', /^You are a little too busy/],
+        matches: [/^You .*#{item.short_regex}/, "^You remove.*#{item.name}", /^.*you untie your .*#{item.short_regex} from it./, '^What were you referring', '^Untie what', '^You are a little too busy', 'Your wounds hinder your ability to do that'],
+        failures: ['You remove', /^You are a little too busy/, 'Your wounds hinder your ability to do that'],
         failure_recovery: proc { |_noun, item, *matches|
                             case matches
                             when ['You are a little too busy']
