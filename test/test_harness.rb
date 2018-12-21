@@ -1,3 +1,5 @@
+require 'ostruct'
+
 module Harness
   class Script
     def gets?
