@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #   Documentation: https://elanthipedia.play.net/Lich_script_repository#restock
 custom_require.call(%w[common common-items common-money])
 class Restock
@@ -31,6 +33,7 @@ class Restock
                     count_nonstackable_item(item['name'], item['container'])
                   end
       next unless remaining < item['quantity']
+
       num_needed = item['quantity'] - remaining
       buy_num = (num_needed / item['size'].to_f).ceil
       coin_needed += buy_num * item['price']
@@ -39,10 +42,7 @@ class Restock
     end
     get_money_from_specific_bank?("#{coin_needed} copper #{town_currency(town)}", town) if coin_needed > 0
     items_to_restock.each do |item|
-      if item['wandering_npc']
-        echo 'find'
-        wait_for_script_to_complete('find', [item['wandering_npc']])
-      end
+      wait_for_script_to_complete('find', [item['wandering_npc']]) if item['wandering_npc']
       item['buy_num'].times do
         if item['wandering_npc']
           unless order_item?(item['wandering_npc'], item['order_number'])
@@ -93,17 +93,24 @@ class Restock
     items
   end
 
-  def count_stackable_item(item, _container)
+  def count_stackable_item(item, container)
     count = 0
     $ORDINALS.each do |ordinal|
-      count_msg = bput("count my #{ordinal} #{item}", 'I could not find what you were referring to.', 'tell you much of anything.', 'and see there \w+ .+ left.')
+      command = if container
+                  "count my #{ordinal} #{item} in #{container}"
+                else
+                  "count my #{ordinal} #{item}"
+                end
+      count_msg = bput(command, 'I could not find what you were referring to.', 'tell you much of anything.', 'and see there \w+ .+ left.', 'It looks like there are \d+')
       case count_msg
       when 'I could not find what you were referring to.'
         break
       when 'tell you much of anything.'
         echo "#{item} is marked as stackable but is not!"
-        count += count_nonstackable_item(item)
+        count += count_nonstackable_item(item, container)
         break
+      when /It looks like there are (\d+)/
+        count += Regexp.last_match(1).to_i
       else
         count_txt = count_msg.match(/and see there \w+ (.+) left./).captures.first.tr('-', ' ')
         count += text2num(count_txt)
@@ -115,9 +122,10 @@ class Restock
 
   def count_nonstackable_item(item, container)
     unless container
-      /inside your (.*).|I could not find/ =~ bput("tap my #{item}", 'inside your (.*).', 'I could not find') unless item['container']
+      /inside your (.*).|I could not find/ =~ bput("tap my #{item}", 'inside your (.*).', 'I could not find')
       tap_result = Regexp.last_match(1)
-      return 0 unless item['container'] || !tap_result.nil?
+      return 0 if tap_result.nil?
+
       container = tap_result
     end
     contents = bput("rummage /C #{item.split.last} IN MY #{container}", '^You rummage .*', "I don't know what you are referring to")
@@ -131,6 +139,7 @@ class Restock
     return false unless item_data.key?('price')
     return false unless item_data.key?('stackable')
     return false unless item_data.key?('quantity')
+
     true
   end
 end
