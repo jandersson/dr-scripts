@@ -27,7 +27,6 @@ hunting_buddies:
 - Sarvatt
 - Natarian
 - Fuss
-- Ssarek
 - Sheltim
 - Rhakim
 - Kaldean
@@ -81,7 +80,7 @@ gear:
 #### WEAPONS ####
 - :name: sword
   :adjective: bastard
-  :tie_to: strap
+  #:tie_to: strap
   :swappable: true
 - :name: mace
   :adjective: bar
@@ -268,9 +267,9 @@ cambrinth_items:
 #prep_scaling_factor: 0.91
 
 offensive_spells:
-- name: Demrris' Resolve
-  use_auto_mana: true
-  skill: Sorcery
+  #- name: Demrris' Resolve
+  # use_auto_mana: true
+  #skill: Sorcery
   #- name: Rebuke
   #use_auto_mana: true
   #skill: Sorcery
@@ -313,7 +312,7 @@ have_telescope: true
 astrology_training:
 - observe
 - rtr
-astrology_use_full_pools: true # Helps maximize tool bonding rate
+astrology_use_full_pools: false # Helps maximize tool bonding rate when using max pools
 #############
 ### ;BUFF ###
 #############
@@ -576,28 +575,28 @@ combat_spell_training:
     name: Shift Moonbeam
     use_auto_mana: true
     symbiosis: true
-  Warding:
-    name: Ghost Shroud
-    mana: 21
-    cyclic: true
-    skill: Sorcery
+#  Warding:
+#    name: Ghost Shroud
+#    mana: 21
+#    cyclic: true
+#    skill: Sorcery
 
 #crossing_training_sorcery_room: 1645
 crossing_training_sorcery_room: 2784
 
 crossing_training_sorcery:
-  name: Ghost Shroud
-  abbrev: GHS
-  mana: 20
-  cyclic: true
+  #  name: Ghost Shroud
+  #  abbrev: GHS
+  # mana: 20
+  #cyclic: true
 
-cyclic_cycle_skills:
-  - Sorcery
+  #cyclic_cycle_skills:
+  # - Sorcery
 
-cyclic_training_spells:
-  Sorcery:
-    abbrev: GHS
-    cyclic: true
+  #cyclic_training_spells:
+  #Sorcery:
+  #  abbrev: GHS
+  #  cyclic: true
 
 #################
 ### APPRAISAL ###
@@ -681,6 +680,8 @@ custom_scrolls:
 - bright scroll
 - green scroll
 - pristine scroll
+- silver scroll # Stacker
+- smudged scroll # Stacker
 
 ######################
 ### INVASION-WATCH ###
@@ -702,7 +703,7 @@ textbook: true
 ###################
 
 coordinator_hunting_tasks:
-  - :file: drakes
+  - :file: cabalists
     :pause_sanowret: false
     :default: true
     :start_on:
@@ -721,6 +722,21 @@ coordinator_hunting_tasks:
         - Targeted Magic
         - Debilitation
         target: 5
+  - :file: back_weapons
+    :pause_sanowret: true
+    :start_on:
+      any_skill_under:
+        skills:
+        - Slings
+        - Small Edged
+        target: 1
+    :stop_on:
+      any_skill_under:
+        skills:
+        - Targeted Magic
+        - Debilitation
+        target: 5
+
 safe_room:
 
 coordinator_hunting_cleanup:

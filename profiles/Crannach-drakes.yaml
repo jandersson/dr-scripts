@@ -25,10 +25,10 @@ combat_spell_training:
   Sorcery:
     name: Demrris' Resolve
     use_auto_mana: true
-  Utility:
-    name: Shift Moonbeam
-    use_auto_mana: true
-    symbiosis: true
+#  Utility:
+#    name: Shift Moonbeam
+#    use_auto_mana: true
+#    symbiosis: true
 
 skip_last_kill: true
 
@@ -56,6 +56,11 @@ loot_subtractions:
   - shard
   - rock
   - rocks
+  - box
+  - skippet
+  - coffer
+  - chest
+  - caddy
 
 skinning:
   skin:          true
