@@ -294,7 +294,12 @@ class ScriptManager
   def start_scripts(force = false)
     @versions = nil
     repo_scripts.each { |(name, _)| get_script(name, force) }
-    custom_require.call(autostarts)
+    autostarts.each do |script|
+      custom_require.call(script)
+      begin
+        pause 0.2
+      end while !Script.running.find_all { |s| s.name =~ /bootstrap/ }.empty?
+    end
   end
 
   def queue_lich
@@ -528,7 +533,7 @@ class ScriptManager
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
     request = Net::HTTP::Post.new(uri.request_uri)
-    request.set_form_data(api_dev_key: @paste_bin_token, api_paste_code: message_body, api_paste_private: '0', api_option: 'paste')
+    request.set_form_data(api_dev_key: @paste_bin_token, api_paste_code: message_body, api_paste_private: '1', api_paste_expire_date: '1W', api_option: 'paste')
 
     response = http.request(request)
     result = response.body.chomp
@@ -542,13 +547,9 @@ class ScriptManager
   def submit_help_pastebin
     message_body = "Trusted Scripts: #{Script.list_trusted.uniq}"
     message_body += "\n"
-    message_body += Dir['./scripts/profiles/*.*'].join(',')
-    message_body += "\n"
-    message_body += Dir['./scripts/data/*.*'].join(',')
-    message_body += "\n"
     message_body += "Lich Version: #{LICH_VERSION}"
     message_body += "\n"
-    message_body += "Ruby Version: #{RUBY_VERSION}"
+    message_body += "Ruby Version: #{RUBY_VERSION}p#{RUBY_PATCHLEVEL} #{RUBY_PLATFORM}"
     message_body += "\n"
     message_body += "Dependency Version: #{$DEPENDENCY_VERSION}"
     message_body += "\n"
@@ -559,6 +560,12 @@ class ScriptManager
       message_body += "\n"
       message_body += File.read(path)
     end
+
+    message_body += "\n****\n" * 3
+    message_body += Dir['./scripts/profiles/*.*'].join(',')
+    message_body += "\n"
+    message_body += Dir['./scripts/data/*.*'].join(',')
+    message_body += "\n"
 
     submit_pastebin(message_body)
   end
@@ -877,6 +884,24 @@ class SetupFiles
                                        end
     end
 
+    s.crafting_training_spells
+     .each do |skill, data|
+      s.crafting_training_spells[skill] = if spells[data['name']]
+                                            spells[data['name']].merge(data)
+                                          elsif spells[data['abbrev']]
+                                            spells[data['abbrev']].merge(data)
+                                          else
+                                            data
+                                          end
+    end
+
+    s.lockpick_buffs['spells']
+     .each_with_index
+     .select do |spell, i|
+       spells.select { |_name, data| data['abbrev'].casecmp(spell['abbrev'].downcase).zero? }
+             .each_value { |data| s.lockpick_buffs['spells'][i] = data.merge(spell) }
+     end
+
     s.waggle_sets
      .select { |set_name, set_spells| set_spells.select { |spell_name, spell_data| spells[spell_name].each { s.waggle_sets[set_name][spell_name] = spells[spell_name].merge(spell_data) } } }
 
@@ -889,11 +914,20 @@ class SetupFiles
     s.safe_room ||= UserVars.safe_room
     s.safe_room_id ||= UserVars.safe_room_id
     s.safe_room_empath ||= UserVars.safe_room_empath
-    s.safe_room_empaths ||= UserVars.safe_room_empaths
+    s.safe_room_empaths += (UserVars.safe_room_empaths || [])
     s.slack_username ||= UserVars.slack_username
     s.bankbot_name ||= UserVars.bankbot_name
     s.bankbot_room_id ||= UserVars.bankbot_room_id
     s.prehunt_buffs ||= UserVars.prehunt_buffs
+
+    # Pull town-specific room_ids iff defined
+    s.safe_room = s.safe_room[s.hometown] if s.safe_room.is_a?(Hash) && s.safe_room[s.hometown]
+    s.compost_room = s.compost_room[s.hometown] if s.compost_room.is_a?(Hash) && s.compost_room[s.hometown]
+    s.lockpick_room_id = s.lockpick_room_id[s.hometown] if s.lockpick_room_id.is_a?(Hash) && s.lockpick_room_id[s.hometown]
+    s.engineering_room = s.engineering_room[s.hometown] if s.engineering_room.is_a?(Hash) && s.engineering_room[s.hometown]
+    s.outfitting_room = s.outfitting_room[s.hometown] if s.outfitting_room.is_a?(Hash) && s.outfitting_room[s.hometown]
+    s.alchemy_room = s.alchemy_room[s.hometown] if s.alchemy_room.is_a?(Hash) && s.alchemy_room[s.hometown]
+    s.crossing_training_sorcery_room = s.crossing_training_sorcery_room[s.hometown] if s.crossing_training_sorcery_room.is_a?(Hash) && s.crossing_training_sorcery_room[s.hometown]
 
     # Merge legacy appraisal settings into target appraisal settings
     unless s.appraisal_training.include?('pouches')
@@ -913,9 +947,10 @@ class SetupFiles
 
     s
   rescue => e
-    echo('*** ERROR MODIFYING DATA ***')
-    echo('*** Commonly this is malformed spell entries in your yaml file ***')
-    echo(e.message)
+    respond('*** ERROR MODIFYING DATA IN DEPENDENCY ***')
+    respond('*** Commonly this is malformed spell or loot entries in your yaml file ***')
+    respond(e.message)
+    e.backtrace.each { |msg| respond(msg) }
     @settings = {}
     @load = false
   end
@@ -1057,14 +1092,14 @@ end
 def custom_require
   lambda do |script_names|
     script_names = [script_names] unless script_names.is_a?(Array)
-    before = Script.running.find_all { |s| s.name =~ /bootstrap/ }.length
-    respond("CR:#{before}:#{script_names}") if UserVars.bootstrap_debug
-    force_start_script('bootstrap', script_names)
-    until before >= Script.running.find_all { |s| s.name =~ /bootstrap/ }.length
+    respond("CR - starting:#{script_names}") if UserVars.bootstrap_debug
+    bootstrapper = force_start_script('bootstrap', script_names)
+    pause 0.05
+    while Script.running.include?(bootstrapper)
+      respond("CR:waiting:#{script_names}") if UserVars.bootstrap_debug
       pause 0.05
-      respond("CR:waiting #{before}:#{script_names}") if UserVars.bootstrap_debug
     end
-    respond("CR:done #{before}:#{script_names}") if UserVars.bootstrap_debug
+    respond("CR:done:#{script_names}") if UserVars.bootstrap_debug
   end
 end
 

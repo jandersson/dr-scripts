@@ -1,0 +1,20 @@
+---
+hunting_info:
+- :zone:
+  - young_wyverns
+  - storm_bulls
+  args:
+  - d4
+  - main
+  :duration: 40
+  stop_on:
+  - Evasion
+  - Targeted Magic
+  - Debilitation
+
+manipulate_threshold: 2
+use_stealth_attacks: false
+dont_stalk: true
+weapon_training:
+  Brawling: ''
+offhand_thrown: true

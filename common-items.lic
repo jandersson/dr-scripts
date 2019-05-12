@@ -3,7 +3,7 @@
   Documentation: https://elanthipedia.play.net/Lich_script_development#common-items
 =end
 
-$TRASH_STORAGE = %w[bin gloop barrel bucket urn log arms stump]
+$TRASH_STORAGE = %w[bin gloop barrel bucket urn log arms stump tree]
 
 custom_require.call(%w[common common-travel])
 
@@ -28,6 +28,9 @@ module DRCI
                 /That will be (.*) copper (?:kronar|lirum|dokora)s? please/,
                 /to you for (.*) (?:kronar|lirum|dokora)s?/,
                 /I ask (.*) copper (?:kronar|lirum|dokora)s or if you would prefer/,
+                /Cost you just (.*) (?:kronar|lirum|dokora)s?, okie dokie\?/i,
+                /It will cost just (.*) (?:kronar|lirum|dokora)s?/i,
+                /I would suggest (.*) (?:kronar|lirum|dokora)s?/i,
                 'You decide to purchase',
                 'Buy what']
 
@@ -40,18 +43,6 @@ module DRCI
     fput("offer #{amount}") if amount
   end
 
-  def count_boxes(container = nil)
-    # The negative look ahead ignores the term 'boxes' which is output by the rummage /b command
-    box_nouns_re = /#{Regexp.union(get_data('items').box_nouns)}(?!es)/
-
-    if container
-      contents = DRC.bput("rummage /b #{container}", '^You rummage .*')
-      return contents.scan(box_nouns_re).size
-    else
-      return DRRoom.room_objs.count { |item| box_nouns_re =~ item }
-    end
-  end
-
   def order_item(room, item_number)
     DRCT.walk_to(room)
 
@@ -61,11 +52,9 @@ module DRCI
 
   def dispose(item, trash_room = nil)
     DRCT.walk_to(trash_room) unless trash_room.nil?
-    case DRC.bput("get my #{item}", 'You get', 'What were you', 'You pick up', 'You need a free hand')
+    case DRC.bput("get my #{item}", 'You get', 'What were you', 'You pick up')
     when 'You get', 'You pick up'
       dispose_trash(item)
-    when 'You need a free hand'
-      return
     end
   end
 
@@ -81,15 +70,17 @@ module DRCI
         trashcan = 'cauldron' if DRRoom.room_objs.include? 'small bubbling cauldron of viscous gloop'
       elsif trashcan == 'arms'
         trashcan = 'statue'
+      elsif trashcan == 'tree'
+        trashcan = 'hollow' if DRRoom.room_objs.include?('dead tree with a darkened hollow near its base')
+      elsif XMLData.room_title == '[[A Junk Yard]]'
+        trashcan = 'bin'
       end
 
-      if /^You (drop|put)/ =~ DRC.bput("put my #{item} in #{trashcan}", '^You drop', '^You put', "You're kidding, right", 'What were you referring to')
+      if /^You (drop|put)/ =~ DRC.bput("put my #{item} in #{trashcan}", '^You drop', '^You put', "You're kidding, right", 'What were you referring to', "You can't do that")
         return
       end
     end
     DRC.bput("drop my #{item}", 'You drop', 'What were you', 'You spread .* on the ground.')
-    fput('chant cantrip fling') if DRStats.moon_mage?
-    fput('dump junk')
   end
 
   def search?(item)
@@ -102,7 +93,7 @@ module DRCI
   end
 
   def inside?(description, container)
-    result = DRC.bput("tap my #{description} in my #{container}", 'You tap .*', 'I could not find', 'on the shoulder')
+    result = DRC.bput("tap my #{description} in my #{container}", 'You tap .*', 'atop your', 'I could not find', 'on the shoulder')
     result =~ /inside/
   end
 
@@ -139,7 +130,7 @@ module DRCI
   end
 
   def count_items(item)
-    /inside your (.*).|I could not find/ =~ DRC.bput("tap my #{item}", 'inside your (.*).', 'I could not find')
+    /inside your (.*).|I could not find/ =~ DRC.bput("tap my #{item}", 'inside your (.*).', 'atop your', 'I could not find')
     container = Regexp.last_match(1)
     return 0 if container.nil?
     count_items_in_container(item, container)
@@ -191,7 +182,7 @@ module DRCI
 
   def stow_hand(hand)
     braid_regex = /The braided (.+) is too long/
-    result = DRC.bput("stow #{hand}", 'You put', braid_regex, 'is too long', '^As you open your hand to release the')
+    result = DRC.bput("stow #{hand}", 'You put', braid_regex, 'is too long', '^As you open your hand to release the', 'You easily strap')
     dispose_trash(DRC.get_noun(Regexp.last_match(1))) if braid_regex.match(result)
   end
 

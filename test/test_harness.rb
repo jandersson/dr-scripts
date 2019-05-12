@@ -8,17 +8,19 @@ module Harness
       get?
     end
 
-    def Script.at_exit(&_block);end
+    def self.at_exit(&_block); end
   end
 
   class UpstreamHook
-    def self.add(*);end
-    def self.remove(*);end
+    def self.add(*); end
+
+    def self.remove(*); end
   end
 
   class DownstreamHook
-    def self.add(*);end
-    def self.remove(*);end
+    def self.add(*); end
+
+    def self.remove(*); end
   end
 
   def before_dying(&code)
@@ -114,6 +116,7 @@ module Harness
   end
 
   def waitrt?; end
+
   def waitcastrt?; end
 
   def get?
@@ -200,7 +203,7 @@ module Harness
         message = sent_messages.pop
         if $debug_message_assert
           puts message
-          puts "#{expected_messages}"
+          puts expected_messages.to_s
         end
         expected_messages.delete_at(expected_messages.index(message) || expected_messages.length)
         break if expected_messages.empty?
@@ -215,6 +218,6 @@ module Harness
     $threads.last.kill
 
     $debug_message_assert = false
-    assert_empty expected_messages, "Expected script to send messages"
+    assert_empty expected_messages, 'Expected script to send messages'
   end
 end

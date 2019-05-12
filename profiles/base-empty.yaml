@@ -25,8 +25,9 @@ empty_values:
   mining_buddy_vein_list: []
   training_manager_priority_skills: []
   forging_tools: []
-  knitting_tools: []
+  outfitting_tools: []
   shaping_tools: []
+  tinkering_tools: []
   carving_tools: []
   alchemy_tools: []
   aim_fillers_stealth: {}
@@ -35,6 +36,7 @@ empty_values:
   buff_nonspells: {}
   training_abilities: {}
   weapon_training: {}
+  priority_weapons: []
   charged_maneuvers: {}
   training_nonspells: {}
   training_spells: {}
@@ -49,6 +51,7 @@ empty_values:
   empty_hunting_room_messages: []
   classes_to_teach: []
   whirlwind_trainables: []
+  aiming_trainables: []
   astrology_training: []
   attunement_rooms: []
   restock: {}
@@ -56,3 +59,7 @@ empty_values:
   combat_spell_training: {}
   stealing_towns: []
   safe_room_empaths: []
+  crafting_training_spells: {}
+  restock_shop: {}
+  theurgy_supply_levels: {}
+  caravan_training_skills: {}

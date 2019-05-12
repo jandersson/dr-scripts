@@ -1,10 +1,13 @@
 ---
-# TODO (circle 40): Hodierna's Lilt (2), Naming of Tears (3)
 # TODO (100 sorcery): Sorcerous Patterns
 
 # Hunting settings
 training_manager_hunting_priority: true
 training_manager_priority_skills:
+# - Plate Armor
+# - Brigandine
+# - Chain Armor
+# - Light Armor
 - Brawling
 - Heavy Thrown
 - Large Blunt
@@ -19,17 +22,23 @@ training_manager_priority_skills:
 - Twohanded Edged
 - Twohanded Blunt
 hunting_info:
-- :zone: leucro2
-# - :zone: leucro1
+- :zone: cave_trolls
   :duration: 30
+  # args:
+  # - d1
+  # - r4
   before:
   - go2 705
   # - sorcery
   - first-aid
-  - study-art scholarship
+  # - study-art scholarship
   - athletics
   - release_cyclic
   stop_on:
+  # - Plate Armor
+  # - Brigandine
+  # - Chain Armor
+  # - Light Armor
   - Brawling
   - Heavy Thrown
   - Large Blunt
@@ -43,36 +52,12 @@ hunting_info:
   - Crossbow
   - Twohanded Edged
   - Twohanded Blunt
-prehunt_buffs: 
+prehunt_buffs:
 waggle_sets:
   prehunt_buffs:
+    Naming of Tears:
+      use_auto_mana: true
 hunting_buddies:
-- Bastile
-- Maoyu
-- Byd
-- Rakkor
-- Kaldean
-- Reverence
-- Aurayn
-- Jezzail
-- Zharen
-- Zharyn
-- Demeterus
-- Cresida
-- Remu
-- Wanz
-- Serature
-- Missah
-- Thorn
-- Elegoth
-- Abius
-- Sheltim
-- Lhind
-- Phoerne
-- Tamfell
-- Doruktin
-- Khalei
-- Pennerohn
 
 # Gear settings
 gear:
@@ -217,7 +202,9 @@ offensive_spells:
 - name: Demrris' Resolve
   use_auto_mana: true
 buff_spells:
-  Manifest Force:
+  # Manifest Force:
+  #   use_auto_mana: true
+  Naming of Tears:
     use_auto_mana: true
   Drums of the Snake:
     use_auto_mana: true
@@ -268,7 +255,7 @@ restock:
   bolt:
     quantity: 50
 use_weak_attacks: true
-priority_defense: Parry Ability
+# priority_defense: Parry Ability
 health_threshold: 80
 combat_spell_training:
   Augmentation:
@@ -280,7 +267,15 @@ combat_spell_training:
   Warding:
     abbrev: REPR
     use_auto_mana: true
-prep_scaling_factor: 0.90
+prep_scaling_factor: 0.85
+aiming_trainables:
+- Tactics
+- Brawling
+- Small Edged
+- Small Blunt
+- Light Thrown
+- Staves
+using_light_crossbow: true
 
 # Non-combat settings
 crossing_training:
@@ -288,11 +283,8 @@ crossing_training:
 - Forging
 - Engineering
 - Outfitting
-- First Aid
+# - First Aid
 # - Sorcery
-- Augmentation
-- Utility
-- Warding
 - Attunement
 - Appraisal
 - Athletics
@@ -301,13 +293,16 @@ crossing_training:
 - Mechanical Lore
 - Outdoorsmanship
 # - Alchemy
-training_spells:
+crafting_training_spells:
   Augmentation:
     abbrev: ECRY
+    use_auto_mana: true
   Utility:
     abbrev: AOT
+    use_auto_mana: true
   Warding:
     abbrev: REPR
+    use_auto_mana: true
 cyclic_training_spells:
   Augmentation:
     abbrev: FAE
@@ -325,17 +320,10 @@ cyclic_cycle_skills:
 favor_goal: 30
 favor_god: Faenella
 gem_pouch_adjective: suede
-train_workorders:
-- Blacksmithing
-- Shaping
-- Tailoring
-forging_belt:
-  name: forger belt
-  items:
-  - ball-peen hammer
-  - box-jaw tongs
-  - bellows
-  - wide shovel
+# train_workorders:
+# - Blacksmithing
+# - Shaping
+# - Tailoring
 forging_tools:
 - ball-peen hammer
 - box-jaw tongs
@@ -346,6 +334,8 @@ shaping_tools:
 - jagged shaper
 - sharpened drawknife
 - tapered rasp
+outfitting_tools:
+- knitting needles
 sell_loot_pouch: false
 spare_gem_pouch_container: bag
 use_harness_when_arcana_locked: true
@@ -372,6 +362,7 @@ outfitting_room:
 safe_room:
 safe_room_id:
 safe_room_empath:
+safe_room_empaths:
 slack_username:
 bankbot_name:
 bankbot_room_id:

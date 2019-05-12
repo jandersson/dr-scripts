@@ -1,0 +1,51 @@
+---
+hunting_info:
+- :zone: zombie_headsplitters
+  args:
+  - d4
+  - boxes
+  :duration: 60
+  boxes: true
+
+training_abilities:
+  App Quick: 60
+  Perc: 60
+  Hunt: 120
+
+offensive_spells:
+- skill: Targeted Magic
+  name: Paralysis
+  use_stealth: true
+  harmless: true
+  mana: 15
+  cambrinth:
+  - 15
+- skill: Debilitation
+  name: Lethargy
+  max_threshold: 2
+  use_stealth: true
+  harmless: true
+  mana: 15
+  cambrinth:
+  - 15
+offensive_spell_cycle:
+- Paralysis
+- Lethargy
+
+use_stealth_attacks: false
+dont_stalk: true
+use_weak_attacks: true
+manipulate_threshold:
+combat_spell_training:
+
+weapon_training:
+  Brawling: ''
+offhand_thrown: true
+
+loot_subtractions:
+- rock
+- rocks
+- arrow
+- arrows
+- bolt
+- bolts

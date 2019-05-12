@@ -115,6 +115,10 @@ class Bescort
         { name: 'mode', options: %w[exit enter], description: 'Where do you need to get to?' }
       ],
       [
+        { name: 'gate_of_souls', regex: /gate_of_souls/i, description: 'For crossing the Blasted Plain between the Gate of Souls and Temple of Ushnish' },
+        { name: 'mode', options: %w[exit blasted temple fangs], description: 'Where do you need to get to?' }
+      ],
+      [
         { name: 'segoltha', regex: /segoltha/i, description: 'The Segoltha south of the crossing' },
         { name: 'mode', options: %w[north south], description: 'Where do you need to get to?' }
       ],
@@ -182,6 +186,12 @@ class Bescort
       ],
       [
         { name: 'abyss', regex: /abyss/i, description: 'Use the Cleric entrance to the Abyss; requires Rezz' }
+      ],
+      [
+        { name: 'haven_throne', regex: /haven_throne/i, description: 'Ferry between Riverhaven and Throne City' }
+      ],
+      [
+        { name: 'hvaral_passport', regex: /hvaral_passport/i, description: 'Handles the gate between Hvaral and Muspari' }
       ]
     ]
 
@@ -197,6 +207,8 @@ class Bescort
       faldesu(args.mode)
     elsif args.zaulfang
       zaulfang(args.mode)
+    elsif args.gate_of_souls
+      gate_of_souls(args.mode)
     elsif args.segoltha
       segoltha(args.mode)
     elsif args.crocs
@@ -233,6 +245,10 @@ class Bescort
       use_shard_gates
     elsif args.thief_guild
       enter_thief_guild
+    elsif args.haven_throne
+      take_haven_throne_ferry
+    elsif args.hvaral_passport
+      hvaral_passport
     end
   end
 
@@ -533,7 +549,12 @@ class Bescort
     end
 
     if UserVars.athletics >= 140
+      unless UserVars.athletics >= 300
+        EquipmentManager.new.empty_hands
+        EquipmentManager.new.wear_equipment_set?('swimming')
+      end
       swim_faldesu(mode =~ /haven/i)
+      EquipmentManager.new.wear_equipment_set?('standard')
     else
       take_rh_ferry(mode =~ /haven/i)
     end
@@ -638,14 +659,14 @@ class Bescort
     case mode
     when 'aesry'
       manual_go2(12_862)
-      if wealth('Shard') < 10_000
+      if wealth('Shard') < DRStats.circle * 50
         echo('Get money you slob!')
-        return
+        return unless get_fare?(DRStats.circle * 50, 'Shard', 12_862)
       end
     when 'shard'
-      if wealth('Aesry') < 10_000
+      if wealth('Aesry') < DRStats.circle * 50
         echo('Get money you slob!')
-        return
+        return unless get_fare?(DRStats.circle * 50, 'Aesry', 12_942)
       end
       manual_go2(12_942)
     end
@@ -668,14 +689,14 @@ class Bescort
     case mode
     when 'mriss'
       manual_go2(8793)
-      if wealth('Therenborough') < 10_000
+      if wealth('Therenborough') < DRStats.circle * 50
         echo('Get money you slob!')
-        return
+        return unless get_fare?(DRStats.circle * 50, 'Therenborough', 8793)
       end
     when 'langenfirth'
-      if wealth("Mer'Kresh") < 10_000
+      if wealth("Mer'Kresh") < DRStats.circle * 50
         echo('Get money you slob!')
-        return
+        return unless get_fare?(DRStats.circle * 50, "Mer'Kresh", 8794)
       end
       manual_go2(8794)
     end
@@ -690,7 +711,7 @@ class Bescort
       end
     when /What were you referring to/
       waitfor 'JOIN GNOMISH BALLOON'
-      take_dirigible(mode)
+      take_balloon(mode)
     end
   end
 
@@ -713,7 +734,7 @@ class Bescort
   end
 
   def zaulfang(mode)
-    Flags.add('zfswamp-reset', 'The noxious swamp gas takes its toll on your mind, and your surroundings seem to shift as you grow immensely dizzy')
+    Flags.add('maze-reset', 'The noxious swamp gas takes its toll on your mind, and your surroundings seem to shift as you grow immensely dizzy')
     case mode
     when /enter/i
       unless Room.current.id == 8540
@@ -735,10 +756,11 @@ class Bescort
   end
 
   def wander_maze_until(target, exit_command)
+    Flags.add('maze-reset', 'You can\'t go there')
     current_room = MazeRoom.new
     loop do
-      if Flags['zfswamp-reset']
-        Flags.reset('zfswamp-reset')
+      if Flags['maze-reset']
+        Flags.reset('maze-reset')
         result = bput('look', 'Obvious paths:.*').split(':').last.split(', ').first.delete('.')
         move(result)
         pause
@@ -754,6 +776,87 @@ class Bescort
       end
       current_room = current_room.wander
     end
+  end
+
+  def gate_of_souls(mode)
+    Flags.add('maze-reset', 'Plumes of lava belch into the air, sending molten rock spraying about')
+    case mode
+    when /blasted/i
+      unless Room.current.id == 1784
+        echo('Must start at Gate of Souls, room number 1784')
+        exit
+      end
+      gos_blasted_plains
+      find_room_maze
+    when /temple/i
+      unless Room.current.id == 1784
+        echo('Must start at Gate of Souls, room number 1784')
+        exit
+      end
+      gos_blasted_plains
+      wander_maze_until('golden sandstone temple', 'go temple')
+      manual_go2(13_625)
+      find_room_list(%w[sw e e e se s sw w w w w nw n ne se s ne se n ne w nw])
+    when /fangs/i
+      unless Room.current.id == 1784
+        echo('Must start at Gate of Souls, room number 1784')
+        exit
+      end
+      gos_blasted_plains
+      wander_maze_until('golden sandstone temple', 'go temple')
+      manual_go2(13_643)
+      move('climb cliff')
+      find_room_maze
+    when /exit/i
+      if XMLData.room_title.include?('The Fangs of Ushnish')
+        wander_maze_until('steep cliff', 'climb cliff')
+        gos_temple_leave
+      end
+      gos_temple_leave if XMLData.room_title.include?('Temple of Ushnish')
+      gos_plains_leave if XMLData.room_title.include?('Blasted Plain')
+      gos_tunnel if XMLData.room_title.include?('Before the Gate of Souls')
+    end
+  end
+
+  def gos_blasted_plains
+    push_boulder unless DRRoom.room_objs.include?('low tunnel')
+    retreat
+    gos_tunnel
+    move('go field')
+  end
+
+  def push_boulder
+    fix_standing
+    fput('push boulder')
+    case waitfor(/^At the bottom of the hollow/, /^You stop pushing/, /blocking all access to a low tunnel\.$/)
+    when /^You stop pushing/, /blocking all access to a low tunnel\.$/
+      push_boulder
+    end
+  end
+
+  def gos_tunnel
+    bput('kneel', 'You kneel down upon the ground', 'You are already kneeling')
+    case bput('go tunnel', /^Wriggling on your stomach/, /^You are engaged/, /^What were you referring to/)
+    when /^You are engaged/
+      retreat
+      gos_tunnel
+    when /^What were you referring to/
+      push_boulder
+      gos_tunnel
+    end
+    waitfor /^After a seemingly interminable length of time/
+    fix_standing
+  end
+
+  def gos_temple_leave
+    manual_go2(13_159)
+    move('go field')
+    gos_plains_leave
+  end
+
+  def gos_plains_leave
+    wander_maze_until('low cavern', 'go cavern')
+    gos_tunnel
   end
 
   def segoltha(mode)
@@ -802,7 +905,7 @@ class Bescort
       end
     else
       loop do
-        if bput('study reed', 'Study what?', 'You see nothing unusual', 'could not find', 'but see nothing special.') == 'but see nothing special.'
+        if bput('study reed', 'Study what?', 'You see nothing unusual', 'could not find', 'but see nothing special.', 'You study the sky') == 'but see nothing special.'
           move('go reed')
           break
         end
@@ -1034,10 +1137,12 @@ class Bescort
   def ride_gondola(mode)
     case bput('go gondola', 'There is no wooden gondola here', 'Gondola, Cab')
     when /no wooden gondola here/i
+      hide?
       waitfor 'The gondola stops on the platform and the door silently swings open'
       ride_gondola(mode)
     when /Gondola, Cab/
       move mode
+      hide?
       waitfor 'With a soft bump, the gondola comes to a stop at its destination'
       move 'out'
     end
@@ -1051,7 +1156,7 @@ class Bescort
 
     if UserVars.citizenship != 'Zoluren' && wealth('Crossing') < 35
       echo('Get money you slob!')
-      return
+      return unless Room.current.id == 1904 ? get_fare?(35, 'Leth Deriel', 1904) : get_fare?(70, 'Crossing', 957)
     end
 
     hide? unless DRRoom.room_objs.find { |x| x =~ /the ferry/ }
@@ -1079,7 +1184,7 @@ class Bescort
 
     if wealth('Shard') < 31
       echo('Get money you slob!')
-      return
+      return unless Room.current.id == 3986 ? get_fare?(62, 'Hibarnhvidar', 3986) : false
     end
 
     hide? unless DRRoom.room_objs.find { |x| x =~ /Damaris. Kiss|Evening Star/ }
@@ -1108,7 +1213,8 @@ class Bescort
 
     if wealth('Riverhaven') < 300
       echo('Get money you slob!')
-      return
+      room = Room.current.id
+      return unless room == 3434 ? get_fare?(300, 'Therenborough', room) : get_fare?(300, 'Riverhaven', room)
     end
 
     hide? unless DRRoom.room_objs.find { |x| x =~ /the barge/ }
@@ -1132,6 +1238,89 @@ class Bescort
     end
   end
 
+  def take_haven_throne_ferry
+    unless [452, 3084].include?(Room.current.id)
+      echo 'You are not at the ferry docks'
+      return
+    end
+
+    if wealth('Riverhaven') < 300
+      echo('Get money you slob!')
+      return unless Room.current.id == 452 ? get_fare?(300, 'Riverhaven', 452) : get_fare?(300, 'Throne City', 3084)
+    end
+
+    if DRRoom.room_objs.find { |x| x =~ /the barge Imperial Glory/ }
+      case bput('go glory', "One of the barge's crew members stops you and requests a transportation fee of 120 Lirums as you board the craft", 'You hand him', 'What were you referring to', "You can't do that", 'Come back when you can afford the fare')
+      when 'You hand him', "One of the barge's crew members stops you and requests a transportation fee of 120 Lirums as you board the craft"
+        hide?
+        waitfor 'pulls into dock and its crew quickly ties the barge off'
+
+        if DRRoom.room_objs.find { |x| x =~ /covered stone dock|salt yard dock/ }
+          move 'go dock'
+        end
+      when /What were you referring to/, /You can't do that/
+        hide? unless DRRoom.room_objs.find { |x| x =~ /the barge Imperial Glory|the barge Riverhawk/ }
+        echo('Waiting for a barge to show up... ')
+        hide?
+        waitfor 'A barge pulls into the dock'
+        take_haven_throne_ferry
+      when 'Come back when you can afford the fare'
+        echo('Your fare has mysteriously disappeared!')
+        return
+      end
+    elsif DRRoom.room_objs.find { |x| x =~ /the barge Riverhawk/ }
+      case bput('go riverhawk', "One of the barge's crew members stops you and requests a transportation fee of 120 Lirums as you board the craft", 'You hand him', 'What were you referring to', "You can't do that", 'Come back when you can afford the fare')
+      when 'You hand him', "One of the barge's crew members stops you and requests a transportation fee of 120 Lirums as you board the craft"
+        hide?
+        waitfor 'pulls into dock and its crew quickly ties the barge off'
+
+        if DRRoom.room_objs.find { |x| x =~ /covered stone dock|salt yard dock/ }
+          move 'go dock'
+        end
+      when /What were you referring to/, /You can't do that/
+        hide? unless DRRoom.room_objs.find { |x| x =~ /the barge Imperial Glory|the barge Riverhawk/ }
+        echo('Waiting for a barge to show up... ')
+        hide?
+        waitfor 'A barge pulls into the dock'
+        take_haven_throne_ferry
+      when 'Come back when you can afford the fare'
+        echo('Your fare has mysteriously disappeared!')
+        return
+      end
+    else
+      hide? unless DRRoom.room_objs.find { |x| x =~ /the barge Imperial Glory|the barge Riverhawk/ }
+      echo('Waiting for a barge to show up... ')
+      hide?
+      waitfor 'A barge pulls into the dock'
+      take_haven_throne_ferry
+    end
+  end
+
+  def hvaral_passport
+    case bput('get my passport', 'Realizing your passport has expired', 'You get', 'You are already', 'What were you', 'You pick up')
+    when 'Realizing your passport has expired', 'What were you'
+      manual_go2(3632)
+      Flags.add('bescort-dustroad', 'Just when it seems you will never reach')
+      move 'e'
+      pause 1 until Flags['bescort-dustroad']
+      Flags.reset('bescort-dustroad')
+      pause 2
+      manual_go2(3147)
+      bput('ask licenser about passport', 'The licenser takes', 'Having a passport will allow')
+      bput('ask licenser about passport', 'The licenser takes', 'Having a passport will allow')
+      bput('stow passport', 'You put')
+      manual_go2(3631)
+      move 'w'
+      pause 1 until Flags['bescort-dustroad']
+      pause 2
+      Flags.delete('bescort-dustroad')
+      manual_go2(3698)
+      bput('get my passport', 'Realizing your passport has expired', 'You get', 'You are already', 'What were you', 'You pick up')
+    end
+    move 'go gate'
+    bput('stow passport', 'You put')
+  end
+
   def enter_thief_guild
     password = get_settings.shard_thief_password
     bput('knock', 'You knock on the door')
@@ -1140,17 +1329,61 @@ class Bescort
   end
 
   def use_shard_gates
-    unless [2640, 2658, 2807, 2525, 6452, 2516].include?(Room.current.id)
+    gate_rooms = [2640, 2658, 2807, 2525, 6452, 2516]
+    unless gate_rooms.include?(Room.current.id)
       echo 'You are not at the Shard gates'
       return
     end
-
+    Flags.add('bescort-ur-a-criminal', 'a wanted criminal')
     case bput('go gate', 'You pass', 'KNOCK', 'errant shadow')
     when 'KNOCK'
+      if Flags['bescort-ur-a-criminal']
+        # HACK: This turns off gate access until you log out. A better solution is desired
+        Room.current.timeto[Room.current.timeto.keys.find { |room| gate_rooms.to_s.include?(room) }] = nil
+        return
+      end
       release_invisibility
       bput('knock gate', 'You knock')
     end
   end
+
+  def get_fare?(amount, town, room)
+    return false unless get_settings.bescort_fare_handling
+    settings = get_settings
+    town_data = get_data('town')
+    echo 'GETTING MONEY, YOU SLOB.'
+    echo "Heading to #{town} for public transportation fare"
+    pause 1
+    manual_go2(get_data('town')[town]['deposit']['id'])
+    bput('JUSTICE', 'After assessing', 'lawless and unsafe')
+    result = reget(5, 'You are also fairly sure that the people are convinced')
+    if result
+      echo 'You might be a necromancer!  Get some money manually!'
+      return false
+    end
+    settings.hometown = town
+    succeeded = false
+    DRCM.minimize_coins(amount).each { |each_amount| succeeded = DRCM.get_money_from_bank(each_amount, settings) }
+    echo "Put some fare money in the #{town} bank!" unless succeeded
+    manual_go2(room)
+    succeeded
+  end
+
+  def hide?
+    return false if get_settings.bescort_hide == false
+    DRC.hide?
+  end
+end
+
+before_dying do
+  Flags.delete('bescort-ur-a-criminal')
+  Flags.delete('bescort-dustroad')
+  Flags.delete('maze-reset')
+  Flags.delete('rope_wait')
+  Flags.delete('harness-check')
+  Flags.delete('pattern-shift')
+  Flags.delete('gate-failure')
+  Flags.delete('ap-danger')
 end
 
 Bescort.new

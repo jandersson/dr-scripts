@@ -3,7 +3,7 @@
   Documentation: https://elanthipedia.play.net/Lich_script_development#common-arcana
 =end
 
-custom_require.call(%w[common common-travel events spellmonitor drinfomon])
+custom_require.call(%w[common events spellmonitor drinfomon])
 
 $MANA_MAP = {
   'weak' => %w[dim glowing bright],
@@ -48,15 +48,24 @@ module DRCA
       end
   end
 
-  def activate_khri?(kneel, ability)
+  def activate_khri?(settings_kneel, ability)
     return false if DRSpells.active_spells[ability]
-    DRCT.retreat if kneel
+    kneel = kneel_for_khri?(settings_kneel, ability)
+    DRC.retreat if kneel
     DRC.bput('kneel', 'You kneel', 'You are already', 'You rise') if kneel && !kneeling?
     result = DRC.bput(ability, get_data('spells').khri_preps)
     waitrt?
     DRC.fix_standing
 
     ['Your body is willing', 'You have not recovered'].include?(result)
+  end
+
+  def kneel_for_khri?(kneel, ability)
+    if kneel.is_a? Array
+      kneel.map(&:downcase).include? ability.downcase.sub('khri ', '')
+    else
+      kneel
+    end
   end
 
   def start_barb_abilities(skills, _settings)
@@ -73,7 +82,7 @@ module DRCA
     ability_data = get_data('spells').barb_abilities[name]
     case DRC.bput(ability_data['start_command'], ability_data['activated_message'], 'But you are already', 'Your inner fire lacks', 'find yourself lacking the inner fire', 'You should stand', 'You must be sitting')
     when 'You must be sitting'
-      DRCT.retreat
+      DRC.retreat
       DRC.bput('sit', 'You sit', 'You are already', 'You rise')
       activate_barb_buff(name)
     when 'You should stand'
@@ -102,7 +111,7 @@ module DRCA
   end
 
   def ritual(spell, ignored_npcs)
-    DRCT.retreat(ignored_npcs) unless spell['skip_retreat']
+    DRC.retreat(ignored_npcs) unless spell['skip_retreat']
     DRC.release_invisibility
     DRC.bput('stance set 100 0 80', 'Setting your')
 
@@ -111,11 +120,11 @@ module DRCA
 
     invoke(spell['focus'], nil, nil)
     stow_focus(spell['focus'], spell['worn_focus'], spell['tied_focus'])
-    DRCT.retreat(ignored_npcs) unless spell['skip_retreat']
+    DRC.retreat(ignored_npcs) unless spell['skip_retreat']
 
     waitcastrt?
     return unless cast?(spell['cast'], spell['symbiosis'], spell['before'], spell['after'])
-    DRCT.retreat(ignored_npcs) unless spell['skip_retreat']
+    DRC.retreat(ignored_npcs) unless spell['skip_retreat']
   end
 
   def cast?(cast_command = 'cast', symbiosis = false, before = [], after = [])
@@ -123,6 +132,7 @@ module DRCA
 
     Flags.add('spell-fail', 'Currently lacking the skill to complete the pattern', 'backfires', 'Something is interfering with the spell')
     Flags.add('cyclic-too-recent', 'The mental strain of initiating a cyclic spell so recently prevents you from formulating the spell pattern')
+    Flags.add('spell-full-prep', /^This pattern may only be cast with full preparation/)
 
     case DRC.bput(cast_command || 'cast', get_data('spells').cast_messages)
     when /^Your target pattern dissipates/, /^You can't cast that at yourself/, /^You need to specify a body part to consume/
@@ -133,8 +143,9 @@ module DRCA
     end
     waitrt?
 
-    if Flags['cyclic-too-recent']
+    if Flags['cyclic-too-recent'] || Flags['spell-full-prep']
       pause 1
+      Flags.delete('spell-full-prep')
       return cast?(cast_command, symbiosis, [], after)
     end
 
@@ -176,7 +187,7 @@ module DRCA
     elsif tied
       case DRC.bput("tie my #{focus} to my #{tied}", 'You attach', '[Y|y]ou tie', 'You are a little too busy to be worrying')
       when 'You are a little too busy to be worrying'
-        DRCT.retreat
+        DRC.retreat
         stow_focus(focus, worn, tied)
       end
     else
@@ -188,7 +199,7 @@ module DRCA
     if stored_cambrinth
       DRC.bput("get my #{cambrinth}", 'You get')
     elsif DRSkill.getrank('Arcana').to_i < cambrinth_cap * 2 + 100
-      DRC.bput("remove my #{cambrinth}", 'You remove', 'You slide', 'You sling', 'You take')
+      DRC.bput("remove my #{cambrinth}", 'You remove', 'You slide', 'You sling', 'You take', 'You detach')
     end
   end
 
@@ -235,6 +246,34 @@ module DRCA
       .each { |abbrev| fput("release #{abbrev}") }
   end
 
+  def parse_regalia # generates an array of currently-worn regalia armor nouns
+    return unless DRStats.trader?
+    DRC.bput('inv armor', 'Type INVENTORY HELP for more options')
+    snapshot = reget(40)
+    if snapshot.grep(/All of your armor|You aren't wearing anything like that/).any? && snapshot.grep(/Type INVENTORY HELP/).any?
+      snapshot
+        .map(&:strip)
+        .reverse
+        .take_while { |item| !['All of your armor:', "You aren't wearing anything like that."].include?(item) }
+        .drop_while { |item| item != '[Type INVENTORY HELP for more options]' }
+        .drop(1)
+        .select { |item| item.include?('rough-cut crystal') || item.include?('faceted crystal') || item.include?('resplendent crystal') }
+        .map { |item| DRC.get_noun(item) }
+    else
+      parse_regalia
+    end
+  end
+
+  def shatter_regalia?(worn_regalia = nil) # takes an array of armor nouns to remove or gets its own from parse_regalia
+    return false unless DRStats.trader?
+    worn_regalia ||= parse_regalia
+    return false if worn_regalia.empty?
+    worn_regalia.each do |item|
+      DRC.bput("remove my #{item}", 'into motes of silvery', 'Remove what?', "You .*#{item}")
+    end
+    true
+  end
+
   def parse_mana_message(mana_msg)
     manalevels = if mana_msg.include? 'weak'
                    $MANA_MAP['weak']
@@ -276,15 +315,20 @@ module DRCA
 
   def perc_aura
     return unless DRStats.trader?
-    
+
     starlight_messages = [
       'The smallest hint of starlight flickers within your aura',
       'A bare flicker of starlight plays within your aura',
-      'A faint amount of starlight illuminates your aura'
+      'A faint amount of starlight illuminates your aura',
+      'Your aura pulses slowly with starlight',
+      'A steady pulse of starlight runs through your aura',
+      'Starlight dances vividly across the confines of your aura',
+      'Strong pulses of starlight flare within your aura',
+      'Your aura seethes with brilliant starlight'
     ]
     Flags.add('aura-level', Regexp.union(starlight_messages))
     Flags.add('aura-capped?', 'Your aura contains as much starlight as you can safely handle')
-    Flags.add('aura-growing?', 'Local conditions permit optimal growth of your aura')
+    Flags.add('aura-growing?', 'Local conditions permit optimal growth of your aura', 'Local conditions are hindering the growth of your aura')
     aura = {}
     DRC.bput('perceive aura', 'Roundtime')
     aura['level'] = Flags['aura-level'] ? starlight_messages.index(Flags['aura-level'].first) : 0
@@ -439,7 +483,7 @@ module DRCA
     discern_data = UserVars.discerns[data['abbrev']] || {}
     if data['symbiosis']
       if discern_data.empty? || discern_data['min'].nil?
-        DRCT.retreat
+        DRC.retreat
         /requires at minimum (\d+) mana streams/ =~ DRC.bput("discern #{data['abbrev']}", 'requires at minimum \d+ mana streams')
         discern_data['mana'] = Regexp.last_match(1).to_i
         discern_data['cambrinth'] = nil
@@ -449,7 +493,7 @@ module DRCA
       calculate_mana(discern_data['min'], discern_data['more'], discern_data, false, settings)
     elsif discern_data.empty? || discern_data['time_stamp'].nil? || Time.now - discern_data['time_stamp'] > 24 * 60 * 60 || !discern_data['more'].nil?
       discern_data['time_stamp'] = Time.now
-      DRCT.retreat
+      DRC.retreat
       case discern = DRC.bput("discern #{data['abbrev']}", 'The spell requires at minimum \d+ mana streams and you think you can reinforce it with \d+ more', 'You don\'t think you are able to cast this spell', 'You have no idea how to cast that spell')
       when /you don't think you are able/i, 'You have no idea how to cast that spell'
         discern_data['mana'] = 1
@@ -509,9 +553,64 @@ module DRCA
 
   def check_to_harness(should_harness)
     return false unless should_harness
-    return false if DRSkill.getxp('Attunement') >= DRSkill.getxp('Arcana')
-    return false if DRSkill.getxp('Attunement') >= 30
-
+    return false if DRSkill.getxp('Attunement') > DRSkill.getxp('Arcana')
     true
+  end
+
+  def crafting_cast_spell(data, settings)
+    return unless data
+    return unless settings
+
+    unless settings.cambrinth_items[0]['name']
+      settings.cambrinth_items = [{
+        'name' => settings.cambrinth,
+        'cap' => settings.cambrinth_cap,
+        'stored' => settings.stored_cambrinth
+      }]
+    end
+    if check_to_harness(settings.use_harness_when_arcana_locked)
+      harness_mana(data['cambrinth'].flatten)
+    else
+      settings.cambrinth_items.each_with_index do |item, index|
+        case data['cambrinth'].first
+        when Array
+          find_charge_invoke_stow(item['name'], item['stored'], item['cap'], settings.dedicated_camb_use, data['cambrinth'][index], settings.cambrinth_invoke_exact_amount)
+        when Fixnum, Integer
+          find_charge_invoke_stow(item['name'], item['stored'], item['cap'], settings.dedicated_camb_use, data['cambrinth'], settings.cambrinth_invoke_exact_amount)
+        end
+      end
+    end
+
+    cast?(data['cast'], data['symbiosis'], data['before'], data['after'])
+  end
+
+  def crafting_prepare_spell(data, settings)
+    return unless data
+    return unless settings
+
+    release_cyclics if data['cyclic']
+    DRC.bput('release spell', 'You let your concentration lapse', "You aren't preparing a spell") unless checkprep == 'None'
+    DRC.bput('release mana', 'You release all', "You aren't harnessing any mana")
+
+    if data['moon']
+      check_moonwatch
+      moon = UserVars.moons['visible'].first
+      unless moon
+        weather ||= bput('weather', 'inside', 'You glance up at the sky.')
+        if weather =~ /inside/
+          echo "*** You're inside and there are no available moons. You're going to have a hard time casting #{data['abbrev']}"
+        end
+
+        unless moon = UserVars.moons['visible'].first
+          return
+        end
+        data['cast'] = "cast #{moon}"
+      end
+    end
+
+    command = 'prep'
+    command = data['prep'] if data['prep']
+    command = data['prep_type'] if data['prep_type']
+    prepare?(data['abbrev'], data['mana'], data['symbiosis'], command)
   end
 end

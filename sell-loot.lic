@@ -27,12 +27,16 @@ class SellLoot
     @bankbot_enabled = @settings.bankbot_enabled
     @local_currency = town_data[@character_hometown]['currency']
     skip_bank = @settings.sell_loot_skip_bank
+    skip_exchange = @settings.sell_loot_skip_exchange
     keep_money_by_currency = @settings.sell_loot_money_on_hand
 
     sell_gems("#{@settings.gem_pouch_adjective} pouch") if @settings.sell_loot_pouch
     check_spare_pouch(@settings.spare_gem_pouch_container, @settings.gem_pouch_adjective) if @settings.spare_gem_pouch_container
 
     sell_bundle if @settings.sell_loot_bundle
+
+    return if skip_bank && !@bankbot_enabled
+    return if @bankbot_enabled && (@bankbot_name.nil? || @bankbot_room_id.nil?)
 
     keep_coppers_bank = parse(keep_money_by_currency.split(' '))
 
@@ -43,7 +47,7 @@ class SellLoot
       return
     end
 
-    exchange_coins
+    exchange_coins unless skip_exchange
     if @bankbot_enabled
       give_money_to_bankbot(@local_currency, @bankbot_deposit_threshold)
     else
@@ -69,8 +73,6 @@ class SellLoot
   end
 
   def exchange_coins
-    return if @skip_bank
-
     walk_to @hometown['exchange']['id']
     release_invisibility
     exchange_to = @hometown['currency']
@@ -80,24 +82,18 @@ class SellLoot
   end
 
   def deposit_coins(keep_copper)
-    return if @skip_bank
-
     walk_to @hometown['deposit']['id']
     release_invisibility
     bput('wealth', 'Wealth:')
-    case bput('deposit all', 'you drop all your', 'You hand the clerk some coins', "You don't have any", 'There is no teller here', 'reached the maximum balance I can permit', "We don't serve necromancers or sorcerers here.")
+    case bput('deposit all', 'you drop all your', 'drop your coins inside', 'You hand the clerk some coins', "You don't have any", 'There is no teller here', 'reached the maximum balance I can permit', "We don't serve necromancers or sorcerers here.")
     when 'There is no teller here', "We don't serve necromancers or sorcerers here."
       return
     end
     minimize_coins(keep_copper).each { |amount| withdraw_exact_amount?(amount, @settings) }
-    bput('check balance', 'your current balance is')
+    bput('check balance', 'your current balance is', 'As expected, there are')
   end
 
   def give_money_to_bankbot(currency, keep)
-    return unless @bankbot_enabled
-    return unless @bankbot_name
-    return unless @bankbot_room_id
-
     copper_on_hand = check_wealth(currency)
     deposit_amount = copper_on_hand - keep
     return if deposit_amount <= 0
@@ -174,6 +170,12 @@ class SellLoot
 
     fput "close my #{container}"
   end
+end
+
+before_dying do
+  Flags.delete('tip-accepted')
+  Flags.delete('tip-declined')
+  Flags.delete('tip-expired')
 end
 
 SellLoot.new

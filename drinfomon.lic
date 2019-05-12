@@ -197,6 +197,23 @@ class DRStats
     @@mana = val
   end
 
+  def self.native_mana
+    case DRStats.guild
+    when 'Necromancer'
+      'arcane'
+    when 'Barbarian', 'Thief'
+      nil
+    when 'Moon Mage', 'Trader'
+      'lunar'
+    when 'Warrior Mage', 'Bard'
+      'elemental'
+    when 'Cleric', 'Paladin'
+      'holy'
+    when 'Empath', 'Ranger'
+      'life'
+    end
+  end
+
   def self.fatigue
     @@fatigue
   end
@@ -276,7 +293,7 @@ class DRSkill
   @@start_time ||= Time.now
   @@list ||= []
   attr_reader :name, :rank, :exp, :percent, :current, :baseline
-  attr_writer :rank, :exp, :percent, :current
+  attr_writer :rank, :exp, :percent, :current, :baseline
   def initialize(name, rank, exp, percent)
     # UserVars.athletics = ra.to_i if name == 'Athletics'
     @name = name
@@ -286,6 +303,12 @@ class DRSkill
     @baseline = rank.to_i + (percent.to_i / 100.0)
     @current = rank.to_i + (percent.to_i / 100.0)
     @@list.push(self) unless @@list.find { |skill| skill.name == @name }
+  end
+
+  def self.reset
+    @@gained_skills = []
+    @@start_time = Time.now
+    @@list.each { |skill| skill.baseline = skill.current }
   end
 
   def self.start_time
@@ -336,6 +359,7 @@ class DRSkill
 
   def self.getxp(val)
     ary = @@list.collect(&:name)
+    return 34 if getrank(val) == 1750
     if i = ary.index(val)
       return @@list[i].exp.to_i
     end
@@ -714,7 +738,7 @@ end
 
 while line = script.gets
   begin
-    if line =~ /Log-on system converted \d+% of your character/
+    if line =~ /^\* Log-on system converted \d+% of your character/
       put('exp all')
     elsif line =~ /^#{$lich_char}banks$/
       if CharSettings['bank_accounts'].empty?
@@ -769,7 +793,7 @@ while line = script.gets
         end
     elsif line =~ /^Circle: (\d+)/
       DRStats.circle = Regexp.last_match(1).to_i
-    elsif line =~ /(?<=You're\s)(?<balance>\w*\s*\w+)(?=\s\w*(balance))/
+    elsif line =~ /(completely|hopelessly|extremely|very badly|badly|somewhat off|off|slightly off|solidly|nimbly|adeptly|incredibly) balanced?/
       balance_map = ['completely', 'hopelessly', 'extremely', 'very badly', 'badly', 'somewhat off', 'off', 'slightly off', 'solidly', 'nimbly', 'adeptly', 'incredibly']
       DRStats.balance = balance_map.index(Regexp.last_match(1).strip)
     elsif line =~ /^Name:\s+.+Race:\s+(.+)\s+Guild:\s+(.+)/

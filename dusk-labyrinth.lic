@@ -2,7 +2,7 @@
   Documentation: https://elanthipedia.play.net/Lich_script_repository#dusk-labyrinth
 =end
 
-custom_require.call %w[common common-items]
+custom_require.call %w[common common-items events]
 
 class DuskLab
   include DRC
@@ -93,6 +93,14 @@ class DuskLab
   def done?
     XMLData.room_title == '[[Duskruin, Darkened Antichamber]]' || Flags['done']
   end
+end
+
+before_dying do
+  Flags.delete('five-minute-warning')
+  Flags.delete('done')
+  Flags.delete('no-monkey')
+  Flags.delete('monkey')
+  Flags.delete('caught')
 end
 
 DuskLab.new

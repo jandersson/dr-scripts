@@ -2,7 +2,7 @@
   Documentation: https://elanthipedia.play.net/Lich_script_repository#carve
 =end
 
-custom_require.call(%w[common common-arcana events common-crafting])
+custom_require.call(%w[common common-arcana events common-crafting drinfomon])
 
 class Carve
   include DRC
@@ -42,7 +42,7 @@ class Carve
                  end
 
     wait_for_script_to_complete('buff', ['carve'])
-    Flags.add('carve-assembly', 'another finished wooden (hilt|haft)', 'another finished (long|short) wooden (pole)')
+    Flags.add('carve-assembly', 'another finished wooden (hilt|haft)', 'another finished (long|short) wooden (pole)', 'another finished (long|short) leather (cord)')
     Flags.add('carve-magic-ready', 'You feel fully prepared to cast your spell.')
 
     carve_item
@@ -57,12 +57,19 @@ class Carve
   end
 
   def turn_to(section)
+    unless section
+      echo('Failed to find recipe in book, buy a better book?')
+      stow_item('book')
+      magic_cleanup
+      exit
+    end
     bput("turn my book to #{section}", 'You turn your', 'The book is already')
   end
 
   def carve_item
     magic_routine
     get_item('carving book')
+    echo('*** You will need to upgrade to a journeyman or master book before 176 ranks! ***') if DRSkill.getrank('Engineering') == 175
     turn_to("chapter #{@chapter}")
     turn_to("page #{find_recipe(@chapter, @recipe_name)}")
     bput('study my book', 'Roundtime')
@@ -136,7 +143,7 @@ class Carve
   end
 
   def magic_routine
-    return unless @training_spells
+    return if @training_spells.empty?
 
     needs_training = %w[Warding Utility Augmentation]
                      .select { |skill| @training_spells[skill] }
@@ -146,7 +153,7 @@ class Carve
 
     data = @training_spells[needs_training]
 
-    if Flags['carve-magic-ready'].include?('You feel fully prepared to cast your spell.') && mana > 40
+    if Flags['carve-magic-ready'] && mana > 40
       crafting_cast_spell(data, @settings)
       Flags.reset('carve-magic-ready')
       @preparing = false
@@ -158,11 +165,11 @@ class Carve
   end
 
   def magic_cleanup
-    return unless @training_spells
+    return if @training_spells.empty?
 
     bput('release spell', 'You let your concentration lapse', "You aren't preparing a spell")
     bput('release mana', 'You release all', "You aren't harnessing any mana")
-    Flags.delete('carve-magic-ready')
+    bput('release symb', "But you haven't", 'You release', 'Repeat this command')
   end
 
   def finish
@@ -176,8 +183,14 @@ class Carve
     end
     waitrt?
     magic_cleanup
+    fput "get #{@noun}" unless left_hand =~ /#{@noun}/i || right_hand =~ /#{@noun}/i
     exit
   end
+end
+
+before_dying do
+  Flags.delete('carve-assembly')
+  Flags.delete('carve-magic-ready')
 end
 
 Carve.new

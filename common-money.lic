@@ -86,7 +86,7 @@ module DRCM
         currency = hometown_currency(settings.hometown)
         case DRC.bput("whisper #{settings.bankbot_name} withdraw #{amount} #{currency}", 'offers you', 'Whisper what to who?')
         when 'offers you'
-          DRC.bput('accept tip', 'You accept')
+          DRC.bput('accept tip', 'Your current balance is')
         end
       else
         get_money_from_bank(amount_as_string, settings)
@@ -100,12 +100,14 @@ module DRCM
     DRCT.walk_to(get_data('town')[settings.hometown]['deposit']['id'])
     DRC.release_invisibility
     loop do
-      case DRC.bput("withdraw #{amount_as_string}", 'The clerk counts', 'The clerk tells', 'The clerk glares at you.', 'You count out', 'find a new deposit jar', 'If you value your hands', 'Hey!  Slow down!', "You must be at a bank teller's window to withdraw money", "You don't have that much money")
+      case DRC.bput("withdraw #{amount_as_string}", 'The clerk counts', 'The clerk tells', 'The clerk glares at you.', 'You count out', 'find a new deposit jar', 'If you value your hands', 'Hey!  Slow down!', "You must be at a bank teller's window to withdraw money", "You don't have that much money", 'have an account')
       when 'The clerk counts', 'You count out'
         break true
       when 'The clerk glares at you.', 'Hey!  Slow down!'
         pause 15
-      when 'The clerk tells', 'If you value your hands', 'find a new deposit jar', "You must be at a bank teller's window to withdraw money", "You don't have that much money", 'You do not have an account'
+      when 'The clerk tells', 'If you value your hands', 'find a new deposit jar', "You must be at a bank teller's window to withdraw money", "You don't have that much money", 'have an account'
+        break false
+      else
         break false
       end
     end
@@ -128,5 +130,26 @@ module DRCM
     end
     minimize_coins(keep_copper).each { |amount| withdraw_exact_amount?(amount, settings) }
     DRC.bput('check balance', 'your current balance is')
+  end
+
+  def town_currency(town)
+    get_data('town')[town]['currency']
+  end
+
+  def get_money_from_specific_bank?(amount_as_string, town)
+    DRCT.walk_to(get_data('town')[town]['deposit']['id'])
+    DRC.release_invisibility
+    loop do
+      case DRC.bput("withdraw #{amount_as_string}", 'The clerk counts', 'The clerk tells', 'The clerk glares at you.', 'You count out', 'find a new deposit jar', 'If you value your hands', 'Hey!  Slow down!', "You must be at a bank teller's window to withdraw money", "You don't have that much money", 'have an account')
+      when 'The clerk counts', 'You count out'
+        break true
+      when 'The clerk glares at you.', 'Hey!  Slow down!'
+        pause 15
+      when 'The clerk tells', 'If you value your hands', 'find a new deposit jar', "You must be at a bank teller's window to withdraw money", "You don't have that much money", 'have an account'
+        break false
+      else
+        break false
+      end
+    end
   end
 end

@@ -18,8 +18,7 @@ training_manager_priority_skills:
 - Offhand Weapon
 - Staves
 hunting_info:
-# - :zone: dire_bears
-- :zone: leucro2
+- :zone: cave_trolls
   :duration: 30
   before:
   - go2 705
@@ -48,8 +47,8 @@ waggle_sets:
       use_auto_mana: true
     Divine Armor:
       use_auto_mana: true
-    Manifest Force:
-      use_auto_mana: true
+    # Manifest Force:
+    #   use_auto_mana: true
 hunting_buddies:
 - Bastile
 - Maoyu
@@ -68,15 +67,14 @@ hunting_buddies:
 - Serature
 - Missah
 - Thorn
-- Elegoth
-- Abius
+- Remigius
+- Hhshikath
+- Heji
+- Woodsey
+- Soeadu
+- Skrattik
 - Sheltim
-- Lhind
-- Phoerne
-- Tamfell
-- Doruktin
 - Khalei
-- Raddalaf
 
 gear:
 - :adjective: quilted
@@ -241,7 +239,7 @@ loot_subtractions:
 - crate
 - box
 use_weak_attacks: true
-priority_defense: Shield Usage
+# priority_defense: Shield Usage
 health_threshold: 70
 restock:
   bolt:
@@ -258,21 +256,29 @@ combat_spell_training:
     use_auto_mana: true
 paladin_use_badge: true
 prep_scaling_factor: 0.85
+aiming_trainables:
+- Tactics
+- Brawling
+- Small Edged
+- Small Blunt
+- Light Thrown
+- Staves
+using_light_crossbow: true
 
-training_spells:
-  Augmentation:
-    abbrev: HES
-  Utility:
-    abbrev: VOS
-  Warding:
-    abbrev: AA
+# crafting_training_spells:
+#   Augmentation:
+#     abbrev: HES
+#     use_auto_mana: true
+#   Utility:
+#     abbrev: VOS
+#     use_auto_mana: true
+#   Warding:
+#     abbrev: AA
+#     use_auto_mana: true
 crossing_training:
 - Perception
 - First Aid
 - Appraisal
-- Warding
-- Augmentation
-- Utility
 # - Sorcery
 - Athletics
 - Scholarship
@@ -285,6 +291,8 @@ spare_gem_pouch_container: bag
 favor_god: Chadatru
 favor_goal: 30
 pray_to_chadatru: true
+textbook: true
+textbook_type: guide
 
 quit_on_status_warning: true
 braid_item: grass
@@ -302,6 +310,7 @@ outfitting_room:
 safe_room:
 safe_room_id:
 safe_room_empath:
+safe_room_empaths:
 slack_username:
 bankbot_name:
 bankbot_room_id:

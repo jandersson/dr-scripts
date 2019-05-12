@@ -23,10 +23,10 @@ class Sorcery
 
     3.times do
       break if DRSkill.getxp('Sorcery') >= 30
-      break if mana < 40
 
       walk_to(@settings.crossing_training_sorcery_room)
 
+      pause 5 while mana <= 50
       if sorcery_spell.is_a?(Hash)
         cast_spell(sorcery_spell, @settings, @settings.crossing_training_force_cambrinth)
       else

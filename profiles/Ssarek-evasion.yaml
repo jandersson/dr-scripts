@@ -1,4 +1,21 @@
 ---
+hunting_info:
+- :zone:
+  - young_wyverns
+  - storm_bulls
+  args:
+  - d4
+  - evasion
+  :duration: 10
+  stop_on:
+  - Evasion
+
+dance_actions:
+- circle
+- bob
+- weave
+
+stance_override: 100 43 43
 skip_last_kill: true
 manipulate_threshold:
 training_abilities:

@@ -107,7 +107,7 @@ class Mine
 
   def get_mining_tool
     if @forging_belt['items'].grep(/shovel/i).any?
-      bput("untie my #{@mining_implement}", 'You remove')
+      bput("untie my #{@mining_implement}", 'You remove', 'You untie')
     else
       bput("get my #{@mining_implement}", 'You get', 'You are already')
     end
@@ -139,6 +139,12 @@ class Mine
     @use_packet = settings.mine_use_packet
     @ignored_rock_sizes = settings.mining_ignored_stone_sizes
   end
+end
+
+before_dying do
+  Flags.delete('mine-danger')
+  Flags.delete('mine-exit')
+  Flags.delete('resource-level')
 end
 
 Mine.new

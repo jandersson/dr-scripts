@@ -9,11 +9,11 @@
   trivial_max: 1750
   acceptable_max: 2
   acceptable_min: 0
-  nearly_max: 41
+  nearly_max: 39
   nearly_min: 4
   poorly_max: 3
   poorly_min: 3
-  trivial_min: 42
+  trivial_min: 40
 - town: Crossing
   item: candle mold
   item_in: on table
@@ -82,6 +82,8 @@
   acceptable_max: 170
   vpoorly_max: 341
   vpoorly_min: 332
+  trivial_max: 1750
+  trivial_min: 860
 - town: Crossing
   item: dracon crystals
   item_in: in barrel
@@ -108,13 +110,13 @@
   acceptable_max: 276
   rather_max: 184
   rather_min: 170
-  vpoorly_min: 454
+  vpoorly_min: 408
   vpoorly_max: 484
   exceptionally_max: 141
   exceptionally_min: 141
   trivial_max: 1750
   trivial_min: 485
-  poorly_max: 405
+  poorly_max: 407
   poorly_min: 387
 - town: Crossing
   item: large cauldron
@@ -122,7 +124,7 @@
   room: 19076
   pawnable: false
   id: '8'
-  acceptable_min: 462
+  acceptable_min: 416
   acceptable_max: 643
   exceptionally_max: 240
   exceptionally_min: 200
@@ -160,6 +162,8 @@
   acceptable_max: 697
   poorly_max: 700
   poorly_min: 698
+  vpoorly_max: 971
+  vpoorly_min: 860
 - town: Crossing
   item: acid-stained toolbox
   item_in: on counter
@@ -168,10 +172,12 @@
   id: '11'
   acceptable_min: 1053
   acceptable_max: 2000
-  exceptionally_max: 700
+  exceptionally_max: 873
   exceptionally_min: 693
   rather_max: 1052
   rather_min: 971
+  very_max: 874
+  very_min: 874
 - town: Crossing
   item: rose
   item_in: in catalog
@@ -180,7 +186,7 @@
   id: '12'
   acceptable_min: 9
   acceptable_max: 14
-  trivial_min: 52
+  trivial_min: 40
   trivial_max: 1750
   exceptionally_max: 6
   exceptionally_min: 6
@@ -221,7 +227,7 @@
   pawnable: false
   id: '14'
   acceptable_min: 185
-  acceptable_max: 287
+  acceptable_max: 288
   exceptionally_max: 152
   exceptionally_min: 100
   very_max: 167
@@ -231,7 +237,7 @@
   trivial_max: 1750
   trivial_min: 485
   vpoorly_max: 473
-  vpoorly_min: 461
+  vpoorly_min: 408
 - town: Crossing
   item: pick
   item_in: in catalog
@@ -240,20 +246,20 @@
   id: '15'
   acceptable_min: 17
   acceptable_max: 29
-  trivial_min: 64
+  trivial_min: 40
   trivial_max: 1750
   exceptionally_max: 13
   exceptionally_min: 10
   rather_max: 16
   rather_min: 15
   very_max: 14
-  very_min: 14
+  very_min: 13
   poorly_min: 30
   poorly_max: 36
-  vpoorly_max: 47
+  vpoorly_max: 39
   vpoorly_min: 37
-  nearly_max: 63
-  nearly_min: 48
+  nearly_max: 39
+  nearly_min: 39
 - town: Crossing
   item: rag
   item_in: in catalog
@@ -275,7 +281,7 @@
   pawnable: false
   id: '17'
   acceptable_min: 101
-  acceptable_max: 175
+  acceptable_max: 176
   very_min: 91
   very_max: 91
   rather_max: 100
@@ -298,6 +304,8 @@
   vpoorly_min: 287
   poorly_max: 286
   poorly_min: 234
+  trivial_max: 1750
+  trivial_min: 860
 - town: Crossing
   item: whistle
   item_in: in catalog
@@ -308,6 +316,8 @@
   acceptable_max: 176
   poorly_max: 189
   poorly_min: 189
+  trivial_max: 1750
+  trivial_min: 860
 - town: Crossing
   item: bodhran
   item_in: in catalog
@@ -350,6 +360,8 @@
   id: '22'
   acceptable_min: 180
   acceptable_max: 180
+  trivial_max: 1750
+  trivial_min: 860
 - town: Crossing
   item: lyre
   item_in: in catalog
@@ -370,15 +382,17 @@
   id: '24'
   acceptable_min: 190
   acceptable_max: 403
-  poorly_max: 421
+  poorly_max: 422
   poorly_min: 404
+  trivial_max: 1750
+  trivial_min: 860
 - town: Crossing
   item: kit
   item_in: in catalog
   room: 19078
   pawnable: false
   id: '25'
-  acceptable_min: 469
+  acceptable_min: 423
   acceptable_max: 603
   poorly_max: 603
   poorly_min: 492
@@ -394,10 +408,12 @@
   room: 19078
   pawnable: false
   id: '26'
-  acceptable_min: 410
-  acceptable_max: 410
+  acceptable_min: 407
+  acceptable_max: 409
   vpoorly_max: 434
-  vpoorly_min: 411
+  vpoorly_min: 408
+  trivial_max: 1750
+  trivial_min: 860
 - town: Crossing
   item: case of silver
   item_in: in catalog
@@ -410,7 +426,7 @@
   rather_min: 429
   poorly_max: 996
   poorly_min: 813
-  vpoorly_max: 1133
+  vpoorly_max: 1174
   vpoorly_min: 997
 - town: Crossing
   item: drum pouch
@@ -418,10 +434,10 @@
   room: 19078
   pawnable: false
   id: '28'
-  acceptable_min: 411
-  acceptable_max: 411
+  acceptable_min: 410
+  acceptable_max: 410
   poorly_max: 434
-  poorly_min: 412
+  poorly_min: 411
   trivial_max: 1750
   trivial_min: 700
 - town: Crossing
@@ -430,10 +446,10 @@
   room: 19078
   pawnable: false
   id: '29'
-  acceptable_min: 413
-  acceptable_max: 413
+  acceptable_min: 410
+  acceptable_max: 410
   trivial_max: 1750
-  trivial_min: 414
+  trivial_min: 411
 - town: Crossing
   item: grey-brown feather
   item_in: in catalog
@@ -442,7 +458,7 @@
   id: '30'
   acceptable_min: 12
   acceptable_max: 21
-  trivial_min: 57
+  trivial_min: 40
   trivial_max: 1750
   exceptionally_max: 9
   exceptionally_min: 6
@@ -450,11 +466,11 @@
   rather_min: 11
   very_max: 10
   very_min: 10
-  poorly_max: 52
+  poorly_max: 39
   poorly_min: 21
-  vpoorly_max: 52
+  vpoorly_max: 39
   vpoorly_min: 26
-  nearly_max: 57
+  nearly_max: 39
   nearly_min: 34
 - town: Crossing
   item: sage
@@ -485,7 +501,7 @@
   poorly_max: 117
   poorly_min: 105
   rather_max: 58
-  rather_min: 57
+  rather_min: 56
   very_max: 49
   very_min: 49
 - town: Crossing
@@ -554,7 +570,7 @@
   id: '37'
   acceptable_min: 191
   acceptable_max: 403
-  poorly_max: 493
+  poorly_max: 495
   poorly_min: 404
   very_max: 190
   very_min: 190
@@ -614,10 +630,10 @@
   rather_min: 371
   poorly_max: 904
   poorly_min: 738
-  vpoorly_max: 1073
+  vpoorly_max: 1074
   vpoorly_min: 905
   trivial_max: 1750
-  trivial_min: 1090
+  trivial_min: 1075
 - town: Crossing
   item: bowtie
   item_in: in catalog
@@ -688,7 +704,7 @@
   acceptable_max: 409
   exceptionally_max: 183
   exceptionally_min: 150
-  poorly_max: 490
+  poorly_max: 503
   poorly_min: 410
   very_max: 189
   very_min: 189
@@ -705,19 +721,19 @@
   pawnable: false
   id: '46'
   acceptable_min: 251
-  acceptable_max: 287
+  acceptable_max: 413
   exceptionally_max: 207
   exceptionally_min: 189
   very_max: 227
   very_min: 208
   rather_max: 250
   rather_min: 228
-  poorly_max: 529
+  poorly_max: 554
   poorly_min: 469
   trivial_max: 1750
   trivial_min: 659
   vpoorly_max: 658
-  vpoorly_min: 603
+  vpoorly_min: 555
 - town: Crossing
   item: trousers
   item_in: in catalog
@@ -727,8 +743,8 @@
   acceptable_min: 189
   acceptable_max: 335
   vpoorly_max: 434
-  vpoorly_min: 416
-  poorly_max: 410
+  vpoorly_min: 413
+  poorly_max: 412
   poorly_min: 336
   trivial_max: 1750
   trivial_min: 659
@@ -754,10 +770,10 @@
   id: '49'
   acceptable_min: 434
   acceptable_max: 592
-  poorly_max: 662
+  poorly_max: 727
   poorly_min: 593
   vpoorly_max: 863
-  vpoorly_min: 800
+  vpoorly_min: 728
   trivial_max: 1750
   trivial_min: 864
 - town: Crossing
@@ -767,13 +783,13 @@
   pawnable: false
   id: '50'
   acceptable_min: 434
-  acceptable_max: 592
+  acceptable_max: 555
   vpoorly_max: 662
   vpoorly_min: 662
   poorly_max: 593
-  poorly_min: 593
+  poorly_min: 555
   trivial_max: 1750
-  trivial_min: 864
+  trivial_min: 860
 - town: Crossing
   item: capote
   item_in: in catalog
@@ -785,7 +801,7 @@
   poorly_max: 665
   poorly_min: 593
   trivial_max: 1750
-  trivial_min: 864
+  trivial_min: 860
 - town: Crossing
   item: tabard
   item_in: in catalog
@@ -799,7 +815,7 @@
   poorly_max: 593
   poorly_min: 593
   trivial_max: 1750
-  trivial_min: 864
+  trivial_min: 860
 - town: Crossing
   item: tail coat
   item_in: in catalog
@@ -811,9 +827,9 @@
   poorly_max: 700
   poorly_min: 633
   vpoorly_max: 921
-  vpoorly_min: 864
+  vpoorly_min: 860
   trivial_max: 1750
-  trivial_min: 924
+  trivial_min: 922
 - town: Crossing
   item: waistcoat
   item_in: in catalog
@@ -825,17 +841,17 @@
   poorly_max: 666
   poorly_min: 633
   trivial_max: 1750
-  trivial_min: 940
+  trivial_min: 860
 - town: Crossing
   item: beret
   item_in: in catalog
   room: 19376
   pawnable: false
   id: '55'
-  acceptable_min: 449
-  acceptable_max: 449
+  acceptable_min: 440
+  acceptable_max: 440
   trivial_max: 1750
-  trivial_min: 450
+  trivial_min: 441
 - town: Crossing
   item: calotte
   item_in: in catalog
@@ -961,7 +977,7 @@
   exceptionally_max: 200
   exceptionally_min: 170
   poorly_min: 435
-  poorly_max: 517
+  poorly_max: 533
   trivial_max: 1750
   trivial_min: 634
   vpoorly_max: 633
@@ -1013,7 +1029,9 @@
   exceptionally_max: 189
   exceptionally_min: 189
   trivial_max: 1750
-  trivial_min: 1102
+  trivial_min: 860
+  vpoorly_max: 534
+  vpoorly_min: 534
 - town: Crossing
   item: flared skirt
   item_in: in catalog
@@ -1034,10 +1052,10 @@
   id: '72'
   acceptable_min: 434
   acceptable_max: 755
-  poorly_max: 563
+  poorly_max: 567
   poorly_min: 563
   trivial_max: 1750
-  trivial_min: 1102
+  trivial_min: 860
   vpoorly_max: 775
   vpoorly_min: 756
 - town: Crossing
@@ -1075,8 +1093,8 @@
   acceptable_min: 434
   acceptable_max: 756
   trivial_max: 1750
-  trivial_min: 1103
-  vpoorly_max: 776
+  trivial_min: 861
+  vpoorly_max: 860
   vpoorly_min: 757
 - town: Crossing
   item: cloak
@@ -1087,11 +1105,11 @@
   acceptable_min: 188
   acceptable_max: 338
   vpoorly_max: 434
-  vpoorly_min: 432
-  poorly_max: 405
+  vpoorly_min: 416
+  poorly_max: 415
   poorly_min: 339
   trivial_max: 1750
-  trivial_min: 1106
+  trivial_min: 860
 - town: Crossing
   item: hooded cloak
   item_in: in catalog
@@ -1103,7 +1121,9 @@
   poorly_max: 469
   poorly_min: 432
   trivial_max: 1750
-  trivial_min: 1106
+  trivial_min: 860
+  vpoorly_max: 534
+  vpoorly_min: 534
 - town: Crossing
   item: jacket
   item_in: in catalog
@@ -1123,8 +1143,8 @@
   acceptable_min: 466
   acceptable_max: 757
   trivial_max: 1750
-  trivial_min: 1104
-  poorly_max: 787
+  trivial_min: 1102
+  poorly_max: 894
   poorly_min: 758
 - town: Crossing
   item: shawl
@@ -1155,32 +1175,40 @@
   room: 19386
   pawnable: false
   id: '83'
-  acceptable_min: 3000
-  acceptable_max: 3000
+  acceptable_min: 355
+  acceptable_max: 355
+  trivial_max: 1750
+  trivial_min: 356
 - town: Crossing
   item: straw hat
   item_in: in catalog
   room: 19386
   pawnable: false
   id: '84'
-  acceptable_min: 4000
-  acceptable_max: 4000
+  acceptable_min: 355
+  acceptable_max: 355
+  trivial_max: 1750
+  trivial_min: 356
 - town: Crossing
   item: leather belt
   item_in: in catalog
   room: 19386
   pawnable: false
   id: '85'
-  acceptable_min: 4000
-  acceptable_max: 4000
+  acceptable_min: 355
+  acceptable_max: 355
+  trivial_max: 1750
+  trivial_min: 356
 - town: Crossing
   item: gloves
   item_in: in catalog
   room: 19386
   pawnable: false
   id: '86'
-  acceptable_min: 4000
-  acceptable_max: 4000
+  acceptable_min: 355
+  acceptable_max: 355
+  trivial_max: 1750
+  trivial_min: 356
 - town: Crossing
   item: hair bow
   item_in: in catalog
@@ -1523,9 +1551,9 @@
   id: '113'
   acceptable_min: 12
   acceptable_max: 20
-  trivial_min: 57
+  trivial_min: 40
   trivial_max: 1750
-  nearly_max: 56
+  nearly_max: 39
   nearly_min: 34
   vpoorly_max: 33
   vpoorly_min: 26
@@ -1599,10 +1627,12 @@
   room: 8265
   pawnable: false
   id: '118'
-  acceptable_min: 90
+  acceptable_min: 56
   acceptable_max: 90
   trivial_max: 1750
   trivial_min: 150
+  rather_max: 48
+  rather_min: 48
 - town: Crossing
   item: razor
   item_in: in catalog
@@ -1624,16 +1654,16 @@
   pawnable: false
   id: '120'
   acceptable_min: 171
-  acceptable_max: 311
-  poorly_max: 381
-  poorly_min: 312
+  acceptable_max: 233
+  poorly_max: 233
+  poorly_min: 233
   very_max: 150
   very_min: 150
   rather_max: 170
   rather_min: 160
-  vpoorly_max: 453
-  vpoorly_min: 382
-  trivial_min: 454
+  vpoorly_max: 233
+  vpoorly_min: 233
+  trivial_min: 234
   trivial_max: 1750
 - town: Crossing
   item: backpack
@@ -1645,9 +1675,9 @@
   acceptable_max: 365
   very_max: 170
   very_min: 170
-  poorly_max: 405
+  poorly_max: 448
   poorly_min: 366
-  vpoorly_min: 454
+  vpoorly_min: 449
   vpoorly_max: 532
   trivial_max: 1750
   trivial_min: 533
@@ -1657,14 +1687,14 @@
   room: 8265
   pawnable: false
   id: '122'
-  acceptable_min: 464
+  acceptable_min: 462
   acceptable_max: 698
   poorly_max: 856
   poorly_min: 698
-  vpoorly_max: 969
+  vpoorly_max: 1016
   vpoorly_min: 857
   trivial_max: 1750
-  trivial_min: 1022
+  trivial_min: 1017
 - town: Crossing
   item: ice pick
   item_in: in catalog
@@ -1683,30 +1713,30 @@
   room: 8265
   pawnable: false
   id: '124'
-  acceptable_min: 410
-  acceptable_max: 410
+  acceptable_min: 401
+  acceptable_max: 406
   trivial_max: 1750
-  trivial_min: 411
+  trivial_min: 402
 - town: Crossing
   item: acanth bark
   item_in: in catalog
   room: 8265
   pawnable: false
   id: '125'
-  acceptable_min: 411
-  acceptable_max: 411
+  acceptable_min: 402
+  acceptable_max: 407
   trivial_max: 1750
-  trivial_min: 412
+  trivial_min: 403
 - town: Crossing
   item: taffelberries
   item_in: in catalog
   room: 8265
   pawnable: false
   id: '126'
-  acceptable_min: 449
-  acceptable_max: 449
+  acceptable_min: 440
+  acceptable_max: 440
   trivial_max: 1750
-  trivial_min: 450
+  trivial_min: 441
 - town: Crossing
   item: woven handkerchief
   item_in: in catalog
@@ -1723,26 +1753,30 @@
   room: 8265
   pawnable: false
   id: '128'
-  acceptable_min: 450
-  acceptable_max: 450
+  acceptable_min: 441
+  acceptable_max: 441
   trivial_max: 1750
-  trivial_min: 451
+  trivial_min: 442
 - town: Crossing
   item: flint
   item_in: in catalog
   room: 8265
   pawnable: false
   id: '129'
-  acceptable_min: 4000
-  acceptable_max: 4000
+  acceptable_min: 354
+  acceptable_max: 354
+  trivial_max: 1750
+  trivial_min: 355
 - town: Crossing
   item: charcoal
   item_in: in catalog
   room: 8265
   pawnable: false
   id: '130'
-  acceptable_min: 4000
-  acceptable_max: 4000
+  acceptable_min: 354
+  acceptable_max: 354
+  trivial_max: 1750
+  trivial_min: 355
 - town: Crossing
   item: hairbrush
   item_in: in catalog
@@ -1812,7 +1846,7 @@
   pawnable: false
   id: '135'
   acceptable_min: 152
-  acceptable_max: 249
+  acceptable_max: 250
   poorly_max: 334
   poorly_min: 276
   rather_max: 151
@@ -1836,7 +1870,7 @@
   poorly_max: 415
   poorly_min: 367
   vpoorly_max: 493
-  vpoorly_min: 443
+  vpoorly_min: 416
   trivial_max: 1750
   trivial_min: 494
 - town: Crossing
@@ -2017,8 +2051,10 @@
   acceptable_max: 949
   very_max: 466
   very_min: 466
-  poorly_max: 1133
+  poorly_max: 1165
   poorly_min: 950
+  vpoorly_max: 1174
+  vpoorly_min: 1166
 - town: Crossing
   item: knuckles
   item_in: on bench
@@ -2026,23 +2062,29 @@
   pawnable: false
   id: '150'
   acceptable_min: 293
-  acceptable_max: 2000
+  acceptable_max: 673
+  trivial_max: 1750
+  trivial_min: 674
 - town: Crossing
   item: spikes
   item_in: on bench
   room: 8263
   pawnable: false
   id: '151'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 673
+  trivial_max: 1750
+  trivial_min: 674
 - town: Crossing
   item: stick
   item_in: on bench
   room: 8263
   pawnable: false
   id: '152'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 877
+  poorly_max: 878
+  poorly_min: 878
 - town: Crossing
   item: pike
   item_in: in bin
@@ -2060,33 +2102,43 @@
   pawnable: false
   id: '154'
   acceptable_min: 466
-  acceptable_max: 2000
+  acceptable_max: 673
+  vpoorly_max: 860
+  vpoorly_min: 860
+  poorly_max: 674
+  poorly_min: 674
 - town: Crossing
   item: quarterstaff
   item_in: in bin
   room: 8263
   pawnable: false
   id: '155'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 673
+  trivial_max: 1750
+  trivial_min: 674
 - town: Crossing
   item: claymore
   item_in: on rack
   room: 8263
   pawnable: false
   id: '156'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 1166
   very_max: 466
   very_min: 466
+  vpoorly_max: 1167
+  vpoorly_min: 1157
 - town: Crossing
   item: greathammer
   item_in: on rack
   room: 8263
   pawnable: false
   id: '157'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 859
+  poorly_max: 860
+  poorly_min: 860
 - town: Crossing
   item: greataxe
   item_in: on rack
@@ -2101,8 +2153,10 @@
   room: 8263
   pawnable: false
   id: '159'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 1166
+  trivial_max: 1750
+  trivial_min: 1157
 - town: Crossing
   item: halberd
   item_in: on rack
@@ -2117,8 +2171,10 @@
   room: 8263
   pawnable: false
   id: '161'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 1166
+  trivial_max: 1750
+  trivial_min: 1157
 - town: Crossing
   item: flail
   item_in: on rack
@@ -2205,7 +2261,7 @@
   pawnable: false
   id: '167'
   acceptable_min: 170
-  acceptable_max: 175
+  acceptable_max: 176
   exceptionally_max: 139
   exceptionally_min: 125
   rather_max: 169
@@ -2260,7 +2316,7 @@
   room: 7904
   pawnable: false
   id: '171'
-  acceptable_min: 930
+  acceptable_min: 857
   acceptable_max: 2000
 - town: Crossing
   item: kite shield
@@ -2268,17 +2324,21 @@
   room: 7904
   pawnable: false
   id: '172'
-  acceptable_min: 700
+  acceptable_min: 635
   acceptable_max: 2000
-  exceptionally_max: 470
+  exceptionally_max: 526
   exceptionally_min: 470
+  very_max: 575
+  very_min: 527
+  rather_max: 634
+  rather_min: 576
 - town: Crossing
   item: oval shield
   item_in: on hooks
   room: 7904
   pawnable: false
   id: '173'
-  acceptable_min: 529
+  acceptable_min: 527
   acceptable_max: 2000
   rather_max: 470
   rather_min: 470
@@ -2300,10 +2360,12 @@
   room: 7904
   pawnable: false
   id: '175'
-  acceptable_min: 2000
+  acceptable_min: 1158
   acceptable_max: 2000
   exceptionally_max: 865
   exceptionally_min: 728
+  very_max: 1167
+  very_min: 1157
 - town: Crossing
   item: rugged greaves
   item_in: in box
@@ -2311,18 +2373,18 @@
   pawnable: false
   id: '176'
   acceptable_min: 401
-  acceptable_max: 431
-  poorly_max: 434
-  poorly_min: 432
+  acceptable_max: 422
+  poorly_max: 518
+  poorly_min: 423
   vpoorly_max: 529
-  vpoorly_min: 529
+  vpoorly_min: 519
 - town: Crossing
   item: chain vambraces
   item_in: on rack
   room: 7904
   pawnable: false
   id: '177'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 4000
 - town: Crossing
   item: chain tasset
@@ -2330,15 +2392,17 @@
   room: 7904
   pawnable: false
   id: '178'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 1166
+  trivial_max: 1750
+  trivial_min: 1157
 - town: Crossing
   item: chain shirt
   item_in: on rack
   room: 7904
   pawnable: false
   id: '179'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
 - town: Crossing
   item: chain hauberk
@@ -2346,7 +2410,7 @@
   room: 7904
   pawnable: false
   id: '180'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
 - town: Crossing
   item: chain greaves
@@ -2354,7 +2418,7 @@
   room: 7904
   pawnable: false
   id: '181'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
   poorly_max: 549
   poorly_min: 549
@@ -2364,7 +2428,7 @@
   room: 7904
   pawnable: false
   id: '182'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
 - town: Crossing
   item: scale balaclava
@@ -2372,7 +2436,7 @@
   room: 7904
   pawnable: false
   id: '183'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
 - town: Crossing
   item: scale aventail
@@ -2380,7 +2444,7 @@
   room: 7904
   pawnable: false
   id: '184'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
 - town: Crossing
   item: scale vambraces
@@ -2388,7 +2452,7 @@
   room: 7904
   pawnable: false
   id: '185'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
 - town: Crossing
   item: scale tasset
@@ -2396,7 +2460,7 @@
   room: 7904
   pawnable: false
   id: '186'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
 - town: Crossing
   item: scale shirt
@@ -2412,7 +2476,7 @@
   room: 7904
   pawnable: false
   id: '188'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
 - town: Crossing
   item: scale hauberk
@@ -2420,7 +2484,7 @@
   room: 7904
   pawnable: false
   id: '189'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
 - town: Crossing
   item: bascinet
@@ -2430,17 +2494,19 @@
   id: '190'
   acceptable_min: 465
   acceptable_max: 465
-  poorly_max: 529
+  poorly_max: 559
   poorly_min: 466
   exceptionally_max: 189
   exceptionally_min: 189
+  vpoorly_max: 560
+  vpoorly_min: 560
 - town: Crossing
   item: plate aventail
   item_in: on knight
   room: 7904
   pawnable: false
   id: '191'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
 - town: Crossing
   item: plate vambraces
@@ -2448,17 +2514,17 @@
   room: 7904
   pawnable: false
   id: '192'
-  acceptable_min: 863
-  acceptable_max: 863
+  acceptable_min: 860
+  acceptable_max: 860
   vpoorly_max: 865
-  vpoorly_min: 864
+  vpoorly_min: 861
 - town: Crossing
   item: plate greaves
   item_in: on knight
   room: 7904
   pawnable: false
   id: '193'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
 - town: Crossing
   item: full plate
@@ -2466,15 +2532,17 @@
   room: 7904
   pawnable: false
   id: '194'
-  acceptable_min: 2000
+  acceptable_min: 860
   acceptable_max: 2000
+  exceptionally_max: 859
+  exceptionally_min: 859
 - town: Crossing
   item: metal armet
   item_in: on knight
   room: 7904
   pawnable: false
   id: '195'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
   poorly_max: 641
   poorly_min: 641
@@ -2485,28 +2553,28 @@
   pawnable: false
   id: '196'
   acceptable_min: 466
-  acceptable_max: 833
+  acceptable_max: 755
   poorly_max: 865
-  poorly_min: 827
+  poorly_min: 756
 - town: Crossing
   item: scraping reed
   item_in: on counter
   room: 19241
   pawnable: false
   id: '197'
-  acceptable_min: 45
-  acceptable_max: 80
-  poorly_min: 81
-  poorly_max: 98
+  acceptable_min: 39
+  acceptable_max: 39
+  poorly_min: 39
+  poorly_max: 39
   trivial_max: 1750
-  trivial_min: 136
-  vpoorly_max: 115
-  vpoorly_min: 99
+  trivial_min: 40
+  vpoorly_max: 39
+  vpoorly_min: 39
   exceptionally_max: 34
   exceptionally_min: 25
-  rather_max: 44
-  rather_min: 41
-  very_max: 40
+  rather_max: 39
+  rather_min: 39
+  very_max: 39
   very_min: 37
 - town: Crossing
   item: towel
@@ -2584,7 +2652,7 @@
   acceptable_max: 212
   trivial_max: 1750
   trivial_min: 332
-  poorly_max: 213
+  poorly_max: 231
   poorly_min: 213
   vpoorly_max: 277
   vpoorly_min: 277
@@ -2654,6 +2722,8 @@
   id: '207'
   acceptable_min: 466
   acceptable_max: 4000
+  very_max: 356
+  very_min: 356
 - town: Crossing
   item: leather bag
   item_in: on trunk
@@ -2661,14 +2731,16 @@
   pawnable: false
   id: '208'
   acceptable_min: 470
-  acceptable_max: 2000
+  acceptable_max: 829
+  poorly_max: 860
+  poorly_min: 828
 - town: Crossing
   item: statuette
   item_in: on trunk
   room: 19152
   pawnable: false
   id: '209'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
 - town: Crossing
   item: steel staff
@@ -2676,7 +2748,7 @@
   room: 19152
   pawnable: false
   id: '210'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
 - town: Crossing
   item: oaken staff
@@ -2684,7 +2756,7 @@
   room: 19152
   pawnable: false
   id: '211'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
 - town: Crossing
   item: alabaster staff
@@ -2692,7 +2764,7 @@
   room: 19152
   pawnable: false
   id: '212'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
 - town: Crossing
   item: bottle
@@ -2740,24 +2812,30 @@
   room: 19152
   pawnable: false
   id: '218'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 1156
+  vpoorly_max: 1157
+  vpoorly_min: 1157
 - town: Crossing
   item: phial
   item_in: on trunk
   room: 19152
   pawnable: false
   id: '219'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 1157
+  vpoorly_max: 1158
+  vpoorly_min: 1158
 - town: Crossing
   item: box
   item_in: on trunk
   room: 19152
   pawnable: false
   id: '220'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 1158
+  vpoorly_max: 1159
+  vpoorly_min: 1159
 - town: Crossing
   item: urn
   item_in: on trunk
@@ -2772,64 +2850,84 @@
   room: 19152
   pawnable: false
   id: '222'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 1166
+  vpoorly_max: 1167
+  vpoorly_min: 1160
 - town: Crossing
   item: fine scroll
   item_in: on stand
   room: 19152
   pawnable: false
   id: '223'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 1167
+  trivial_max: 1750
+  trivial_min: 1161
 - town: Crossing
   item: white scroll
   item_in: on stand
   room: 19152
   pawnable: false
   id: '224'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 1167
+  very_min: 315
+  very_max: 315
+  trivial_max: 1750
+  trivial_min: 1161
 - town: Crossing
   item: plain scroll
   item_in: on stand
   room: 19152
   pawnable: false
   id: '225'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 1167
+  poorly_max: 1168
+  poorly_min: 1161
 - town: Crossing
   item: off-white scroll
   item_in: on stand
   room: 19152
   pawnable: false
   id: '226'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 1167
+  trivial_max: 1750
+  trivial_min: 1161
 - town: Crossing
   item: vellum scroll
   item_in: on stand
   room: 19152
   pawnable: false
   id: '227'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 1167
+  trivial_max: 1750
+  trivial_min: 1161
 - town: Crossing
   item: yellow scroll
   item_in: on stand
   room: 19152
   pawnable: false
   id: '228'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 1167
+  trivial_max: 1750
+  trivial_min: 1168
+  vpoorly_max: 1161
+  vpoorly_min: 1161
 - town: Crossing
   item: grey scroll
   item_in: on stand
   room: 19152
   pawnable: false
   id: '229'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 1167
+  trivial_max: 1750
+  trivial_min: 1162
 - town: Crossing
   item: lilac scroll
   item_in: on stand
@@ -2873,7 +2971,7 @@
   pawnable: false
   id: '233'
   acceptable_min: 160
-  acceptable_max: 219
+  acceptable_max: 220
   exceptionally_max: 122
   exceptionally_min: 100
   rather_max: 141
@@ -2993,7 +3091,7 @@
   rather_max: 150
   rather_min: 150
   trivial_max: 1750
-  trivial_min: 443
+  trivial_min: 402
   poorly_max: 337
   poorly_min: 276
   vpoorly_max: 401
@@ -3044,10 +3142,10 @@
   id: '244'
   acceptable_min: 150
   acceptable_max: 335
-  poorly_max: 405
+  poorly_max: 412
   poorly_min: 336
   vpoorly_max: 470
-  vpoorly_min: 470
+  vpoorly_min: 413
   trivial_max: 1750
   trivial_min: 529
 - town: Kaerna Village
@@ -3084,7 +3182,7 @@
   rather_min: 466
   poorly_max: 1103
   poorly_min: 899
-  vpoorly_max: 1133
+  vpoorly_max: 1156
   vpoorly_min: 1104
 - town: Kaerna Village
   item: breeches
@@ -3093,55 +3191,60 @@
   pawnable: false
   id: '247'
   acceptable_min: 293
-  acceptable_max: 2000
+  acceptable_max: 1166
+  trivial_max: 1750
+  trivial_min: 1146
 - town: Kaerna Village
   item: coat
   item_in: in catalog
   room: 19377
   pawnable: false
   id: '248'
-  acceptable_min: 469
-  acceptable_max: 469
-  poorly_max: 470
-  poorly_min: 470
+  acceptable_min: 422
+  acceptable_max: 422
+  poorly_max: 503
+  poorly_min: 423
   very_max: 189
   very_min: 189
   vpoorly_max: 529
-  vpoorly_min: 529
+  vpoorly_min: 504
 - town: Kaerna Village
   item: cloak
   item_in: in catalog
   room: 19377
   pawnable: false
   id: '249'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 1166
+  trivial_max: 1750
+  trivial_min: 1157
 - town: Kaerna Village
   item: garland
   item_in: in catalog
   room: 19377
   pawnable: false
   id: '250'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
   trivial_min: 210
+  trivial_max: 1750
 - town: Kaerna Village
   item: meat
   item_in: in catalog
   room: 19377
   pawnable: false
   id: '251'
-  acceptable_min: 433
-  acceptable_max: 433
+  acceptable_min: 412
+  acceptable_max: 412
   trivial_max: 1750
-  trivial_min: 434
+  trivial_min: 413
 - town: Kaerna Village
   item: fish
   item_in: in catalog
   room: 19377
   pawnable: false
   id: '252'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
 - town: Kaerna Village
   item: fruit
@@ -3149,7 +3252,7 @@
   room: 19377
   pawnable: false
   id: '253'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
 - town: Kaerna Village
   item: sugar
@@ -3157,15 +3260,29 @@
   room: 19377
   pawnable: false
   id: '254'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 10
+  acceptable_max: 17
+  exceptionally_max: 7
+  exceptionally_min: 7
+  poorly_max: 21
+  poorly_min: 18
+  rather_max: 9
+  rather_min: 9
+  vpoorly_max: 27
+  vpoorly_min: 22
+  nearly_max: 52
+  nearly_min: 28
+  very_max: 8
+  very_min: 8
+  trivial_max: 1750
+  trivial_min: 40
 - town: Kaerna Village
   item: jam
   item_in: in catalog
   room: 19377
   pawnable: false
   id: '255'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
 - town: Kaerna Village
   item: brew
@@ -3173,15 +3290,23 @@
   room: 19377
   pawnable: false
   id: '256'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 3
+  acceptable_max: 4
+  vpoorly_max: 7
+  vpoorly_min: 7
+  poorly_max: 6
+  poorly_min: 5
+  nearly_max: 9
+  nearly_min: 8
+  exceptionally_max: 2
+  exceptionally_min: 2
 - town: Kaerna Village
   item: white cheese
   item_in: in catalog
   room: 19377
   pawnable: false
   id: '257'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
 - town: Kaerna Village
   item: yellow cheese
@@ -3189,7 +3314,7 @@
   room: 19377
   pawnable: false
   id: '258'
-  acceptable_min: 2000
+  acceptable_min: 315
   acceptable_max: 2000
 - town: Arthe Dale
   item: pouch
@@ -3261,7 +3386,7 @@
   acceptable_max: 470
   trivial_max: 1750
   trivial_min: 686
-  vpoorly_max: 633
+  vpoorly_max: 685
   vpoorly_min: 616
   poorly_max: 473
   poorly_min: 471
@@ -3285,20 +3410,28 @@
   room: 19379
   pawnable: false
   id: '264'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 611
   trivial_max: 1750
-  trivial_min: 690
+  trivial_min: 612
+  vpoorly_max: 611
+  vpoorly_min: 579
+  poorly_max: 505
+  poorly_min: 471
 - town: Arthe Dale
   item: cow pattern
   item_in: in catalog
   room: 19379
   pawnable: false
   id: '265'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 611
   trivial_max: 1750
-  trivial_min: 693
+  trivial_min: 612
+  vpoorly_max: 580
+  vpoorly_min: 580
+  poorly_max: 477
+  poorly_min: 477
 - town: Arthe Dale
   item: dolphin pattern
   item_in: in catalog
@@ -3317,88 +3450,154 @@
   room: 19379
   pawnable: false
   id: '267'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 470
+  trivial_max: 1750
+  trivial_min: 686
+  vpoorly_max: 601
+  vpoorly_min: 581
+  poorly_max: 478
+  poorly_min: 471
 - town: Arthe Dale
   item: dove pattern
   item_in: in catalog
   room: 19379
   pawnable: false
   id: '268'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 470
+  trivial_max: 1750
+  trivial_min: 686
+  vpoorly_max: 602
+  vpoorly_min: 582
+  poorly_max: 478
+  poorly_min: 471
 - town: Arthe Dale
   item: horse pattern
   item_in: in catalog
   room: 19379
   pawnable: false
   id: '269'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 470
+  trivial_max: 1750
+  trivial_min: 686
+  vpoorly_max: 603
+  vpoorly_min: 583
+  poorly_max: 478
+  poorly_min: 471
 - town: Arthe Dale
   item: jackal pattern
   item_in: in catalog
   room: 19379
   pawnable: false
   id: '270'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 470
+  trivial_max: 1750
+  trivial_min: 686
+  vpoorly_max: 604
+  vpoorly_min: 584
+  poorly_max: 479
+  poorly_min: 471
 - town: Arthe Dale
   item: snake pattern
   item_in: in catalog
   room: 19379
   pawnable: false
   id: '271'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 470
+  trivial_max: 1750
+  trivial_min: 686
+  vpoorly_max: 605
+  vpoorly_min: 585
+  poorly_max: 479
+  poorly_min: 471
 - town: Arthe Dale
   item: lion pattern
   item_in: in catalog
   room: 19379
   pawnable: false
   id: '272'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 471
+  trivial_max: 1750
+  trivial_min: 686
+  vpoorly_max: 606
+  vpoorly_min: 586
+  poorly_max: 479
+  poorly_min: 472
 - town: Arthe Dale
   item: panther pattern
   item_in: in catalog
   room: 19379
   pawnable: false
   id: '273'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 471
+  trivial_max: 1750
+  trivial_min: 686
+  vpoorly_max: 607
+  vpoorly_min: 587
+  poorly_max: 479
+  poorly_min: 472
 - town: Arthe Dale
   item: raccoon pattern
   item_in: in catalog
   room: 19379
   pawnable: false
   id: '274'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 471
+  trivial_max: 1750
+  trivial_min: 686
+  vpoorly_max: 608
+  vpoorly_min: 588
+  poorly_max: 479
+  poorly_min: 472
 - town: Arthe Dale
   item: raven pattern
   item_in: in catalog
   room: 19379
   pawnable: false
   id: '275'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 471
+  trivial_max: 1750
+  trivial_min: 686
+  vpoorly_max: 609
+  vpoorly_min: 589
+  poorly_max: 479
+  poorly_min: 472
 - town: Arthe Dale
   item: unicorn pattern
   item_in: in catalog
   room: 19379
   pawnable: false
   id: '276'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 471
+  trivial_max: 1750
+  trivial_min: 686
+  vpoorly_max: 610
+  vpoorly_min: 579
+  poorly_max: 499
+  poorly_min: 472
 - town: Arthe Dale
   item: wolf pattern
   item_in: in catalog
   room: 19379
   pawnable: false
   id: '277'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 472
+  trivial_max: 1750
+  trivial_min: 686
+  vpoorly_max: 611
+  vpoorly_min: 580
+  poorly_max: 481
+  poorly_min: 473
 - town: Arthe Dale
   item: cloth
   item_in: in catalog
@@ -3557,7 +3756,7 @@
   acceptable_max: 380
   rather_max: 209
   rather_min: 199
-  poorly_max: 444
+  poorly_max: 466
   poorly_min: 381
   vpoorly_min: 467
   vpoorly_max: 554
@@ -3589,100 +3788,122 @@
   acceptable_max: 860
   rather_max: 434
   rather_min: 434
-  poorly_max: 1055
+  poorly_max: 1056
   poorly_min: 861
-  vpoorly_max: 1133
-  vpoorly_min: 1058
+  vpoorly_max: 1174
+  vpoorly_min: 1057
 - town: Arthe Dale
   item: corselet
   item_in: in catalog
   room: 19237
   pawnable: false
   id: '291'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 753
+  trivial_max: 1750
+  trivial_min: 576
 - town: Arthe Dale
   item: breastplate
   item_in: in catalog
   room: 19237
   pawnable: false
   id: '292'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 859
   rather_max: 466
   rather_min: 466
+  poorly_max: 886
+  poorly_min: 860
 - town: Arthe Dale
   item: mail
   item_in: in catalog
   room: 19237
   pawnable: false
   id: '293'
-  acceptable_min: 2000
+  acceptable_min: 875
   acceptable_max: 2000
+  rather_max: 874
+  rather_min: 861
 - town: Arthe Dale
   item: buckler
   item_in: in catalog
   room: 19237
   pawnable: false
   id: '294'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 860
+  trivial_max: 1750
+  trivial_min: 861
 - town: Arthe Dale
   item: round shield
   item_in: in catalog
   room: 19237
   pawnable: false
   id: '295'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 860
+  trivial_max: 1750
+  trivial_min: 861
 - town: Arthe Dale
   item: wooden shield
   item_in: in catalog
   room: 19237
   pawnable: false
   id: '296'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 860
+  trivial_max: 1750
+  trivial_min: 861
 - town: Arthe Dale
   item: shell shield
   item_in: in catalog
   room: 19237
   pawnable: false
   id: '297'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 860
+  vpoorly_max: 861
+  vpoorly_min: 861
 - town: Arthe Dale
   item: wicker shield
   item_in: in catalog
   room: 19237
   pawnable: false
   id: '298'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 860
+  trivial_max: 1750
+  trivial_min: 861
 - town: Arthe Dale
   item: hood
   item_in: in catalog
   room: 19237
   pawnable: false
   id: '299'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 860
+  trivial_max: 1750
+  trivial_min: 861
 - town: Arthe Dale
   item: vambraces
   item_in: in catalog
   room: 19237
   pawnable: false
   id: '300'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 860
+  trivial_max: 1750
+  trivial_min: 861
 - town: Arthe Dale
   item: legguards
   item_in: in catalog
   room: 19237
   pawnable: false
   id: '301'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 860
+  trivial_max: 1750
+  trivial_min: 861
 - town: Arthe Dale
   item: shadegrown cigar
   item_in: in display case
@@ -3790,19 +4011,25 @@
   acceptable_min: 386
   acceptable_max: 386
   vpoorly_max: 434
-  vpoorly_min: 415
+  vpoorly_min: 408
   trivial_max: 1750
   trivial_min: 529
-  poorly_max: 405
+  poorly_max: 407
   poorly_min: 387
 - town: Arthe Dale
-  item: mountain tobacco
+  item: pass tobacco
   item_in: in tobacco case
   room: 19385
   pawnable: false
   id: '310'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 403
+  vpoorly_max: 426
+  vpoorly_min: 408
+  trivial_max: 1750
+  trivial_min: 589
+  poorly_max: 404
+  poorly_min: 404
 - town: Arthe Dale
   item: dark tobacco
   item_in: in tobacco case
@@ -3817,24 +4044,38 @@
   room: 19385
   pawnable: false
   id: '312'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 428
+  trivial_max: 1750
+  trivial_min: 429
+  vpoorly_max: 428
+  vpoorly_min: 404
 - town: Arthe Dale
   item: brandy tobacco
   item_in: in tobacco case
   room: 19385
   pawnable: false
   id: '313'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 404
+  trivial_max: 1750
+  trivial_min: 429
+  vpoorly_max: 428
+  vpoorly_min: 405
 - town: Arthe Dale
   item: spiced tobacco
   item_in: in tobacco case
   room: 19385
   pawnable: false
   id: '314'
-  acceptable_min: 2000
-  acceptable_max: 2000
+  acceptable_min: 315
+  acceptable_max: 405
+  trivial_max: 1750
+  trivial_min: 544
+  poorly_max: 443
+  poorly_min: 406
+  vpoorly_max: 494
+  vpoorly_min: 444
 - town: Arthe Dale
   item: croissant
   item_in: on rack
@@ -3948,7 +4189,7 @@
   vpoorly_max: 305
   vpoorly_min: 305
 - acceptable_max: 293
-  acceptable_min: 187
+  acceptable_min: 181
   id: '323'
   item: jadice pollen
   item_in: on mantel
@@ -3982,7 +4223,7 @@
   trivial_max: 1750
   trivial_min: 787
 - acceptable_max: 295
-  acceptable_min: 188
+  acceptable_min: 182
   id: '324'
   item: steel mace
   item_in: on wall
@@ -4035,9 +4276,9 @@
   very_min: 240
   rather_max: 277
   rather_min: 266
-  acceptable_max: 405
-  poorly_max: 406
-  poorly_min: 406
+  acceptable_max: 451
+  poorly_max: 452
+  poorly_min: 452
   trivial_max: 1750
   trivial_min: 787
   acceptable_min: 298
@@ -4058,7 +4299,7 @@
   vpoorly_max: 477
   vpoorly_min: 477
 - acceptable_max: 695
-  acceptable_min: 460
+  acceptable_min: 459
   id: '337'
   item: reinforced longsword
   item_in: in catalog
@@ -4067,8 +4308,10 @@
   room: 12107
   poorly_max: 853
   poorly_min: 696
-  vpoorly_max: 886
+  vpoorly_max: 1013
   vpoorly_min: 854
+  trivial_max: 1750
+  trivial_min: 1014
 - id: '338'
   item: chain greaves
   item_in: in catalog
@@ -4097,10 +4340,10 @@
   rather_min: 653
   very_max: 589
   very_min: 586
-  acceptable_max: 887
+  acceptable_max: 1132
   acceptable_min: 697
 - acceptable_max: 634
-  acceptable_min: 460
+  acceptable_min: 459
   id: '341'
   item: pelt potion
   item_in: on counter
@@ -4109,8 +4352,10 @@
   room: 19475
   poorly_max: 778
   poorly_min: 635
-  vpoorly_max: 886
+  vpoorly_max: 925
   vpoorly_min: 779
+  trivial_max: 1750
+  trivial_min: 926
 - acceptable_max: 553
   acceptable_min: 477
   id: '342'
@@ -4119,28 +4364,36 @@
   pawnable: false
   town: Dirge
   room: 19475
+  trivial_max: 1750
+  trivial_min: 926
+  vpoorly_max: 860
+  vpoorly_min: 860
 - acceptable_max: 812
-  acceptable_min: 460
+  acceptable_min: 459
   id: '343'
   item: hooded cloak
   item_in: in catalog
   pawnable: false
   town: Dirge
   room: 12108
-  poorly_max: 884
+  poorly_max: 996
   poorly_min: 813
+  vpoorly_max: 1132
+  vpoorly_min: 997
 - acceptable_max: 751
-  acceptable_min: 463
+  acceptable_min: 460
   id: '347'
   item: kit
   item_in: on counter
   pawnable: false
   town: Crossing
   room: 8268
-  poorly_max: 888
+  poorly_max: 922
   poorly_min: 752
-  vpoorly_max: 963
-  vpoorly_min: 940
+  vpoorly_max: 1096
+  vpoorly_min: 923
+  trivial_max: 1750
+  trivial_min: 1097
 - id: '348'
   item: case
   item_in: on table
@@ -4163,10 +4416,10 @@
   very_min: 726
   rather_max: 874
   rather_min: 794
-  acceptable_max: 1133
+  acceptable_max: 1174
   acceptable_min: 875
 - acceptable_max: 529
-  acceptable_min: 461
+  acceptable_min: 455
   id: '350'
   item: diamond engagement ring
   item_in: in catalog
@@ -4213,7 +4466,7 @@
   very_min: 813
   rather_max: 979
   rather_min: 889
-  acceptable_max: 1133
+  acceptable_max: 1174
   acceptable_min: 980
 - id: '354'
   item: steel lancet
@@ -4228,7 +4481,7 @@
   trivial_max: 1750
   trivial_min: 525
 - acceptable_max: 577
-  acceptable_min: 518
+  acceptable_min: 515
   id: '355'
   item: cobalt slippers
   item_in: on shelves
@@ -4243,8 +4496,10 @@
   poorly_min: 578
   vpoorly_max: 836
   vpoorly_min: 710
-- acceptable_max: 666
-  acceptable_min: 518
+  trivial_max: 1750
+  trivial_min: 860
+- acceptable_max: 771
+  acceptable_min: 515
   id: '356'
   item: cloth-covered compendium
   item_in: on long shelf
@@ -4281,7 +4536,7 @@
   - Trader
   acceptable_max: 965
   acceptable_min: 556
-  poorly_max: 1133
+  poorly_max: 1174
   poorly_min: 966
 - id: '359'
   item: dyed garland
@@ -4355,10 +4610,10 @@
   rather_max: 747
   rather_min: 693
   room: 11778
-  acceptable_max: 1133
+  acceptable_max: 1174
   acceptable_min: 748
-- acceptable_max: 737
-  acceptable_min: 688
+- acceptable_max: 843
+  acceptable_min: 684
   id: '366'
   item: bodhran
   item_in: on crimson display
@@ -4389,7 +4644,7 @@
   very_min: 891
   rather_max: 1073
   rather_min: 974
-  acceptable_max: 1133
+  acceptable_max: 1174
   acceptable_min: 1074
 - id: '369'
   item: diamond wedding ring
@@ -4435,7 +4690,7 @@
   - Trader
   acceptable_max: 1037
   acceptable_min: 1037
-- exceptionally_max: 700
+- exceptionally_max: 860
   exceptionally_min: 700
   id: '373'
   item: violin
@@ -4463,8 +4718,8 @@
   room: 5735
   rather_max: 960
   rather_min: 871
-  acceptable_min: 961
-  acceptable_max: 1133
+  acceptable_min: 892
+  acceptable_max: 1174
   very_max: 871
   very_min: 833
 - id: '376'
@@ -4483,7 +4738,7 @@
   room: 11780
   trivial_max: 1750
   trivial_min: 700
-- acceptable_max: 1075
+- acceptable_max: 1085
   acceptable_min: 695
   id: '378'
   item: wide-brimmed hat
@@ -4491,8 +4746,8 @@
   pawnable: false
   town: Arthe Dale
   room: 11781
-  poorly_max: 1132
-  poorly_min: 1100
+  poorly_max: 1174
+  poorly_min: 1086
 - id: '379'
   item: peri'el's song
   item_in: in catalog
@@ -4509,6 +4764,8 @@
   pawnable: false
   town: Arthe Dale
   room: 19237
+  rather_max: 861
+  rather_min: 861
 - id: '381'
   item: kirm cheese
   item_in: on table
@@ -4553,10 +4810,10 @@
   very_min: 784
   rather_max: 934
   rather_min: 854
-  acceptable_max: 1133
+  acceptable_max: 1174
   acceptable_min: 966
-- acceptable_max: 768
-  acceptable_min: 701
+- acceptable_max: 827
+  acceptable_min: 698
   id: '386'
   item: breastplate
   item_in: on table
@@ -4589,11 +4846,11 @@
   room: 1898
   very_max: 929
   very_min: 874
-  rather_max: 1051
+  rather_max: 1052
   rather_min: 958
-  acceptable_max: 1133
-  acceptable_min: 1058
-- exceptionally_max: 1132
+  acceptable_max: 1174
+  acceptable_min: 1053
+- exceptionally_max: 1167
   exceptionally_min: 728
   id: '391'
   item: broadaxe
@@ -4609,9 +4866,11 @@
   pawnable: false
   town: Tiger Clan
   room: 1898
-  very_max: 887
+  very_max: 954
   very_min: 874
-- acceptable_max: 733
+  rather_max: 986
+  rather_min: 955
+- acceptable_max: 760
   acceptable_min: 727
   id: '393'
   item: breastplate
@@ -4627,15 +4886,17 @@
   room: 6206
   trivial_max: 1750
   trivial_min: 728
-- acceptable_max: 963
-  acceptable_min: 725
+- acceptable_max: 1028
+  acceptable_min: 721
   id: '395'
   item: needle
   item_in: on short table
   pawnable: false
   town: Crossing
   room: 11779
-- acceptable_max: 733
+  poorly_max: 1029
+  poorly_min: 1029
+- acceptable_max: 753
   acceptable_min: 728
   id: '396'
   item: crossbow
@@ -4643,7 +4904,7 @@
   pawnable: false
   town: Crossing
   room: 8263
-- acceptable_max: 731
+- acceptable_max: 753
   acceptable_min: 728
   id: '397'
   item: cherry flute
@@ -4651,7 +4912,7 @@
   pawnable: false
   town: Crossing
   room: 11778
-- acceptable_max: 733
+- acceptable_max: 734
   acceptable_min: 477
   id: '333'
   item: war mattock
@@ -4659,7 +4920,11 @@
   pawnable: false
   town: Tiger Clan
   room: 1888
-- exceptionally_max: 887
+  poorly_max: 860
+  poorly_min: 735
+  trivial_max: 1750
+  trivial_min: 1158
+- exceptionally_max: 1158
   exceptionally_min: 729
   id: '399'
   item: broadaxe
@@ -4733,9 +4998,9 @@
   room: 6213
   very_max: 853
   very_min: 781
-  rather_max: 855
+  rather_max: 869
   rather_min: 854
-- acceptable_max: 964
+- acceptable_max: 1048
   acceptable_min: 748
   id: '416'
   item: jerkin
@@ -4751,26 +5016,26 @@
   pawnable: false
   town: Knife Clan
   room: 6213
-- acceptable_max: 1071
-  acceptable_min: 756
+- acceptable_max: 1085
+  acceptable_min: 752
   id: '432'
   item: leather strips
   item_in: in crate
   pawnable: false
   town: Crossing
   room: 8864
-  poorly_max: 1126
-  poorly_min: 1106
-- acceptable_max: 1030
-  acceptable_min: 756
+  poorly_max: 1174
+  poorly_min: 1086
+- acceptable_max: 1085
+  acceptable_min: 752
   id: '433'
   item: leather strips
   item_in: in crate
   pawnable: false
   town: Crossing
   room: 8776
-  poorly_max: 1109
-  poorly_min: 1106
+  poorly_max: 1174
+  poorly_min: 1086
 - id: '434'
   item: greathammer
   item_in: table
@@ -4787,7 +5052,7 @@
   poorly_min: 934
   town: Crossing
   room: 19386
-- acceptable_max: 936
+- acceptable_max: 1104
   acceptable_min: 934
   id: '436'
   item: quilted mail
@@ -4844,7 +5109,7 @@
   trivial_max: 1750
   trivial_min: 50
 - acceptable_max: 67
-  acceptable_min: 50
+  acceptable_min: 48
   id: '460'
   item: flight shears
   item_in: in catalog
@@ -4868,7 +5133,7 @@
   trivial_max: 1750
   trivial_min: 200
 - acceptable_max: 74
-  acceptable_min: 50
+  acceptable_min: 48
   id: '462'
   item: leather gloves
   item_in: in catalog
@@ -4876,10 +5141,10 @@
   room: 10039
   town: Shard
   trivial_max: 1750
-  trivial_min: 200
+  trivial_min: 108
   poorly_max: 90
   poorly_min: 75
-  vpoorly_max: 106
+  vpoorly_max: 107
   vpoorly_min: 91
 - acceptable_max: 119
   acceptable_min: 82
@@ -4945,7 +5210,7 @@
   room: 13289
   town: Aesry
 - acceptable_max: 266
-  acceptable_min: 200
+  acceptable_min: 197
   id: '469'
   item: flower
   item_in: in catalog
@@ -4959,7 +5224,7 @@
   trivial_max: 1750
   trivial_min: 389
 - acceptable_max: 209
-  acceptable_min: 200
+  acceptable_min: 197
   id: '470'
   item: tipper
   item_in: in catalog
@@ -4970,9 +5235,9 @@
   trivial_min: 315
   vpoorly_max: 304
   vpoorly_min: 258
-  poorly_max: 254
+  poorly_max: 257
   poorly_min: 210
-- acceptable_max: 200
+- acceptable_max: 233
   acceptable_min: 200
   id: '471'
   item: bow
@@ -4981,9 +5246,11 @@
   room: 9816
   town: Shard
   vpoorly_max: 340
-  vpoorly_min: 304
+  vpoorly_min: 287
   trivial_max: 1750
-  trivial_min: 341
+  trivial_min: 358
+  poorly_max: 286
+  poorly_min: 234
 - id: '472'
   item: fife
   item_in: in catalog
@@ -5002,8 +5269,8 @@
   town: Shard
   trivial_max: 1750
   trivial_min: 200
-- acceptable_max: 219
-  acceptable_min: 200
+- acceptable_max: 251
+  acceptable_min: 197
   id: '474'
   item: scabbard
   item_in: in catalog
@@ -5015,7 +5282,7 @@
   vpoorly_max: 334
   vpoorly_min: 334
   trivial_max: 1750
-  trivial_min: 608
+  trivial_min: 563
 - id: '475'
   item: vial
   item_in: in catalog
@@ -5035,7 +5302,7 @@
   trivial_max: 1750
   trivial_min: 304
 - acceptable_max: 214
-  acceptable_min: 200
+  acceptable_min: 197
   id: '477'
   item: mortar
   item_in: in catalog
@@ -5046,9 +5313,9 @@
   trivial_min: 315
   vpoorly_max: 305
   vpoorly_min: 264
-  poorly_max: 254
+  poorly_max: 263
   poorly_min: 215
-- acceptable_max: 200
+- acceptable_max: 205
   acceptable_min: 200
   id: '478'
   item: crystals
@@ -5058,7 +5325,7 @@
   town: Shard
   trivial_max: 1750
   trivial_min: 315
-- acceptable_max: 200
+- acceptable_max: 201
   acceptable_min: 200
   id: '479'
   item: bowl
@@ -5070,8 +5337,10 @@
   poorly_min: 286
   vpoorly_min: 315
   vpoorly_max: 335
-- acceptable_max: 254
-  acceptable_min: 200
+  trivial_max: 1750
+  trivial_min: 451
+- acceptable_max: 256
+  acceptable_min: 197
   id: '480'
   item: armband
   item_in: in catalog
@@ -5083,8 +5352,8 @@
   poorly_max: 315
   poorly_min: 257
   trivial_max: 1750
-  trivial_min: 375
-- acceptable_max: 200
+  trivial_min: 463
+- acceptable_max: 256
   acceptable_min: 200
   id: '481'
   item: pendant
@@ -5093,7 +5362,11 @@
   room: 13161
   town: Shard
   trivial_max: 1750
-  trivial_min: 375
+  trivial_min: 464
+  vpoorly_max: 369
+  vpoorly_min: 316
+  poorly_max: 315
+  poorly_min: 257
 - id: '482'
   item: vial
   item_in: in catalog
@@ -5102,7 +5375,7 @@
   town: Shard
   vpoorly_max: 200
   vpoorly_min: 200
-- acceptable_max: 200
+- acceptable_max: 256
   acceptable_min: 200
   id: '483'
   item: ring
@@ -5111,7 +5384,11 @@
   room: 13161
   town: Shard
   trivial_max: 1750
-  trivial_min: 375
+  trivial_min: 464
+  vpoorly_max: 370
+  vpoorly_min: 317
+  poorly_max: 257
+  poorly_min: 257
 - id: '484'
   item: vessel
   item_in: in catalog
@@ -5128,8 +5405,10 @@
   town: Shard
   trivial_max: 1750
   trivial_min: 200
-  acceptable_max: 75
-  acceptable_min: 60
+  acceptable_max: 80
+  acceptable_min: 58
+  poorly_max: 81
+  poorly_min: 81
 - id: '486'
   item: torch
   item_in: in catalog
@@ -5138,10 +5417,10 @@
   town: Shard
   trivial_max: 1750
   trivial_min: 200
-  acceptable_max: 60
+  acceptable_max: 66
   acceptable_min: 60
-- acceptable_max: 210
-  acceptable_min: 200
+- acceptable_max: 258
+  acceptable_min: 198
   id: '487'
   item: scabbard
   item_in: in catalog
@@ -5149,8 +5428,8 @@
   room: 9747
   town: Shard
   trivial_max: 1750
-  trivial_min: 573
-- acceptable_max: 314
+  trivial_min: 562
+- acceptable_max: 340
   acceptable_min: 200
   id: '488'
   item: longbow
@@ -5159,8 +5438,12 @@
   room: 9747
   town: Shard
   trivial_max: 1750
-  trivial_min: 574
-- acceptable_max: 200
+  trivial_min: 563
+  poorly_max: 341
+  poorly_min: 341
+  vpoorly_max: 457
+  vpoorly_min: 457
+- acceptable_max: 351
   acceptable_min: 200
   id: '489'
   item: javelin
@@ -5169,7 +5452,9 @@
   room: 9747
   town: Shard
   trivial_max: 1750
-  trivial_min: 574
+  trivial_min: 563
+  poorly_max: 369
+  poorly_min: 352
 - id: '490'
   item: mace
   item_in: in catalog
@@ -5181,9 +5466,11 @@
   acceptable_max: 365
   acceptable_min: 210
   trivial_max: 1750
-  trivial_min: 573
-  poorly_max: 402
+  trivial_min: 544
+  poorly_max: 448
   poorly_min: 366
+  vpoorly_max: 491
+  vpoorly_min: 449
 - id: '491'
   item: scimitar
   item_in: in catalog
@@ -5193,11 +5480,13 @@
   room: 9747
   town: Shard
   trivial_max: 1750
-  trivial_min: 574
+  trivial_min: 558
   acceptable_max: 304
   acceptable_min: 304
-  poorly_max: 405
+  poorly_max: 456
   poorly_min: 388
+  vpoorly_max: 557
+  vpoorly_min: 553
 - id: '492'
   item: ring
   item_in: backpack
@@ -5206,10 +5495,10 @@
   town: Shard
   very_max: 576
   very_min: 571
-  rather_max: 661
+  rather_max: 663
   rather_min: 608
-  acceptable_max: 735
-  acceptable_min: 733
+  acceptable_max: 885
+  acceptable_min: 664
 - id: '493'
   item: arrows
   item_in: in catalog
@@ -5254,18 +5543,24 @@
   pawnable: false
   room: 13144
   town: Shard
-  rather_max: 735
-  rather_min: 733
+  rather_max: 769
+  rather_min: 729
   very_max: 660
   very_min: 652
-- acceptable_max: 575
-  acceptable_min: 573
+  acceptable_max: 885
+  acceptable_min: 792
+- acceptable_max: 592
+  acceptable_min: 572
   id: '498'
   item: telo
   item_in: in catalog
   pawnable: false
   room: 13291
   town: Shard
+  vpoorly_max: 860
+  vpoorly_min: 860
+  poorly_max: 593
+  poorly_min: 593
 - acceptable_max: 573
   acceptable_min: 573
   id: '499'
@@ -5274,6 +5569,8 @@
   pawnable: false
   room: 13291
   town: Shard
+  vpoorly_max: 860
+  vpoorly_min: 860
 - id: '500'
   item: broadsword
   item_in: in catalog
@@ -5282,7 +5579,7 @@
   town: Shard
   vpoorly_max: 573
   vpoorly_min: 573
-- acceptable_max: 575
+- acceptable_max: 631
   acceptable_min: 573
   id: '501'
   item: stove
@@ -5290,6 +5587,8 @@
   pawnable: false
   room: 11602
   town: Shard
+  vpoorly_max: 860
+  vpoorly_min: 860
 - id: '502'
   item: gittern
   item_in: in catalog
@@ -5329,11 +5628,13 @@
   room: 13144
   town: Shard
   trivial_max: 1750
-  trivial_min: 573
+  trivial_min: 485
   acceptable_max: 332
-  acceptable_min: 304
+  acceptable_min: 301
   poorly_min: 333
-  poorly_max: 405
+  poorly_max: 407
+  vpoorly_max: 484
+  vpoorly_min: 408
 - id: '507'
   item: crossbow bolts
   item_in: in catalog
@@ -5360,7 +5661,7 @@
   town: Shard
   trivial_max: 1750
   trivial_min: 573
-- acceptable_max: 575
+- acceptable_max: 590
   acceptable_min: 573
   id: '510'
   item: gown
@@ -5368,6 +5669,10 @@
   pawnable: false
   room: 13996
   town: Shard
+  vpoorly_max: 860
+  vpoorly_min: 860
+  poorly_max: 591
+  poorly_min: 591
 - id: '511'
   item: robes
   item_in: list
@@ -5392,20 +5697,20 @@
   town: Shard
   trivial_max: 1750
   trivial_min: 573
-- acceptable_max: 405
-  acceptable_min: 332
+- acceptable_max: 470
+  acceptable_min: 327
   id: '514'
   item: golden bell
   item_in: in catalog
   pawnable: false
   room: 13161
   town: Shard
-  poorly_max: 575
-  poorly_min: 574
-  vpoorly_max: 660
-  vpoorly_min: 609
+  poorly_max: 577
+  poorly_min: 471
+  vpoorly_max: 685
+  vpoorly_min: 578
   trivial_max: 1750
-  trivial_min: 733
+  trivial_min: 686
 - id: '515'
   item: votive
   item_in: candle
@@ -5430,6 +5735,8 @@
   pawnable: false
   room: 13291
   town: Shard
+  vpoorly_max: 860
+  vpoorly_min: 860
 - id: '518'
   item: wine goblet
   item_in: in catalog
@@ -5484,7 +5791,7 @@
   town: Shard
   trivial_max: 1750
   trivial_min: 284
-- exceptionally_max: 397
+- exceptionally_max: 470
   exceptionally_min: 334
   id: '524'
   item: amulet
@@ -5492,10 +5799,12 @@
   pawnable: false
   room: 13727
   town: Shard
-  acceptable_max: 735
-  acceptable_min: 608
-  rather_max: 576
-  rather_min: 573
+  acceptable_max: 885
+  acceptable_min: 604
+  rather_max: 585
+  rather_min: 546
+  very_max: 545
+  very_min: 500
 - id: '525'
   item: glaysker flower
   item_in: in catalog
@@ -5503,11 +5812,13 @@
   room: 11602
   town: Shard
   vpoorly_max: 573
-  vpoorly_min: 573
+  vpoorly_min: 496
   acceptable_max: 403
-  acceptable_min: 285
-  poorly_max: 405
+  acceptable_min: 281
+  poorly_max: 495
   poorly_min: 404
+  trivial_max: 1750
+  trivial_min: 860
 - id: '526'
   item: tukai stones
   item_in: in catalog
@@ -5574,20 +5885,20 @@
   town: Shard
   trivial_max: 1750
   trivial_min: 304
-- acceptable_max: 402
-  acceptable_min: 283
+- acceptable_max: 491
+  acceptable_min: 281
   id: '534'
   item: repair kit
   item_in: in catalog
   pawnable: false
   room: 9816
   town: Shard
-  poorly_max: 576
-  poorly_min: 574
-  vpoorly_max: 660
+  poorly_max: 585
+  poorly_min: 492
+  vpoorly_max: 716
   vpoorly_min: 608
   trivial_max: 1750
-  trivial_min: 733
+  trivial_min: 717
 - id: '535'
   item: gittern
   item_in: in catalog
@@ -5596,7 +5907,7 @@
   poorly_min: 573
   room: 9816
   town: Shard
-- acceptable_max: 304
+- acceptable_max: 377
   acceptable_min: 304
   id: '536'
   item: lyre
@@ -5605,9 +5916,11 @@
   room: 9816
   town: Shard
   trivial_max: 1750
-  trivial_min: 608
-  poorly_max: 405
-  poorly_min: 387
+  trivial_min: 563
+  poorly_max: 456
+  poorly_min: 378
+  vpoorly_max: 491
+  vpoorly_min: 491
 - id: '537'
   item: violin
   item_in: in catalog
@@ -5624,7 +5937,7 @@
   town: Shard
   trivial_max: 1750
   trivial_min: 573
-- exceptionally_max: 390
+- exceptionally_max: 499
   exceptionally_min: 334
   id: '539'
   item: physalis
@@ -5632,10 +5945,12 @@
   pawnable: false
   room: 13719
   town: Horse Clan
-  acceptable_max: 661
-  acceptable_min: 573
-  very_max: 402
-  very_min: 391
+  acceptable_max: 885
+  acceptable_min: 471
+  very_max: 545
+  very_min: 470
+  rather_max: 563
+  rather_min: 470
 - id: '540'
   item: ocarina
   item_in: cata
@@ -5644,7 +5959,7 @@
   town: Shard
   trivial_max: 1750
   trivial_min: 573
-- exceptionally_max: 391
+- exceptionally_max: 471
   exceptionally_min: 334
   id: '541'
   item: cane flute
@@ -5652,6 +5967,8 @@
   pawnable: false
   room: 13719
   town: Horse Clan
+  acceptable_max: 860
+  acceptable_min: 860
 - id: '542'
   item: ocarina
   item_in: in catalog
@@ -5664,18 +5981,20 @@
   item: cloth backtube
   item_in: in catalog
   pawnable: false
-  rather_max: 304
+  rather_max: 306
   rather_min: 286
   room: 2947
   town: Shard
-  acceptable_max: 405
+  acceptable_max: 556
   acceptable_min: 312
-  poorly_max: 661
-  poorly_min: 573
-  vpoorly_max: 735
-  vpoorly_min: 733
-- acceptable_max: 403
-  acceptable_min: 332
+  poorly_max: 683
+  poorly_min: 557
+  vpoorly_max: 811
+  vpoorly_min: 684
+  trivial_max: 1750
+  trivial_min: 812
+- acceptable_max: 437
+  acceptable_min: 329
   id: '544'
   item: hair wrap
   item_in: on horn stand
@@ -5683,9 +6002,11 @@
   room: 13720
   town: Horse Clan
   vpoorly_max: 637
-  vpoorly_min: 573
+  vpoorly_min: 537
   trivial_min: 638
   trivial_max: 1750
+  poorly_max: 536
+  poorly_min: 438
 - id: '545'
   item: knapsack
   item_in: in catalog
@@ -5710,10 +6031,12 @@
   pawnable: false
   room: 13720
   town: Horse Clan
-  vpoorly_min: 638
-  vpoorly_max: 660
+  vpoorly_min: 552
+  vpoorly_max: 655
   trivial_max: 1750
-  trivial_min: 660
+  trivial_min: 656
+  poorly_max: 551
+  poorly_min: 537
 - id: '548'
   item: dracon crystals
   item_in: in catalog
@@ -5722,7 +6045,7 @@
   town: Shard
   vpoorly_max: 304
   vpoorly_min: 284
-- exceptionally_max: 334
+- exceptionally_max: 565
   exceptionally_min: 334
   id: '549'
   item: felt quiver
@@ -5730,12 +6053,14 @@
   pawnable: false
   room: 13722
   town: Horse Clan
-  rather_max: 661
-  rather_min: 616
-  very_max: 616
-  very_min: 573
-  acceptable_max: 662
-  acceptable_min: 662
+  rather_max: 666
+  rather_min: 586
+  very_max: 585
+  very_min: 566
+  acceptable_max: 838
+  acceptable_min: 566
+  poorly_max: 885
+  poorly_min: 839
 - id: '550'
   item: tukai stones
   item_in: in catalog
@@ -5752,14 +6077,16 @@
   pawnable: false
   room: 11602
   town: Shard
-  acceptable_max: 661
-  acceptable_min: 575
+  acceptable_max: 703
+  acceptable_min: 404
   very_max: 354
   very_min: 334
-  poorly_max: 735
-  poorly_min: 733
+  poorly_max: 844
+  poorly_min: 704
   rather_max: 384
   rather_min: 355
+  vpoorly_max: 903
+  vpoorly_min: 883
 - exceptionally_max: 305
   exceptionally_min: 305
   id: '552'
@@ -5770,6 +6097,10 @@
   town: Shard
   very_max: 338
   very_min: 335
+  acceptable_max: 571
+  acceptable_min: 408
+  vpoorly_max: 860
+  vpoorly_min: 860
 - id: '553'
   item: large bowl
   item_in: in catalog
@@ -5820,8 +6151,8 @@
   town: Shard
   trivial_max: 1750
   trivial_min: 573
-- acceptable_max: 402
-  acceptable_min: 304
+- acceptable_max: 419
+  acceptable_min: 301
   id: '559'
   item: riolur leaf
   item_in: on counter
@@ -5829,9 +6160,11 @@
   room: 13997
   town: Shard
   vpoorly_max: 611
-  vpoorly_min: 574
+  vpoorly_min: 516
   trivial_max: 1750
   trivial_min: 612
+  poorly_max: 515
+  poorly_min: 420
 - id: '560'
   item: leather legbands
   item_in: in catalog
@@ -5864,14 +6197,20 @@
   town: Shard
   trivial_max: 1750
   trivial_min: 573
-- acceptable_max: 402
-  acceptable_min: 305
+- acceptable_max: 434
+  acceptable_min: 302
   id: '564'
   item: fitted dress
   item_in: lists
   pawnable: false
   room: 13996
   town: Shard
+  poorly_max: 533
+  poorly_min: 435
+  trivial_max: 1750
+  trivial_min: 860
+  vpoorly_max: 534
+  vpoorly_min: 534
 - id: '565'
   item: chain legguards
   item_in: in catalog
@@ -5888,12 +6227,14 @@
   town: Shard
   very_max: 305
   very_min: 305
-  acceptable_max: 634
-  acceptable_min: 353
-  poorly_max: 735
+  acceptable_max: 610
+  acceptable_min: 411
+  poorly_max: 769
   poorly_min: 635
   rather_max: 352
   rather_min: 334
+  vpoorly_max: 885
+  vpoorly_min: 792
 - id: '567'
   item: chain armguards
   item_in: in catalog
@@ -5912,6 +6253,10 @@
   town: Shard
   very_max: 335
   very_min: 335
+  poorly_max: 860
+  poorly_min: 860
+  acceptable_max: 631
+  acceptable_min: 563
 - id: '569'
   item: leather coif
   item_in: in catalog
@@ -5936,10 +6281,14 @@
   pawnable: false
   room: 13722
   town: Horse Clan
-  very_max: 401
+  very_max: 430
   very_min: 391
-  rather_max: 402
-  rather_min: 391
+  rather_max: 475
+  rather_min: 430
+  acceptable_max: 506
+  acceptable_min: 476
+  poorly_max: 860
+  poorly_min: 860
 - id: '572'
   item: leather mask
   item_in: in catalog
@@ -5954,31 +6303,41 @@
   pawnable: false
   room: 10039
   town: Shard
-  vpoorly_max: 573
-  vpoorly_min: 573
-  acceptable_max: 401
-  acceptable_min: 304
+  vpoorly_max: 574
+  vpoorly_min: 534
+  acceptable_max: 434
+  acceptable_min: 301
   trivial_max: 1750
   trivial_min: 643
-- acceptable_max: 384
-  acceptable_min: 304
+  poorly_max: 533
+  poorly_min: 435
+- acceptable_max: 470
+  acceptable_min: 301
   id: '574'
   item: slender stiletto
   item_in: in catalog
   pawnable: false
   room: 13291
   town: Shard
+  poorly_max: 567
+  poorly_min: 471
+  trivial_max: 1750
+  trivial_min: 860
 - acceptable_max: 367
-  acceptable_min: 332
+  acceptable_min: 329
   id: '575'
   item: horn ring
   item_in: on shelf
   pawnable: false
   room: 13721
   town: Horse Clan
-  poorly_max: 402
+  poorly_max: 451
   poorly_min: 368
-- exceptionally_max: 402
+  vpoorly_max: 505
+  vpoorly_min: 452
+  trivial_max: 1750
+  trivial_min: 860
+- exceptionally_max: 452
   exceptionally_min: 305
   id: '576'
   item: shield
@@ -5986,8 +6345,12 @@
   pawnable: false
   room: 13291
   town: Shard
-  acceptable_max: 735
-  acceptable_min: 575
+  acceptable_max: 885
+  acceptable_min: 546
+  very_max: 494
+  very_min: 453
+  rather_max: 545
+  rather_min: 495
 - id: '577'
   item: leather mask
   item_in: in catalog
@@ -5996,7 +6359,7 @@
   poorly_min: 305
   room: 10039
   town: Shard
-- acceptable_max: 402
+- acceptable_max: 404
   acceptable_min: 305
   id: '578'
   item: chain veil
@@ -6005,9 +6368,11 @@
   room: 10039
   town: Shard
   vpoorly_max: 609
-  vpoorly_min: 573
+  vpoorly_min: 534
   trivial_max: 1750
   trivial_min: 643
+  poorly_max: 470
+  poorly_min: 463
 - id: '579'
   item: leather belt
   item_in: in catalog
@@ -6032,7 +6397,7 @@
   town: Shard
   trivial_max: 1750
   trivial_min: 573
-- exceptionally_max: 402
+- exceptionally_max: 499
   exceptionally_min: 305
   id: '582'
   item: leather strips
@@ -6040,10 +6405,12 @@
   pawnable: false
   room: 19306
   town: Shard
-  acceptable_max: 735
-  acceptable_min: 608
-  rather_max: 576
-  rather_min: 573
+  acceptable_max: 885
+  acceptable_min: 604
+  rather_max: 593
+  rather_min: 546
+  very_max: 545
+  very_min: 500
 - id: '583'
   item: grey glove
   item_in: on red counter
@@ -6068,21 +6435,21 @@
   town: Shard
   vpoorly_max: 573
   vpoorly_min: 573
-- acceptable_max: 402
-  acceptable_min: 304
+- acceptable_max: 470
+  acceptable_min: 301
   id: '586'
   item: ruby badge
   item_in: on stand
   pawnable: false
   room: 13998
   town: Shard
-  poorly_max: 576
-  poorly_min: 574
-  vpoorly_max: 660
-  vpoorly_min: 608
+  poorly_max: 577
+  poorly_min: 471
+  vpoorly_max: 685
+  vpoorly_min: 579
   trivial_max: 1750
-  trivial_min: 733
-- acceptable_max: 314
+  trivial_min: 686
+- acceptable_max: 361
   acceptable_min: 305
   id: '587'
   item: ceramic thimble
@@ -6090,12 +6457,14 @@
   pawnable: false
   room: 13998
   town: Shard
-  poorly_max: 405
-  poorly_min: 387
+  poorly_max: 443
+  poorly_min: 362
   trivial_max: 1750
-  trivial_min: 733
-- acceptable_max: 402
-  acceptable_min: 304
+  trivial_min: 563
+  vpoorly_max: 444
+  vpoorly_min: 444
+- acceptable_max: 512
+  acceptable_min: 301
   id: '588'
   item: target shield
   item_in: on rack
@@ -6103,10 +6472,12 @@
   room: 9596
   town: Shard
   poorly_max: 628
-  poorly_min: 573
+  poorly_min: 513
   vpoorly_min: 629
-  vpoorly_max: 735
-- acceptable_max: 391
+  vpoorly_max: 746
+  trivial_max: 1750
+  trivial_min: 747
+- acceptable_max: 431
   acceptable_min: 305
   id: '589'
   item: ordinary shield
@@ -6114,7 +6485,13 @@
   pawnable: false
   room: 9596
   town: Shard
-- exceptionally_max: 397
+  vpoorly_max: 769
+  vpoorly_min: 747
+  trivial_max: 1750
+  trivial_min: 792
+  poorly_max: 574
+  poorly_min: 563
+- exceptionally_max: 470
   exceptionally_min: 334
   id: '590'
   item: grey shawl
@@ -6122,19 +6499,13 @@
   pawnable: false
   room: 13721
   town: Horse Clan
-  acceptable_max: 661
-  acceptable_min: 609
-  rather_max: 576
+  acceptable_max: 885
+  acceptable_min: 604
+  rather_max: 585
   rather_min: 573
-- id: '592'
-  item: trailbread
-  item_in: counter
-  pawnable: false
-  room: 14012
-  town: Leth Deriel
-  trivial_max: 1750
-  trivial_min: 334
-- acceptable_max: 335
+  very_max: 501
+  very_min: 501
+- acceptable_max: 361
   acceptable_min: 335
   id: '593'
   item: oil
@@ -6143,10 +6514,12 @@
   room: 13836
   town: Leth Deriel
   trivial_max: 1750
-  trivial_min: 577
-  poorly_max: 405
-  poorly_min: 402
-- acceptable_max: 335
+  trivial_min: 562
+  poorly_max: 443
+  poorly_min: 362
+  vpoorly_max: 509
+  vpoorly_min: 444
+- acceptable_max: 338
   acceptable_min: 335
   id: '594'
   item: water
@@ -6156,7 +6529,9 @@
   town: Leth Deriel
   trivial_max: 1750
   trivial_min: 578
-- acceptable_max: 335
+  vpoorly_max: 444
+  vpoorly_min: 444
+- acceptable_max: 336
   acceptable_min: 335
   id: '595'
   item: silver breeze perfume
@@ -6166,6 +6541,8 @@
   town: Leth Deriel
   trivial_max: 1750
   trivial_min: 579
+  vpoorly_max: 444
+  vpoorly_min: 444
 - acceptable_max: 335
   acceptable_min: 335
   id: '596'
@@ -6176,6 +6553,8 @@
   town: Leth Deriel
   trivial_max: 1750
   trivial_min: 579
+  vpoorly_max: 445
+  vpoorly_min: 445
 - acceptable_max: 335
   acceptable_min: 335
   id: '597'
@@ -6186,6 +6565,8 @@
   town: Leth Deriel
   trivial_max: 1750
   trivial_min: 579
+  vpoorly_max: 445
+  vpoorly_min: 445
 - id: '598'
   item: origami case
   item_in: on shelves
@@ -6194,29 +6575,43 @@
   town: Leth Deriel
   very_max: 335
   very_min: 335
-  acceptable_max: 583
-  acceptable_min: 576
-- acceptable_max: 403
-  acceptable_min: 403
+  acceptable_max: 665
+  acceptable_min: 394
+  vpoorly_max: 982
+  vpoorly_min: 817
+  rather_max: 393
+  rather_min: 352
+  poorly_max: 816
+  poorly_min: 666
+- acceptable_max: 535
+  acceptable_min: 535
   id: '599'
   item: envelope
   item_in: table
   pawnable: false
   room: 14016
   town: Leth Deriel
-  exceptionally_max: 402
+  exceptionally_max: 534
   exceptionally_min: 402
-- acceptable_max: 403
-  acceptable_min: 403
+  poorly_max: 535
+  poorly_min: 535
+  trivial_max: 1750
+  trivial_min: 860
+- acceptable_max: 470
+  acceptable_min: 408
   id: '600'
   item: envelope
   item_in: counter
   pawnable: false
   room: 14016
   town: Leth Deriel
-  exceptionally_max: 402
+  exceptionally_max: 470
   exceptionally_min: 402
-- acceptable_max: 402
+  trivial_max: 1750
+  trivial_min: 860
+  poorly_max: 471
+  poorly_min: 471
+- acceptable_max: 453
   acceptable_min: 335
   id: '601'
   item: primer
@@ -6224,6 +6619,8 @@
   pawnable: false
   room: 14016
   town: Leth Deriel
+  poorly_max: 567
+  poorly_min: 491
 - id: '602'
   item: small rocks
   item_in: in catalog
@@ -6264,7 +6661,7 @@
   town: Leth Deriel
   trivial_max: 1750
   trivial_min: 335
-- acceptable_max: 335
+- acceptable_max: 340
   acceptable_min: 335
   id: '607'
   item: common longbow
@@ -6273,10 +6670,12 @@
   room: 13584
   town: Leth Deriel
   trivial_max: 1750
-  trivial_min: 577
-  poorly_max: 405
-  poorly_min: 402
-- acceptable_max: 335
+  trivial_min: 502
+  poorly_max: 418
+  poorly_min: 341
+  vpoorly_max: 495
+  vpoorly_min: 419
+- acceptable_max: 336
   acceptable_min: 335
   id: '608'
   item: ash longbow
@@ -6285,7 +6684,9 @@
   room: 13584
   town: Leth Deriel
   trivial_max: 1750
-  trivial_min: 578
+  trivial_min: 508
+  vpoorly_max: 419
+  vpoorly_min: 419
 - id: '609'
   item: mesh sack
   item_in: in catalog
@@ -6302,7 +6703,7 @@
   town: Leth Deriel
   vpoorly_max: 335
   vpoorly_min: 335
-- acceptable_max: 402
+- acceptable_max: 430
   acceptable_min: 335
   id: '611'
   item: pannier
@@ -6310,8 +6711,12 @@
   pawnable: false
   room: 14017
   town: Leth Deriel
-  vpoorly_max: 583
-  vpoorly_min: 577
+  vpoorly_max: 628
+  vpoorly_min: 529
+  poorly_max: 528
+  poorly_min: 431
+  trivial_max: 1750
+  trivial_min: 629
 - acceptable_max: 402
   acceptable_min: 335
   id: '612'
@@ -6320,6 +6725,12 @@
   pawnable: false
   room: 14017
   town: Leth Deriel
+  trivial_max: 1750
+  trivial_min: 860
+  vpoorly_max: 668
+  vpoorly_min: 629
+  poorly_max: 567
+  poorly_min: 529
 - id: '613'
   item: flute
   item_in: in catalog
@@ -6368,8 +6779,16 @@
   town: Leth Deriel
   very_max: 335
   very_min: 335
-  acceptable_max: 583
-  acceptable_min: 576
+  acceptable_max: 671
+  acceptable_min: 373
+  vpoorly_max: 979
+  vpoorly_min: 825
+  rather_max: 372
+  rather_min: 356
+  poorly_max: 824
+  poorly_min: 672
+  trivial_max: 1750
+  trivial_min: 980
 - id: '619'
   item: blouse
   item_in: in catalog
@@ -6378,7 +6797,7 @@
   town: Leth Deriel
   trivial_max: 1750
   trivial_min: 335
-- acceptable_max: 402
+- acceptable_max: 451
   acceptable_min: 335
   id: '620'
   item: cote
@@ -6386,9 +6805,13 @@
   pawnable: false
   room: 14019
   town: Leth Deriel
-  vpoorly_max: 583
-  vpoorly_min: 577
-- acceptable_max: 335
+  vpoorly_max: 658
+  vpoorly_min: 555
+  trivial_max: 1750
+  trivial_min: 659
+  poorly_max: 554
+  poorly_min: 452
+- acceptable_max: 371
   acceptable_min: 335
   id: '621'
   item: doublet
@@ -6396,9 +6819,13 @@
   pawnable: false
   room: 14019
   town: Leth Deriel
-  poorly_max: 405
-  poorly_min: 402
-- acceptable_max: 335
+  poorly_max: 453
+  poorly_min: 372
+  trivial_max: 1750
+  trivial_min: 659
+  vpoorly_max: 457
+  vpoorly_min: 457
+- acceptable_max: 338
   acceptable_min: 335
   id: '622'
   item: jerkin
@@ -6406,6 +6833,10 @@
   pawnable: false
   room: 14019
   town: Leth Deriel
+  trivial_max: 1750
+  trivial_min: 659
+  vpoorly_max: 466
+  vpoorly_min: 466
 - id: '623'
   item: sarong
   item_in: in catalog
@@ -6422,24 +6853,6 @@
   poorly_min: 335
   room: 14019
   town: Leth Deriel
-- exceptionally_max: 335
-  exceptionally_min: 335
-  id: '625'
-  item: arm pouch
-  item_in: on counter
-  pawnable: false
-  room: 14012
-  town: Leth Deriel
-  acceptable_max: 582
-  acceptable_min: 576
-- id: '626'
-  item: trailbread
-  item_in: on counter
-  pawnable: false
-  room: 14012
-  town: Leth Deriel
-  trivial_max: 1750
-  trivial_min: 335
 - id: '627'
   item: deer skin
   item_in: in catalog
@@ -6488,7 +6901,7 @@
   town: Leth Deriel
   trivial_max: 1750
   trivial_min: 335
-- acceptable_max: 335
+- acceptable_max: 377
   acceptable_min: 335
   id: '633'
   item: reaver pelt
@@ -6497,9 +6910,11 @@
   room: 50269
   town: Leth Deriel
   trivial_max: 1750
-  trivial_min: 577
-  poorly_max: 405
-  poorly_min: 402
+  trivial_min: 562
+  poorly_max: 463
+  poorly_min: 378
+  vpoorly_max: 495
+  vpoorly_min: 464
 - id: '634'
   item: dice
   item_in: basket
@@ -6524,14 +6939,18 @@
   poorly_min: 335
   room: 13584
   town: Leth Deriel
-- acceptable_max: 399
-  acceptable_min: 334
+- acceptable_max: 470
+  acceptable_min: 329
   id: '637'
   item: croc earring
   item_in: in catalog
   pawnable: false
   room: 11781
   town: Arthe Dale
+  poorly_max: 524
+  poorly_min: 471
+  trivial_max: 1750
+  trivial_min: 860
 - exceptionally_max: 335
   exceptionally_min: 335
   id: '638'
@@ -6542,11 +6961,17 @@
   town: Arthe Dale
   acceptable_max: 694
   acceptable_min: 420
-  rather_max: 418
+  rather_max: 419
   rather_min: 385
   very_max: 378
   very_min: 377
-- acceptable_max: 402
+  poorly_max: 860
+  poorly_min: 860
+  vpoorly_max: 1101
+  vpoorly_min: 1086
+  trivial_max: 1750
+  trivial_min: 1102
+- acceptable_max: 459
   acceptable_min: 335
   id: '639'
   item: grendel pouch
@@ -6554,6 +6979,10 @@
   pawnable: false
   room: 11781
   town: Arthe Dale
+  trivial_max: 1750
+  trivial_min: 860
+  poorly_max: 567
+  poorly_min: 526
 - id: '640'
   item: silk fan
   item_in: in catalog
@@ -6666,12 +7095,14 @@
   pawnable: false
   room: 19382
   town: Arthe Dale
-  acceptable_max: 963
-  acceptable_min: 605
-  rather_max: 595
+  acceptable_max: 1085
+  acceptable_min: 603
+  rather_max: 602
   rather_min: 546
   very_max: 545
   very_min: 505
+  poorly_max: 1174
+  poorly_min: 1086
 - id: '654'
   item: stout iron lockpick
   item_in: cat
@@ -6728,7 +7159,7 @@
   town: Shard
   trivial_max: 1750
   trivial_min: 608
-- acceptable_max: 661
+- acceptable_max: 664
   acceptable_min: 608
   id: '661'
   item: two-handed sword
@@ -6736,8 +7167,10 @@
   pawnable: false
   room: 9747
   town: Shard
-  poorly_max: 735
+  poorly_max: 760
   poorly_min: 733
+  vpoorly_max: 860
+  vpoorly_min: 860
 - id: '662'
   item: broadsword
   item_in: catal
@@ -6768,11 +7201,13 @@
   item: cambrinth ring
   item_in: in catalog
   pawnable: false
-  rather_max: 625
+  rather_max: 635
   rather_min: 608
   room: 13105
   town: Shard
-- acceptable_max: 608
+  acceptable_max: 860
+  acceptable_min: 860
+- acceptable_max: 631
   acceptable_min: 608
   id: '666'
   item: naphtha
@@ -6780,17 +7215,21 @@
   pawnable: false
   room: 13105
   town: Shard
+  poorly_max: 860
+  poorly_min: 860
 - acceptable_max: 661
-  acceptable_min: 576
+  acceptable_min: 575
   id: '667'
   item: armet helmet
   item_in: in catalog
   pawnable: false
   room: 10039
   town: Shard
-  poorly_max: 735
-  poorly_min: 733
-- acceptable_max: 576
+  poorly_max: 800
+  poorly_min: 662
+  vpoorly_max: 903
+  vpoorly_min: 860
+- acceptable_max: 860
   acceptable_min: 576
   id: '668'
   item: small vest
@@ -6809,7 +7248,11 @@
   trivial_max: 1750
   trivial_min: 66
   nearly_max: 65
-  nearly_min: 64
+  nearly_min: 51
+  vpoorly_max: 50
+  vpoorly_min: 40
+  poorly_max: 39
+  poorly_min: 37
 - id: '670'
   item: gloves
   item_in: in catalog
@@ -6836,7 +7279,7 @@
   town: Shard
   vpoorly_max: 609
   vpoorly_min: 609
-- acceptable_max: 643
+- acceptable_max: 860
   acceptable_min: 609
   id: '673'
   item: sinuous vest
@@ -6852,7 +7295,7 @@
   pawnable: false
   room: 13291
   town: Shard
-- acceptable_max: 576
+- acceptable_max: 631
   acceptable_min: 576
   id: '675'
   item: two-handed sword
@@ -6860,6 +7303,8 @@
   pawnable: false
   room: 9747
   town: Shard
+  vpoorly_max: 860
+  vpoorly_min: 860
 - id: '676'
   item: twelve strings
   item_in: in catalog
@@ -6876,6 +7321,8 @@
   pawnable: false
   room: 9747
   town: Shard
+  trivial_max: 1750
+  trivial_min: 574
 - exceptionally_max: 60
   exceptionally_min: 60
   id: '678'
@@ -6884,14 +7331,18 @@
   pawnable: false
   room: 9747
   town: Shard
-  acceptable_max: 106
+  acceptable_max: 140
   acceptable_min: 79
   rather_max: 78
   rather_min: 75
   trivial_max: 1750
-  trivial_min: 610
+  trivial_min: 560
   very_max: 68
   very_min: 66
+  poorly_max: 172
+  poorly_min: 141
+  vpoorly_max: 198
+  vpoorly_min: 173
 - acceptable_max: 60
   acceptable_min: 60
   id: '679'
@@ -6900,6 +7351,8 @@
   pawnable: false
   room: 9747
   town: Shard
+  trivial_max: 1750
+  trivial_min: 574
 - id: '680'
   item: charcoal
   item_in: in catalog
@@ -6941,7 +7394,7 @@
   room: 2852
   town: Shard
 - acceptable_max: 293
-  acceptable_min: 285
+  acceptable_min: 281
   id: '685'
   item: riolur leaf
   item_in: in catalog
@@ -6951,8 +7404,8 @@
   room: 2852
   town: Shard
   trivial_max: 1750
-  trivial_min: 610
-  vpoorly_max: 402
+  trivial_min: 429
+  vpoorly_max: 428
   vpoorly_min: 387
 - id: '686'
   item: blocil potion
@@ -6971,7 +7424,7 @@
   trivial_max: 1750
   trivial_min: 286
 - acceptable_max: 382
-  acceptable_min: 285
+  acceptable_min: 281
   id: '688'
   item: scimitar
   item_in: in catalog
@@ -6980,8 +7433,10 @@
   town: Shard
   trivial_max: 1750
   trivial_min: 610
-  poorly_max: 402
+  poorly_max: 453
   poorly_min: 383
+  vpoorly_max: 505
+  vpoorly_min: 470
 - id: '689'
   item: cutlass
   item_in: in catalog
@@ -7000,7 +7455,7 @@
   town: Shard
   vpoorly_max: 286
   vpoorly_min: 286
-- acceptable_max: 286
+- acceptable_max: 331
   acceptable_min: 286
   id: '691'
   item: longbow
@@ -7010,8 +7465,10 @@
   town: Shard
   trivial_max: 1750
   trivial_min: 610
-  poorly_max: 405
+  poorly_max: 418
   poorly_min: 387
+  vpoorly_max: 419
+  vpoorly_min: 419
 - id: '692'
   item: scale polish
   item_in: on counter
@@ -7216,6 +7673,8 @@
   town: Shard
   vpoorly_max: 387
   vpoorly_min: 387
+  trivial_max: 1750
+  trivial_min: 574
 - id: '718'
   item: kris
   item_in: in catalog
@@ -7252,7 +7711,593 @@
   item: longbow
   item_in: in catalog
   pawnable: false
-  rather_max: 660
+  rather_max: 688
   rather_min: 625
   room: 13144
   town: Shard
+  acceptable_max: 860
+  acceptable_min: 689
+- acceptable_max: 22
+  acceptable_min: 22
+  id: '723'
+  item: flint
+  item_in: in catalog
+  pawnable: false
+  room: 7792
+  town: Riverhaven
+  trivial_max: 1750
+  trivial_min: 77
+  poorly_max: 38
+  poorly_min: 38
+- id: '724'
+  item: truffle
+  item_in: in catalog
+  nearly_max: 22
+  nearly_min: 22
+  pawnable: false
+  room: 14247
+  town: Riverhaven
+- acceptable_max: 671
+  acceptable_min: 401
+  id: '725'
+  item: light crossbow
+  item_in: in catalog
+  pawnable: false
+  room: 2948
+  town: Shard
+  poorly_max: 824
+  poorly_min: 672
+  vpoorly_max: 903
+  vpoorly_min: 825
+- acceptable_max: 584
+  acceptable_min: 404
+  id: '726'
+  item: horn torque
+  item_in: on shelf
+  pawnable: false
+  room: 13721
+  town: Horse Clan
+  vpoorly_max: 860
+  vpoorly_min: 860
+- acceptable_max: 575
+  acceptable_min: 408
+  id: '727'
+  item: light crossbow
+  item_in: in catalog
+  pawnable: false
+  room: 9747
+  town: Shard
+  vpoorly_max: 860
+  vpoorly_min: 860
+- id: '728'
+  item: eghmok potion
+  item_in: on counter
+  pawnable: false
+  poorly_max: 408
+  poorly_min: 408
+  room: 13997
+  town: Shard
+- acceptable_max: 32
+  acceptable_min: 24
+  id: '729'
+  item: socks
+  item_in: in catalog
+  pawnable: false
+  room: 19377
+  town: Kaerna Village
+  poorly_max: 36
+  poorly_min: 33
+  vpoorly_max: 40
+  vpoorly_min: 40
+- id: '730'
+  item: muffin
+  item_in: bread rack
+  pawnable: false
+  rather_max: 27
+  rather_min: 27
+  room: 19240
+  town: Arthe Dale
+  trivial_max: 1750
+  trivial_min: 83
+- id: '731'
+  item: dried meat
+  item_in: in catalog
+  nearly_max: 28
+  nearly_min: 28
+  pawnable: false
+  room: 19377
+  town: Kaerna Village
+- acceptable_max: 39
+  acceptable_min: 27
+  id: '732'
+  item: biscuit
+  item_in: on rack
+  pawnable: false
+  room: 19240
+  town: Arthe Dale
+  trivial_max: 1750
+  trivial_min: 40
+  rather_max: 26
+  rather_min: 26
+- exceptionally_max: 560
+  exceptionally_min: 445
+  id: '733'
+  item: heavy crossbow
+  item_in: in catalog
+  pawnable: false
+  room: 9747
+  town: Shard
+  acceptable_max: 885
+  acceptable_min: 676
+  rather_max: 675
+  rather_min: 664
+  very_max: 585
+  very_min: 562
+- acceptable_max: 680
+  acceptable_min: 443
+  id: '734'
+  item: fourth pouch,
+  item_in: on rack
+  pawnable: false
+  room: 13720
+  town: Horse Clan
+  poorly_max: 818
+  poorly_min: 662
+  vpoorly_max: 885
+  vpoorly_min: 819
+- id: '735'
+  item: chain balaclava
+  item_in: in catalog
+  pawnable: false
+  poorly_max: 445
+  poorly_min: 445
+  room: 10039
+  town: Shard
+- exceptionally_max: 9
+  exceptionally_min: 7
+  id: '736'
+  item: brown feather
+  item_in: haversack
+  pawnable: false
+  room: 19073
+  town: Crossing
+  trivial_max: 1750
+  trivial_min: 686
+- exceptionally_max: 390
+  exceptionally_min: 356
+  id: '737'
+  item: physalis
+  item_in: on cedar table
+  pawnable: false
+  room: 13719
+  town: Horse Clan
+  acceptable_max: 860
+  acceptable_min: 860
+  very_max: 393
+  very_min: 391
+- id: '738'
+  item: jadice flower
+  item_in: on counter
+  pawnable: false
+  poorly_max: 407
+  poorly_min: 407
+  room: 13997
+  town: Shard
+- id: '739'
+  item: georin salve
+  item_in: on counter
+  pawnable: false
+  poorly_max: 407
+  poorly_min: 407
+  room: 13997
+  town: Shard
+- id: '740'
+  item: nilos salve
+  item_in: on counter
+  pawnable: false
+  poorly_max: 407
+  poorly_min: 407
+  room: 13997
+  town: Shard
+- exceptionally_max: 407
+  exceptionally_min: 407
+  id: '741'
+  item: acid-edtched sabre
+  item_in: in catalog
+  pawnable: false
+  room: 13291
+  town: Shard
+  acceptable_max: 860
+  acceptable_min: 860
+  very_max: 472
+  very_min: 470
+- id: '742'
+  item: seolarn weed
+  item_in: in catalog
+  nearly_max: 568
+  nearly_min: 568
+  pawnable: false
+  room: 11602
+  town: Shard
+  acceptable_max: 457
+  acceptable_min: 407
+  poorly_max: 567
+  poorly_min: 496
+  trivial_max: 1750
+  trivial_min: 860
+- id: '743'
+  item: large cauldron
+  item_in: in catalog
+  pawnable: false
+  poorly_max: 511
+  poorly_min: 511
+  room: 11602
+  town: Shard
+  acceptable_max: 510
+  acceptable_min: 407
+- exceptionally_max: 444
+  exceptionally_min: 391
+  id: '752'
+  item: vest
+  item_in: in catalog
+  pawnable: false
+  room: 14331
+  town: Riverhaven
+  acceptable_max: 982
+  acceptable_min: 666
+  rather_max: 515
+  rather_min: 515
+- id: '753'
+  item: bone aventail
+  item_in: in catalog
+  pawnable: false
+  poorly_max: 391
+  poorly_min: 391
+  room: 14331
+  town: Riverhaven
+- acceptable_max: 444
+  acceptable_min: 391
+  id: '754'
+  item: cambrinth ring
+  item_in: in catalog
+  pawnable: false
+  room: 14332
+  town: Riverhaven
+  vpoorly_max: 925
+  vpoorly_min: 895
+  poorly_max: 676
+  poorly_min: 666
+  trivial_max: 1750
+  trivial_min: 926
+- id: '755'
+  item: naphtha
+  item_in: on cart
+  pawnable: false
+  poorly_max: 391
+  poorly_min: 391
+  room: 393
+  town: Riverhaven
+- id: '756'
+  item: pomander
+  item_in: in catalog
+  pawnable: false
+  poorly_max: 391
+  poorly_min: 391
+  room: 12048
+  town: Riverhaven
+- acceptable_max: 391
+  acceptable_min: 391
+  id: '757'
+  item: stuffed bunny
+  item_in: in catalog
+  pawnable: false
+  room: 14333
+  town: Riverhaven
+  trivial_max: 1750
+  trivial_min: 666
+  poorly_max: 444
+  poorly_min: 418
+  vpoorly_max: 526
+  vpoorly_min: 515
+- id: '758'
+  item: choice tobacco
+  item_in: in catalog
+  pawnable: false
+  poorly_max: 391
+  poorly_min: 391
+  room: 14335
+  town: Riverhaven
+- acceptable_max: 444
+  acceptable_min: 391
+  id: '759'
+  item: toe-bells
+  item_in: on display
+  pawnable: false
+  room: 14336
+  town: Riverhaven
+  trivial_max: 1750
+  trivial_min: 895
+  poorly_max: 567
+  poorly_min: 515
+  vpoorly_max: 676
+  vpoorly_min: 666
+- id: '760'
+  item: goat-head mace
+  item_in: in catalog
+  pawnable: false
+  room: 7795
+  town: Riverhaven
+  very_max: 391
+  very_min: 391
+  poorly_max: 982
+  poorly_min: 895
+  rather_max: 444
+  rather_min: 418
+  acceptable_max: 676
+  acceptable_min: 515
+- acceptable_max: 444
+  acceptable_min: 391
+  id: '761'
+  item: dress
+  item_in: on counter
+  pawnable: false
+  room: 13753
+  town: Riverhaven
+  trivial_max: 1750
+  trivial_min: 895
+  poorly_max: 567
+  poorly_min: 515
+  vpoorly_max: 676
+  vpoorly_min: 666
+- acceptable_max: 391
+  acceptable_min: 391
+  id: '762'
+  item: chain greaves
+  item_in: in catalog
+  pawnable: false
+  room: 7794
+  town: Riverhaven
+  trivial_max: 1750
+  trivial_min: 666
+  poorly_max: 444
+  poorly_min: 426
+  vpoorly_max: 529
+  vpoorly_min: 515
+- exceptionally_max: 38
+  exceptionally_min: 38
+  id: '763'
+  item: pick
+  item_in: in book
+  pawnable: false
+  room: 14327
+  town: Riverhaven
+  trivial_max: 1750
+  trivial_min: 144
+  acceptable_max: 85
+  acceptable_min: 76
+- id: '764'
+  item: feather
+  item_in: in cata
+  nearly_max: 38
+  nearly_min: 38
+  pawnable: false
+  room: 12048
+  town: Riverhaven
+- id: '765'
+  item: taffelberry
+  item_in: in catalog
+  nearly_max: 38
+  nearly_min: 38
+  pawnable: false
+  room: 14333
+  town: Riverhaven
+- exceptionally_max: 859
+  exceptionally_min: 859
+  id: '766'
+  item: shavi
+  item_in: in catalog
+  pawnable: false
+  room: 9054
+  town: Leth Deriel
+  very_max: 954
+  very_min: 904
+  rather_max: 982
+  rather_min: 955
+- id: '767'
+  item: wolf-tail
+  item_in: in catalog
+  pawnable: false
+  room: 9054
+  town: Leth Deriel
+  trivial_max: 1750
+  trivial_min: 859
+- id: '768'
+  item: scraper
+  item_in: on counter
+  pawnable: false
+  room: 8268
+  town: Crossing
+  trivial_max: 1750
+  trivial_min: 860
+- exceptionally_max: 46
+  exceptionally_min: 41
+  id: '769'
+  item: comb
+  item_in: in book
+  pawnable: false
+  room: 13573
+  town: Ratha
+  acceptable_max: 69
+  acceptable_min: 59
+  rather_max: 58
+  rather_min: 53
+  very_max: 52
+  very_min: 50
+- id: '770'
+  item: worms
+  item_in: in catalog
+  pawnable: false
+  poorly_max: 44
+  poorly_min: 41
+  room: 13574
+  town: Ratha
+- id: '771'
+  item: mixing stick
+  item_in: in catalog
+  nearly_max: 41
+  nearly_min: 41
+  pawnable: false
+  room: 7203
+  town: Ratha
+  trivial_max: 1750
+  trivial_min: 42
+- id: '772'
+  item: pick
+  item_in: in catalog
+  pawnable: false
+  room: 13575
+  town: Ratha
+  vpoorly_max: 41
+  vpoorly_min: 41
+- acceptable_max: 46
+  acceptable_min: 41
+  id: '773'
+  item: lavender
+  item_in: in catalog
+  pawnable: false
+  room: 13108
+  town: Ratha
+  poorly_max: 57
+  poorly_min: 50
+  vpoorly_max: 65
+  vpoorly_min: 58
+- exceptionally_max: 42
+  exceptionally_min: 42
+  id: '774'
+  item: belt pouch
+  item_in: in book
+  pawnable: false
+  room: 13573
+  town: Ratha
+  acceptable_max: 59
+  acceptable_min: 56
+- id: '775'
+  item: size 25 hooks
+  item_in: in catalog
+  pawnable: false
+  room: 13574
+  town: Ratha
+  vpoorly_max: 43
+  vpoorly_min: 43
+- id: '776'
+  item: size 60 hooks
+  item_in: in catalog
+  pawnable: false
+  room: 13574
+  town: Ratha
+  vpoorly_max: 43
+  vpoorly_min: 43
+- exceptionally_max: 69
+  exceptionally_min: 46
+  id: '777'
+  item: oil
+  item_in: in catalog
+  pawnable: false
+  room: 7203
+  town: Ratha
+- exceptionally_max: 48
+  exceptionally_min: 48
+  id: '778'
+  item: incense
+  item_in: in catalog
+  pawnable: false
+  room: 19073
+  town: Crossing
+  trivial_max: 1750
+  trivial_min: 670
+- exceptionally_max: 65
+  exceptionally_min: 51
+  id: '779'
+  item: oil
+  item_in: in catalog
+  pawnable: false
+  room: 7203
+  town: Ratha
+- acceptable_max: 69
+  acceptable_min: 65
+  id: '780'
+  item: stockings
+  item_in: in catalog
+  pawnable: false
+  room: 14345
+  town: Ratha
+  very_max: 51
+  very_min: 51
+  rather_max: 55
+  rather_min: 55
+- acceptable_max: 69
+  acceptable_min: 53
+  id: '781'
+  item: chamomile
+  item_in: in catalog
+  pawnable: false
+  rather_max: 52
+  rather_min: 51
+  room: 13108
+  town: Ratha
+- exceptionally_max: 68
+  exceptionally_min: 54
+  id: '782'
+  item: teardrop
+  item_in: in catalog
+  pawnable: false
+  room: 14368
+  town: Ratha
+  very_max: 69
+  very_min: 69
+- exceptionally_max: 58
+  exceptionally_min: 58
+  id: '783'
+  item: teardrop
+  item_in: in catalog
+  pawnable: false
+  room: 14368
+  town: Ratha
+- acceptable_max: 64
+  acceptable_min: 59
+  id: '784'
+  item: stockings
+  item_in: in catalog
+  pawnable: false
+  room: 14345
+  town: Ratha
+- exceptionally_max: 68
+  exceptionally_min: 59
+  id: '785'
+  item: hairpin
+  item_in: in catalog
+  pawnable: false
+  room: 7202
+  town: Ratha
+  very_max: 69
+  very_min: 69
+- exceptionally_max: 64
+  exceptionally_min: 59
+  id: '786'
+  item: drum stick
+  item_in: in catalog
+  pawnable: false
+  room: 13575
+  town: Ratha
+  very_max: 69
+  very_min: 65
+- acceptable_max: 746
+  acceptable_min: 634
+  id: '787'
+  item: throwing dagger
+  item_in: on table
+  pawnable: false
+  room: 13998
+  town: Shard
+  poorly_max: 885
+  poorly_min: 797

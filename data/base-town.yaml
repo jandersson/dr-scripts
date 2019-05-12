@@ -31,6 +31,9 @@ Crossing:
   gemshop:
     id: 4652
     name: appraiser
+  pawnshop:
+    id: 8261
+    name: Cormyn
   tannery:
     id: 8266
     name: Falken
@@ -40,6 +43,8 @@ Crossing:
     id: 19125
   theurgy_supplies:
     id: 19073
+  favor_altar: &zoluren_favor_altar
+    id: 5865
   debt_office:
     id: 8282
   guard_house:
@@ -134,6 +139,14 @@ Crossing:
     Warrior Mage:
       name: Gauthus
       id: 7887
+Darkling Wood:
+  currency: dokoras
+  shipment_clerk:
+    id: 14636
+  trade_minister:
+    id: 14636
+  trader_outpost:
+    id: 2702
 Dirge:
   trade_minister:
     id: 15175
@@ -142,6 +155,14 @@ Dirge:
     id: 8919
   trader_outpost:
     id: 1307
+Fayrin's Rest:
+  currency: dokoras
+  shipment_clerk:
+    id: 19278
+  trade_minister:
+    id: 19278
+  trader_outpost:
+    id: 2840
 Leth Deriel:
   currency: kronars
   leather_repair:
@@ -170,6 +191,8 @@ Leth Deriel:
   npc_empath:
     id: 9691
     action: lie
+  favor_altar:
+    << : *zoluren_favor_altar
   # safe room: 2189
   guild_leaders:
     << : *zoluren_guild_leaders
@@ -185,6 +208,9 @@ Shard:
     name:
     - Fatimi
     - Veilex
+  pawnshop:
+    id: 9759
+    name: Aelik
   tannery:
     id: 19340
     name: Tremagis
@@ -192,8 +218,8 @@ Shard:
     id: 19270
     name: Ylono
   metal_repair:
-    id: 9639
-    name: Granzer
+    id: 19270
+    name: Ylono
   npc_empath:
     id: 8908
   locksmithing:
@@ -206,6 +232,8 @@ Shard:
     id: 12835
   theurgy_supplies:
     id: 13161
+  favor_altar: &southern_favor_altar
+    id: 11381
   attunement_rooms:
     - 2780
     - 2779
@@ -287,13 +315,26 @@ Shard:
       id: 12701
     Thief:
       name: Saishla
-      id:
+      id: 12835
     Trader:
       name: Cialen
-      id: 8918
+      id: 8196
     Warrior Mage:
       name: Melear
       id: 11197
+  shipment_clerk:
+    id: 8193
+  trade_minister:
+    id: 8197
+  trader_outpost:
+    id: 8191
+Steelclaw Clan:
+  shipment_clerk:
+    id: 19399
+  trade_minister:
+    id: 19399
+  trader_outpost:
+    id: 2874
 Stone Clan:
   currency: kronars
   shipment_clerk:
@@ -325,6 +366,9 @@ Riverhaven:
   gemshop:
     id: 7955
     name: Anthelorm
+  pawnshop:
+    id: 14337
+    name: Ioun
   guard_house:
     id: 7882
   tannery:
@@ -347,6 +391,8 @@ Riverhaven:
     id: 13403
   theurgy_supplies:
     id: 12048
+  favor_altar: &northern_favor_altar
+    id: 445
   attunement_rooms:
     - 352
     - 353
@@ -474,6 +520,8 @@ Therenborough:
     id: 10079
   theurgy_supplies:
     id: 11606
+  favor_altar:
+    << : *northern_favor_altar
   locksmithing:
     id:
   guard_house:
@@ -523,6 +571,8 @@ Langenfirth:
     id: 10079
   theurgy_supplies:
     id: 11606
+  favor_altar:
+    << : *northern_favor_altar
   locksmithing:
     id:
   guard_house:
@@ -551,7 +601,7 @@ Langenfirth:
     - 12269
     - 12215
     - 12209
-  guild_leaders: 
+  guild_leaders:
     << : *therengia_guild_leaders
 Ratha:
   currency: lirums
@@ -577,7 +627,7 @@ Ratha:
   debt_office:
     id: 7160
   guard_house:
-    id: 13023
+    id: 13106
   thief_bin:
     id: 13577
   theurgy_supplies:
@@ -595,13 +645,37 @@ Ratha:
     - 4638
     - 4637
     - 4636
+  strength:
+    outer_room: 14431
+    inner_room:
+  agility:
+    outer_room: 7213
+    inner_room:
+  discipline:
+    outer_room: 7487
+    inner_room:
+  intelligence:
+    outer_room: 12369
+    inner_room:
+  wisdom:
+    outer_room: 12960
+    inner_room:
+  reflex:
+    outer_room: 4851
+    inner_room:
+  charisma:
+    outer_room: 5007
+    inner_room:
+  stamina:
+    outer_room: 12688
+    inner_room:
   guild_leaders:
     Barbarian:
       name: Anhh'shre
-      id:
+      id: 12670
     Bard:
       name: Lileyew
-      id:
+      id: 12692
     Cleric:
       name: Kor'yvyn
       id: 12698
@@ -614,15 +688,15 @@ Ratha:
     Paladin:
       name: Eamonn
       id: 12691
-    Thief: # not sure where Dwillig is
-      name:
-      id:
+    Thief:
+      name: Dwillig
+      id: 13577
     Trader:
       name: Imaar
       id: 12686
     Warrior Mage:
       name: Tyrsan
-      id:
+      id: 12687
 Aesry:
   currency: lirums
   leather_repair:
@@ -785,6 +859,12 @@ Throne City:
   npc_empath: # None
 Hibarnhvidar:
   currency: dokoras
+  shipment_clerk:
+    id: 7412
+  trade_minister:
+    id: 7412
+  trader_outpost:
+    id: 3903
   leather_repair:
     id: 11206
     name: Ladar
@@ -808,6 +888,8 @@ Hibarnhvidar:
     id:
   theurgy_supplies:
     id:
+  favor_altar:
+    << : *southern_favor_altar
   debt_office:
     id: 11696
   guard_house:
@@ -871,8 +953,22 @@ Hibarnhvidar:
     Warrior Mage:
       name: Jorent
       id: 11498
+Raven's Point:
+  currency: dokoras
+  shipment_clerk:
+    id: 14642
+  trade_minister:
+    id: 14642
+  trader_outpost:
+    id: 4440
 Boar Clan:
   currency: dokoras
+  shipment_clerk:
+    id: 13675
+  trade_minister:
+    id: 13675
+  trader_outpost:
+    id: 4106
   leather_repair:
     id: 12174
     name: Tuzra
@@ -895,6 +991,8 @@ Boar Clan:
     id:
   theurgy_supplies:
     id:
+  favor_altar:
+    << : *southern_favor_altar
   debt_office:
     id: 11696
   guard_house:
@@ -954,6 +1052,8 @@ Muspar'i:
     name: Ushikhh
   npc_empath:
     id: 10063
+  favor_altar:
+    << : *northern_favor_altar
   locksmithing:
     id: 7613
   debt_office:
@@ -981,10 +1081,21 @@ Muspar'i:
       id:
 Ain Ghazal:
   currency: dokoras
+  shipment_clerk:
+    id: 14638
+  trade_minister:
+    id: 14638
+  trader_outpost:
+    id: 11033
+  deposit:
+    id: 14640
+  exchange:
+    id: 14641
   locksmithing:
     id: 13190
   guild_leaders:
     Thief:
       name: Ivitha
       id: 13663
-  #Needs attunement_rooms, and premium bank/gem shop.
+  #Needs attunement_rooms
+

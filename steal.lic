@@ -287,7 +287,7 @@ class Steal
   end
 
   def put_item?(item)
-    case bput("put my #{item} in my #{@stealing_bag}", 'You put', 'no matter how you arrange it', 'The .* is *.* too \w+ to fit in', 'There isn\'t any more room', 'perhaps try doing that again')
+    case bput("put my #{item} in my #{@stealing_bag}", 'You put', "You can't do that", 'no matter how you arrange it', 'The .* is *.* too \w+ to fit in', 'There isn\'t any more room', 'perhaps try doing that again')
     when 'perhaps try doing that again'
       return put_item?(item)
     when 'You put'
@@ -358,6 +358,8 @@ class Steal
               'realize that you are being watched and should back off',
               'but decide you have too many outstanding fines as is',
               'you decide to wait a while before trying again',
+              "You haven't picked something to steal",
+              "You can't steal that",
               'Roundtime')
     when /this trivial theft/
       update_target(target, 'trivial') if count == 1
@@ -394,6 +396,10 @@ class Steal
     when /but decide you have too many outstanding fines as is/
       beep
       echo('Too many fines, cannot steal anything')
+      return false
+    when /You haven't picked something to steal/
+      beep
+      echo('Can not steal this item')
       return false
     when /realize that you are being watched and should back off|you decide to wait a while before trying again/
       beep

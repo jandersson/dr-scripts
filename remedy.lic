@@ -5,18 +5,20 @@
 # ;remedy remedies 2 "blister cream" "red flower" nemoih bar mortar cream
 # ;remedy remedies 2 "blister cream" nemoih "not used" bar mortar cream  - for when only herb is required
 
-custom_require.call(%w[common common-crafting common-items])
+custom_require.call(%w[common common-arcana common-crafting common-items events])
 
 class Remedy
   include DRC
   include DRCC
   include DRCI
+  include DRCA
 
   def initialize
-    settings = get_settings
-    @bag = settings.crafting_container
-    @bag_items = settings.crafting_items_in_container
-    @belt = settings.alchemy_belt
+    @settings = get_settings
+    @bag = @settings.crafting_container
+    @bag_items = @settings.crafting_items_in_container
+    @belt = @settings.alchemy_belt
+    @training_spells = @settings.crafting_training_spells
 
     arg_definitions = [
       [
@@ -42,6 +44,9 @@ class Remedy
     @container = args.container
     @noun = args.noun
 
+    wait_for_script_to_complete('buff', ['remedy'])
+    Flags.add('remedy-magic-ready', 'You feel fully prepared to cast your spell.')
+
     create_item
   end
 
@@ -54,13 +59,21 @@ class Remedy
   end
 
   def turn_to(section)
+    unless section
+      echo('Failed to find recipe in book, buy a better book?')
+      stow_item('book')
+      magic_cleanup
+      exit
+    end
     bput("turn my book to #{section}", 'You turn your', 'The book is already')
   end
 
   def create_item
+    magic_routine
     stow_item(left_hand)
     stow_item(right_hand)
     bput('get remed book', 'What were', 'You get')
+    echo('*** You will need to upgrade to a journeyman or master book before 176 ranks! ***') if DRSkill.getrank('Alchemy') == 175
     turn_to("page #{find_recipe(@chapter, @recipe_name)}")
     bput('study my book', 'Roundtime')
     stow_item('book')
@@ -92,6 +105,7 @@ class Remedy
 
   def crush(command)
     waitrt?
+    magic_routine
     case bput(command,
               'You need another splash of water',
               'You need another splash of alcohol',
@@ -186,6 +200,7 @@ class Remedy
       finish
     end
     waitrt?
+    magic_routine
     crush(command)
   end
 
@@ -230,6 +245,7 @@ class Remedy
 
   def mix(command)
     waitrt?
+    magic_routine
     case bput(command,
               'You need another splash of water',
               'You need another splash of alcohol',
@@ -309,6 +325,7 @@ class Remedy
       command = "mix my #{@container} with my mixing stick"
     end
     waitrt?
+    magic_routine
     mix(command)
   end
 
@@ -354,13 +371,48 @@ class Remedy
     end
   end
 
+  def magic_routine
+    return if @training_spells.empty?
+
+    needs_training = %w[Warding Utility Augmentation]
+                     .select { |skill| @training_spells[skill] }
+                     .select { |skill| DRSkill.getxp(skill) < 31 }
+                     .sort_by { |skill| DRSkill.getxp(skill) }.first
+    return unless needs_training
+
+    data = @training_spells[needs_training]
+
+    if Flags['remedy-magic-ready'] && mana > 40
+      crafting_cast_spell(data, @settings)
+      Flags.reset('remedy-magic-ready')
+      @preparing = false
+    end
+
+    return if @preparing
+    crafting_prepare_spell(data, @settings)
+    @preparing = true
+  end
+
+  def magic_cleanup
+    return if @training_spells.empty?
+
+    bput('release spell', 'You let your concentration lapse', "You aren't preparing a spell")
+    bput('release mana', 'You release all', "You aren't harnessing any mana")
+    bput('release symb', "But you haven't", 'You release', 'Repeat this command')
+  end
+
   def finish
     waitrt?
     stow_item(left_hand)
     fput("get my #{@noun} from my #{@container}")
     stow_item(right_hand)
+    magic_cleanup
     exit
   end
+end
+
+before_dying do
+  Flags.delete('remedy-magic-ready')
 end
 
 Remedy.new

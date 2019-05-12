@@ -1,0 +1,90 @@
+=begin
+  Documentation: https://elanthipedia.play.net/Lich_script_repository#walkingastro
+=end
+
+custom_require.call %w[common common-moonmage drinfomon]
+
+class WalkingAstro
+  def initialize
+    settings = get_settings
+    @astrology_prediction_skills_survival = settings.astrology_prediction_skills['survival']
+    @no_use_scripts = settings.walkingastro_no_use_scripts
+
+    main_loop
+  end
+
+  def get_telescope
+    case DRCMM.get_telescope
+    when 'You get'
+      determine_time
+    when 'You need a free hand to pick that up.'
+      quick_retry
+    when 'You are already holding that.'
+      determine_time
+    end
+  end
+
+  def quick_retry
+    pause 20
+    get_telescope
+  end
+
+  def determine_time
+    case DRC.bput('time', 'it is dawn', 'morning', 'midday', 'noon', 'afternoon', 'dusk', 'sunset', 'evening', 'midnight', 'night', 'almost dawn', 'approaching sunrise')
+    when 'it is dawn', 'morning', 'midday', 'noon', 'afternoon', 'dusk'
+      center('elanthian sun')
+    when 'sunset', 'evening', 'midnight', 'night', 'almost dawn', 'approaching sunrise'
+      center('heart')
+    end
+  end
+
+  def center(target)
+    case DRCMM.center_telescope_on(target)
+    when "That's a bit tough to do when you can't see the sky", 'Your search for'
+      stow_telescope
+    else
+      observe
+    end
+  end
+
+  def observe
+    case DRCMM.peer_telescope
+    when "You believe you've learned all that you can about survival", 'Too many futures cloud your mind - you learn nothing.'
+      waitrt?
+      stow_telescope
+      check_predict
+    else
+      waitrt?
+      stow_telescope
+    end
+  end
+
+  def stow_telescope
+    DRC.bput('stow my telescope', 'Stow what', 'You put your telescope')
+  end
+
+  def check_predict
+    return if DRSkill.getxp('Astrology') > 25
+
+    DRCMM.align(@astrology_prediction_skills_survival)
+    waitrt?
+    DRC.bput('predict future', 'roundtime')
+    waitrt?
+  end
+
+  def should_observe?
+    @no_use_scripts.none? { |name| Script.running?(name) }
+  end
+
+  def main_loop
+    loop do
+      if should_observe?
+        get_telescope
+        pause 205
+      end
+      pause 10
+    end
+  end
+end
+
+WalkingAstro.new

@@ -2,7 +2,7 @@
   Documentation: https://elanthipedia.play.net/Lich_script_repository#astrology
 =end
 
-custom_require.call(%w[common common-arcana common-travel drinfomon equipmanager spellmonitor])
+custom_require.call(%w[common common-arcana common-travel drinfomon equipmanager spellmonitor events])
 
 class Astrology
   include DRC
@@ -24,6 +24,9 @@ class Astrology
 
     @equipment_manager = EquipmentManager.new
     @constellations = get_data('constellations').constellations
+    @divination_tool = settings.divination_tool['name']
+    @divination_tool_container = settings.divination_tool['container']
+    @divination_tool_tied = settings.divination_tool['tied']
     @have_divination_bones = settings.have_divination_bones
     @divination_bones_container = settings.divination_bones_storage['container']
     @divination_bones_tied = settings.divination_bones_storage['tied']
@@ -32,6 +35,11 @@ class Astrology
     @ap_destination = settings.astral_plane_training['train_destination']
     @prediction_pool_target = settings.astrology_use_full_pools ? 10 : settings.astrology_pool_target
     @rtr_data = nil
+    @astrology_prediction_skills_magic = settings.astrology_prediction_skills['magic']
+    @astrology_prediction_skills_lore = settings.astrology_prediction_skills['lore']
+    @astrology_prediction_skills_offense = settings.astrology_prediction_skills['offense']
+    @astrology_prediction_skills_defense = settings.astrology_prediction_skills['defense']
+    @astrology_prediction_skills_survival = settings.astrology_prediction_skills['survival']
     echo " Flags['rtr-expire'].nil? #{Flags['rtr-expire'].nil?}" if UserVars.astrology_debug
     echo " Flags['rtr-expire'] = #{Flags['rtr-expire']}" if UserVars.astrology_debug
 
@@ -66,14 +74,14 @@ class Astrology
   def visible_bodies
     result = []
     all_bodies = @constellations
-    case bput('observe sky', 'The following heavenly bodies are visible:', "That's a bit hard to do while inside")
+    case bput('observe heavens', 'The following heavenly bodies are visible:', "That's a bit hard to do while inside")
     when "That's a bit hard to do while inside"
       echo('Must be outdoors to observe sky')
       exit
     end
 
     until (line = get?) =~ /^Roundtime/i
-      result << all_bodies.find { |body| /\b#{body['name']}\b/i =~ line && line !~ /below the horizon/ }
+      result << all_bodies.find { |body| /\b#{body['name'].split.last}\b/i =~ line && line !~ /below the horizon/ }
     end
     result.compact.select { |data| data['circle'] <= DRStats.circle }
   end
@@ -184,11 +192,11 @@ class Astrology
 
   def predict_all(pools)
     skillset_to_pool = {
-      'offensive combat' => 'offense',
-      'defensive combat' => 'defense',
-      'magic' => 'magic',
-      'survival' => 'survival',
-      'lore' => 'lore',
+      'offensive combat' => @astrology_prediction_skills_offense,
+      'defensive combat' => @astrology_prediction_skills_defense,
+      'magic' => @astrology_prediction_skills_magic,
+      'survival' => @astrology_prediction_skills_survival,
+      'lore' => @astrology_prediction_skills_lore,
       'future events' => 'future events'
     }
 
@@ -284,7 +292,7 @@ class Astrology
       @equipment_manager.empty_hands
       result
     else
-      ['Roundtime', 'Clouds obscure'].include? bput("observe #{body} in sky", 'Your search for', 'You see nothing regarding the future', 'Clouds obscure', 'Roundtime')
+      ['Roundtime', 'Clouds obscure'].include? bput("observe #{body} in heavens", 'Your search for', 'You see nothing regarding the future', 'Clouds obscure', 'Roundtime')
     end
   end
 
@@ -303,6 +311,35 @@ class Astrology
     end
   end
 
+  def execute_tool
+    verbs = {
+      'charts' => 'review',
+      'bones' => 'roll',
+      'mirror' => 'gaze',
+      'bowl' => 'gaze',
+      'prism' => 'raise'
+    }
+
+    if @divination_tool_tied
+      bput("untie #{@divination_tool} from my #{@divination_tool_container}", @divination_tool)
+    else
+      bput("get my #{@divination_tool} from my #{@divination_tool_container}", @divination_tool, 'you get')
+    end
+
+    verbs.each do |tool, verb|
+      next unless @divination_tool.include? tool
+      bput("#{verb} my #{@divination_tool}", 'roundtime')
+      waitrt?
+      break
+    end
+
+    if @divination_tool_tied
+      bput("tie #{@divination_tool} to my #{@divination_tool_container}", @divination_tool)
+    else
+      bput("put #{@divination_tool} in my #{@divination_tool_container}", @divination_tool, 'you put')
+    end
+  end
+
   def align(skill)
     if skill == 'future events'
       bput('predict event', 'You focus inwardly')
@@ -312,6 +349,8 @@ class Astrology
     waitrt?
     if @have_divination_bones
       roll_bones
+    elsif @divination_tool
+      execute_tool
     else
       bput('predict future', 'roundtime')
     end
@@ -350,6 +389,10 @@ class Astrology
     bput('predict analyze', 'Roundtime')
     waitrt?
   end
+end
+
+before_dying do
+  Flags.delete('bad-search')
 end
 
 # Call this last to avoid the need for forward declarations

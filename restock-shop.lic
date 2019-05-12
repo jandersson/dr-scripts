@@ -4,10 +4,6 @@
 
 custom_require.call(%w[common common-crafting common-items common-money common-travel])
 
-class ShopItem
-  def initialize; end
-end
-
 class ShopRestock
   include DRC
   include DRCC
@@ -16,36 +12,20 @@ class ShopRestock
   include DRCT
 
   def initialize
-    settings = get_settings
-    ensure_copper_on_hand(40_000, settings)
+    @settings = get_settings
 
-    @shop_id = settings.restock_shop_outside_room
-    @inner_id = settings.restock_shop_inside_room
-    @entrance = settings.restock_shop_entrance_noun
-    @item_list = settings.restock_shop_items
-    town = settings.restock_shop_town
-    @town_data = get_data('town').town
-    @bag = settings.crafting_container
-    # TODO: Validate users item list against recipe data. Ensure that there is only one match per user specified recipe.
-    # TODO: Validate users town
+    @shop_id = @settings.restock_shop['outside_room']
+    @inner_id = @settings.restock_shop['inside_room']
+    @entrance = @settings.restock_shop['entrance_noun']
+    @item_list = @settings.restock_shop['items']
+    @town = @settings.hometown
+    @part_data = get_data('crafting')[:recipe_parts]
+    @bag = @settings.crafting_container
+    @belt = @settings.forging_belt || @settings.engineering_belt
 
-    # @item_list = [
-    #   ['shirt', 220_000, 34, 'in cabinet', 4, 'quilted cloth shirt', 0, 2, 'heavy burlap'],
-    #   ['pants', 120_000, 10, 'in cabinet', 4, 'quilted cloth pants', 1, 1, 'heavy burlap'],
-    #   ['backpack', 100_000, 5, 'on table', 3, 'backpack', 'heavy linen'],
-    #   ['bag', 100_000, 6, 'on table', 3, 'duffel bag', 'heavy linen'],
-    #   ['sealed', 220_000, 8, 'in cabinet', 'gryphon'],
-    #   ['sword', 140_000, 9, 'on rack', 'bastard sword', 'steel'],
-    #   ['mace', 140_000, 12, 'on rack', 'bar mace', 'steel'],
-    #   ['hammer', 120_000, 10, 'on rack', 'throwing hammer', 'steel'],
-    #   ['greataxe', 120_000, 12, 'on rack', 'greataxe', 'steel'],
-    #   ['carryall', 200_000, 5, 'on table', 3, 'carryall', 'heavy silk'],
-    #   ['haversack', 200_000, 6, 'on table', 3, 'haversack', 'heavy silk']
-    # ]
     go_to_shop
     check_surfaces
 
-    return if Room.current.id == @inner_id
     go_to_shop
   end
 
@@ -72,6 +52,8 @@ class ShopRestock
     missing_recipes_re = Regexp.union(missing_items.map { |item| item['recipe'] })
     @recipes = all_recipes.select { |recipe| missing_recipes_re.match(recipe['name']) }
 
+    ensure_copper_on_hand(40_000, @settings)
+    go_to_shop
     restock_surfaces(missing_items)
   end
 
@@ -87,7 +69,7 @@ class ShopRestock
     return if missing_items.empty?
 
     volume = ((total_volume_of(missing_items) * 1.25) / 10.0).ceil
-    return if volume == 0
+    return if volume.zero?
 
     wait_for_script_to_complete('makesteel', [volume, 'refine'])
 
@@ -98,9 +80,8 @@ class ShopRestock
     end
 
     wait_for_script_to_complete('workorders', %w[blacksmithing repair])
-    # TODO: Convert to town data (restricted to towns with plazas)
-    walk_to(8774)
-    fput('get my steel ingot')
+    walk_to(get_data('crafting')[:blacksmithing][@town]['trash-room'])
+    get_item('steel ingot')
     dispose_trash('steel ingot')
   end
 
@@ -108,7 +89,7 @@ class ShopRestock
     return if missing_items.empty?
 
     volume = total_volume_of(missing_items)
-    return if volume == 0
+    return if volume.zero?
 
     have = 0
     if bput('get burlap cloth', 'You get', 'What were') == 'You get'
@@ -133,29 +114,18 @@ class ShopRestock
 
     missing_items.each do |item|
       move('out') if Room.current.id == @inner_id
-
-      # Reinforcing requires one large padding
-      large_padding_qty = 1
-      small_padding_qty = 0
-
-      # TODO: Read Padding data from recipe data instead of making the user supply padding data. Assume they are going to reinforce and buy the right amount of padding for that too
-      item['small_padding_qty'].times do
-        # TODO: Convert to town data (restricted to towns with plazas)
-        order_item(16_667, 11)
-        fput('stow padding')
-      end
-      item['large_padding_qty'].times do
-        # TODO: Convert to town data (restricted to towns with plazas)
-        order_item(16_667, 12)
-        fput('stow padding')
+      recipe_data = recipe_lookup(@recipes, item['recipe'])
+      recipe_data['part'] << 'large padding' # HACK: Reinforcing should be user specified
+      recipe_data['part'].uniq.each do |part_name|
+        recipe_data['part'].map { |part| part == part_name ? 1 : 0 }.reduce(0, :+).times { buy_part(part_name) }
       end
 
-      wait_for_script_to_complete('sew', ['stow', 'sewing', item['chapter'], item['recipe'], item['noun'], 'burlap'])
+      wait_for_script_to_complete('sew', ['stow', 'sewing', recipe_data['chapter'], item['recipe'], item['noun'], 'burlap'])
       stamp(item)
       wait_for_script_to_complete('sew', ['reinforce'])
       fput("stow #{item['noun']}")
       go_to_shop
-      fput("get #{item['noun']} from #{@bag}")
+      fput("get my #{item['noun']} from my #{@bag}")
       sell(item)
     end
     wait_for_script_to_complete('workorders', %w[tailoring repair])
@@ -166,7 +136,7 @@ class ShopRestock
     echo missing_items
 
     volume = total_volume_of(missing_items)
-    return if volume == 0
+    return if volume.zero?
 
     have = 0
     if bput('get linen cloth', 'You get', 'What were') == 'You get'
@@ -191,7 +161,8 @@ class ShopRestock
 
     missing_items.each do |item|
       move('out') if Room.current.id == @inner_id
-      wait_for_script_to_complete('sew', ['stow', 'sewing', item['chapter'], item['recipe'], item['noun'], 'linen'])
+      recipe_data = recipe_lookup(@recipes, item['recipe'])
+      wait_for_script_to_complete('sew', ['stow', 'sewing', recipe_data['chapter'], item['recipe'], item['noun'], 'linen'])
       go_to_shop
       stamp(item)
       sell(item)
@@ -202,7 +173,7 @@ class ShopRestock
     return if missing_items.empty?
 
     volume = total_volume_of(missing_items)
-    return if volume == 0
+    return if volume.zero?
 
     have = 0
     if bput("get silk cloth from my #{@bag}", 'You get', 'What were') == 'You get'
@@ -226,30 +197,39 @@ class ShopRestock
     stow_hands
 
     missing_items.each do |item|
+      recipe_data = recipe_lookup(@recipes, item['recipe'])
       move('out') if Room.current.id == @inner_id
-      wait_for_script_to_complete('sew', ['stow', 'sewing', item['chapter'], item['recipe'], item['noun']])
+      wait_for_script_to_complete('sew', ['stow', 'sewing', recipe_data['chapter'], item['recipe'], item['noun'], 'silk'])
       go_to_shop
       stamp(item)
       sell(item)
     end
   end
 
+  def buy_part(name)
+    part_data = @part_data[name][@town]
+    if part_data['part-number']
+      order_item(part_data['part-room'], part_data['part-number'])
+    else
+      buy_item(part_data['part-room'], name)
+    end
+    stow_hands
+  end
+
   def restock_gryphon(missing_items)
     return if missing_items.empty?
 
-    # TODO: Convert to town data (restricted to towns with plazas)
-    order_item(16_667, 16)
-    order_item(16_667, 17)
-    stow_hands
-    # TODO: Convert to YAML setting once tested
-    item = { 'noun'=>'shield', 'volume'=>10, 'recipe'=>'small leather shield', 'material'=>'leather', 'chapter'=>10, 'price'=>220_000, 'surface'=>'in cabinet' }
-    wait_for_script_to_complete('sew', ['stow', item['material'], item['chapter'], item['recipe'], item['noun'], 'gryphon'])
-    fput('stow leather')
-    fput('get shield from my back')
-    wait_for_script_to_complete('sew', ['seal'])
-    go_to_shop
-    stamp(item)
-    sell(item)
+    missing_items.each do |item|
+      recipe_data = recipe_lookup(@recipes, item['recipe'])
+      recipe_data['part'].each { |part| buy_part(part) }
+      wait_for_script_to_complete('sew', ['stow', 'leather', recipe_data['chapter'], item['recipe'], item['noun'], item['material']])
+      fput('stow leather')
+      get_item('shield')
+      wait_for_script_to_complete('sew', ['seal'])
+      go_to_shop
+      stamp(item)
+      sell(item)
+    end
   end
 
   def go_to_shop
@@ -273,20 +253,27 @@ class ShopRestock
     fput("sell my #{item['noun']} #{item['surface']} for #{item['price']}")
   end
 
+  def get_item(name)
+    get_crafting_item(name, @bag, @belt, @belt)
+  end
+
+  def stow_item(name)
+    stow_crafting_item(name, @bag, @belt)
+  end
+
   def stamp(item)
-    # TODO: Convert to stow/get crafting item
-    fput("get #{item['noun']} from #{@bag}")
-    fput('get my stamp')
+    fput("get my #{item['noun']} from my #{@bag}")
+    get_item('stamp')
     fput("mark my #{item['noun']} with my stamp")
     waitrt?
     pause
-    fput('stow stamp')
+    stow_item('stamp')
   end
 
   def total_volume_of(items)
     return 0 if items.empty?
 
-    items.map { |item| recipe_lookup(@recipes.select{ |recipe| recipe['noun'] == item['noun'] }, item['recipe'])['volume'] }
+    items.map { |item| recipe_lookup(@recipes.select { |recipe| recipe['noun'] == item['noun'] }, item['recipe'])['volume'] }
          .inject(&:+)
   end
 end
