@@ -1386,4 +1386,8 @@ before_dying do
   Flags.delete('ap-danger')
 end
 
+before_dying do
+  Flags.delete('bescort-ur-a-criminal')
+end
+
 Bescort.new

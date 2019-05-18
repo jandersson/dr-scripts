@@ -11,10 +11,9 @@
 =end
 begin
   custom_require.call %w[common common-arcana common-healing drinfomon]
-rescue 
-  echo "You do not have dependency installed. This script requires dependency"
+rescue
+  echo 'You do not have dependency installed. This script requires dependency'
 end
-
 
 class MagicTrainer
   include DRC
@@ -33,11 +32,11 @@ class MagicTrainer
                      'mindstate_gains' => [] },
       'Augmentation' => { 'last_gain_time' => 0,
                           'mindstate_gains' => [] },
-      'Sorcery' => { 
+      'Sorcery' => {
         'last_gain_time' => 0,
-        'mindstate_gains' => [],
+        'mindstate_gains' => []
       },
-                      
+
       'script_start' => Time.now
     }
     counter = 0
@@ -73,25 +72,23 @@ class MagicTrainer
 
   def update_discerns(abbrev, gain)
     if Flags['backfire']
-      echo "Backfire detected: Lowering mana by 1"
+      echo 'Backfire detected: Lowering mana by 1'
       UserVars.discerns[abbrev]['more'] = [UserVars.discerns[abbrev]['more'] - 1, 0].max
       Flags.reset('backfire')
     elsif gain < 1
-      echo "Gain below threshold: Increasing mana by 1"
+      echo 'Gain below threshold: Increasing mana by 1'
       UserVars.discerns[abbrev]['more'] = UserVars.discerns[abbrev]['more'] + 1
     end
   end
 
   def get_args
     arg_definitions = [
-        []
+      []
     ]
     parse_args(arg_definitions)
   end
 
-  def research(skill)
-    
-  end
+  def research(skill); end
 
   def check_nerves
     training_room = Room.current.id
@@ -112,7 +109,7 @@ class MagicTrainer
     exit if mana < threshold && @exit_on_low_mana
     while mana < threshold
       if DRSkill.getxp('Outdoorsmanship') < 33
-        wait_for_script_to_complete('outdoorsmanship') 
+        wait_for_script_to_complete('outdoorsmanship')
       elsif DRSkill.getxp('Mechanical Lore') < 33
         wait_for_script_to_complete('mech-lore')
       end

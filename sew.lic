@@ -2,12 +2,13 @@
   Documentation: https://elanthipedia.play.net/Lich_script_repository#sew
 =end
 
-custom_require.call(%w[common common-arcana common-crafting common-items common-money common-travel drinfomon events])
+custom_require.call(%w[common common-arcana common-crafting common-healing common-items common-money common-travel])
 
 class Sew
   include DRC
   include DRCC
   include DRCI
+  include DRCH
   include DRCM
   include DRCT
   include DRCA
@@ -55,6 +56,12 @@ class Sew
     @training_spells = @settings.crafting_training_spells
 
     wait_for_script_to_complete('buff', ['sew'])
+    wounds = check_health['wounds']
+    room_snap = Room.current.id
+    if wounds.any? { |_k, v| v.include?('skin') }
+      wait_for_script_to_complete('safe-room', ['force'])
+      walk_to(room_snap)
+    end
 
     Flags.add('sew-assembly', 'another finished \S+ shield (handle)', 'another finished wooden (hilt|haft)', 'another finished (long|short|small|large) leather (cord|backing)', 'another finished (small|large) cloth (padding)', 'another finished (long|short) wooden (pole)')
     Flags.add('sew-pins', 'The pins is all used up, so you toss it away.')
@@ -89,35 +96,27 @@ class Sew
 
   def check_thread
     return if exists?('cotton thread')
-    room = Room.current.id
+
     ensure_copper_on_hand(1000, @settings)
     order_item(@hometown_data['stock-room'], 6)
     stow_item('cotton thread')
-    walk_to(room)
   end
 
   def check_pins
     return unless Flags['sew-pins'] || !exists?('straight pins')
+
     ensure_copper_on_hand(125, @settings)
     item = left_hand
     stow_item(item)
-    room = Room.current.id
     order_item(@hometown_data['tool-room'], 5)
     stow_item('pin')
-    walk_to(room)
     get_item(item)
     Flags.reset('sew-pins')
   end
 
   def study_tailoring(chapter, recipe)
     get_item('tailoring book')
-    echo('*** You will need to upgrade to a journeyman or master book before 176 ranks! ***') if DRSkill.getrank('Outfitting') == 175
-    case bput("turn my book to page #{find_recipe(chapter, recipe)}", 'You turn your', 'The book is already', 'Which page do you wish')
-    when 'Which page do you wish'
-      echo('*** Recipe not found in book, it needs to be upgraded to the next higher level ***')
-      magic_cleanup
-      exit
-    end
+    bput("turn my book to page #{find_recipe(chapter, recipe)}", 'You turn your', 'The book is already')
     bput('study my book', 'Roundtime')
     stow_item('book')
   end
@@ -185,6 +184,7 @@ class Sew
   def do_seal(wax)
     waitrt?
     return if Flags['sealing-done']
+
     if wax
       get_item('sealing wax')
       bput("apply my wax to my #{right_hand}", 'roundtime')
@@ -200,44 +200,20 @@ class Sew
     do_seal !wax
   end
 
-  def resume_knit
-    bput('analyze my knitting needles',
-         /You analyze both the needles and (?:some|an?) unfinished knitted .+ (.+) on them/,
-         'This appears to be a crafting tool',
-         'Roundtime')
-    pause 1
-    results = reget(40)
-    unless results.to_s =~ /You analyze both the needles and (?:some|an?) unfinished knitted .+ (.+) on them/
-      echo 'Nothing found on the needles.  Exiting'
-      exit
-    end
-    @noun = Regexp.last_match(1).to_s
-    echo "Found an unfinished #{@noun} on the needles."
-    do_knit('push my knitting needles') if results.to_s.include?('purl stitching')
-    do_knit('knit my knitting needles') if results.to_s.include?('more knitting')
-    do_knit('turn my knitting needles') if results.to_s.include?('need to be turned')
-    cast_and_finish if results.to_s.include?('must be cast')
-    exit
-  end
-
   def resume
     waitrt?
-    resume_knit if @noun.include?('needle') || right_hand.include?('knitting needles') || left_hand.include?('knitting needles')
-
     case bput("analyze my #{@noun}",
               'dimensions changed while working on it',
               'is in need of pinning to help arrange the material for further sewing',
               'pushing it with a needle and thread',
               'Deep creases and wrinkles in the fabric',
-              'scissor cuts',
-              'cutting with some scissors',
               'Roundtime')
     when 'dimensions changed while working on it'
       tool = 'yardstick'
       next_command = "measure my #{@noun} with my yardstick"
-    when 'scissor cuts', 'cutting with some scissors'
-      tool = 'scissors'
-      next_command = "cut my #{@noun} with my scissors"
+    # when 'With the measuring complete, now it is time to cut away more'
+    #   tool = 'scissors'
+    #   next_command = "cut my #{@noun} with my scissors"
     when 'is in need of pinning to help arrange the material for further sewing'
       tool = 'pins'
       next_command = "poke my #{@noun} with my pins"
@@ -271,6 +247,7 @@ class Sew
     end
     get_item(tool)
     @last_command = command
+    check_pins
     assemble_part
     next_command = "push my #{@noun} with my needles"
     case bput(command,
@@ -293,7 +270,6 @@ class Sew
     when 'and could use some pins to'
       tool = 'pins'
       next_command = "poke my #{@noun} with my pins"
-      check_pins
     when 'deep crease develops along', 'wrinkles from all the handling and could use'
       tool = 'slickstone'
       next_command = "scrape my #{@noun} with my slickstone"
@@ -344,7 +320,7 @@ class Sew
   end
 
   def magic_routine
-    return if @training_spells.empty?
+    return unless @training_spells
 
     needs_training = %w[Warding Utility Augmentation]
                      .select { |skill| @training_spells[skill] }
@@ -361,12 +337,13 @@ class Sew
     end
 
     return if @preparing
+
     crafting_prepare_spell(data, @settings)
     @preparing = true
   end
 
   def magic_cleanup
-    return if @training_spells.empty?
+    return unless @training_spells
 
     bput('release spell', 'You let your concentration lapse', "You aren't preparing a spell")
     bput('release mana', 'You release all', "You aren't harnessing any mana")
@@ -384,8 +361,7 @@ class Sew
               'You are already knitting',
               'Roundtime',
               'That tool does not seem suitable for that task.',
-              'You need a larger amount of material',
-              'is not here!')
+              'You need a larger amount of material')
     when 'Now the needles must be turned', 'Some ribbing should be added'
       next_command = 'turn my needles'
     when 'Next the needles must be pushed', 'ready to be pushed'
@@ -397,8 +373,6 @@ class Sew
       bput('pull my needles', 'You untie and discard')
       do_knit(command)
       next_command = ''
-    when 'is not here!'
-      do_knit(command.sub(' my', ''))
     when 'That tool does not seem suitable for that task.'
       case bput('analyze my needles', 'is in need of more knitting.', 'The needles need to be turned', 'Some purl stitching is', 'needles must be cast')
       when 'is in need of more knitting.'

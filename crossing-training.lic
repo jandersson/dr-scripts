@@ -555,12 +555,12 @@ class CrossingTraining
   end
 
   def train_outdoorsmanship
-    return if @researching && @settings.crafting_training_spells
-
     wait_for_script_to_complete('outdoorsmanship')
   end
 
   def train_first_aid
+    play_song?
+
     wait_for_script_to_complete('first-aid')
   end
 
@@ -572,7 +572,7 @@ class CrossingTraining
       return
     end
 
-    case bput('get my blacksmithing book', 'What were you', 'You get')
+    case bput('get my black book', 'What were you', 'You get')
     when 'What were you'
       echo '***UNABLE TO TRAIN SCHOLARSHIP, REMOVING IT FROM THE TRAINING LIST***'
       @settings.crossing_training.delete('Scholarship')
@@ -594,9 +594,112 @@ class CrossingTraining
     dump_junk
   end
 
+  def climb?(room, targets)
+    targets.each do |target|
+      walk_to(room)
+      return true if DRRoom.npcs.length >= 3
+
+      fput "climb #{target}"
+      pause
+      waitrt?
+      return false if DRSkill.getxp('Athletics') >= 30
+    end
+    true
+  end
+
   def train_athletics
-    return if @researching
-    wait_for_script_to_complete('athletics')
+    if @settings.have_climbing_rope
+      return if @researching
+      wait_for_script_to_complete('athletics')
+    elsif @swimming_target
+      swim_loop(@swimming_target['rooms'])
+    elsif @climbing_target
+      return if @researching
+      walk_to(@climbing_target['id'])
+      climb_practice(@climbing_target['target'], @climbing_target['hide'])
+    elsif DRSkill.getrank('Athletics') >= 400
+      return if @researching
+      climb_branch
+    else
+      play_song?
+      @athletics_options
+        .reject { |data| @settings.avoid_athletics_in_justice && data['justice'] }
+        .each do |data|
+          check_research
+          break unless climb?(data['room'], data['targets'])
+        end
+    end
+  end
+
+  def swim_loop(rooms)
+    return unless rooms
+
+    while DRSkill.getxp('Athletics') < 29
+      check_research
+      rooms.each { |x| walk_to(x) }
+    end
+  end
+
+  def climb_practice(target, to_hide = false)
+    return unless target
+
+    while DRSkill.getxp('Athletics') < 29
+      check_osrel unless @researching
+      check_research
+      retreat
+      if to_hide
+        attempts_to_hide = 5
+        while attempts_to_hide > 0
+          break if hide?
+          attempts_to_hide -= 1
+        end
+        return if attempts_to_hide.zero?
+      end
+      Flags.add('ct-climbing-finished', 'You finish practicing your climbing')
+      Flags.add('ct-climbing-combat', 'You are engaged in combat')
+      bput("climb practice #{target}", 'You begin to practice ')
+      loop do
+        pause 1
+        break if Flags['ct-climbing-finished']
+        return if Flags['ct-climbing-combat']
+        if DRSkill.getxp('Athletics') > 28
+          fput('stop climb')
+          break
+        end
+      end
+    end
+
+    bput('unhide', 'You come out of hiding', 'You slip out of hiding', 'But you are not')
+  end
+
+  def climb_branch
+    start_script('skill-recorder') unless Script.running?('skill-recorder')
+    walk_to(2245)
+    check_research
+    if DRSkill.getxp('Athletics') < 29
+      walk_to(2245)
+      if UserVars.athletics < 540
+        climb_practice('branch', true)
+      else
+        walk_to(9607)
+        walk_to(19_464)
+        while DRSkill.getxp('Athletics') < 29
+          walk_to(2245)
+          walk_to(9607)
+          walk_to(11_126)
+          walk_to(19_464)
+          check_osrel unless @researching
+          check_research
+          break if DRSkill.getxp('Athletics') >= 29
+          train_outdoorsmanship
+          train_outdoorsmanship
+          train_outdoorsmanship
+          train_outdoorsmanship
+        end
+      end
+    end
+    check_osrel unless @researching
+    check_research
   end
 
   def train_empathy
@@ -689,7 +792,24 @@ class CrossingTraining
       return
     end
 
-    wait_for_script_to_complete('craft', ['outfitting'])
+    rank = DRSkill.getrank('Outfitting')
+    if rank <= 25 # Tier 1  Extremely Easy
+      sew(5, 'knitted socks', 'socks')
+    elsif rank <= 50 # Tier 2 Very Easy
+      sew(5, 'knitted mittens', 'mittens')
+    elsif rank <= 100 # Tier 3  Easy
+      sew(5, 'knitted hat', 'hat')
+    elsif rank <= 175 # Tier 4  Simple
+      sew(5, 'knitted gloves', 'gloves')
+    elsif rank <= 300 # Tier 5  Basic
+      sew(5, 'knitted hose', 'hose')
+    elsif rank <= 425 # Tier 6  Somewhat Challenging
+      sew(5, 'knitted cloak', 'cloak')
+    elsif rank <= 650 # Tier 7  Challenging
+      sew(5, 'knitted blanket', 'blanket')
+    else # Tier 12  Extremely Difficult
+      echo('*** NOT YET IMPLEMENTED ***')
+    end
   end
 
   def train_engineering
@@ -707,13 +827,39 @@ class CrossingTraining
       return
     end
 
-    wait_for_script_to_complete('craft', ['engineering'])
+    rank = DRSkill.getrank('Engineering')
+
+    if rank <= 25 # Tier 1  Extremely Easy
+      shape(7, 'wood band', 'band')
+    elsif rank <= 50 # Tier 2 Very Easy
+      shape(7, 'wood bracelet', 'bracelet')
+    elsif rank <= 100 # Tier 3  Easy
+      shape(7, 'wood cloak pin', 'cloak pin')
+    elsif rank <= 175 # Tier 4  Simple
+      shape(7, 'pair of wood earrings', 'earrings')
+    elsif rank <= 300 # Tier 5  Basic
+      shape(7, 'wood brooch', 'brooch')
+    elsif rank <= 425 # Tier 6  Somewhat Challenging
+      shape(7, 'wood armband', 'armband')
+    elsif rank <= 600 # Tier 7  Challenging
+      shape(7, 'wood choker', 'choker')
+    elsif rank <= 700 # Tier 8 - Complicated
+      shape(7, 'wood circlet', 'circlet')
+    elsif rank <= 850 # Tier 9 - Intricate
+      shape(7, 'wood crown', 'crown')
+    elsif rank <= 1175 # Tier 10 - Difficult
+      shape(7, 'wood comb', 'comb')
+    elsif rank <= 1400 # Tier 11 - Very Difficult
+      shape(7, 'wood haircomb', 'haircomb')
+    else # Tier 12  Extremely Difficult
+      echo('*** NOT YET IMPLEMENTED ***')
+    end
   end
 
   def train_trading
     disciplines = @settings.work_order_disciplines
 
-    if @settings.sell_pouches_for_trading && DRSkill.getxp('Trading') < 5
+    if @settings.sell_pouches_for_trading && DRSkill.getxp('Trading') < 5 
       wait_for_script_to_complete('sell-pouches')
       return if DRSkill.getxp('Trading') > 5
     end
@@ -745,7 +891,37 @@ class CrossingTraining
       return
     end
 
-    wait_for_script_to_complete('craft', ['forging'])
+    rank = DRSkill.getrank('Forging')
+    if rank <= 25 # Tier 1 - Extremely Easy
+      smith('a shallow metal cup')
+    elsif rank <= 50 # Tier 2 - Very Easy
+      smith('a short metal mug')
+    elsif rank <= 100 # Tier 3 - Easy
+      smith('a back scratcher')
+    elsif rank <= 175 # Tier 4 - Simple
+      smith('a metal ankle band')
+    elsif rank <= 300 # Tier 5 - Basic
+      smith('a metal lockpick ring')
+    elsif rank <= 425 # Tier 6 - Somewhat Challenging
+      smith('a metal armband')
+    elsif rank <= 550 # Tier 7 - Challenging
+      smith('some metal clippers')
+    elsif rank <= 700 # Tier 8 - Complicated
+      smith('some squat knitting needles')
+      # Journeyman book: triangular wire sieve, bent <metal> scissors, knobby sewing needles, squat knitting needles, narrow <metal> awl
+    elsif rank <= 850 # Tier 9 - Intricate
+      smith('serrated hide scraper')
+      # Master book: beveled wood shaper, serrated hide scraper, compact <metal> awl, compact <metal> awl, round pestle
+    elsif rank <= 1175 # Tier 10 - Difficult
+      smith('serrated scissors')
+      # Master book: slender <metal> awl, serrated scissors, grooved pestle, oblong wire sieve
+    elsif rank <= 1400 # Tier 11 - Very Difficult
+      smith('thin sewing needles')
+      # Master book: jagged wood shaper, thin sewing needles
+    else # Tier 12 - Extremely Difficult
+      smith('trapezoidal wire sieve')
+      # Master book: trapezoidal wire sieve
+    end
   end
 
   # https://elanthipedia.play.net/Remedies_products
@@ -774,6 +950,52 @@ class CrossingTraining
     end
   end
 
+  def shape(chapter, unique_name, item)
+    return unless buy_wood
+
+    find_shaping_room(@hometown, @training_room)
+    check_listening
+    check_teaching
+
+    wait_for_script_to_complete('shape', ['trash', chapter, unique_name, 'maple', item])
+
+    bput('get my lumber', 'You get some', 'You pick up')
+    dispose_trash('lumber')
+  end
+
+  def sew(chapter, unique_name, item)
+    return unless buy_yarn
+
+    walk_to(@training_room)
+    check_listening
+    check_teaching
+
+    wait_for_script_to_complete('sew', ['trash', 'knitting', chapter, unique_name, item, 'wool'])
+
+    fput('get my wool yarn')
+    dispose_trash('yarn')
+  end
+
+  def smith(full_name)
+    wait_for_script_to_complete('smith', ['bronze', full_name, 'buy'])
+    noun = get_data('recipes')['crafting_recipes'].select { |item| item['name'] == full_name }.first['noun']
+    dispose_trash(noun)
+  end
+
+  def buy_wood
+    crafting_data = get_data('crafting')
+    return unless money_for_training?(700, 'Engineering')
+    order_item(crafting_data['shaping'][@hometown]['stock-room'], 11)
+    bput('stow my lumber', 'You put your')
+  end
+
+  def buy_yarn
+    crafting_data = get_data('crafting')
+    return unless money_for_training?(700, 'Outfitting')
+    order_item(crafting_data['tailoring'][@hometown]['stock-room'], 13)
+    bput('stow my yarn', 'You put your')
+  end
+
   def stop_play
     return unless @did_play
     return if @no_instrument
@@ -789,11 +1011,11 @@ class CrossingTraining
 
     UserVars.song = @song_list.first.first unless UserVars.song
     @did_play = true
-    case bput("play #{UserVars.song}", 'dirtiness may affect your performance', 'slightest hint of difficulty', 'You begin a', 'You struggle to begin', 'You\'re already playing a song', 'You effortlessly begin', 'You begin some', 'You cannot play', 'Play on what instrument', 'now isn\'t the best time to be playing', 'Perhaps you should find somewhere drier before trying to play', 'muster the strength to perform')
+    case bput("play #{UserVars.song}", 'dirtiness may affect your performance', 'slightest hint of difficulty', 'You begin a', 'You struggle to begin', 'You\'re already playing a song', 'You effortlessly begin', 'You begin some', 'You cannot play', 'Play on what instrument', 'now isn\'t the best time to be playing', 'Perhaps you should find somewhere drier before trying to play')
     when 'Play on what instrument'
       @no_instrument = true
       return false
-    when 'now isn\'t the best time to be playing', 'Perhaps you should find somewhere drier before trying to play', 'muster the strength to perform'
+    when 'now isn\'t the best time to be playing', 'Perhaps you should find somewhere drier before trying to play'
       return true
     when 'You cannot play'
       wait_for_script_to_complete('safe-room')
@@ -861,12 +1083,6 @@ class CrossingTraining
     bput('wear my zills', 'You slide')
     bput("stow my #{cloth}", 'You put')
   end
-end
-
-before_dying do
-  Flags.delete('ct-song')
-  Flags.delete('research-partial')
-  Flags.delete('research-complete')
 end
 
 # Call this last to avoid the need for forward declarations

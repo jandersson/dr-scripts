@@ -868,11 +868,6 @@ if start_room.id == destination.id
 	exit
 end
 
-if Script.running?('textsubs')
-  stop_script('textsubs')
-  before_dying { start_script('textsubs') }
-end
-
 start_time   = nil
 error_count  = 0
 $go2_restart = false
@@ -1114,10 +1109,10 @@ loop {
 				moves_sent += 1
 				if setting_drag
 					way = room.wayto[next_id]
-					if way =~ /^(north|northeast|east|southeast|south|southwest|west|northwest|n|ne|e|se|s|sw|w|nw|up|u|down|d|out)$/i
+					if way =~ /^(north|northeast|east|southeast|south|southwest|west|northwest|n|ne|e|se|s|sw|w|nw|up|down|out)$/i
 						way = "drag #{setting_drag} #{way}"
 						result = move way
-					elsif way =~ /^(?:go|climb) /i
+					elsif way =~ /^go /i
 						way = way.sub(/^(?:go|climb) /i, "drag #{setting_drag} ")
 						result = move way
 					else

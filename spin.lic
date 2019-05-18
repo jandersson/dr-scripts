@@ -34,7 +34,7 @@ class Spin
     data[:count].times do
       stock_room = get_data('crafting')['tailoring'][settings.hometown]['stock-room']
       order_item(stock_room, data[:index])
-      fput('combine my fiber')
+      bput('combine my fiber', 'You combine', 'You must be holding')
     end
 
     until find_wheel(settings.hometown)
@@ -42,7 +42,7 @@ class Spin
       pause 30
     end
 
-    fput('put fiber on wheel')
+    bput('put fiber on wheel', 'You carefully wrap')
     fput("adjust wheel to #{args.weight || 'heavy'}")
     pause
 

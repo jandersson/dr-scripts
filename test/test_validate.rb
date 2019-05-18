@@ -12,8 +12,7 @@ class TestValidate < Minitest::Test
     $test_data = {
       mining: OpenStruct.new(mining_buddy_rooms: []),
       town: OpenStruct.new(Crossing: 'dummy'),
-      hunting: OpenStruct.new(hunting_zones: [], escort_zones: []),
-      spells: OpenStruct.new(spell_data: [])
+      hunting: OpenStruct.new(hunting_zones: [], escort_zones: [])
     }
     $warn_msgs = []
     $error_msgs = []

@@ -57,10 +57,8 @@ hunting_buddies:
 
 # No hunting zones are defined here. Instead I use the hunting_file_list to point to other YAML files with hunting zomes in them.
 hunting_file_list:
-- tm
-- debil
-#- weapons
-- sorcery
+- drakes
+- boxes
 stop_hunting_if_bleeding: true
 priority_defense: Evasion
 training_abilities:
@@ -78,7 +76,7 @@ weapon_training:
   Large Edged: bastard sword
   Brawling: ''
 summoned_weapons:
-- name: Large Edged
+#- name: Large Edged
 dance_skill:         Brawling
 use_weak_attacks:    false
 use_stealth_attacks: false
@@ -602,7 +600,6 @@ combat_spell_training:
 #    cyclic: true
 #    skill: Sorcery
 
-crossing_training_sorcery_room: 1645
 
 crossing_training_sorcery:
   #  name: Ghost Shroud
@@ -817,7 +814,7 @@ coordinator_town_tasks:
 #            skill: Sorcery
 #            target: 5
 #  - :script: mech-lore
-#    :walk_to: safe_room 
+#    :walk_to: safe_room
 #    :start_on:
 #      skill_under:
 #        skill: Mechanical Lore

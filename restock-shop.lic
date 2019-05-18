@@ -23,6 +23,7 @@ class ShopRestock
     @bag = @settings.crafting_container
     @belt = @settings.forging_belt || @settings.engineering_belt
 
+    wait_for_script_to_complete('safe-room')
     go_to_shop
     check_surfaces
 
@@ -69,7 +70,7 @@ class ShopRestock
     return if missing_items.empty?
 
     volume = ((total_volume_of(missing_items) * 1.25) / 10.0).ceil
-    return if volume.zero?
+    return if volume == 0
 
     wait_for_script_to_complete('makesteel', [volume, 'refine'])
 
@@ -89,7 +90,7 @@ class ShopRestock
     return if missing_items.empty?
 
     volume = total_volume_of(missing_items)
-    return if volume.zero?
+    return if volume == 0
 
     have = 0
     if bput('get burlap cloth', 'You get', 'What were') == 'You get'
@@ -133,10 +134,11 @@ class ShopRestock
 
   def restock_linen(missing_items)
     return if missing_items.empty?
+
     echo missing_items
 
     volume = total_volume_of(missing_items)
-    return if volume.zero?
+    return if volume == 0
 
     have = 0
     if bput('get linen cloth', 'You get', 'What were') == 'You get'
@@ -173,7 +175,7 @@ class ShopRestock
     return if missing_items.empty?
 
     volume = total_volume_of(missing_items)
-    return if volume.zero?
+    return if volume == 0
 
     have = 0
     if bput("get silk cloth from my #{@bag}", 'You get', 'What were') == 'You get'

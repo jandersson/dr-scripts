@@ -117,18 +117,22 @@ waggle_sets:
       cambrinth:
       - 32
 
+  sell-pouches:
+    << : *finesse
+
 hunting_buddies:
 - Ssarek
+- Remigius
 
 prep_scaling_factor: 0.95
 
-cambrinth: cambrinth armband
-cambrinth_cap: 32
+cambrinth: watersilk bag
+cambrinth_cap: 108
 cambrinth_num_charges: 1
 cambrinth_invoke_exact_amount: true
 cambrinth_items:
-- name: cambrinth armband
-  cap: 32
+- name: watersilk bag
+  cap: 108
   stored: false
 crossing_training_sorcery_room: 1645
 use_harness_when_arcana_locked: yes
@@ -139,6 +143,7 @@ training_spells:
     abbrev: FIN
     symbiosis: true
   Utility:
+    symbiosis: true
     abbrev: NOU
   Warding:
     abbrev: NON
@@ -158,9 +163,9 @@ combat_trainer_action_count: 50
 
 skip_last_kill: true  # Stops hunting as soon as possible, otherwise combat-trainer lingers and tries to kill the last mob to recover ammo, etc..., this just says "my hunting skills are locked, im out"
 
-trade_contract_container: backpack
+trade_contract_container: sturdy backpack
 
-crafting_container: backpack
+crafting_container: sturdy backpack # Add an adjective, this helps if you craft backpacks
 
 train_workorders:
 - Blacksmithing
@@ -180,21 +185,31 @@ work_order_disciplines:
 - Tailoring
 
 workorder_min_items: 1 # accept any work order above or at this amount
-workorder_max_items: 10 # accept any work order below or at this amount
+workorder_max_items: 4 # accept any work order below or at this amount
 
 mark_crafted_goods: true # Stamp your goods when doing workorders. You still have to tell ;smith to stamp if you run it manually
 
 use_own_ingot_type: # Use a specific ingot for workorders
 deed_own_ingot: false # Deed whatevers in use_own_ingot_type
 
+forging_belt:
+  name: forger belt
+  items: 
+  - forging hammer
+  - tong
+  - bellow
+  - shovel
+  - rod
 forging_tools:
-- diagonal-peen mallet
+- forging hammer
 - tong
 - bellow
-- curved shovel
+- shovel
+- pliers
 - stamp
 - stirring rod
 
+braid_item: grass
 mining_buddy_vein_list:
 #- Oravir
 - Zinc
@@ -223,7 +238,7 @@ mines_to_mine:
 
 hunting_info: 
 - :zone:
-  - rock_guardians
+  - geni
   :duration: 30
   stop_on:
   - Targeted Magic
@@ -234,6 +249,25 @@ restock:
     quantity: 30
   arrow:
     quantity: 30
+  block:
+    name: crystal block
+    wandering_npc: shaman # in dirge
+    #wandering_npc: theurgist # in Shard
+    price: 250
+    order_number: 6
+    quantity: 7 # Wallet holds max of 30
+    size: 1
+    stackable: false # Its only stackable if its put in a bead-carvers wallet
+    container: watersilk bag
+  primer:
+    name: raven primer
+    wandering_npc: shaman # in dirge
+    price: 250
+    order_number: 101
+    quantity: 1
+    size: 1
+    stackable: false
+    container: watersilk bag
 
 
 stop_hunting_if_bleeding: yes
@@ -249,7 +283,7 @@ use_lockpick_ring: true
 use_weak_attacks: true
 use_stealth_attacks: false
 
-status_monitor_no_window: false
+status_monitor_no_window: true
 dump_junk: true
 
 gear:
@@ -277,16 +311,16 @@ gear:
   :is_leather: true
   :is_worn: true
 - :name: gloves
-  :adjective: rugged
+  :adjective: quilted
   :is_leather: true
-- :name: cowl
-  :adjective: rugged
+- :name: hood
+  :adjective: quilted
   :is_leather: true
-- :name: vambraces
-  :adjective: rugged
+- :name: shirt
+  :adjective: quilted
   :is_leather: true
-- :name: jerkin
-  :adjective: rugged
+- :name: mask
+  :adjective: quilted
   :is_leather: true
 - :name: greaves
   :adjective: scale
@@ -321,12 +355,21 @@ gear:
   :adjective: parry
   :is_worn: true
 ### Tools
-- :name: mallet
-  :adjective: diagonal-peen
+- :name: tongs
+  :adjective: clockwork
+  :tie_to: forger's belt
+- :name: hammer
+  :adjective: forging
+  :tie_to: forger's belt
+- :name: bellows
+  :adjective: leather
+  :tie_to: forger's belt
 - :name: shovel
-  :adjective: curved
+  :adjective: glaes-edged
+  :tie_to: forger's belt
 - :name: rod
   :adjective: stirring
+  :tie_to: forger's belt
 
 gear_sets:
   standard:
@@ -384,18 +427,19 @@ crossing_training:
 - Athletics
 - Outdoorsmanship
 - Forging
-- Outfitting
+- Outfitting #import updated recipes before uncommenting, going into a request workorder loop
 - Attunement
 - Utility
 - Augmentation
-- Warding
+  #- Warding
 - Mechanical Lore
+  #- Appraisal
 
 appraisal_training:
 - pouches
 - gear
 
-full_pouch_container: backpack
+full_pouch_container: sturdy backpack
 
 crafting_training_spells:
   Augmentation:
@@ -405,11 +449,12 @@ crafting_training_spells:
     symbiosis: true
   Utility:
     abbrev: NOU
-    mana: 60
+    mana: 5
+    symbiosis: true
   Warding:
     abbrev: NON
     mana: 5
-    symbiosis: true # Need more than 204
+    symbiosis: true
 
 listen: true
 listen_observe: true
@@ -417,8 +462,8 @@ listen_observe: true
 sell_loot_pouch: false
 spare_gem_pouch_container: duffel bag
 gem_pouch_adjective: purple
-sell_pouches_for_trading: yes # same as true
-sale_pouches_container: backpack
+sell_pouches_for_trading: true
+sale_pouches_container: watersilk bag
 
 repair_timer: 86400 # Repair once every 24 hours
 repair_every: .inf # Infinity - Dont use repair counter
@@ -436,213 +481,300 @@ loot_specials:
   bag: duffel bag
 - name: kyanite stones
   bag: duffel bag
-safe_room_empaths:
-- name: Vadok
-  id: 6163
-- name: Etry
-  id: 7301
 
-restock_shop_inside_room: 14024
-restock_shop_outside_room: 7913
-restock_shop_entrance_noun: entrance
-restock_shop_town: Crossing
-restock_shop_items:
-- noun: mask  # Noun of the item
-  price: 60000 # Cost in coppers
-  volume: 7 # Volume
-  surface: in cabinet # Where are you selling it in your shop, also include if its 'in' or 'on'
-  recipe: a light plate mask  # Whats the recipe name in the crafting book
-  material: steel # What are you making it out of
-  full_name: plate mask # What does the item look like in your shop, this helps distinguish similar items being sold on the same surface (This is not always 'adjective + noun' so be careful)
-- noun: gauntlets
-  full_name: light steel plate gauntlets
-  price: 60000
-  volume: 13
-  surface: in cabinet
-  recipe: some light plate gauntlets
-  material: steel
-- noun: greaves
-  full_name: light plate greaves
-  price: 120000
-  volume: 19
-  surface: in cabinet
-  recipe: light plate greaves
-  material: steel
-- noun: mask
-  full_name: scale mask
-  price: 60000
-  volume: 5
-  surface: in cabinet
-  recipe: scale mask
-  material: steel
-- noun: gloves
-  full_name: scale gloves
-  price: 60000
-  volume: 8
-  surface: in cabinet
-  recipe: scale gloves
-  material: steel
-- noun: greaves
-  full_name: scale greaves
-  price: 120000
-  volume: 15
-  surface: in cabinet
-  recipe: scale greaves
-  material: steel
-- noun: balaclava
-  full_name: ring balaclava
-  price: 110000
-  volume: 16
-  surface: in cabinet
-  recipe: ring balaclava
-  material: steel
-- noun: mask
-  full_name: ring mask
-  price: 60000
-  volume: 7
-  surface: in cabinet
-  recipe: ring mask
-  material: steel
-- noun: helm
-  full_name: ring helm
-  price: 100000
-  volume: 12
-  surface: in cabinet
-  recipe: ring helm
-  material: steel
-- noun: gloves
-  full_name: some steel ring gloves
-  price: 60000
-  volume: 6
-  surface: in cabinet
-  recipe: ring gloves
-  material: steel
-- noun: shirt
-  full_name: a steel ring shirt
-  price: 220000
-  surface: in cabinet
-  recipe: ring shirt
-  material: steel
-- noun: greaves
-  full_name: some steel ring greaves
-  price: 120000
-  surface: in cabinet
-  recipe: ring greaves
-  material: steel
-- noun: sipar
-  full_name: a steel round sipar
-  price: 200000
-  surface: in cabinet
-  recipe: round sipar
-  material: steel
-- noun: stick
-  full_name: parry stick
-  price: 120000
-  surface: on table
-  recipe: parry stick
-  material: steel
-- noun: hammer
-  full_name: throwing hammer
-  price: 120000
-  surface: on table
-  recipe: throwing hammer
-  material: steel
-- noun: spike
-  full_name: throwing spike
-  price: 100000
-  surface: on table
-  recipe: throwing spike
-  material: steel
-- noun: spear
-  full_name: steel light spear
-  price: 120000
-  surface: on table
-  recipe: light metal spear
-  material: steel
-- noun: nightstick
-  full_name: steel nightstick
-  price: 120000
-  surface: on table
-  recipe: nightstick
-  material: steel
-- noun: axe
-  full_name: throwing axe
-  price: 120000
-  surface: on table
-  recipe: a light throwing axe
-  material: steel
-- noun: axe
-  full_name: hurling axe
-  price: 120000
-  surface: on table
-  recipe: hurling axe
-  material: steel
-- noun: akabo
-  full_name: akabo
-  price: 120000
-  surface: on table
-  recipe: akabo
-  material: steel
-- noun: blade
-  full_name: marauder blade
-  price: 120000
-  surface: on table
-  recipe: marauder blade
-  material: steel
-- noun: cutlass
-  full_name: steel cutlass
-  price: 120000
-  surface: on table
-  recipe: cutlass
-  material: steel
-- noun: bola
-  full_name: steel bola
-  price: 120000
-  surface: on table
-  recipe: bola
-  material: steel
-- noun: fork
-  full_name: military fork
-  price: 120000
-  surface: on table
-  recipe: military fork
-  material: steel
-- noun: mask
-  full_name: quilted heavy burlap mask
-  price: 60000
-  recipe: quilted cloth mask
-  material: heavy burlap
-  chapter: 4
-  surface: in cabinet
-  small_padding_qty: 1 # For making
-  large_padding_qty: 1 # For reinforcing
-- noun: hood
-  full_name: quilted heavy burlap hood
-  price: 100000
-  recipe: quilted cloth hood
-  material: heavy burlap
-  chapter: 4
-  surface: in cabinet
-  small_padding_qty: 1 # For making
-  large_padding_qty: 1 # For reinforcing
-- noun: gloves
-  price: 60000
-  surface: in cabinet
-  chapter: 4
-  recipe: quilted cloth gloves
-  full_name: quilted heavy burlap gloves
-  small_padding_qty: 1
-  large_padding_qty: 1
-  material: heavy burlap
-- noun: pants
-  price: 120000
-  surface: in cabinet
-  chapter: 4
-  full_name:
+safe_room: 
+restock_shop:
+  inside_room: 14024
+  outside_room: 7913
+  entrance_noun: entrance
+  items:
+  - noun: mask  # Noun of the item
+    price: 60000 # Cost in coppers
+    surface: in cabinet # Where are you selling it in your shop, also include if its 'in' or 'on'
+    recipe: a light plate mask  # Whats the recipe name in the crafting book
+    material: steel # What are you making it out of
+    full_name: plate mask # What does the item look like in your shop, this helps distinguish similar items being sold on the same surface (This is not always 'adjective + noun' so be careful)
+  - noun: gauntlets
+    full_name: light steel plate gauntlets
+    price: 60000
+    surface: in cabinet
+    recipe: some light plate gauntlets
+    material: steel
+  - noun: greaves
+    full_name: light plate greaves
+    price: 120000
+    surface: in cabinet
+    recipe: light plate greaves
+    material: steel
+  - noun: mask
+    full_name: scale mask
+    price: 60000
+    surface: in cabinet
+    recipe: scale mask
+    material: steel
+  - noun: gloves
+    full_name: scale gloves
+    price: 60000
+    surface: in cabinet
+    recipe: scale gloves
+    material: steel
+  - noun: greaves
+    full_name: scale greaves
+    price: 120000
+    surface: in cabinet
+    recipe: scale greaves
+    material: steel
+  - noun: balaclava
+    full_name: ring balaclava
+    price: 110000
+    surface: in cabinet
+    recipe: ring balaclava
+    material: steel
+  - noun: mask
+    full_name: ring mask
+    price: 60000
+    surface: in cabinet
+    recipe: ring mask
+    material: steel
+  - noun: helm
+    full_name: ring helm
+    price: 100000
+    surface: in cabinet
+    recipe: ring helm
+    material: steel
+  - noun: gloves
+    full_name: some steel ring gloves
+    price: 60000
+    surface: in cabinet
+    recipe: ring gloves
+    material: steel
+  - noun: shirt
+    full_name: a steel ring shirt
+    price: 220000
+    surface: in cabinet
+    recipe: ring shirt
+    material: steel
+  - noun: greaves
+    full_name: some steel ring greaves
+    price: 120000
+    surface: in cabinet
+    recipe: ring greaves
+    material: steel
+  - noun: sipar
+    full_name: a steel round sipar
+    price: 200000
+    surface: in cabinet
+    recipe: round sipar
+    material: steel
+  - noun: stick
+    full_name: parry stick
+    price: 120000
+    surface: on table
+    recipe: parry stick
+    material: steel
+  - noun: hammer
+    full_name: throwing hammer
+    price: 120000
+    surface: on rack
+    recipe: throwing hammer
+    material: steel
+  - noun: spike
+    full_name: throwing spike
+    price: 100000
+    surface: on rack
+    recipe: throwing spike
+    material: steel
+  - noun: boomerang
+    full_name: boomerang
+    price: 60000
+    surface: on rack
+    recipe: boomerang
+    material: steel
+  - noun: spear
+    full_name: steel light spear
+    price: 120000
+    surface: on rack
+    recipe: light metal spear
+    material: steel
+  - noun: nightstick
+    full_name: steel nightstick
+    price: 120000
+    surface: on rack
+    recipe: nightstick
+    material: steel
+  - noun: axe
+    full_name: throwing axe
+    price: 120000
+    surface: on rack
+    recipe: a light throwing axe
+    material: steel
+  - noun: axe
+    full_name: hurling axe
+    price: 120000
+    surface: on rack
+    recipe: hurling axe
+    material: steel
+  - noun: akabo
+    full_name: akabo
+    price: 120000
+    surface: on rack
+    recipe: akabo
+    material: steel
+  - noun: blade
+    full_name: marauder blade
+    price: 120000
+    surface: on rack
+    recipe: marauder blade
+    material: steel
+  - noun: cutlass
+    full_name: steel cutlass
+    price: 120000
+    surface: on rack
+    recipe: cutlass
+    material: steel
+  - noun: bola
+    full_name: steel bola
+    price: 120000
+    surface: on rack
+    recipe: bola
+    material: steel
+  - noun: fork
+    full_name: military fork
+    price: 120000
+    surface: on rack
+    recipe: military fork
+    material: steel
+  - noun: mask
+    full_name: quilted heavy burlap mask
+    price: 60000
+    recipe: quilted cloth mask
+    material: heavy burlap
+    surface: in cabinet
+  - noun: hood
+    full_name: quilted heavy burlap hood
+    price: 100000
+    recipe: quilted cloth hood
+    material: heavy burlap
+    surface: in cabinet
+  - noun: gloves
+    price: 60000
+    surface: in cabinet
+    recipe: quilted cloth gloves
+    full_name: quilted heavy burlap gloves
+    material: heavy burlap
+  - noun: pants
+    full_name: quilted heavy burlap pants
+    price: 120000
+    surface: in cabinet
+    recipe: quilted cloth pants
+    material: heavy burlap
+  - noun: shirt
+    full_name: quilted heavy burlap shirt
+    price: 220000
+    recipe: quilted cloth shirt
+    material: heavy burlap
+    surface: in cabinet
+  - noun: shield
+    price: 220000
+    surface: in cabinet
+    material: gryphon
+    full_name: small gryphon-pelt shield
+    recipe: small leather shield
+  - noun: backpack
+    price: 100000 
+    recipe: backpack
+    full_name: backpack
+    surface: on table
+    material: heavy linen
+  - noun: greataxe
+    price: 120000
+    surface: on rack
+    recipe: greataxe
+    material: steel
+    full_name: greataxe
+  - noun: carryall
+    price: 200000
+    surface: on table
+    recipe: carryall
+    full_name: carryall
+    material: heavy silk
+  - noun: bag
+    full_name: duffel bag
+    price: 200000
+    recipe: duffel bag
+    surface: on table
+    material: heavy silk
+
+outfitting_tools:
+- knitting needles
+- sewing needles
+- awl
+- scissors
+- stamp
+- hide scraper
+- slickstone
+- yardstick
+
 
 # Coordinator is a training-manager alternative, you can ignore the below settings!
-
+# CUSTOM SETTING (NOT PART OF DR-SCRIPTS)
 coordinator_hunting_tasks:
+  - :file: back
+    :pause_sanowret: true
+    :default: true
+    :start_on:
+      any_skill_under:
+        skills:
+        - Bows
+        target: 5
+
+# CUSTOM SETTING (NOT PART OF DEPENDENCY/DR-SCRIPTS)
+coordinator_hunting_cleanup:
+  - :script: safe-room
+  - :script: sell-loot
+    :skip_first_run: true
+  - :script: crossing-repair
+    :skip_first_run: true
+    :start_on:
+      timer:
+        global: true
+        time: 43200 
+        key: 'repair'
+
+# CUSTOM SETTING (NOT PART OF DEPENDENCY/DR-SCRIPTS)
+coordinator_town_tasks:
+  - :action: train_forging 
+    :start_on:
+      skill_under:
+        skill: Forging
+        target: 5
+  - :script: athletics
+    :args:
+    :start_on:
+      skill_under:
+        skill: Athletics
+        target: 10
+coordinator_hunting_tasks:
+  - :file: drakes
+    :pause_sanowret: false
+    :default: true
+    :start_on:
+      any_skill_under:
+        skills:
+        - Targeted Magic
+        - Debilitation
+        target: 5
+  - :file: boxes
+    :pause_sanowret: true
+    :start_on:
+      boxes_under: 1
+    :stop_on:
+      any_skill_under:
+        skills:
+        - Targeted Magic
+        - Debilitation
+        target: 5
+safe_room:
 
 coordinator_hunting_cleanup:
   - :script: safe-room
@@ -657,14 +789,76 @@ coordinator_hunting_cleanup:
         key: 'repair'
 
 coordinator_town_tasks:
-  - :action: train_forging 
+  - :script: astrology
     :start_on:
-      skill_under:
-        skill: Forging
-        target: 5
+      and:
+        - timer:
+            global: true
+            time: 300
+            key: 'astro'
+        - skill_under:
+            skill: Astrology
+            target: 5
+    :walk_to: safe_room
   - :script: athletics
     :args:
+    - wyvern
     :start_on:
       skill_under:
         skill: Athletics
         target: 10
+  - :script: nexus
+    :args:
+    - fatigue
+    - 793
+    :start_on:
+      timer:
+        global: true
+        time: 18000 # 5 hours
+        key: 'nexus'
+  - :script: sorcery
+    :start_on:
+      and:
+        - timer:
+            global: true
+            time: 300
+            key: 'cyclic'
+        - skill_under:
+            skill: Sorcery
+            target: 5
+  - :script: mech-lore
+    :walk_to: safe_room 
+    :start_on:
+      skill_under:
+        skill: Mechanical Lore
+        target: 14
+  - :script: appraisal
+    :walk_to: safe_room
+    :start_on:
+      skill_under:
+        skill: Appraisal
+        target: 5
+#  - :script: first-aid
+#    :walk_to: safe_room
+#    :start_on:
+#      skill_under:
+#        skill: First Aid
+#        target: 1
+  - :script: outdoorsmanship
+    :walk_to: safe_room
+    :start_on:
+      and:
+        - predicate: hunt_done?
+        - skill_under:
+            skill: Outdoorsmanship
+            target: 20
+  - :action: pick_boxes
+    :walk_to: safe_room
+    :start_on:
+      and:
+        - skill_under:
+            skill: Locksmithing
+            target: 14
+        - or:
+            - boxes_over: 0
+            - predicate: pet_boxes?

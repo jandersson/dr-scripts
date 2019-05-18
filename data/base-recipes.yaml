@@ -226,7 +226,7 @@ crafting_recipes:
   noun: mask
   volume: 5
   type: blacksmithing
-  work_order: false
+  work_order: true
   chapter: 6
   part:
   - short cord
@@ -700,13 +700,13 @@ crafting_recipes:
   chapter: 4
 - name: some tapered knitting needles
   noun: needles
-  volume: 4
+  volume: 3
   type: blacksmithing
   work_order: true
   chapter: 4
 - name: some squat knitting needles
   noun: needles
-  volume: 4
+  volume: 3
   type: blacksmithing
   work_order: true
   chapter: 4
@@ -949,13 +949,6 @@ crafting_recipes:
   work_order: true
   chapter: 4
   material: stone
-- name: an ornate runestone
-  noun: runestone
-  volume: 1
-  type: carving
-  work_order: true
-  chapter: 5
-  material: stone
 - name: a stone choker
   noun: choker
   volume: 3
@@ -969,20 +962,6 @@ crafting_recipes:
   type: carving
   work_order: true
   chapter: 10
-  material: bone
-- name: a bone haircomb
-  noun: haircomb
-  volume: 3
-  type: carving
-  work_order: true
-  chapter: 9
-  material: bone
-- name: a bone crown
-  noun: crown
-  volume: 3
-  type: carving
-  work_order: true
-  chapter: 9
   material: bone
 - name: a bone bludgeon
   noun: bludgeon
@@ -1160,7 +1139,7 @@ crafting_recipes:
   chapter: 9
   material: bone
   part:
-  - short cord
+  - leather cord
 - name: a bone brooch
   noun: brooch
   volume: 2
@@ -1218,7 +1197,7 @@ crafting_recipes:
   chapter: 9
   material: bone
   part:
-  - short cord
+  - leather cord
 - name: a bone choker
   noun: choker
   volume: 3
@@ -1234,7 +1213,7 @@ crafting_recipes:
   chapter: 9
   material: bone
   part:
-  - short cord
+  - leather cord
 - name: an articulated bone necklace
   noun: necklace
   volume: 3
@@ -1249,7 +1228,7 @@ crafting_recipes:
   work_order: false
   chapter: 7
   part:
-  - short cord
+  - leather cord
 - name: a wood amulet
   noun: amulet
   volume: 2
@@ -1306,6 +1285,12 @@ crafting_recipes:
   chapter: 7
 - name: a shallow wood cup
   noun: cup
+  volume: 2
+  type: shaping
+  work_order: true
+  chapter: 7
+- name: a wood cloak pin
+  noun: pin
   volume: 2
   type: shaping
   work_order: true
@@ -1372,22 +1357,6 @@ crafting_recipes:
   type: shaping
   work_order: true
   chapter: 7
-- name: a wood locket
-  noun: locket
-  volume: 2
-  type: shaping
-  work_order: false
-  chapter: 7
-  part:
-  - short cord
-- name: a wood circlet
-  noun: circlet
-  volume: 3
-  type: shaping
-  work_order: false
-  chapter: 7
-  part:
-  - short cord
 - name: a wood armband
   noun: armband
   volume: 3
@@ -1418,14 +1387,14 @@ crafting_recipes:
   type: shaping
   work_order: true
   chapter: 7
-- name: a wood mask
-  noun: mask
+- name: a wood circlet
+  noun: circlet
   volume: 3
   type: shaping
   work_order: false
   chapter: 7
   part:
-  - short cord
+  - leather cord
 - name: a wood crown
   noun: crown
   volume: 3
@@ -1892,7 +1861,7 @@ crafting_recipes:
   noun: cloak
   volume: 9
   type: tailoring
-  work_order: false
+  work_order: true
   chapter: 2
 - name: a cloth napkin
   noun: napkin
@@ -2015,7 +1984,7 @@ crafting_recipes:
   work_order: true
   chapter: 3
 - name: a cloth duffel bag
-  noun: duffel.bag
+  noun: bag
   volume: 6
   type: tailoring
   work_order: true
@@ -2027,7 +1996,7 @@ crafting_recipes:
   work_order: true
   chapter: 3
 - name: a small cloth rucksack
-  noun: small.rucksack
+  noun: rucksack
   volume: 7
   type: tailoring
   work_order: true
@@ -4612,11 +4581,11 @@ crafting_recipes:
   noun: draught
   volume: 1
   type: remedies
-  work_order: true
+  work_order: false
   chapter: 6
   container: bowl
   herb1: ojhenik
-  herb1_stock: 12
+  herb1_stock:
   liquid: alcohol
 - name: a face draught
   noun: draught
@@ -4682,11 +4651,11 @@ crafting_recipes:
   noun: elixir
   volume: 1
   type: remedies
-  work_order: true
+  work_order: false
   chapter: 6
   container: bowl
   herb1: ojhenik
-  herb1_stock: 12
+  herb1_stock:
   liquid: alcohol
 - name: a face elixir
   noun: elixir

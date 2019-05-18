@@ -413,7 +413,7 @@ filter_strings:
 - '^You find nothing of special interest about it\.$'
 - '^Your \w+ cage momentarily buckles\.$'
 - '^\w+ shrugs and says, "I will not repair something that isn.t broken\."$'
-- '^(?:One|A few) small orbiting slivers? of lunar magic'
+- '^(?:One|A few|Many) small orbiting slivers? of lunar magic'
 - '^I could not find what you were referring to\.$'
 - '^You sense that you were able to channel'
 - '^That would accomplish nothing\.$'
@@ -435,7 +435,4 @@ filter_strings:
 - '^Trabe Chalice'
 - '^A hulking Xala.shar magus spreads its arms and begins chanting in an ancient tongue, it robes thrashing about wildly as if surrounded in an ethereal wind\.$'
 - '^You.re not in any condition to be searching around!$'
-- '^Remove what\?$'
-- '^The .* whimpers softly in its sleep\.$'
-- '^.*can be inflicted.*\.$'
-
+- '^After that, clear skies are coming\.$'

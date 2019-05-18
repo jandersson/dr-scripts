@@ -1,4 +1,6 @@
 require 'erb'
+require 'ostruct'
+
 script.want_downstream_xml
 class ConvoMonitor
   def initialize
@@ -10,15 +12,13 @@ class ConvoMonitor
   end
 
   def monitorloop(_settings)
-    data = YAML.safe_load(
-      ERB.new(get_data('convomon').to_yaml.to_s)
-         .result
-    )
+    data = YAML.safe_load(ERB.new(get_data('convomon').to_s).result)
     includes = data['includes']
     excludes = data['excludes']
     excludes.push(*data['ignored_names'].map { |name| /^#{name} whispers,|^#{name} says,|^#{name} asks,/ })
     while line = get
       next if excludes.any? { |w| line =~ Regexp.new(w) }
+
       send_slackbot_message(line) if includes.any? { |w| line =~ Regexp.new(w) }
     end
   end

@@ -15,15 +15,9 @@ class HuntingBuddy
     args = parse_args(arg_definitions, true)
 
     @settings = get_settings
-    @bail_on_familiar = @settings.stop_on_familiar_drag
     data = get_data('hunting')
     @escort_zones = data.escort_zones
     @hunting_zones = data.hunting_zones
-    @stop_on_low_threshold = @settings.stop_on_low_threshold
-    @magic_exp_threshold = @settings.magic_exp_training_max_threshold
-    @magic_skills = ['Arcane Magic', 'Holy Magic', 'Life Magic', 'Elemental Magic',\
-                     'Lunar Magic', 'Attunement', 'Arcana', 'Targeted Magic', 'Inner Fire',\
-                     'Inner Magic', 'Augmentation', 'Debilitation', 'Utility', 'Warding', 'Sorcery']
 
     hunting_info = []
     if @settings.hunting_file_list || args.flex.any?
@@ -48,13 +42,13 @@ class HuntingBuddy
   end
 
   def need_boxes?
-    return false unless @settings.box_hunt_minimum
-    count_boxes(@settings) <= @settings.box_hunt_minimum
+    return false unless @settings.box_loot_limit
+    count_boxes(@settings.picking_box_source) < @settings.box_loot_limit
   end
 
   def main
     check_bundling_rope
-    wait_for_script_to_complete('restock') unless @settings.sell_loot_skip_bank
+    wait_for_script_to_complete('restock')
 
     @hunting_info.each do |info|
       if @stop_hunting
@@ -74,25 +68,17 @@ class HuntingBuddy
       during_actions = info['during']
       duration = info[:duration]
       stop_on_skills = info['stop_on']
-      stop_on_low_skills = info['stop_on_low']
       stop_on_boxes = info['boxes']
 
       # Execute scripts to run before the hunt
       execute_actions(before_actions)
 
       if stop_on_boxes && !need_boxes?
-        echo('***STATUS*** Skipping hunt because of current boxes is more than the minimum.')
+        echo('***STATUS*** Skipping hunt because of box limit')
         next
       end
 
       if all_skills_at_cap?(stop_on_skills)
-        stop_actions(during_actions)
-        # Execute scripts to run after the hunt
-        execute_actions(after_actions)
-        next
-      end
-
-      if stop_on_low_skills_too_low?(stop_on_low_skills)
         stop_actions(during_actions)
         # Execute scripts to run after the hunt
         execute_actions(after_actions)
@@ -110,7 +96,7 @@ class HuntingBuddy
           break
         end
         execute_nonblocking_actions(during_actions)
-        hunt(arg, duration ? duration[index] : nil, stop_on_skills ? stop_on_skills[index] : nil, stop_on_low_skills ? stop_on_low_skills[index] : nil, stop_on_boxes ? stop_on_boxes[index] : nil)
+        hunt(arg, duration ? duration[index] : nil, stop_on_skills ? stop_on_skills[index] : nil, stop_on_boxes ? stop_on_boxes[index] : nil)
       end
 
       stop_actions(during_actions)
@@ -186,12 +172,12 @@ class HuntingBuddy
       @exit = nil
       find_empty_room(rooms, @settings.safe_room,
                       lambda do
-                        return false if DRRoom.pcs.size > 2
+                        return false if DRRoom.pcs.size > 3
                         return true if (DRRoom.pcs & UserVars.friends).any?
                         return false if (DRRoom.pcs - DRRoom.group_members).any?
                         # No visible friends in the room and no visible people
                         UserVars.friends.each { |friend| Flags.add("room-check-#{friend}", friend) }
-                        Flags.add('room-check', 'says, ', 'say, ', 'You hear', 'Someone snipes a')
+                        Flags.add('room-check', 'says, ', 'say, ', 'You hear')
                         bput('search', 'roundtime')
                         data = reget(40).reverse.take_while { |x| x !~ /You search around/ }
                         if data.grep(/vague silhouette|You notice \w+, who is|see signs that/).any?
@@ -199,7 +185,7 @@ class HuntingBuddy
                           waitrt?
                           return UserVars.friends.find { |friend| Flags["room-check-#{friend}"] }
                         end
-                        fput("say #{@settings.empty_hunting_room_messages.sample}") unless @settings.empty_hunting_room_messages.empty?
+                        fput("say #{@settings.empty_hunting_room_messages.sample}")
                         20.times do |_|
                           pause 0.5
                           return true if UserVars.friends.find { |friend| Flags["room-check-#{friend}"] }
@@ -215,21 +201,15 @@ class HuntingBuddy
   end
 
   def all_skills_at_cap?(stop_on_skills)
-    stop_on_skills && stop_on_skills.flatten.all? { |skill| DRSkill.getxp(skill) >= (@magic_skills.include?(skill) ? @magic_exp_threshold : 32) }
-  end
-
-  def stop_on_low_skills_too_low?(stop_on_low_skills)
-    stop_on_low_skills && stop_on_low_skills.flatten.any? { |skill| DRSkill.getxp(skill) < @stop_on_low_threshold }
+    stop_on_skills && stop_on_skills.flatten.all? { |skill| DRSkill.getxp(skill) >= 32 }
   end
 
   def over_box_limit?
     $COMBAT_TRAINER.get_process('loot').at_box_limit?
   end
 
-  def hunt(args, duration, stop_on_skills, stop_on_low_skills, stop_on_boxes)
+  def hunt(args, duration, stop_on_skills, stop_on_boxes)
     $COMBAT_TRAINER = nil
-    hunting_room = Room.current.id
-    Flags.add('familiar_drag', /^Your .+ grabs ahold of you and drags you .+, out of combat.+$/)
     echo("***STATUS*** beginning hunt '#{args}' for '#{duration}' minutes")
     verify_script('combat-trainer')
     start_script('combat-trainer', args)
@@ -247,11 +227,7 @@ class HuntingBuddy
         break
       end
       if all_skills_at_cap?(stop_on_skills)
-        echo('***STATUS*** stopping due to capped skills')
-        break
-      end
-      if stop_on_low_skills_too_low?(stop_on_low_skills)
-        echo("***STATUS*** stopping due to low skills: #{stop_on_low_skills}")
+        echo('***STATUS*** stopping due to skills')
         break
       end
       if @stop_hunting || @next_hunt
@@ -263,25 +239,15 @@ class HuntingBuddy
         echo('***STATUS*** stopping due to time')
         break
       end
-      if Flags['familiar_drag'] && @bail_on_familiar
-        echo('***STATUS*** stopping due to familiar dragging from stun')
-        Flags.reset('familiar_drag')
-        break
-      end
-      if Flags['familiar_drag'] && !@bail_on_familiar
-        echo('***STATUS*** heading back to room - familiar drug while stunned')
-        DRCT.walk_to(hunting_room)
-        Flags.reset('familiar_drag')
-      end
       if (counter % 60).zero?
         if duration
           if stop_on_skills
-            echo("***STATUS*** #{duration - (counter / 60)} minutes of hunting remaining or waiting on #{stop_on_skills.select { |skill| DRSkill.getxp(skill) < (@magic_skills.include?(skill) ? @magic_exp_threshold : 32) }.join(', ')}")
+            echo("***STATUS*** #{duration - (counter / 60)} minutes of hunting remaining or waiting on #{stop_on_skills.select { |skill| DRSkill.getxp(skill) < 32 }.join(', ')}")
           else
             echo("***STATUS*** #{duration - (counter / 60)} minutes of hunting remaining")
           end
         else
-          echo("***STATUS*** #{counter / 60} minutes of hunting, still waiting on #{stop_on_skills.select { |skill| DRSkill.getxp(skill) < (@magic_skills.include?(skill) ? @magic_exp_threshold : 32) }.join(', ')}")
+          echo("***STATUS*** #{counter / 60} minutes of hunting, still waiting on #{stop_on_skills.select { |skill| DRSkill.getxp(skill) < 32 }.join(', ')}")
         end
       end
       counter += 1
@@ -300,7 +266,6 @@ class HuntingBuddy
           info['args'] = [info['args'] || []]
           info[:duration] = [info[:duration]]
           info['stop_on'] = [info['stop_on']]
-          info['stop_on_low'] = [info['stop_on_low']] if info['stop_on_low']
           info['before'] = info['before']
           info['after'] = info['after']
           info['during'] = info['during']
@@ -311,7 +276,6 @@ class HuntingBuddy
         hunting_info.last['args'] << info['args']
         hunting_info.last[:duration] << info[:duration]
         hunting_info.last['stop_on'] << info['stop_on']
-        hunting_info.last['stop_on_low'] << info['stop_on_low']
         hunting_info.last['before'] ||= info['before']
         hunting_info.last['after'] ||= info['after']
         hunting_info.last['during'] ||= info['during']
@@ -335,8 +299,6 @@ before_dying do
     stop_script(script_name) if Script.running?(script_name)
   end
   DRCA.release_cyclics
-  Flags.delete('room-check')
-  Flags.delete('familiar_drag')
 end
 
 $HUNTING_BUDDY = HuntingBuddy.new

@@ -12,18 +12,22 @@ class Spinnerette
   def initialize
     @action = nil
     @device = nil
-    @junk_items = %w[ruazin khaddar felt silk linen wool cotton]
+    @junk_items = %w[khaddar burlap felt silk linen wool cotton]
     start_game
   end
 
   def start_game
     @action = nil
     @device = nil
-    case bput('push button', 'You count out', 'I don\'t think pushing that would')
+    case bput('push button', 'You count out', 'I don\'t think pushing that would', 'but realize you don\'t have the')
     when 'I don\'t think pushing that would'
       echo('This script must be started at the spinneret.')
       exit
+    when 'but realize you don\'t have the'
+      echo('Out of money!')
+      exit
     end
+
     pause 1
 
     appraise_spinner
@@ -66,6 +70,7 @@ class Spinnerette
     case bput('pull lever', 'You are webbed!', 'You are poisoned!', 'You quickly take it from the contraption')
     when /You are poisoned/i
       echo "You're poisoned! Go find some help!"
+      exit
     when /You are webbed/i
       waitfor 'You finally manage to free yourself from the webbing'
     end

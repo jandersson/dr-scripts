@@ -1,5 +1,5 @@
 hunting_info: 
-- :zone: rock_guardians
+- :zone: geni
   :duration: 30
   stop_on:
   - Stealth
@@ -9,10 +9,9 @@ gear_sets:
   standard:
   - parry stick
   - round sipar
-  - rugged jerkin
-  - rugged vambraces
+  - quilted shirt
   - insulated pants
-  - rugged cowl
+  - quilted hood
   - Nisha shortbow
   - rugged gloves 
 cycle_armors:
