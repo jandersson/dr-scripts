@@ -40,8 +40,10 @@ hunting_buddies:
 
 # No hunting zones are defined here. Instead I use the hunting_file_list to point to other YAML files with hunting zomes in them.
 hunting_file_list:
-- drakes
-- boxes
+- tm
+- debil
+#- weapons
+- sorcery
 stop_hunting_if_bleeding: true
 priority_defense: Evasion
 training_abilities:
@@ -577,14 +579,14 @@ combat_spell_training:
     name: Shift Moonbeam
     use_auto_mana: true
     symbiosis: true
-  Warding:
-    name: Ghost Shroud
-    mana: 21
-    cyclic: true
-    skill: Sorcery
+#  Warding:
+#    name: Ghost Shroud
+#    mana: 21
+#    cyclic: true
+#    skill: Sorcery
 
-#crossing_training_sorcery_room: 1645
-crossing_training_sorcery_room: 2784
+#crossing_training_sorcery_room: 2784
+crossing_training_sorcery_room: 1645
 
 crossing_training_sorcery:
   #  name: Ghost Shroud
@@ -699,21 +701,29 @@ invasion_watch_mobs:
 invasion_watch_rooms:
 - 1
 
-textbook: true
 ###################
 ### COORDINATOR ###
 ###################
 
 coordinator_hunting_tasks:
-  - :file: cabalists
+  - :file: tactics
     :pause_sanowret: false
     :default: true
     :start_on:
       any_skill_under:
         skills:
-        - Targeted Magic
-        - Debilitation
+          - Targeted Magic
+          - Debilitation
         target: 5
+#  - :file: cabalists
+#    :pause_sanowret: false
+#    :default: true
+#    :start_on:
+#      any_skill_under:
+#        skills:
+#        - Targeted Magic
+#        - Debilitation
+#        target: 5
 #  - :file: boxes
 #    :pause_sanowret: true
 #    :start_on:
@@ -724,20 +734,20 @@ coordinator_hunting_tasks:
 #        - Targeted Magic
 #        - Debilitation
 #        target: 5
-  - :file: back_weapons
-    :pause_sanowret: true
-    :start_on:
-      any_skill_under:
-        skills:
-        - Slings
-        - Small Edged
-        target: 1
-    :stop_on:
-      any_skill_under:
-        skills:
-        - Targeted Magic
-        - Debilitation
-        target: 5
+#  - :file: back_weapons
+#    :pause_sanowret: true
+#    :start_on:
+#      any_skill_under:
+#        skills:
+#        - Slings
+#        - Small Edged
+#        target: 1
+#    :stop_on:
+#      any_skill_under:
+#        skills:
+#        - Targeted Magic
+#        - Debilitation
+#        target: 5
 
 safe_room:
 
@@ -781,16 +791,6 @@ coordinator_town_tasks:
         global: true
         time: 18000 # 5 hours
         key: 'nexus'
-  - :script: sorcery
-    :start_on:
-      and:
-        - timer:
-            global: true
-            time: 300
-            key: 'cyclic'
-        - skill_under:
-            skill: Sorcery
-            target: 5
 #  - :script: mech-lore
 #    :walk_to: safe_room 
 #    :start_on:
@@ -808,28 +808,72 @@ coordinator_town_tasks:
         - skill_under:
             skill: Appraisal
             target: 5
+    :walk_to: safe_room
+#  - :script: athletics
+#    :args:
+#    - wyvern
+#    :start_on:
+#      skill_under:
+#        skill: Athletics
+#        target: 10
+  - :script: nexus
+    :args:
+    - fatigue
+    - 793
+    :start_on:
+      timer:
+        global: true
+        time: 18000 # 5 hours
+        key: 'nexus'
+#  - :script: sorcery
+#    :start_on:
+#      and:
+#        - timer:
+#            global: true
+#            time: 300
+#            key: 'cyclic'
+#        - skill_under:
+#            skill: Sorcery
+#            target: 5
+#  - :script: mech-lore
+#    :walk_to: safe_room 
+#    :start_on:
+#      skill_under:
+#        skill: Mechanical Lore
+#        target: 14
+#  - :script: appraisal
+#    :walk_to: safe_room
+#    :start_on:
+#      and:
+#        - timer:
+#            global: true
+#            time: 300
+#            key: 'appraisal'
+#        - skill_under:
+#            skill: Appraisal
+#            target: 5
 #  - :script: first-aid
 #    :walk_to: safe_room
 #    :start_on:
 #      skill_under:
 #        skill: First Aid
 #        target: 1
-  - :script: outdoorsmanship
-    :walk_to: safe_room
-    :start_on:
-      and:
-        - predicate: hunt_done?
-        - skill_under:
-            skill: Outdoorsmanship
-            target: 20
-  - :action: pick_boxes
-    :walk_to: safe_room
-    :start_on:
-      and:
-        - skill_under:
-            skill: Locksmithing
-            target: 14
-        - or:
-            - boxes_over: 0
-            - predicate: pet_boxes?
+#  - :script: outdoorsmanship
+#    :walk_to: safe_room
+#    :start_on:
+#      and:
+#        - predicate: hunt_done?
+#        - skill_under:
+#            skill: Outdoorsmanship
+#            target: 20
+#  - :action: pick_boxes
+#    :walk_to: safe_room
+#    :start_on:
+#      and:
+#        - skill_under:
+#            skill: Locksmithing
+#            target: 14
+#        - or:
+#            - boxes_over: 0
+#            - predicate: pet_boxes?
 ...
