@@ -45,7 +45,6 @@ hunting_buddies:
 - Sarvatt
 - Natarian
 - Fuss
-- Ssarek
 - Sheltim
 - Rhakim
 - Kaldean
@@ -61,7 +60,7 @@ hunting_file_list:
 - tm
 - debil
 #- weapons
-- sorcery 
+- sorcery
 stop_hunting_if_bleeding: true
 priority_defense: Evasion
 training_abilities:
@@ -70,11 +69,13 @@ training_abilities:
   PercMana: 60
   Analyze: 70
   Recall: 1205
+  Astro: 220
+  Locks: 120
 #  Collect: 180
 
 weapon_training:
-  Crossbow: pelletbow
-  Large Edged: moonblade
+  Crossbow: crossbow
+  Large Edged: bastard sword
   Brawling: ''
 summoned_weapons:
 - name: Large Edged
@@ -82,6 +83,7 @@ dance_skill:         Brawling
 use_weak_attacks:    false
 use_stealth_attacks: false
 ignored_npcs:
+- student
 - leopard
 - owl
 - Taala
@@ -99,14 +101,13 @@ gear:
 #### WEAPONS ####
 - :name: sword
   :adjective: bastard
-  :tie_to: strap
+  #:tie_to: strap
   :swappable: true
 - :name: mace
   :adjective: bar
   :swappable: true
 - :name: spear
   :adjective: light
-  :wield: true
 - :name: blade
   :adjective: icy-blue
   :tie_to: strap
@@ -127,7 +128,7 @@ gear:
 - :name: tetractys
   :adjective: haledroth
   :is_worn: true
-- :name: pelletbow
+- :name: crossbow
   :is_leather: true
   :is_worn: true
 - :name: footwraps
@@ -179,7 +180,7 @@ gear:
   :name: helm
   :hinders_lockpicking: true
   :is_worn: true
-- :adjective: leather
+- :adjective: quilted
   :name: gloves
   :is_leather: true
   :hinders_lockpicking: true
@@ -205,41 +206,36 @@ gear:
   :adjective: climbing
 - :name: needles
   :adjective: knitting
-- :name: tongs
-  :adjective: clockwork
-  :tie_to: forger's belt
-- :name: hammer
-  :adjective: forging
-  :tie_to: forger's belt
-- :name: bellows
-  :adjective: leather
-  :tie_to: forger's belt
-- :name: shovel
-  :adjective: glaes-edged
-  :tie_to: forger's belt
-- :name: rod
-  :adjective: stirring
-  :tie_to: forger's belt
+
+using_light_crossbow: false
+tk_ammo: razor
 
 restock:
   arrow:
     quantity: 30
   tk_ammo:
+    #name: ice pick
+    #price: 137
+    #size: 1
+    #stackable: false
+    #room: 8265
     quantity: 1
-  rock:
-    quantity: 15
+  bolt:
+    quantity: 30
   block:
     name: crystal block
-    wandering_npc: theurgist
+    #wandering_npc: shaman # in dirge
+    wandering_npc: theurgist # in Shard
     price: 250
     order_number: 6
-    quantity: 9
+    quantity: 30 # Wallet holds max of 30
     size: 1
-    stackable: false
-    container: pack
+    stackable: true # Its only stackable if its put in a bead-carvers wallet
+    container: wallet
   primer:
     name: raven primer
-    wandering_npc: theurgist
+    #wandering_npc: shaman # in dirge
+    wandering_npc: theurgist # in shard
     price: 250
     order_number: 101
     quantity: 1
@@ -260,45 +256,45 @@ gear_sets:
   - elbow spikes
   - parry stick
   - oaken staff
-  - pelletbow
+  - crossbow
   stealing:
   - elbow spikes
   - knee spikes
   - steel-toed footwraps
   - parry stick
   - oaken staff
-  - pelletbow
+  - crossbow
 cycle_armors:
   Chain Armor:
   - ring gloves
   Light Armor:
-  - leather gloves
+  - quilted gloves
   Brigandine:
   - scale gloves
   Plate Armor:
   - plate gauntlets
 ### CAMBRINTH ###
-cambrinth: nestled armband
-cambrinth_cap: 48
+cambrinth: watersilk bag
+cambrinth_cap: 108
 stored_cambrinth: false
 cambrinth_invoke_exact_amount: true
 cambrinth_num_charges: 1  # Number of times to harness or charge when using auto mana
 cambrinth_items:
-- name: nestled armband
-  cap: 48
+- name: watersilk bag
+  cap: 108
   stored: false
-#- name: cambrinth anklet
-#  cap: 12
-#  stored: false
 
 ### SPELLS ###
 #prep_scaling_factor: 0.91
 
 offensive_spells:
-- name: Rebuke
-  use_auto_mana: true
-  skill: Sorcery
-  cast_only_to_train: true
+  #- name: Demrris' Resolve
+  # use_auto_mana: true
+  #skill: Sorcery
+  #- name: Rebuke
+  #use_auto_mana: true
+  #skill: Sorcery
+  #cast_only_to_train: true
 - name: Starlight Sphere
   mana: 10
   cast: cast spider
@@ -337,7 +333,7 @@ have_telescope: true
 astrology_training:
 - observe
 - rtr
-astrology_use_full_pools: true # Helps maximize tool bonding rate
+astrology_use_full_pools: false # Helps maximize tool bonding rate when using max pools
 #############
 ### ;BUFF ###
 #############
@@ -487,7 +483,7 @@ buff_spells: &buff_spells
   << : *shadows
   << : *sls
   << : *iots
-  << : *shadowling
+  #<< : *shadowling
   << : *aus
   << : *col
   << : *moonblade
@@ -515,7 +511,6 @@ loot_additions:
 loot_subtractions:
 - arrow
 - shard
-- bolt
 loot_specials:
 - name: jadeite stone  
   bag:  pack
@@ -558,7 +553,7 @@ skinning:
 ########################
 ### CROSSING TRAINER ###
 ########################
-#braid_item: grass
+braid_item: vine
 listen: true
 listen_observe: true
 dump_junk: true  # Call the dump junk command after braiding or collecting when room is full of junk
@@ -601,27 +596,27 @@ combat_spell_training:
     name: Shift Moonbeam
     use_auto_mana: true
     symbiosis: true
-  Warding:
-    name: Ghost Shroud
-    mana: 21
-    cyclic: true
-    skill: Sorcery
+#  Warding:
+#    name: Ghost Shroud
+#    mana: 21
+#    cyclic: true
+#    skill: Sorcery
 
-crossing_training_sorcery_room: 2784
+crossing_training_sorcery_room: 1645
 
 crossing_training_sorcery:
-  name: Ghost Shroud
-  abbrev: GHS
-  mana: 20
-  cyclic: true
+  #  name: Ghost Shroud
+  #  abbrev: GHS
+  # mana: 20
+  #cyclic: true
 
-cyclic_cycle_skills:
-  - Sorcery
+  #cyclic_cycle_skills:
+  # - Sorcery
 
-cyclic_training_spells:
-  Sorcery:
-    abbrev: GHS
-    cyclic: true
+  #cyclic_training_spells:
+  #Sorcery:
+  #  abbrev: GHS
+  #  cyclic: true
 
 #################
 ### APPRAISAL ###
@@ -672,24 +667,8 @@ mining_buddy_vein_list:
 #train_workorders:
 #- Blacksmithing
 crafting_container: pack
-forging_belt:
-  name: forger belt
-  items: 
-  - forging hammer
-  - tong
-  - bellow
-  - shovel
-  - rod
-forging_tools:
-- forging hammer
-- tong
-- bellow
-- shovel
-  #- stamp
-- pliers
 outfitting_tools:
 - knitting needles
-  #mark_crafted_goods: true
 ### STACK-SCROLLS ###
 scroll_stackers:
 - of scrolls
@@ -721,6 +700,8 @@ custom_scrolls:
 - bright scroll
 - green scroll
 - pristine scroll
+- silver scroll # Stacker
+- smudged scroll # Stacker
 
 ######################
 ### INVASION-WATCH ###
@@ -736,31 +717,53 @@ invasion_watch_mobs:
 invasion_watch_rooms:
 - 1
 
-textbook: true
 ###################
 ### COORDINATOR ###
 ###################
 
 coordinator_hunting_tasks:
-  - :file: drakes
+  - :file: tactics
     :pause_sanowret: false
     :default: true
     :start_on:
       any_skill_under:
         skills:
-        - Targeted Magic
-        - Debilitation
+          - Targeted Magic
+          - Debilitation
         target: 5
-  - :file: boxes
-    :pause_sanowret: true
-    :start_on:
-      boxes_under: 1
-    :stop_on:
-      any_skill_under:
-        skills:
-        - Targeted Magic
-        - Debilitation
-        target: 5
+#  - :file: cabalists
+#    :pause_sanowret: false
+#    :default: true
+#    :start_on:
+#      any_skill_under:
+#        skills:
+#        - Targeted Magic
+#        - Debilitation
+#        target: 5
+#  - :file: boxes
+#    :pause_sanowret: true
+#    :start_on:
+#      boxes_under: 1
+#    :stop_on:
+#      any_skill_under:
+#        skills:
+#        - Targeted Magic
+#        - Debilitation
+#        target: 5
+#  - :file: back_weapons
+#    :pause_sanowret: true
+#    :start_on:
+#      any_skill_under:
+#        skills:
+#        - Slings
+#        - Small Edged
+#        target: 1
+#    :stop_on:
+#      any_skill_under:
+#        skills:
+#        - Targeted Magic
+#        - Debilitation
+#        target: 5
 
 
 coordinator_hunting_cleanup:
@@ -778,61 +781,80 @@ coordinator_hunting_cleanup:
 coordinator_town_tasks:
   - :script: astrology
     :start_on:
-      skill_under:
-        skill: Astrology
-        target: 5
-    :walk_to: 13520
-  - :script: athletics
-    :args:
-    - wyvern
-    :start_on:
-      skill_under:
-        skill: Athletics
-        target: 10
-  - :script: sorcery
-    :start_on:
       and:
         - timer:
             global: true
             time: 300
-            key: 'cyclic'
+            key: 'astro'
         - skill_under:
-            skill: Sorcery
+            skill: Astrology
             target: 5
-  - :script: mech-lore
-    :walk_to: 13520 
+    :walk_to: safe_room
+#  - :script: athletics
+#    :args:
+#    - wyvern
+#    :start_on:
+#      skill_under:
+#        skill: Athletics
+#        target: 10
+  - :script: nexus
+    :args:
+    - fatigue
+    - 793
     :start_on:
-      skill_under:
-        skill: Mechanical Lore
-        target: 14
-  - :script: appraisal
-    :walk_to: 13520
-    :start_on:
-      skill_under:
-        skill: Appraisal
-        target: 5
+      timer:
+        global: true
+        time: 18000 # 5 hours
+        key: 'nexus'
+#  - :script: sorcery
+#    :start_on:
+#      and:
+#        - timer:
+#            global: true
+#            time: 300
+#            key: 'cyclic'
+#        - skill_under:
+#            skill: Sorcery
+#            target: 5
+#  - :script: mech-lore
+#    :walk_to: safe_room 
+#    :start_on:
+#      skill_under:
+#        skill: Mechanical Lore
+#        target: 14
+#  - :script: appraisal
+#    :walk_to: safe_room
+#    :start_on:
+#      and:
+#        - timer:
+#            global: true
+#            time: 300
+#            key: 'appraisal'
+#        - skill_under:
+#            skill: Appraisal
+#            target: 5
 #  - :script: first-aid
-#    :walk_to: 13520
+#    :walk_to: safe_room
 #    :start_on:
 #      skill_under:
 #        skill: First Aid
 #        target: 1
-  - :script: outdoorsmanship
-    :walk_to: 13520
-    :start_on:
-      and:
-        - predicate: hunt_done?
-        - skill_under:
-            skill: Outdoorsmanship
-            target: 20
-  - :action: pick_boxes
-    :walk_to: 13520
-    :start_on:
-      and:
-        - skill_under:
-            skill: Locksmithing
-            target: 14
-        - or:
-            - boxes_over: 0
-            - predicate: pet_boxes?
+#  - :script: outdoorsmanship
+#    :walk_to: safe_room
+#    :start_on:
+#      and:
+#        - predicate: hunt_done?
+#        - skill_under:
+#            skill: Outdoorsmanship
+#            target: 20
+#  - :action: pick_boxes
+#    :walk_to: safe_room
+#    :start_on:
+#      and:
+#        - skill_under:
+#            skill: Locksmithing
+#            target: 14
+#        - or:
+#            - boxes_over: 0
+#            - predicate: pet_boxes?
 ...
