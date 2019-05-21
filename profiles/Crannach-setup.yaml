@@ -1,5 +1,5 @@
 ---
-hometown: Shard
+hometown: Crossing
 ######################
 ### STATUS MONITOR ###
 ######################
@@ -205,26 +205,26 @@ restock:
     quantity: 1
   bolt:
     quantity: 30
-  block:
-    name: crystal block
-    #wandering_npc: shaman # in dirge
-    wandering_npc: theurgist # in Shard
-    price: 250
-    order_number: 6
-    quantity: 30 # Wallet holds max of 30
-    size: 1
-    stackable: true # Its only stackable if its put in a bead-carvers wallet
-    container: wallet
-  primer:
-    name: raven primer
-    #wandering_npc: shaman # in dirge
-    wandering_npc: theurgist # in shard
-    price: 250
-    order_number: 101
-    quantity: 1
-    size: 1
-    stackable: false
-    container: pack
+#  block:
+#    name: crystal block
+#    #wandering_npc: shaman # in dirge
+#    wandering_npc: theurgist # in Shard
+#    price: 250
+#    order_number: 6
+#    quantity: 30 # Wallet holds max of 30
+#    size: 1
+#    stackable: true # Its only stackable if its put in a bead-carvers wallet
+#    container: wallet
+#  primer:
+#    name: raven primer
+#    #wandering_npc: shaman # in dirge
+#    wandering_npc: theurgist # in shard
+#    price: 250
+#    order_number: 101
+#    quantity: 1
+#    size: 1
+#    stackable: false
+#    container: pack
 
 gear_sets:
   standard:
@@ -297,7 +297,7 @@ offensive_spells:
   cambrinth:
   - 30
   harmless: true
-  min_threshold: 2 
+  min_threshold: 2
   cast_only_to_train: true
   cast: cast creatures
 - name: Mental Blast
@@ -316,6 +316,9 @@ have_telescope: true
 astrology_training:
 - observe
 - rtr
+astral_plane_training:
+  train_destination: Shard
+  train_source: Crossing
 astrology_use_full_pools: false # Helps maximize tool bonding rate when using max pools
 #############
 ### ;BUFF ###
@@ -712,8 +715,7 @@ coordinator_hunting_tasks:
     :start_on:
       any_skill_under:
         skills:
-          - Targeted Magic
-          - Debilitation
+        - Tactics
         target: 5
 #  - :file: cabalists
 #    :pause_sanowret: false
