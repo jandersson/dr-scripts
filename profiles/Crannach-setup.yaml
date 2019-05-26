@@ -1,5 +1,6 @@
 ---
 hometown: Crossing
+safe_room: 
 ######################
 ### STATUS MONITOR ###
 ######################
@@ -711,7 +712,7 @@ invasion_watch_rooms:
 coordinator_hunting_tasks:
   - :file: tactics
     :pause_sanowret: false
-    :default: true
+    :default: false
     :start_on:
       any_skill_under:
         skills:
@@ -751,7 +752,6 @@ coordinator_hunting_tasks:
 #        - Debilitation
 #        target: 5
 
-safe_room:
 
 coordinator_hunting_cleanup:
   - :script: safe-room
@@ -766,116 +766,83 @@ coordinator_hunting_cleanup:
         key: 'repair'
 
 coordinator_town_tasks:
-  - :script: astrology
-    :start_on:
-      and:
-        - timer:
-            global: true
-            time: 300
-            key: 'astro'
-        - skill_under:
-            skill: Astrology
-            target: 5
-    :walk_to: safe_room
-  - :script: athletics
-    :args:
-    - wyvern
-    :start_on:
-      skill_under:
-        skill: Athletics
-        target: 10
-  - :script: nexus
-    :args:
-    - fatigue
-    - 793
-    :start_on:
-      timer:
-        global: true
-        time: 18000 # 5 hours
-        key: 'nexus'
-#  - :script: mech-lore
-#    :walk_to: safe_room 
-#    :start_on:
-#      skill_under:
-#        skill: Mechanical Lore
-#        target: 14
-  - :script: appraisal
-    :walk_to: safe_room
-    :start_on:
-      and:
-        - timer:
-            global: true
-            time: 300
-            key: 'appraisal'
-        - skill_under:
-            skill: Appraisal
-            target: 5
-    :walk_to: safe_room
-#  - :script: athletics
-#    :args:
-#    - wyvern
-#    :start_on:
-#      skill_under:
-#        skill: Athletics
-#        target: 10
-  - :script: nexus
-    :args:
-    - fatigue
-    - 793
-    :start_on:
-      timer:
-        global: true
-        time: 18000 # 5 hours
-        key: 'nexus'
-#  - :script: sorcery
-#    :start_on:
-#      and:
-#        - timer:
-#            global: true
-#            time: 300
-#            key: 'cyclic'
-#        - skill_under:
-#            skill: Sorcery
-#            target: 5
-#  - :script: mech-lore
-#    :walk_to: safe_room 
-#    :start_on:
-#      skill_under:
-#        skill: Mechanical Lore
-#        target: 14
-#  - :script: appraisal
-#    :walk_to: safe_room
-#    :start_on:
-#      and:
-#        - timer:
-#            global: true
-#            time: 300
-#            key: 'appraisal'
-#        - skill_under:
-#            skill: Appraisal
-#            target: 5
-#  - :script: first-aid
-#    :walk_to: safe_room
-#    :start_on:
-#      skill_under:
-#        skill: First Aid
-#        target: 1
-#  - :script: outdoorsmanship
-#    :walk_to: safe_room
-#    :start_on:
-#      and:
-#        - predicate: hunt_done?
-#        - skill_under:
-#            skill: Outdoorsmanship
-#            target: 20
-#  - :action: pick_boxes
-#    :walk_to: safe_room
-#    :start_on:
-#      and:
-#        - skill_under:
-#            skill: Locksmithing
-#            target: 14
-#        - or:
-#            - boxes_over: 0
-#            - predicate: pet_boxes?
+  #  - :script: astrology
+  #    :start_on:
+  #      and:
+  #        - timer:
+  #            global: true
+  #            time: 300
+  #            key: 'astro'
+  #        - skill_under:
+  #            skill: Astrology
+  #            target: 5
+  #    :walk_to: safe_room
+  #  - :script: athletics
+  #    :args:
+  #    - wyvern
+  #    :start_on:
+  #      skill_under:
+  #        skill: Athletics
+  #        target: 10
+  #  - :script: nexus
+  #    :args:
+  #    - fatigue
+  #    - 793
+  #    :start_on:
+  #      timer:
+  #        global: true
+  #        time: 18000 # 5 hours
+  #        key: 'nexus'
+  #  - :script: mech-lore
+  #    :walk_to: safe_room 
+  #    :start_on:
+  #      skill_under:
+  #        skill: Mechanical Lore
+  #        target: 14
+  #  - :script: appraisal
+  #    :walk_to: safe_room
+  #    :start_on:
+  #      and:
+  #        - timer:
+  #            global: true
+  #            time: 300
+  #            key: 'appraisal'
+  #        - skill_under:
+  #            skill: Appraisal
+  #            target: 5
+  #    :walk_to: safe_room
+  ##  - :script: sorcery
+  ##    :start_on:
+  ##      and:
+  ##        - timer:
+  ##            global: true
+  ##            time: 300
+  ##            key: 'cyclic'
+  ##        - skill_under:
+  ##            skill: Sorcery
+  ##            target: 5
+  ##  - :script: first-aid
+  ##    :walk_to: safe_room
+  ##    :start_on:
+  ##      skill_under:
+  ##        skill: First Aid
+  ##        target: 1
+  ##  - :script: outdoorsmanship
+  ##    :walk_to: safe_room
+  ##    :start_on:
+  ##      and:
+  ##        - predicate: hunt_done?
+  ##        - skill_under:
+  ##            skill: Outdoorsmanship
+  ##            target: 20
+  #  - :action: pick_boxes
+  #    :walk_to: safe_room
+  #    :start_on:
+  #      and:
+  #        - skill_under:
+  #            skill: Locksmithing
+  #            target: 14
+  #        - or:
+  #            - boxes_over: 0
+  #            - predicate: pet_boxes?
 ...
